@@ -1,0 +1,199 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.uni-balance.data-v-41a39603 {
+  width: 750rpx;
+  background-color: #f2f2f2;
+  height: 100vh;
+  position: relative;
+  left: 0rpx;
+  top: 0rpx;
+  overflow-x: hidden;
+}
+.uni-balance .contentBox.data-v-41a39603 {
+  width: 750rpx;
+  background-color: #fff;
+  padding: 20rpx 30rpx 0rpx;
+  box-sizing: border-box;
+}
+.uni-balance .contentBox .bgBox.data-v-41a39603 {
+  width: 690rpx;
+  height: 270rpx;
+  position: relative;
+  left: 0rpx;
+  top: 0rpx;
+}
+.uni-balance .contentBox .bgBox .bgImg.data-v-41a39603 {
+  width: 690rpx;
+  display: block;
+  height: 270rpx;
+}
+.uni-balance .contentBox .bgBox .contentFirst.data-v-41a39603 {
+  width: 690rpx;
+  height: 270rpx;
+  position: absolute;
+  left: 0rpx;
+  top: 0rpx;
+  padding: 30rpx 40rpx;
+  box-sizing: border-box;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-second.data-v-41a39603 {
+  text-align: center;
+  color: #fff;
+  margin-top: -25rpx;
+  margin-bottom: 25rpx;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-second .lsots.data-v-41a39603 {
+  font-size: 50rpx;
+  margin-right: 15rpx;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-second .money.data-v-41a39603 {
+  font-size: 90rpx;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-third.data-v-41a39603 {
+  border-top: 1rpx solid #fff;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-third .box.data-v-41a39603 {
+  width: 610rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  height: 52rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  margin-top: 20rpx;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-third .box .styless.data-v-41a39603 {
+  width: 203rpx;
+  text-align: center;
+  line-height: 52rpx;
+  color: #fff;
+  font-size: 26rpx;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-third .box .first.data-v-41a39603 {
+  border-right: 1rpx solid #fff;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-third .box .second.data-v-41a39603 {
+  border-right: 1rpx solid #fff;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-first.data-v-41a39603 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-first .ruleImg.data-v-41a39603 {
+  display: block;
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 11rpx;
+}
+.uni-balance .contentBox .bgBox .contentFirst .uni-first .filed.data-v-41a39603 {
+  color: #FFFFFF;
+  font-size: 26rpx;
+}
+.uni-balance .footer.data-v-41a39603 {
+  width: 750rpx;
+  height: 128rpx;
+  text-align: center;
+  line-height: 128rpx;
+  background-color: #fff;
+  color: #2E2E2E;
+  font-size: 26rpx;
+  position: fixed;
+  left: 0rpx;
+  bottom: 0rpx;
+  z-index: 10;
+}
+.contentss.data-v-41a39603 {
+  background-color: #fff;
+}
+.contentss .first.data-v-41a39603 {
+  width: 750rpx;
+  height: 140rpx;
+  line-height: 140rpx;
+  color: #2D2D2D;
+  font-size: 26rpx;
+}
+.contentss .listBox.data-v-41a39603 {
+  background-color: #fff;
+}
+.contentss .listBox .list.data-v-41a39603 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 690rpx;
+  height: 128rpx;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  padding: 20rpx 0rpx;
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  border-top: 2rpx solid #f2f2f2;
+}
+.contentss .listBox .list .uni-left.data-v-41a39603 {
+  height: 98rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.contentss .listBox .list .uni-left .uni-top.data-v-41a39603 {
+  color: #4F4F4F;
+  font-size: 26rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.contentss .listBox .list .uni-left .uni-down.data-v-41a39603 {
+  color: #A3A3A3;
+  font-size: 22rpx;
+}
+.contentss .listBox .list .uni-right.data-v-41a39603 {
+  color: #2E2E2E;
+  font-size: 42rpx;
+}
+

@@ -1,0 +1,1 @@
+<view class="uni-opinionSucess data-v-e2473e64"><view class="boxBg data-v-e2473e64"><image class="imgs data-v-e2473e64" src="http://zxyp.hzbixin.cn/files/33401608261677488.jpg"></image></view><view class="word data-v-e2473e64">提交成功</view><view data-event-opts="{{[['tap',[['jumps',['$event']]]]]}}" class="footer data-v-e2473e64" catchtap="__e">返回主页面</view></view>

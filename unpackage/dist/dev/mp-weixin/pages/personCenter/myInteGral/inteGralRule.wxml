@@ -1,0 +1,1 @@
+<view class="uni-inteGralRule data-v-f9548c1a"><view class="listbox data-v-f9548c1a"><block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="list data-v-f9548c1a">{{item}}</view></block></view></view>
