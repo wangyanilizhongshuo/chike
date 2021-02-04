@@ -20,44 +20,33 @@
 			</side-slip>
 		</view>
 		<view class="uni-list" v-if="titleActiveIndex==1" >
-			<side-slip class="sideSlipBox" @remove="onRemove(index)" v-for="(item,index) in  listData"  :key="index">
+			<side-slip class="sideSlipBox" @remove="onRemove(item.store_id,1)" v-for="(item,index) in  listData1"  :key="index">
 				<view class="box">
-					<image class="imgs" :src="item.url"></image>
+					<image class="imgs" :src="item.store_img"></image>
 					<view class="uni-right">
-						<view class="uni-first"> {{item.title}} </view>
-					    <view class="uni-third">1243232 </view>
-						<view class="uni-third">忘记发大水封疆大吏大</view>
+						<view class="uni-first"> {{item.store_name}} </view>
+					    <view class="uni-third">{{item.address}} </view>
+						<view class="uni-third">{{item.info}}</view>
 						<!-- <view class="uni-second">¥<text class="money">{{item.price}}</text></view> -->
 					</view>
 				</view>
 			
 			</side-slip>
 		</view>
-		<view class="uni-list" v-if="titleActiveIndex==2" >
-			<side-slip class="sideSlipBox" @remove="onRemove(index)" v-for="(item,index) in  listData"  :key="index">
-				<view class="box">
-					<image class="imgs" :src="item.url"></image>
-					<view class="uni-right">
-						<view class="uni-firsts"> 
-						    <text class="lefts">我你多少分发多少</text>
-						    <text class="rights">1km</text>
-						</view>
-					   <view class="uni-third">1243232 </view>
-					   <view class="uni-third"><text class="red">¥</text><text class="money">49.99</text><text class="normal">门市价：¥668</text></view>
-					</view>
-				</view>
-			</side-slip>
-		</view>
+		<view class="showtips" v-if="tipflag">{{tipMsg}}</view>
 	</view>
 </template>
 
 <script>
 	import SideSlip from '@/components/side-slip/index'
+	import app  from '../../../App.vue'
 	export default {
 		data() {
 			return {
+				tipflag:false,
+				tipMsg:'',
 				titleActiveIndex:0,
-				titleList:['商品','店铺','服务'],
+				titleList:['商品','店铺'],
 				listData:[
 					{
 						url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
@@ -74,24 +63,101 @@
 						title:'小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g',
 						price:23.99
 					}
-				]
+				],
+				listData1:[],
+				listData:[],
+				pages:1,
+				pageV:1
 				
 			}
+		},
+		onLoad(){
+			this.getData1()
 		},
 		components: {
 			'side-slip': SideSlip
 		},
+		onReachBottom(){
+			if(this.pagesV==0){
+				this.pages+=1;
+				if(this.titleActiveIndex==0){
+						this.getData()
+				}
+				else if(this.titleActiveIndex==1){
+					// 店铺
+					this.getData1()
+				}
+				
+				
+			}
+			
+		},
 		methods: {
-			onRemove(index) {
-				uni.showToast({
-					title: `取消了第${index}个cell`,
-					icon: 'none'
+			getData1(){
+			    // 门店收藏
+				let that=this;
+				that.$http.post('mini/v1/user/mycollections',{
+					typeid:2,
+					page:that.pages
+				},(res)=>{
+					if(res.state==0){
+						that.pagesV=res.data.is_request;
+						if(res.data.is_request==0){
+							let aa = res.data.list;
+							aa.map((res2)=>{
+									res2.store_img=app.globalData.imgPrefixUrl+res2.store_img
+							})
+							console.log(aa)
+							let bb = that.listData1;
+							that.listData1 = bb.concat(aa);
+							console.log(that.listData1)
+						}
+					}
+					
 				})
-				// this.listData.splice(index, 1)
+			},
+			// 商品
+			getData(){
+				
+			},
+			onRemove(id,types) {
+				// 收藏
+					let that=this;				
+					that.$http.post('mini/v1/store/collec',{
+						store_id:id
+					},(res)=>{
+						if(res.state==0){
+								 that.tipflag=true ;
+								 that.tipMsg='取消收藏成功';
+								 setTimeout(()=>{
+										that.tipflag=false
+						    },3000)
+							if(types==1){
+								that.pages=1;
+								that.pageV=1;
+								that.listData1=[]
+								// 店铺收藏取消
+								that.getData1();
+							}else if(types==0){
+								
+							}
+							
+						}
+					})
+				
+				
 			},
 			// 头部点亮
 			getTitleActive(index){
 				this.titleActiveIndex=index;
+				if (this.titleActiveIndex==0){
+					   this.listData=[];
+					   this.getData();
+				}
+				else if (this.titleActiveIndex==1){
+					this.listData1=[];
+					this.getData1();
+				}
 			},
 		}
 	}
@@ -183,7 +249,7 @@
 		background-color: #fff;
 		width: 750rpx;
 		height: 100rpx;
-		padding:0rpx 30rpx;
+		padding:0rpx 100rpx;
 		box-sizing: border-box;
 		display: flex;
 		justify-content: space-between;
@@ -211,5 +277,21 @@
 			background: #FF6A6C;
 			border-radius: 2rpx;
 		}
+	}
+	.showtips{
+		  width: 350rpx;
+		  height: 100rpx;
+		  background: #000000;
+		  opacity: 0.6;
+		  border-radius: 16rpx;
+		  position: fixed;
+		  left:200rpx;
+		  z-index:1000;
+		  top:600rpx;
+		  color: #FFFFFF;
+		  font-size: 28rpx;
+		  line-height: 100rpx;
+		  text-align: center;
+		  
 	}
 </style>

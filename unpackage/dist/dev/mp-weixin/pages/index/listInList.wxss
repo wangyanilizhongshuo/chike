@@ -154,21 +154,23 @@
   display: -webkit-flex;
   display: flex;
   height: auto;
+  position: relative;
+  left: 0rpx;
+  top: 0rpx;
 }
 .uni-contents .uni-leftBox.data-v-3234e477 {
   position: fixed;
   left: 0rpx;
   z-index: 30;
-  background-color: #fff;
-  width: 170rpx;
+  background-color: #f2f2f2;
+  width: 240rpx;
 }
 .uni-contents .uni-leftBox .scroll-view.data-v-3234e477 {
-  width: 170rpx;
-  overflow: hidden;
+  width: 240rpx;
 }
 .uni-contents .uni-leftBox .scroll-view .box.data-v-3234e477 {
   display: inline-block;
-  width: 170rpx;
+  width: 240rpx;
   height: 80rpx;
   text-align: center;
   line-height: 80rpx;
@@ -176,11 +178,8 @@
   font-size: 26rpx;
 }
 .uni-contents .uni-rightBox.data-v-3234e477 {
+  margin-left: 240rpx;
   background-color: #fff;
-  margin-left: 170rpx;
-}
-.uni-contents .uni-rightBox .bottomBox.data-v-3234e477 {
-  overflow: scroll;
 }
 .uni-contents .uni-rightBox .bottomBox .listBox.data-v-3234e477 {
   width: 570rpx;
@@ -201,7 +200,7 @@
   margin-right: 25rpx;
 }
 .uni-contents .uni-rightBox .bottomBox .listBox .uni-right.data-v-3234e477 {
-  width: 345rpx;
+  width: 295rpx;
   height: 150rpx;
   display: -webkit-box;
   display: -webkit-flex;
@@ -309,7 +308,7 @@
 .cartSuccessBox .tips.data-v-3234e477 {
   color: #EFEFEF;
   font-size: 28rpx;
-  margin-bottom: 40rpx;
+  margin-top: 40rpx;
 }
 .cartSuccessBox .imgss.data-v-3234e477 {
   display: block;
@@ -323,5 +322,13 @@
   position: absolute;
   top: 40%;
   right: 30%;
+}
+.addCartLogo.data-v-3234e477 {
+  display: block;
+  width: 100rpx;
+  height: 100rpx;
+  position: fixed;
+  right: 50rpx;
+  bottom: 50rpx;
 }
 

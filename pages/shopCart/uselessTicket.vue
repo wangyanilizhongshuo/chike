@@ -1,14 +1,14 @@
 <template>
 	<view class="uni-serverTicket" >
 		<view class="uni-useLessTicker uni-TicketStyle">
-			<view class="ticket-box" v-for="(item,index) in 7" :key="index">
+			<view class="ticket-box" v-for="(item,index) in ticketList" :key="index">
 				<view class="box" >
 					<view class="left">
-						<view class="money activess">5</view>
+						<view class="money activess">{{item.value}}</view>
 						<view class="detaisls">
 							<view class="first activess" >RMB</view>
-							<view class="second activess">无门槛服务券</view>
-							<view class="third">使用时间： 12.30前使用</view>
+							<view class="second activess">{{item.title}}</view>
+							<view class="third">使用时间：{{item.expiration}}前使用</view>
 						</view>
 					</view>
 					<view class="right activess">已使用</view>
@@ -25,19 +25,44 @@
 			return {
 				// 优惠券
 				occurFlag:true,
-				
+				ticketList:[],
+				pages:1,
+				pageV:1,
+			    serverShopId:''
 				
 			}
 			},
-		 onLoad(){
-			 // if (this.labelList[index].active == 0) {
-			 // 					   const item = {
-			 // 						 ...this.labelList[index],
-			 // 						 active:1
-			 // 					   };
-			 //       this.$set(this.labelList, index, item);
+		 onLoad(options){
+			 this.setData(options);
+			 this.getList();
+			 console.log(options)
+		 },
+		 onReachBottom(){
+		 	if(this.pagesV==0){
+		 		this.pages+=1;
+		 		this.getList();
+		 	}
 		 },
 		 methods:{
+			 getList(){
+			 	 let  that=this;
+			 		 this.$http.post('mini/v1/coupon/couponlist',{
+			 			  cateid:2,
+			 			  status:3,
+			 			  store_id:that.serverShopId,
+			 			  page:that.pages
+			 		 },(res)=>{
+			 			 if(res.state==0){
+			 				 that.pagesV=res.data.is_request;
+			 				 if(res.data.is_request==0){
+			 					 let aa = res.data.list;
+			 					 let bb = that.ticketList;
+			 					 that.ticketList = bb.concat(aa);
+			 				 }
+			 				
+			 			 }
+			 		 })
+			 },
 			jumps(type){
 				if(type ==1 ){
 					uni.navigateTo({
@@ -50,7 +75,9 @@
 				}
 				
 			}
-		 },
+			
+		 }
+		 
 		 
 	}
 </script>
@@ -64,7 +91,29 @@
 		top:0rpx;
 		padding-top:40rpx;
 		box-sizing: border-box;
-		
+		.bottom-tips{
+			width: 750rpx;
+			height: 90rpx;
+			padding:0rpx 30rpx;
+			position: fixed;
+			z-index: 10;;
+			bottom:0rpx;
+			left:0rpx;
+			box-sizing: border-box;
+			background-color: #fff;
+			display: flex;
+		    align-items: center;
+			justify-content: space-around;
+			color: #888888;
+			font-size: 26rpx;
+			.style123{
+				width: 345rpx;
+				text-align: center;
+				height: 90rpx;
+				line-height: 90rpx;
+			}
+			
+		}
 		.uni-TicketStyle{
 			width: 750rpx;
 			background-color: #f2f2f2;
@@ -97,7 +146,7 @@
 					display: flex;
 					align-items: center;
 					justify-content: space-between;
-					padding:0rpx 0rpx 0rpx 55rpx;
+					padding:0rpx 25rpx 0 0rpx;
 					box-sizing: border-box;
 					background-image: url(../../static/image/ticket-bg.png);
 					background-repeat: no-repeat;
@@ -108,10 +157,14 @@
 						height: 220rpx;
 						align-items: center;
 						.money{
-							font-size: 180rpx;
+							font-size: 50rpx;
 							margin-right:20rpx;
+							width: 150rpx;
+							text-align: center;
 						}
 						.detaisls{
+							padding-right:35rpx;
+							box-sizing: border-box;
 							.first{
 								font-size: 28rpx;;
 							}
@@ -126,16 +179,22 @@
 						}
 					}
 					.right{
-						margin-top:65rpx;
-						width: 190rpx;
-						text-align: center;
-						height: 90px;
-						line-height: 100rpx;
+						line-height: 90rpx;
+						width: 130rpx;
+						height: 90rpx;
 						font-size: 40rpx;
 					}
 				}
 			}
 		}
 	}
-	
+	.uni-regularBox{
+		width: 750rpx;;
+		padding:30rpx;
+		box-sizing: border-box;
+		.list{
+			color: #888;
+			margin:20rpx 0rpx;;
+		}
+	}
 </style>

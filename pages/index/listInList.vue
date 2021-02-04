@@ -25,8 +25,8 @@
 			   <view style="width: 750rpx;height: 134rpx;background-color: #fff;"></view>
 		</view>
 		<view class="uni-contents">
-			<view class="uni-leftBox" :style="{top:dingweiHeight}">
-				 <scroll-view class="scroll-view"  scroll-y="true" :style="{height:boxHeight}">
+			<view class="uni-leftBox"  :style="{top:dingweiHeight,'height':boxHeight}" >
+				 <scroll-view class="scroll-view"  scroll-y="true" :style="{'height':boxHeight}">
 					 <view class="box" :style="leftScrollIndex==index?'background-color:#fff;':'background-color:#f8f8f8'" v-for="(item,index) in leftList" :key='index' @tap.stop="getLeftScroll(item.cate_id,index,0)">{{item.name}}</view>
 				 </scroll-view>
 			</view>
@@ -34,6 +34,7 @@
 				<view class="bottomBox" :style="{height:boxHeight}" >
 					<view class="listBox" v-for="(item,index) in  rightList" :key="index">
 						<image class="imgs" :src="item.img"></image>
+						<!-- <image class="imgs" src="http://zxyp.hzbixin.cn/files/71811608268411464.jpg"></image> -->
 					    <view class="uni-right">
 							<view class="uni-first">{{item.name}}</view>
 							<view  class="uni-second">{{item.remark}}</view>
@@ -48,9 +49,11 @@
 			</view>
 		</view>
 		<view class="cartSuccessBox" v-if="cartSucFlag">
+			        <image class="imgss" src="../../static/image/joinCartSuccess.png"></image>
 				  <view class="tips">加入成功，在购物车等您~</view>
-				  <image class="imgss" src="../../static/image/joinCartSuccess.png"></image>
+				  
 		</view>
+		<image @tap.stop="jumpCart"  class="addCartLogo" src="http://zxyp.hzbixin.cn/files/71811608268411464.jpg"></image>
 	</view>
 </template>
 
@@ -66,6 +69,8 @@
 				     
 				],
 				boxHeight:'',
+				boxHeights:'',
+				boxHeightSmall:'',
 				dingweiHeight:'',
 				leftScrollIndex:0,
 				rightScrollIndex:0,
@@ -86,13 +91,16 @@
 			that.setData(options);
 			uni.getSystemInfo({
 			    success: function (res) {
-					that.boxHeight=res.screenHeight;
+					that.boxHeightSmall=res.screenHeight;
+					
 			    }
 			});
-			that.dingweiHeight=(parseInt(that.marginTop))+(parseInt(that.heights))+134+'rpx';
-			that.dingweiHeights=(parseInt(that.marginTop))+(parseInt(that.heights))+134+'rpx';
-			that.boxHeight=(that.boxHeight*2)-(parseInt(that.marginTop))-(parseInt(that.heights))-134+'rpx';
-		    that.getTopList()
+			that.dingweiHeight=(parseInt(that.marginTop))+(parseInt(that.heights))+67+'px';
+			that.dingweiHeights=(parseInt(that.marginTop))+(parseInt(that.heights))+67+'px';
+			that.boxHeight=(that.boxHeightSmall)-(parseInt(that.marginTop))-(parseInt(that.heights))-67+'px';
+			that.boxHeights=(that.boxHeightSmall)-(parseInt(that.marginTop))-(parseInt(that.heights))-67+'px';
+			
+			that.getTopList()
 			that.getLeftList();
 			// that.getLeftScroll(that.erGoodId,0)
 		},
@@ -100,20 +108,29 @@
 			heights(){
 				const {platform,statusBarHeight} = uni.getSystemInfoSync()
 				let height = statusBarHeight +4 //ios 24px
+				console.log(statusBarHeight)
+				console.log(1111)
 				if (platform.toLowerCase() == "android" ){
 					height +=4 //android 28px
 				}
 				// 胶囊高度 32px 下边框6px height 状态栏高度
-				return (height+ 38)*2 + "rpx"
+				
+				return height+ 38 + "px"
 			},
 			marginTop(){
 				const {platform,statusBarHeight} = uni.getSystemInfoSync();
-				let height = statusBarHeight +4;
+				let height = statusBarHeight +8;
+				console.log(statusBarHeight)
+				console.log(uni.getSystemInfoSync())
+				console.log(platform)
+				console.log(222)
 				if (platform.toLowerCase() == "android" ){
-					height +=4;
+					height +=8;
+					
 				}
-				return height + "rpx"				
+				return height + "px"				
 			}
+			
 		},
 		onReachBottom(){
 			if(this.pagesV==0){
@@ -136,13 +153,14 @@
 			getLeftScroll(values,index,types){
 				let that=this;
 				// 左边点击的时候页面page:清除
+				that.leftScrollIndex=index;
 				if(types==0){
 					that.pages=1;
 					that.pageV=1;
 					that.rightList=[]
 				}
 			
-				that.leftScrollIndex=index;
+				
 				that.erGoodId=values;
 				that.$http.post('mini/v1/store/servicelist',{
 					store_id:that.storeId,
@@ -160,12 +178,10 @@
 							})
 							let bb = that.rightList;
 							that.rightList = bb.concat(aa);
-						     console.log(2222)
+						 
 							
-						}else if(res.data.is_request==1 ){
-							console.log(that.rightList)
-							console.log(that.rightList.length)
-							console.log(123)
+						}else if(res.data.is_request==1&&types==0 ){
+							
 							that.cartListFlag=true;
 						}
 						
@@ -187,11 +203,7 @@
 						 	that.cartSucFlag=false;
 						 },2000)
 					 }
-				})
-				
-				
-				
-				
+				})	
 				
 			},
 			// 上方数据的获取
@@ -219,10 +231,18 @@
 				},(res)=>{
 					if(res.state==0){
 						that.leftList=res.data;
+						console.log('wang')
+						console.log(res.data)
 						that.erGoodId=res.data[0].cate_id;
 						that.getLeftScroll(that.erGoodId,0,1)
 						
 					}
+				})
+			},
+			// 去购物车页面
+			jumpCart(){
+				uni.switchTab({
+					url:'/pages/shopCart/shopCart'
 				})
 			}
 		}
@@ -322,20 +342,22 @@
 	width: 750rpx;
 	display: flex;
 	height: auto;
+	position: relative;
+	left:0rpx;
+	top:0rpx;
 	.uni-leftBox{
 		position: fixed;
 		left: 0rpx;
 		// top:0rpx;
 		z-index: 30;
-		background-color: #fff;
-		width: 170rpx;
-		
+		background-color:#f2f2f2;
+		width: 240rpx;
 		.scroll-view{
-			width: 170rpx;
-			overflow: hidden;
+			width: 240rpx;
+			// background-color:;
 			.box{
 				display: inline-block;
-				width: 170rpx;
+				width: 240rpx;
 				height:80rpx;
 				text-align: center;
 				line-height: 80rpx;;
@@ -346,11 +368,12 @@
 		}
 	}
 	.uni-rightBox{
-		background-color: #fff;
-		margin-left:170rpx;
+		 margin-left:240rpx; 
+		 background-color: #fff;
 		.bottomBox{
 			// margin-top:80rpx;
-			overflow: scroll;
+			 // overflow-x: hidden;
+			 // overflow-y: auto;
 			.listBox{
 				width: 570rpx;
 				height: 200rpx;
@@ -359,13 +382,13 @@
 				padding:10rpx 25rpx  0rpx;
 				box-sizing: border-box;
 				.imgs{
-					display: block;
+					display:block;
 					width: 150rpx;
 					height: 150rpx;
 					margin-right: 25rpx;;
 				}
 				.uni-right{
-					width: 345rpx;
+					width: 295rpx;
 					height: 150rpx;
 					display: flex;
 					flex-direction: column;
@@ -453,7 +476,7 @@
 	.tips{
 		color: #EFEFEF;
 		font-size: 28rpx;
-		margin-bottom:40rpx;
+		margin-top:40rpx;
 	}
 	.imgss{
 		display: block;
@@ -468,6 +491,14 @@
 	    position: absolute;
 	    top: 40%;
 	    right: 30%;
+}
+.addCartLogo{
+	display: block;
+	width: 100rpx;
+	height: 100rpx;
+	position: fixed;
+	right:50rpx;
+	bottom:50rpx;
 }
 
 </style>

@@ -2,5 +2,8 @@
   "navigationBarTitleText": "转赠",
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black",
-  "usingComponents": {}
+  "usingComponents": {
+    "password-input": "/components/password-input/password-input",
+    "number-keyboard": "/components/number-keyboard/number-keyboard"
+  }
 }

@@ -2,12 +2,12 @@
 	<view class="uni-balance">
 		<view class="contentss">
 		    <view class="listBox">
-				<view class="list" v-for="(item,index) in 4" :key="index" @tap.stop="jumps(index)">
+				<view class="list" v-for="(item,index) in mainList" :key="index" @tap.stop="jumps(index)">
 					<view class="uni-left">
-						<view class="uni-top">购买“健齿亮白清新花果无氟牙膏”</view>
-						<view class="uni-down">2020年11月7日14:58:48</view>
+						<view class="uni-top">{{item.remark}}</view>
+						<view class="uni-down">{{item.change_time}}</view>
 					</view>
-					<view class="uni-right">+25</view>
+					<view class="uni-right"><text v-if="item.typeid==2">-</text><text  v-if="item.typeid==1">+</text>{{item.amonut}}</view>
 				</view>
 			</view>
 		</view>
@@ -18,14 +18,44 @@
 	export default {
 		data() {
 			return {
-				
+				mainList:[],
+				pages:1,
+				pageV:1
 			}
+		},
+		onLoad(){
+			this.getList();
+		},
+		onReachBottom(){
+			if(this.pagesV==0){
+				this.pages+=1;
+				this.getList();
+			}
+			
 		},
 		methods:{
 			jumps(){
 				uni.navigateTo({
 					url:'/pages/personCenter/myCommission/commissionDetailList'
 				})
+			},
+			getList(){
+					 let that=this;
+					 that.$http.post('mini/v1/user/integrallog',{
+						 page:that.pages,
+					 },(res)=>{
+						 if(res.state==0){
+							that.pagesV=res.data.is_request;
+							if(res.data.is_request==0){
+								let aa = res.data.list;
+								let bb = that.mainList;
+								
+								
+								 that.mainList = bb.concat(aa)
+							}
+							 
+						 }
+					 })
 			}
 		}
 	}

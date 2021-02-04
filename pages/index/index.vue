@@ -16,18 +16,12 @@
 		<view style="width: 750rpx;" :style="{height:marginTop}"></view>
 		<view class="uni-content"  :style='{"margin-top":heights}'>
 			<carousel style="height: 560rpx;"  :img-list="imgList" @selected="selectedBanner" url-key="banner" ></carousel>
-	        <scroll-view class="scroll-view_H" scroll-with-animation="true"   scroll-x="true">
-					 <view v-for="(item,index) in carouselList" :key="index" class="lists" @tap.stop="fourLogoJump(item.name,item.id)">
-						  <image  class="img"  :src="item.pic"></image>
-						  <view class="word">{{item.name}}</view>
-						  <!-- <view class="word">大是打发点是李开复大法师了</view> -->
-					 </view>
-			</scroll-view>
-			<view class="content-second">
-				<image class="left" src="http://zxyp.hzbixin.cn/files/86521608026098579.jpg"></image>
+	     
+			<view class="content-second" @tap="jumpNotice">
+				<image class="left" src="http://zxyp.hzbixin.cn/files/42731612248746998.jpg"></image>
 			    <view class="right">
-					<view class="wordUp word">线上购买更优惠，大礼超多多！</view>
-				    <!-- <view class="wordDown word">新用户注册完善信息，188积分送给你！</view> -->
+					<view class="wordUp word">{{noticeList.notice}}</view>
+				    <!-- <view class="wordDown word">新用户注册完！</view> -->
 				</view>
 			</view>
 			<view class="content-third">
@@ -66,11 +60,9 @@
        <image class="backTopLogo" @tap.stop="backTop" src="http://zxyp.hzbixin.cn/files/53311608200388887.jpg"></image>
 	</view>
 </template>
-
 <script>
 	import carousel from '@/components/vear-carousel/vear-carousel'
 	import app from '../../App.vue'
-	// console.log(app.globalData.imgPrefixUrl)
 	export default {
 		 data () {
 			return {   
@@ -96,8 +88,7 @@
 				 // (列表里面显示十条数据)
 				mainList:[],
 				 // 经度
-				// longitudeValue:120.113119,
-				// latitudeValue:30.315762,
+				
 				longitudeValue:'',
 				latitudeValue:'',
 				getMoreWay:1,
@@ -106,7 +97,11 @@
 				// 获取的区的di
 				searchDistrictid:330100,
 				cityId:'',
-				moreFalg:1
+				moreFalg:1,
+				// 邀请人 
+				scene:0,
+				// 公告列表
+			    noticeList:[]
 					 
 				 
 				 
@@ -115,26 +110,14 @@
 		components:{
 			carousel
 		},
-		onLoad() {
-			 // let that = this;
-				// 	uni.login({
-				// 		provider:'weixin',
-				// 		success:function(loginRes) {
-				// 		// 获取用户信息
-				// 		console.log(2222)
-				// 		    uni.getUserInfo({
-				// 			    provider:'weixin',
-				// 				success:function(infoRes){
-				// 			    	console.log(infoRes.userInfo)
-				// 				},
-				// 				fail:function(){
-				// 					console.log('fail')
-				// 				}
-				// 			});
-				// 		}
-				// 	});
-			
-			
+		onLoad(options) {
+			this.setData(options)
+			console.log(options)
+			console.log('options')
+			 // 对邀请人进行判断
+			 if(this.scene!=0){
+				 uni.setStorageSync('scene',this.scene)
+			 }
 			  this.getAddress();
 			  // 获取地址
 			  this.getLocation(1);
@@ -143,11 +126,16 @@
 			// 地址图标的高度
 			 this.stystemDeviceH=(Math.round(uni.getSystemInfoSync().screenWidth/(750/100))*2+'rpx')
 		     this.moreFalg=0;
+			 // 公告
+			 this.getNotice();
+			 
 		},
 		onShow(){
 			// 正式的时候解开
+			 this.pagesV=1;
+			 this.pages=1;
 			
-			 this.getLocation(0);		
+			 // this.getLocation(0);		
 		},
 		onReachBottom(){
 			if(this.pagesV==0){
@@ -177,12 +165,21 @@
 				return height + "rpx"				
 			}
 		},
+		onShareAppMessage: function () {
+		    let _this = this;
+		    return {
+		      title: "莱美牙",
+		      path: "/pages/index/index?" + _this.getShareUrlParams()
+		    };
+		},
 		methods: {
+			
 			// 打开获取地址 地址
 			getLocation(type){
 				let that=this;
 				if(type==0){
 					this.mainList=[];
+				
 				}
 				uni.getLocation({
 				    type: 'wgs84',
@@ -242,9 +239,11 @@
 				   // 1 :搜索
 				   if(type ==1){
 					   uni.navigateTo({
-					   	url:'/pages/index/titleSearch?longitude='+that.longitudeValue+'&latitude='+that.latitudeValue
+					   	url:'/pages/index/titleSearch?longitude='+that.longitudeValue+'&latitude='+that.latitudeValue+'&districtNames='+that.districtNames+'&searchDistrictid='+that.searchDistrictid
 					   })
 				   }else if(type ==2){
+					   // console.log(111234)
+					   // console.log(that.searchDistrictid)
 					   uni.navigateTo({
 					   	url:'/pages/index/listBoxList?longitude='+that.longitudeValue+'&latitude='+that.latitudeValue+'&searchDistrictid='+that.searchDistrictid
 					   })
@@ -275,13 +274,12 @@
 						longitude:that.longitudeValue,
 						latitude:that.latitudeValue
 					},(res)=>{
-						if(res.state==0){
+						if(res.state==0){						
 							that.searchDistrictid=res.data.city_id;
-							that.getALlList()
+							that.getALlList();
 						}
 					})
 				},
-					
 				getAddress(val){
 					let that=this;
 					let firstflag=true
@@ -293,7 +291,6 @@
 									that.province=res.data;
 									if(val){
 									}
-								   
 								}
 							})
 							that.addFlag1=false;
@@ -330,7 +327,6 @@
 								})
 					     }
 					)
-
 				},
 				// 轮播图
 				getCarouselMap(){
@@ -345,6 +341,8 @@
 							that.carouselList.map(i=>{
 								i.pic=app.globalData.imgPrefixUrl+'/'+i.pic
 							})
+							console.log('imgList');
+							console.log(that.imgList)
 						}
 					})
 				},
@@ -365,7 +363,6 @@
 						if(res.state ==0){
 							that.pagesV=res.data.is_request;
 							if(res.data.is_request==0){
-								// console.log(res.data)
 								let aa = res.data.list;
 								aa.map((res)=>{
 									res.store_img='https://chikehometest.hzbixin.cn'+res.store_img
@@ -376,6 +373,19 @@
 								
 								
 							}
+						}
+					})
+				},
+				//跳转到公告
+				jumpNotice(){
+					uni.navigateTo({
+						url:'/pages/index/noticeList'
+					})
+				},
+				getNotice(){
+					this.$http.get('mini/v1/service/notice',{},(res)=>{
+						if(res.state==0){
+							this.noticeList=res.data.list[0]
 						}
 					})
 				}
@@ -503,6 +513,7 @@
 		padding:0rpx 30rpx;
 		box-sizing: border-box;
 		display: flex;
+		align-items: center;
 		margin:27rpx 0rpx 36rpx;
 		.left{
 			display: block;
@@ -512,7 +523,7 @@
 		}
 		.right{
 			.wordUp{
-				margin:10rpx 0rpx ;
+				margin:0rpx 0rpx ;
 			}
 			.word{
 				color: #222222;

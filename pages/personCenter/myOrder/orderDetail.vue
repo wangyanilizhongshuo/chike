@@ -141,10 +141,12 @@
 				refundMaskFlag:false,
 				refundWay:false,
 				returnGoods:false,
-				textAreaValue:''
+				textAreaValue:'',
+				titleActiveIndex:''
 				}
 		},
 		onLoad(options){
+			console.log(this.titleActiveIndex)
 			this.setData(options);
 		},
 		methods:{

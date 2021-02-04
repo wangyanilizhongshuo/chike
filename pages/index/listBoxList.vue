@@ -169,7 +169,7 @@
 					user_lat:that.latitude,
 			 		sort_juli:that.distantOrder,
 					keywords:that.searchValue,
-					user_district_id:that.searchDistrictid
+					user_city_id:that.searchDistrictid
 			 	},(res)=>{
 			 		if(res.state ==0){
 			 			that.pagesV=res.data.is_request;

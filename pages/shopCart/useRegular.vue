@@ -17,11 +17,13 @@
 			return {
 				// 优惠券
 				occurFlag:true,
-				regularFlag:true
+				regularFlag:true,
+				
 				
 			}
 			},
 		 onLoad(){
+			 this.getList();
 			 // if (this.labelList[index].active == 0) {
 			 // 					   const item = {
 			 // 						 ...this.labelList[index],
@@ -30,6 +32,9 @@
 			 //       this.$set(this.labelList, index, item);
 		 },
 		 methods:{
+			 getList(){
+				 
+			 }
 			
 		 }
 	}

@@ -1,23 +1,12 @@
 <template>
-	<view class="uni-indexPage"  :style="visibles==true?'position:fixed':'position:relative'" @tap.stop="visibles = false">
-	   <view  :style="{height:marginTop}" style="width:750rpx;background-color: #fff;position: fixed;left:0rpx;top:0rpx;z-index: 10;"></view>
-       <view class="uni-search-box" style="width:750rpx;background-color: #fff;position: fixed;z-index:10;left:0rpx;" :style="{height:heights,top:marginTop}">
-			<view class="left" @tap.stop="visibles = true" >
-				<!-- <view  class="backsBox">
-					<image class="cancel" src="../../static/image/pink-back.png"></image>
-				</view> -->
-				<text class="addressValues">金华市</text>
-				<image  class="images" src="../../static/image/index-search-arrow.png"></image>
-			</view>
-			<view class="right"  >未知商城
-			</view>
-	   </view>	
-	   <view style="width: 750rpx;" :style="{height:marginTop}"></view>
-	   <view class="uni-content"  :style='{"margin-top":heights}'>
+	<view class="uni-indexPage" >
+	
+	   <view class="uni-content"  >
 		   <view class="searchBox" @tap.stop="jumpSearch">
 			   <image class="searLogo" src="../../static/image/index-search-search.png"></image>
 		       <text class="placeWo">输入搜索商品名称</text>
 		   </view>
+		   <!-- <carousel style="height: 560rpx;"  :img-list="imgList" @selected="selectedBanner" url-key="banner" ></carousel> -->
 		   <carousel style="height: 560rpx;"  :img-list="imgList" @selected="selectedBanner" url-key="banner" ></carousel>
 	       <view class="content-first">
 			   <scroll-view class="scroll-view_H" scroll-with-animation="true"   scroll-x="true">
@@ -54,12 +43,12 @@
 				   </view>
 				   <view class="more">查看更多</view>
 			   </view>
-			   <view class="list-Box">
-				   <view class="list style1 " v-for="(item,index) in 3" :key="index" @tap.stop="jumps(2)">
-					 <image class="logosBg" src="https://img9.51tietu.net/pic/2019-091200/143tt0ta4sr143tt0ta4sr.jpg"></image>
-					 <view class="first">PHILIPS声波...</view>
-					 <view class="second">¥<text class="money">234</text></view>
-					 <view  class="third">¥456</view>
+			   <view class="list-Box ">
+				   <view class="list style1 " v-for="(item,index) in pintuanList" :key="index" @tap.stop="jumps(2)">
+					 <image class="logosBg" :src="item.goods_img"></image>
+					 <view class="first">{{item.goods_name}}</view>
+					 <view class="second">¥<text class="money">{{item.user_price}}</text></view>
+					 <view  class="third">¥{{item.price}}</view>
 				   </view>
 			   </view>
 			   <view class="second-box ">
@@ -123,18 +112,7 @@
 			   </view>
 		   </view>
 	   </view>
-	   <view class="pickerMask" v-if="visibles"></view>
-	  <picker-view class="picker-box" v-if="visibles" :indicator-style="indicatorStyle" :value="value" @change="bindChange">
-	  		   <picker-view-column>
-	  			   <view class=" pickBox" :style="{'line-height':stystemDeviceH}" v-for="(item,index) in province" :key="index">{{item.name}}</view>
-	  		   </picker-view-column>
-	  		   <picker-view-column >
-	  			   <view class="pickBox " :style="{'line-height':stystemDeviceH}" v-for="(item,index) in city" :key="index">{{item.name}}</view>
-	  		   </picker-view-column>
-	  		   <picker-view-column>
-	  			   <view class=" pickBox" :style="{'line-height':stystemDeviceH}" v-for="(item,index) in county" :key="index">{{item.name}}</view>
-	  		   </picker-view-column>
-	  </picker-view>
+	
 	   <image @tap.stop="jumpsCart" class="shopCartLogo" src="http://zxyp.hzbixin.cn/files/71811608268411464.jpg"></image>
 	</view>
 		
@@ -154,10 +132,12 @@
 				countyIndex:110100,
 				addFlag1:true,
 				stystemDeviceH:'',
-				indicatorStyle: `text-align:center;height: ${Math.round(uni.getSystemInfoSync().screenWidth/(750/100))}px;width:250rpx`,
 				// 轮播图
 				carouselList:[],
-				imgList: [],
+				imgList: [
+					'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
+					'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg'
+				],
 				mainList:[],
 				recommondList:[],
 				shopList:[{
@@ -176,56 +156,49 @@
 				 					 url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
 				 					 field:'种植'
 				 }],
+				 // 拼团列表
+				 pintuanList:[]
+				 
 			}
 		},
 		onLoad(options){
-		   this.getAddress();
+		  
 		   // 轮播图
 		   this.getCarouselMap();
 		   // 底部所有的列表数据
 		   this.getALlList();
 		   // 推荐好物
 		   this.getRecommond();
+		   //拼团
+		   this.getPinTuan();
 		   // console.log(app.globalData.imgPrefixUrl) 
 		   // 地址图标的高度
-		    this.stystemDeviceH=(Math.round(uni.getSystemInfoSync().screenWidth/(750/100))*2+'rpx')
+		    
+		},
+		onShow(){
+			let endtime=new Date('2020-08-19 12:01')//结束时间
+			               let nowtime=new Date();//获取当前时间
+			               console.log(endtime)
+			               console.log(nowtime)
+						 
+			               let lefttime=parseInt((endtime.getTime()-nowtime.getTime())/1000);   // 获取毫秒数  
+						 				let d=parseInt(lefttime/(24*60*60));
+						 				let h=parseInt(lefttime/(60*60)%24);
+						 				let m=parseInt(lefttime/60%60);
+			               let s=(lefttime%60);
+							// this.day=d;
+							// this.hour=h;
+							// this.minute=m;
+			    //            this.seconds=s;
+						 //  setTimeout(this.time,5000);
 		},
 		components:{
 			carousel
 		},
-		computed:{
-			heights(){
-				const {platform,statusBarHeight} = uni.getSystemInfoSync()
-				let height = statusBarHeight +4 //ios 24px
-				if (platform.toLowerCase() == "android" ){
-					height +=4 //android 28px
-				}
-				// 胶囊高度 32px 下边框6px height 状态栏高度
-				return height+ 38 + "px"
-			},
-			marginTop(){
-				const {platform,statusBarHeight} = uni.getSystemInfoSync();
-				let height = statusBarHeight +4;
-				if (platform.toLowerCase() == "android" ){
-					height +=4;
-				}
-				return height + "rpx"				
-			}
-		},
+		
 		
 		methods:{
-			// 地址选择
-			  bindChange: function (e) {
-				  let that=this;
-				  const val = e.detail.value;
-				  that.cityIndex=that.province[val[0]].id;
-				  // console.log(that.cityIndex+'that.cityIndex')
-				  // console.log(that.countyIndex+'that.countyIndex')
-				  // 省份的id和name
-				  // console.log(that.province[val[0]].name);
-				  that.getAddress(val);  
-				  
-			   },
+			
 			//跳转到搜索页面
 			jumpSearch(){
 				uni.navigateTo({
@@ -278,64 +251,12 @@
 					url:'/pages/shopMall/goodRecommend?category='+name
 				})
 			},
-			getAddress(val){
-				let that=this;
-				let firstflag=true
-				// addFlag1=true 执行省份获取这个接口，只需要请求一次
-				if(that.addFlag1){
-					 that.$http.post('mini/v1/overt/getregionchild',{
-						},function(res){
-							if(res.state ==0){
-								that.province=res.data;
-								// console.log(11111)
-								if(val){
-									 // console.log(that.province[val[0]].id);
-							   //       console.log(that.province[val[0]].name);
-								}
-							   
-							}
-						})
-						that.addFlag1=false;
-				}
-				  let p1 = new Promise(   (resolve, reject) => {
-					  that.$http.post('mini/v1/overt/getregionchild',{
-					  	regionid:that.cityIndex
-					  },function(res){
-					  		if(res.state ==0){
-					  			that.city=res.data;
-					  			if(val){
-					  				that.countyIndex=that.city[val[1]].id;
-									// console.log(that.city[val[1]].name)
-									// console.log(that.city[val[1]].id)
-									// console.log(that.countyIndex+'countyIndex111')
-					  			}
-								resolve()
-					  		}
-					  })
-				  }).then(() => {// 执行这个.then的时候，生成的promise是下面一个then的
-				            // console.log(that.countyIndex+'countyIndex2222')
-							that.$http.post('mini/v1/overt/getregionchild',{
-								regionid:that.countyIndex
-							},function(res){
-								if(res.state ==0){
-									that.county=res.data;
-									if(val){
-										// console.log(that.county[val[2]].id)
-									 //    console.log(that.county[val[2]].name)
-									}
-								}
-							})
-				     }
-				
-				)
-			},
+			
 			// 轮播图
 			getCarouselMap(){
 				let that=this;
 				that.$http.get('mini/v1/goods/indextop',{},(res)=>{
 					if(res.state==0){	
-						console.log(res.data.category)
-						console.log(11111)
 						that.carouselList=res.data.category;
 						that.imgList=res.data.banner;
 						that.imgList.map(i=>{
@@ -362,6 +283,8 @@
 						that.recommondList.map((res)=>{
 							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
 						})
+						console.log(that.recommondList)
+						console.log(123)
 					}
 				})
 			},
@@ -370,10 +293,29 @@
 				let that=this;
 				that.$http.post('mini/v1/goods/indexbottom',{},(res)=>{
 					if(res.state ==0){
-						that.mainList=res.data.list;
+						let aa=res.data.list;
+						that.mainList=aa.slice(0,11);
 						that.mainList.map((res)=>{
 							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
 						})
+						
+					}
+				})
+			},
+			// 拼团
+			getPinTuan(){
+				let that =this;
+				that.$http.post('mini/v1/goods/indexCombination',{
+					page:1
+				},(res)=>{
+						console.log(1111)
+					if(res.state ==0){
+						let aa=res.data.list;
+						aa.map((res)=>{
+							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
+						})
+						that.pintuanList=aa.slice(0,3);
+						console.log(that.pintuanList)
 						
 					}
 				})
@@ -672,7 +614,7 @@
 			
 		}
 		.list-Box{
-			width: 720rpx;
+			width: 750rpx;
 			height: 315rpx;
 			display: flex;
 			padding: 0rpx 30rpx;
@@ -703,6 +645,7 @@
 		}
 		
 	}
+	
 	.content-fourth{
 		width: 750rpx;
 		padding: 0rpx  30rpx;
@@ -768,23 +711,8 @@
 	top:70%;
 }
 
- .pickerMask{
-	 @extend  %maskBox;
- }
-.picker-box{
-	 padding:0rpx 80rpx;
-	// box-sizing: border-box;
-	width: 750rpx;
-	height: 400rpx;
-	position: fixed;
-	left:0rpx;
-	bottom:0rpx;
-	z-index: 50;
-	background-color: #fff;
-}
-.pickBox{
-	line-height: 110rpx;
-}
+
+
 .scroll-view_H{
 		white-space: nowrap;
 		overflow: hidden;

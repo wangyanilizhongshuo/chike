@@ -10,7 +10,7 @@
 				 <image class="imgs" src="../../../static/image/index-arrow-right.png"></image>
 			 </view>
 		 </view> 
-		 <view class="footer">退出登录</view>
+		 <view class="footer" @tap.stop="edits">退出登录</view>
 	</view>
 </template>
 
@@ -23,6 +23,7 @@
 		},
 		onLoad(options){
 			this.setData(options);
+			this.phone=uni.getStorageSync('phone')
 			console.log(this.msg)
 		},
 		methods: {
@@ -46,6 +47,11 @@
 					})
 					
 				}
+			},
+			edits(){
+				uni.redirectTo({
+					url:'/pages/index/login'
+				})
 			}
 		}
 	}

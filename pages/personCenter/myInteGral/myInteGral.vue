@@ -8,16 +8,16 @@
 					    <view class="filed">提现规则</view>
 					</view>
 					<view class="uni-second">
-						<text class="money">8585</text>
+						<text class="money">{{jifen}}</text>
 					</view>
 					<view class="uni-third" >
 						<view class="box">
 							<view class="uni-left style1">
-								<view class="values">8585</view>
+								<view class="values">{{jifen}}</view>
 								<view class="field">可使用</view>
 							</view>
 							<view class="uni-right style1"  @tap.stop="jumps(2)" >
-								<view class="values">8585</view>
+								<view class="values">{{willjf}}</view>
 								<view class="field">待激活</view>
 							</view>
 						</view>
@@ -27,12 +27,12 @@
 			<view class="contentss">
 				<view class="first">积分记录</view>
 			    <view class="listBox">
-					<view class="list" v-for="(item,index) in 4" :key="index" >
+					<view class="list" v-for="(item,index) in mainList" :key="index" >
 						<view class="uni-left">
-							<view class="uni-top">购买“健齿亮白清新花果无氟牙膏”</view>
-							<view class="uni-down">2020年11月7日14:58:48</view>
+							<view class="uni-top">{{item.remark}}</view>
+							<view class="uni-down">{{item.change_time}}</view>
 						</view>
-						<view class="uni-right">+25</view>
+						<view class="uni-right"><text v-if="item.typeid==2">-</text><text  v-if="item.typeid==1">+</text>{{item.amonut}}</view>
 					</view>
 				</view>
 			</view>
@@ -45,8 +45,17 @@
 	export default {
 		data() {
 			return {
+				willjf:'',
+				jifen:'',
+				mainList:[]
 				
 			}
+		},
+		onLoad(options){
+			console.log(options)
+			this.setData(options);
+			this.getList();
+			
 		},
 		methods: {
 			 jumps(type){
@@ -65,6 +74,19 @@
 				 }
 				
 			 },
+			 getList(){
+				 let that=this;
+				 that.$http.post('mini/v1/user/integrallog',{
+					 page:1,
+				 },(res)=>{
+					 if(res.state==0){
+						 console.log(res)
+						 that.mainList=res.data.list;
+						 console.log(that.mainList)
+						 
+					 }
+				 })
+			 }
 			
 		}
 	}

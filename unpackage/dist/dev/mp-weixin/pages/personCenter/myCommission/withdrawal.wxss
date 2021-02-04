@@ -24,6 +24,16 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.moneyMask.data-v-71946101 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: #000;
+  opacity: 0.5;
+}
 .contentBox.data-v-71946101 {
   padding-top: 94rpx;
   margin-left: 90rpx;
@@ -71,5 +81,62 @@
   line-height: 90rpx;
   background: #FF9A9E;
   border-radius: 45rpx;
+}
+.showtips.data-v-71946101 {
+  width: 350rpx;
+  height: 100rpx;
+  background: #000000;
+  opacity: 0.6;
+  border-radius: 16rpx;
+  position: fixed;
+  left: 200rpx;
+  top: 400rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  text-align: center;
+  z-index: 1000;
+}
+.payBox.data-v-71946101 {
+  width: 600rpx;
+  height: 246rpx;
+  position: absolute;
+  left: 75rpx;
+  top: 236rpx;
+  z-index: 50;
+  border-radius: 8rpx;
+  padding: 30rpx 40rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+}
+.payBox .firstLine.data-v-71946101 {
+  text-align: center;
+  position: relative;
+  left: 0rpx;
+  top: 0rpx;
+}
+.payBox .cancelBox.data-v-71946101 {
+  width: 476rpx;
+}
+.payBox .cancelBox .cancel.data-v-71946101 {
+  display: block;
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 0rpx;
+  right: 0rpx;
+}
+.payBox .zzWord.data-v-71946101 {
+  font-size: 30rpx;
+  margin-top: 19rpx;
+}
+.payBox .moneyBox.data-v-71946101 {
+  font-size: 70rpx;
+  margin: 60rpx 0rpx 54rpx;
+}
+.payBox .signalBox.data-v-71946101 {
+  font-size: 28rpx;
 }
 

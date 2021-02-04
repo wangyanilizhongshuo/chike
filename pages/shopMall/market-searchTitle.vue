@@ -79,7 +79,7 @@
 			},
 			backs(){
 				uni.switchTab({
-					url:'/pages/shopCart/shopMall'
+					url:'/pages/shopMall/shopMall'
 				})
 			},
 			// 查找信息 ,进行存储

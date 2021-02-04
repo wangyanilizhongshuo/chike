@@ -6,9 +6,10 @@
 				<image  class="images" src="../../static/image/pink-back.png"></image>
 			</view>
 			<view class="right" >
-			   {{address}}
+			   {{detailList.store_name}}
 			</view>
 	   </view>	
+	   <view class="showtips" v-if="tipflag">{{tipMsg}}</view>
 	   <view class="uni-content"  :style='{"margin-top":heights,"padding-top":marginTop}'>
 		   <uni-swiper-dot class="swiper-dot" :info="info" mode="round"  :current="current" field="content" :mode="mode">
 		       <swiper class="swiper-box" @change="change">
@@ -34,8 +35,8 @@
 					   </view>
 				   </view>
 				   <view class="uni-right">
-					   <image v-if="collectActive"   class="img" src="../../static/image/index-searchCollectActive.png" @tap.stop="collectActive=false"></image>
-					   <image v-if="!collectActive"   class="img" src="../../static/image/index-searchCollect.png" @tap.stop="collectActive=true"></image>
+					   <image v-if="collectActive"   class="img" src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg" @tap.stop="getCollect"></image>
+					   <image v-if="!collectActive"   class="img" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg" @tap.stop="getCollect"></image>
 				       <text class="word">收藏</text> 
 				   </view>
 				   
@@ -51,17 +52,16 @@
 			   </view>
 		   </view>
 	   </view>
-	   <view class="logoBox">
+	  <view class="logoBox">
 		   <view class="list" v-for="(item,index) in cateList" :key="index" @tap.stop="jump(item.cate_id)">
 			   <image class="imgs" :src="item.pic"></image>
 		       <view class="field">{{item.name}}</view>
 		   </view>
-		  
-		 </view>
+	 </view>
 		
 	   <view class="leaveMsgBox">
 		   <view class="titleBox" @tap.stop="jumps(4)">
-			   <view class="uni-left">留言({{msgListNum}})</view>
+			   <view class="uni-left">留言({{msgListNum || 0}})</view>
 			   <view class="uni-right">
 				   <text class="fields">查看全部</text>
 				   <image class="logos" src="http://zxyp.hzbixin.cn/files/50831608196835818.jpg"></image>
@@ -79,7 +79,35 @@
 			   </view>
 		   </view>
 	   </view>
+	   <!-- 底部的数据 -->
+	  <!-- <view class="bottomBox">
+		   <view class="b-title">
+			   <scroll-view class="scroll-view_H" scroll-with-animation="true"   scroll-x="true">
+					 <view v-for="(item,index) in carouselList" :key="index" class="lists" @tap.stop="fourLogoJump(item.name,item.id)">
+						  <view class="word">{{item}}</view>
+					 </view>
+			   	</scroll-view>
+		   </view>
+		   <view class="b-content">
+			   <view   class="list">
+				    <image class="imgs" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+				   <view class="rights">
+					   <view class="uni-first">高端优选>单人超声波洁牙大是大非多发点</view>
+					   <view class="uni-second">
+						   <view class="left">¥<text class="mon">49.90</text></view>
+						   <view class="right">门市价：¥668</view>
+					   </view>
+					   <view  class="uni-third">
+						   <view class="left">已销售586</view>
+						   <image   class="img1" @tap.stop="cartSucFlag=true"  src="http://zxyp.hzbixin.cn/files/32581608199923056.jpg"></image>
+					   </view>
+				   </view>
+			   </view>
+		   </view>
+	   </view>
+	  -->
 	 </view>
+	
   </view>
 </template>
 <script>
@@ -88,6 +116,9 @@
 	export default {
 		 data () {
 			return { 
+				tipflag:false,
+				tipMsg:'',
+				
 				address:'优琦口腔（下沙江滨店）',
 				collectActive:false,
 				info: [{
@@ -102,7 +133,27 @@
 				storeId:'',
 				detailList:[],
 				cateList:[],
-				msgList:[],
+				carouselList:['王一博','王亚妮','王一博','王一博','王一博','王一博','王一博','王一博','王一博','王一博'],
+				msgList:[
+					{
+						  avatar:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
+						  content:'你好你好年后',
+						  nickname:'yibo'
+						  
+					},
+					{
+						  avatar:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
+						  content:'你好你好年后',
+						  nickname:'yibo'
+						  
+					},
+					{
+						  avatar:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
+						  content:'你好你好年后',
+						  nickname:'yibo'
+						  
+					},
+				],
 				msgListNum:''
 
 			}
@@ -146,9 +197,18 @@
 		           this.current = e.detail.current;
 		         },
 			makePhone(value){
-				 uni.makePhoneCall({
+				if(value){
+					uni.makePhoneCall({
 				     phoneNumber: value //仅为示例
 				 });
+				}else{
+					this.tipflag=true ;
+					this.tipMsg='没有电话';
+					setTimeout(()=>{
+							this.tipflag=false
+					},3000)
+				}
+				 
 			},
 			 // 预约跳转 1 	  
 		    jumps(type){
@@ -181,6 +241,7 @@
 					 }
 				})
 			},
+			// 分类列表
 			getCateList(){
 				let that=this;
 				that.$http.post('mini/v1/store/category',{
@@ -191,11 +252,10 @@
 						that.cateList.map(i=>{
 							i.pic=app.globalData.imgPrefixUrl+i.pic
 						})
-						
 					}
-					
 				})
 			},
+			// 留言
 			getMsgList(){
 				let that=this;
 				that.$http.post('mini/v1/store/leavelist',{
@@ -208,7 +268,30 @@
 						that.msgListNum=res.data.count;
 					}
 				})
-			}
+			},
+			// 收藏
+			getCollect(){
+				let that=this;				
+				that.$http.post('mini/v1/store/collec',{
+					store_id:that.detailList.store_id
+				},(res)=>{
+					if(res.state==0){
+						if(that.collectActive==true){
+							that.collectActive=false;
+							
+						}else{
+							that.collectActive=true;
+							// this.tipflag=true ;
+							// this.tipMsg='收藏成功';
+							// setTimeout(()=>{
+							// 		this.tipflag=false
+							// },3000)
+						}
+						
+					}
+				})
+			},
+			
 		}
 	}
 </script>
@@ -350,57 +433,7 @@
 	}
 	
 }
-// .list-box{
-// 	width: 750rpx;
-// 	padding:0rpx 30rpx;
-// 	box-sizing: border-box;
-// 	margin-top:40rpx;
-// 	.list{
-// 		width: 690rpx;
-// 		display: flex;
-// 		margin-bottom: 60rpx;
-// 		.left{
-// 			display: block;
-// 			width:150rpx;
-// 			height: 150rpx;
-// 			margin-right:22rpx;
-// 		}
-// 		.right{
-// 			width: 500rpx;
-// 			height: 150rpx;
-// 			display: flex;
-// 			flex-direction: column;
-// 			justify-content: space-between;
-// 			.first{
-// 				display: flex;
-// 				width: 500rpx;
-// 				justify-content: space-between;
-// 				.uni-left{
-// 					color: #000;
-// 					font-family: 'PingFang-SC-Bold';
-// 					font-weight: bold;
-// 					font-size: 28rpx;;
-// 				}
-// 				.uni-right{
-					
-// 					font-family: 'DIN-Bold';
-// 					font-weight: bold;
-// 					color: #FF0000;
-// 					font-size: 32rpx;
-// 					.price{
-// 						font-size: 42rpx;;
-// 					}
-// 				}
-// 			}
-// 			.second{
-// 				color: #555555;
-// 				font-size: 24rpx;
-// 				@include  ellipsis(3)
-// 			}
-// 		}
-// 	}
-	
-// }
+
 
 .logoBox{
 	width: 750rpx;
@@ -432,6 +465,7 @@
 }
 	
 .leaveMsgBox{
+	// margin-top: 10rpx;
 	.titleBox{
 		width: 750rpx;
 		padding: 0rpx 30rpx ;
@@ -497,5 +531,109 @@
 	}
 	
 }
+  .showtips{
+	  width: 350rpx;
+	  height: 100rpx;
+	  background: #000000;
+	  opacity: 0.6;
+	  border-radius: 16rpx;
+	  position: fixed;
+	  left:200rpx;
+	  top:600rpx;
+	  color: #FFFFFF;
+	  font-size: 28rpx;
+	  line-height: 100rpx;
+	  text-align: center;
+	  z-index:1000;
+	  
+  }
+  .bottomBox{
+	  .b-title{
+		   padding-left: 30rpx;
+		  .scroll-view_H{
+		  		white-space: nowrap;
+		  		overflow: hidden;
+		  		height: 90rpx;
+		  		.lists{
+		  			display: inline-block;
+                    opacity: 0.4;
+                    border-radius: 4rpx;
+					text-align: center;
+					color: #919191;
+                    background: #E8E8E8;
+					font-size: 24rpx;
+					margin:15rpx  20rpx 15rpx  0rpx;
+					padding:10rpx 20rpx;
+		  			.word{
+		  				
+		  			}
+		  			
+		  		}
+		  }
+	  }
+	  .b-content{
+		  .list{
+			  display: flex;
+			  width: 750rpx;
+			  padding:25rpx 30rpx;
+			  box-sizing: border-box;
+			  .imgs{
+                  display: block;
+				  width: 150rpx;
+				  height: 150rpx;
+				  border-radius: 8rpx;
+				  margin-right: 20rpx;;
+			  }
+			  .rights{
+				  display: flex;
+				  width: 500rpx;
+				  flex-direction: column;
+				  height: 150rpx;
+				  justify-content: space-between;
+				  .uni-first{
+					  color: #000000;
+					  font-size: 28rpx;
+					  font-weight: bold;
+					  @include ellipsis(1)
+				  }
+				  .uni-second{
+					  display: flex;
+					  align-items: center;
+					  
+					  .left{
+						  color: #FF0000;
+						  font-size: 32rpx;;
+						  .mon{
+							  font-size: 42rpx;;
+						  }
+					  }
+					  .right{
+						  text-decoration:line-through ;
+						  margin-left: 20rpx;
+						  color: #555555;
+						  font-size: 24rpx;;
+					  }
+				  }
+				  .uni-third{
+					  display: flex;
+					  justify-content: space-between;
+					  .left{
+						  color: #555555;
+						  font-size: 24rpx;
+					  }
+					  .img1{
+						  display: block;
+						  width: 40rpx;
+						  height: 40rpx;
+					  }
+				  }
+			  }
+			  
+		  }
+		  
+	  }
+  }
+ 
+
 </style>
 

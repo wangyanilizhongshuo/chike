@@ -86,8 +86,8 @@
 	   </view>
 	   <view class="footer">
 		   <view class="uni-left" @tap.stop="collectFlag=(!collectFlag)">
-			   <image class="imgStart" v-if="collectFlag"  src="../../static/image/index-searchCollectActive.png"></image>
-			   <image class="imgStart"  v-if="!collectFlag" src="../../static/image/index-searchCollect.png"></image>
+			   <image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
+			   <image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
 		       <text class="field">收藏</text>
 		   </view>
 		   <view class="uni-center" @tap.stop="joinCartBoxflag=true,category=1">
@@ -689,7 +689,7 @@
 				margin-right:20rpx;
 			}
 			.goodBox{
-				width: 200rpx;
+				width: 280rpx;
 				height: 240rpx;
 				display: flex;
 				flex-direction: column;

@@ -82,13 +82,13 @@
   display: -webkit-flex;
   display: flex;
   height: 88rpx;
-  width: 280rpx;
+  width: 420rpx;
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
   height: 60rpx;
   background-image: url(http://zxyp.hzbixin.cn/files/6731607417392135.jpg);
-  background-size: 280rpx  60rpx;
+  background-size: 420rpx  60rpx;
   background-repeat: no-repeat;
   margin-left: 30rpx;
 }
@@ -99,7 +99,7 @@
   margin: 0 20rpx;
 }
 .uni-indexPage .uni-search-box .right .inputs.data-v-064ae7ba {
-  width: 220rpx;
+  width: 420rpx;
   height: 60rpx;
   border-radius: 20rpx;
   color: #222;

@@ -1,280 +1,298 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
- 
- {
-   	"path": "pages/index/index",
-   	"style": {
-   		"navigationStyle":"custom"
-   	}
-   },
- {
-  	"path" : "pages/index/logins",
-  	"style" :                                                                                    
-  	{
-  	   "navigationBarTitleText": "登录",
-  	   "navigationBarBackgroundColor":"#fff",
-  	   "navigationBarTextStyle":"black"
-  	}
-  },
- {
-  	"path" : "pages/index/login",
-  	"style" :                                                                                    
-  	{
-  	   "navigationBarTitleText": "登录",
-  	   "navigationBarBackgroundColor":"#fff",
-  	   "navigationBarTextStyle":"black"
-  	}
-  },
-
- 
-
-{
-		"path": "pages/shopMall/addressList",
-		"style": {
-			"navigationBarTitleText": "地址列表",
-			"navigationBarBackgroundColor":"#fff",
-			"navigationBarTextStyle":"black"
-		}
-},
-
-{
- 	"path": "pages/shopMall/addAddress",
- 	"style": {
- 		"navigationBarTitleText": "新增地址",
- 		"navigationBarBackgroundColor":"#fff",
- 		"navigationBarTextStyle":"black"
- 	}
- },
- 
- {
-  	"path": "pages/shopMall/editAddress",
-  	"style": {
-  		"navigationBarTitleText": "编辑地址",
-  		"navigationBarBackgroundColor":"#fff",
-  		"navigationBarTextStyle":"black"
-  	}
-  },
-{
- 		"path" : "pages/personCenter/personCenter",
- 		"style" :                                                                                    
- 		{
- 		   "navigationStyle":"custom"
- 		}      
- },
-
- {
-   	"path" : "pages/shopMall/shopMall",
-   	"style" :{                                                                                    
-   	   "navigationStyle":"custom"
-   	}
-   },
-
- {
- 	"path": "pages/shopMall/confirm",
- 	"style": {
- 		"navigationBarTitleText": "确认订单",
- 		"navigationBarBackgroundColor":"#fff",
- 		"navigationBarTextStyle":"black"
- 	}
- },
-  
-{
-    	"path" : "pages/personCenter/myShopSettlement/myShopSettlement",
-    	"style" :                                                                                    
-    	{
-    		"navigationBarTitleText": "店铺入驻",
-    		"navigationBarBackgroundColor":"#fff",
-    		"navigationBarTextStyle":"black"
-    	}
-    },
-  {
-   		"path" : "pages/shopCart/submitOrder",
-   			  "style" :                                                                                    
-   			  {
-   				  "navigationBarTitleText": "订单详情",
-   				  "navigationBarBackgroundColor":"#fff",
-   				  "navigationBarTextStyle":"black"
-   			  }
-    },
-
- {
- 		  "path" : "pages/personCenter/myBalance/myBalance",
- 		  "style" :                                                                                    
- 		  {
- 			 "navigationBarTitleText": "我的余额",
- 			 "navigationBarBackgroundColor":"#fff",
- 			 "navigationBarTextStyle":"black"
- 		  }
- } ,
- {
-		   "path" : "pages/personCenter/myOpinion/myOpinion",
-		   "style" :                                                                                    
-		   {
-			  "navigationBarTitleText": "意见反馈",
-			  "navigationBarBackgroundColor":"#fff",
-			  "navigationBarTextStyle":"black"
-		   }
- 				   
- },
-   
-	
-	
-	{
-		"path": "pages/index/fourLogoList",
-		"style": {
-			"navigationStyle":"custom"
-		}
-	},
-	{
-		"path": "pages/shopMall/list-detail",
-		"style": {
-			"navigationStyle":"custom"
-		}
-	},
-	
-	{
-		"path": "pages/shopMall/teamDetail",
-		"style": {
-			"navigationStyle":"custom"
-		}
-	},
-	{
-		"path": "pages/shopCart/ticket",
-		"style": {
-			"navigationBarTitleText": "服务券",
-			"navigationBarBackgroundColor":"#fff",
-			"navigationBarTextStyle":"black"
-		}
-	},
-	{
-	 	"path" : "pages/shopCart/shopCart",
-	 	"style" :                                                                                    
-	 	{
-	 		"navigationBarTitleText": "购物车",
-	 		"navigationBarBackgroundColor":"#fff",
-	 		"navigationBarTextStyle":"black"
-	 	}
-	 },
-	 {
-			"path" : "pages/personCenter/personData",
-			"style" :                                                                                    
-			{
-				"navigationBarTitleText": "个人资料",
+		{
+				"path": "pages/index/index",
+				"style": {
+					"navigationStyle":"custom"
+				}
+		},
+		{
+			"path": "pages/shopMall/shopMallCart",
+			"style": {
+				"navigationBarTitleText": "购物车",
 				"navigationBarBackgroundColor":"#fff",
 				"navigationBarTextStyle":"black"
 			}
-	 },
-	
-	{
-		  "path" : "pages/personCenter/myServerOrder/giveAMsg",
-		  "style" :                                                                                    
-		  {
-			 "navigationBarTitleText": "留言",
-			 "navigationBarBackgroundColor":"#fff",
-			 "navigationBarTextStyle":"black"
-		  }
-					  
-	},
-	{
-	 	"path" : "pages/personCenter/myServerOrder/serverDetail",
-	 	"style" :                                                                                    
-	 	{
-	 		"navigationBarTitleText": "订单详情",
-	 		"navigationBarBackgroundColor":"#fff",
-	 		"navigationBarTextStyle":"black"
-	 	}
-	 },
-	
-	 {
-	 	"path" : "pages/personCenter/myOrder/afterSales",
-	 	"style" :                                                                                    
-	 	{
-	 		"navigationBarTitleText": "售后",
-	 		"navigationBarBackgroundColor":"#fff",
-	 		"navigationBarTextStyle":"black"
-	 	}
-	  },
-	 {
-	 	"path" : "pages/personCenter/myOrder/orderDetail",
-	 	"style" :                                                                                    
-	 	{
-	 		"navigationBarTitleText": "我的订单",
-	 		"navigationBarBackgroundColor":"#fff",
-	 		"navigationBarTextStyle":"black"
-	 	}
-	  },
-	{
-		"path" : "pages/personCenter/myMsg/messageDetail",
-		"style" :                                                                                    
+		},
 		{
-		   "navigationBarTitleText": "系统消息",
-		   "navigationBarBackgroundColor":"#fff",
-		   "navigationBarTextStyle":"black"
-		}
-		
-	},
-	
-	 {
-	   "path" : "pages/personCenter/myOpinion/opinionSuccess",
-	   "style" :                                                                                    
-	   {
-	 	 "navigationBarTitleText": "意见反馈",
-	 	 "navigationBarBackgroundColor":"#fff",
-	 	 "navigationBarTextStyle":"black"
-	   }
-	 				  
-	 },
-	{
-		"path" : "pages/personCenter/myMsg/myMsg",
-		"style" :                                                                                    
+				"path" : "pages/index/logins",
+				"style" :                                                                                    
+				{
+				   "navigationBarTitleText": "登录",
+				   "navigationBarBackgroundColor":"#fff",
+				   "navigationBarTextStyle":"black"
+				}
+		},
 		{
-		   "navigationBarTitleText": "我的消息",
-		   "navigationBarBackgroundColor":"#fff",
-		   "navigationBarTextStyle":"black"
-		}
-		
-	},
-	
-	{
-		"path" : "pages/personCenter/myInteGral/myInteGral",
-		"style" :                                                                                    
-		{
-		   "navigationBarTitleText": "我的积分",
-		   "navigationBarBackgroundColor":"#fff",
-		   "navigationBarTextStyle":"black"
-		}
-		
-	},
-	{
-		"path" : "pages/personCenter/myGroup/groupFail",
-		"style" :                                                                                    
-		{
-		   "navigationBarTitleText": "我的拼团",
-		   "navigationBarBackgroundColor":"#fff",
-		   "navigationBarTextStyle":"black"
-		}
-		
-	},
-		{
-			"path" : "pages/personCenter/myGroup/groupSuccess",
+			"path" : "pages/index/login",
 			"style" :                                                                                    
 			{
-			   "navigationBarTitleText": "我的拼团",
+			   "navigationBarTitleText": "登录",
+			   "navigationBarBackgroundColor":"#fff",
+			   "navigationBarTextStyle":"black"
+			}
+		},
+		{
+					"path" : "pages/index/noticeList",
+					"style" :                                                                                    
+					{
+						"navigationBarTitleText": "公告",
+						"navigationBarBackgroundColor":"#fff",
+						"navigationBarTextStyle":"black"
+					}
+				
+		},
+		{
+				"path": "pages/index/searchDetail",
+				"style": {
+					"navigationStyle":"custom"
+				}
+		},
+			
+			   {
+					"path" : "pages/personCenter/personCenter",
+					"style" :                                                                                    
+					{
+					   "navigationStyle":"custom"
+					}      
+			   },
+			 {
+					"path" : "pages/personCenter/myServerOrder/serverDetail",
+					"style" :                                                                                    
+					{
+						"navigationBarTitleText": "订单详情",
+						"navigationBarBackgroundColor":"#fff",
+						"navigationBarTextStyle":"black"
+					}
+			 },
+			{
+					"path" : "pages/shopCart/submitOrder",
+						  "style" :                                                                                    
+						  {
+							  "navigationBarTitleText": "订单详情",
+							  "navigationBarBackgroundColor":"#fff",
+							  "navigationBarTextStyle":"black"
+						  }
+			  },
+
+			
+			{
+					"path": "pages/shopMall/addressList",
+					"style": {
+						"navigationBarTitleText": "地址列表",
+						"navigationBarBackgroundColor":"#fff",
+						"navigationBarTextStyle":"black"
+					}
+			},
+
+			{
+				"path": "pages/shopMall/addAddress",
+				"style": {
+					"navigationBarTitleText": "新增地址",
+					"navigationBarBackgroundColor":"#fff",
+					"navigationBarTextStyle":"black"
+				}
+			 },
+ 
+			 {
+				"path": "pages/shopMall/editAddress",
+				"style": {
+					"navigationBarTitleText": "编辑地址",
+					"navigationBarBackgroundColor":"#fff",
+					"navigationBarTextStyle":"black"
+				}
+			  },
+			 {
+				"path" : "pages/shopMall/shopMall",
+				"style" :{                                                                                    
+				  "navigationBarTitleText": "未知商城",
+				  "navigationBarBackgroundColor":"#fff",
+				  "navigationBarTextStyle":"black"
+				}
+			 },
+			 {
+				"path": "pages/shopMall/confirm",
+				"style": {
+					"navigationBarTitleText": "确认订单",
+					"navigationBarBackgroundColor":"#fff",
+					"navigationBarTextStyle":"black"
+				}
+			 },
+
+			{
+					"path" : "pages/personCenter/myShopSettlement/myShopSettlement",
+					"style" :                                                                                    
+					{
+						"navigationBarTitleText": "店铺入驻",
+						"navigationBarBackgroundColor":"#fff",
+						"navigationBarTextStyle":"black"
+					}
+			 },
+			  
+			 {
+					  "path" : "pages/personCenter/myBalance/myBalance",
+					  "style" :                                                                                    
+					  {
+						 "navigationBarTitleText": "我的余额",
+						 "navigationBarBackgroundColor":"#fff",
+						 "navigationBarTextStyle":"black"
+					  }
+			 } ,
+			 {
+					   "path" : "pages/personCenter/myOpinion/myOpinion",
+					   "style" :                                                                                    
+					   {
+						  "navigationBarTitleText": "意见反馈",
+						  "navigationBarBackgroundColor":"#fff",
+						  "navigationBarTextStyle":"black"
+					   }
+							   
+			 },
+			{
+				"path": "pages/index/fourLogoList",
+				"style": {
+					"navigationStyle":"custom"
+				}
+			},
+			{
+				"path": "pages/shopMall/list-detail",
+				"style": {
+					"navigationStyle":"custom"
+				}
+			},
+	
+			{
+				"path": "pages/shopMall/teamDetail",
+				"style": {
+					"navigationStyle":"custom"
+				}
+			},
+			{
+				"path": "pages/shopCart/ticket",
+				"style": {
+					"navigationBarTitleText": "服务券",
+					"navigationBarBackgroundColor":"#fff",
+					"navigationBarTextStyle":"black"
+				}
+			},
+			{
+				"path" : "pages/shopCart/shopCart",
+				"style" :                                                                                    
+				{
+					"navigationBarTitleText": "购物车",
+					"navigationBarBackgroundColor":"#fff",
+					"navigationBarTextStyle":"black"
+				}
+			 },
+			 {
+					"path" : "pages/personCenter/personData",
+					"style" :                                                                                    
+					{
+						"navigationBarTitleText": "个人资料",
+						"navigationBarBackgroundColor":"#fff",
+						"navigationBarTextStyle":"black"
+					}
+			 },
+	
+			{
+				  "path" : "pages/personCenter/myServerOrder/giveAMsg",
+				  "style" :                                                                                    
+				  {
+					 "navigationBarTitleText": "留言",
+					 "navigationBarBackgroundColor":"#fff",
+					 "navigationBarTextStyle":"black"
+				  }
+							  
+			},
+			 {
+				"path" : "pages/personCenter/myOrder/afterSales",
+				"style" :                                                                                    
+				{
+					"navigationBarTitleText": "售后",
+					"navigationBarBackgroundColor":"#fff",
+					"navigationBarTextStyle":"black"
+				}
+			  },
+			 {
+				"path" : "pages/personCenter/myOrder/orderDetail",
+				"style" :                                                                                    
+				{
+					"navigationBarTitleText": "我的订单",
+					"navigationBarBackgroundColor":"#fff",
+					"navigationBarTextStyle":"black"
+				}
+			  },
+			{
+				"path" : "pages/personCenter/myMsg/messageDetail",
+				"style" :                                                                                    
+				{
+				   "navigationBarTitleText": "系统消息",
+				   "navigationBarBackgroundColor":"#fff",
+				   "navigationBarTextStyle":"black"
+				}
+				
+			},
+	
+			 {
+			   "path" : "pages/personCenter/myOpinion/opinionSuccess",
+			   "style" :                                                                                    
+			   {
+				 "navigationBarTitleText": "意见反馈",
+				 "navigationBarBackgroundColor":"#fff",
+				 "navigationBarTextStyle":"black"
+			   }
+							  
+			 },
+			{
+				"path" : "pages/personCenter/myMsg/myMsg",
+				"style" :                                                                                    
+				{
+				   "navigationBarTitleText": "我的消息",
+				   "navigationBarBackgroundColor":"#fff",
+				   "navigationBarTextStyle":"black"
+				}
+				
+			},
+			 {
+				"path" : "pages/personCenter/myInteGral/myInteGral",
+				"style" :                                                                                    
+				{
+				   "navigationBarTitleText": "我的积分",
+				   "navigationBarBackgroundColor":"#fff",
+				   "navigationBarTextStyle":"black"
+				}
+				
+			},
+			{
+				"path" : "pages/personCenter/myGroup/groupFail",
+				"style" :                                                                                    
+				{
+				   "navigationBarTitleText": "我的拼团",
+				   "navigationBarBackgroundColor":"#fff",
+				   "navigationBarTextStyle":"black"
+				}
+				
+			},
+				{
+					"path" : "pages/personCenter/myGroup/groupSuccess",
+					"style" :                                                                                    
+					{
+					   "navigationBarTitleText": "我的拼团",
+					   "navigationBarBackgroundColor":"#fff",
+					   "navigationBarTextStyle":"black"
+					}
+					
+				},
+			
+		 {
+			"path" : "pages/personCenter/myCommission/myCommission",
+			"style" :                                                                                    
+			{
+			   "navigationBarTitleText": "我的佣金",
 			   "navigationBarBackgroundColor":"#fff",
 			   "navigationBarTextStyle":"black"
 			}
 			
-		},
-	
-		 {
-		 	"path" : "pages/personCenter/myCommission/myCommission",
-		 	"style" :                                                                                    
-		 	{
-		 	   "navigationBarTitleText": "我的佣金",
-		 	   "navigationBarBackgroundColor":"#fff",
-		 	   "navigationBarTextStyle":"black"
-		 	}
-		 	
 		 },
 		 {
 		 	"path" : "pages/personCenter/myGroup/groupStart",
@@ -343,14 +361,7 @@
 		},
 
 		
-		{
-			"path": "pages/shopMall/shopMallCart",
-			"style": {
-				"navigationBarTitleText": "购物车",
-				"navigationBarBackgroundColor":"#fff",
-				"navigationBarTextStyle":"black"
-			}
-		},
+		
 		
 		{
 			"path": "pages/shopMall/goodRecommend",
@@ -376,12 +387,7 @@
 			},
 			
 			
-		{
-			"path": "pages/index/searchDetail",
-			"style": {
-				"navigationStyle":"custom"
-			}
-		}, 
+		 
 
 			{
 				"path" : "pages/index/leaveMsg",
@@ -721,18 +727,18 @@
 									"selectedIconPath" : "/static/image/tabber-1-2.png",
 									"text" : "服务"
 								},
-								// {
-								// 	"pagePath" : "pages/shopMall/shopMall",
-								// 	"iconPath" : "/static/image/tabber-2-1.png",
-								// 	"selectedIconPath" : "/static/image/tabber-2-2.png",
-								// 	"text" : "商城"
-								// },
-								// {
-								// 	"pagePath" : "pages/shopCart/shopCart",
-								// 	"iconPath" : "/static/image/tabber-3-1.png",
-								// 	"selectedIconPath" : "/static/image/tabber-3-2.png",
-								// 	"text" : "购物车"
-								// },
+								{
+									"pagePath" : "pages/shopMall/shopMall",
+									"iconPath" : "/static/image/tabber-2-1.png",
+									"selectedIconPath" : "/static/image/tabber-2-2.png",
+									"text" : "商城"
+								},
+								{
+									"pagePath" : "pages/shopCart/shopCart",
+									"iconPath" : "/static/image/tabber-3-1.png",
+									"selectedIconPath" : "/static/image/tabber-3-2.png",
+									"text" : "购物车"
+								},
 								{
 									"pagePath" : "pages/personCenter/personCenter",
 									"iconPath" : "/static/image/tabber-4-1.png",

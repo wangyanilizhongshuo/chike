@@ -61,19 +61,34 @@
   width: 750rpx;
   box-sizing: border-box;
   background-color: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.photoBox .image-box.data-v-2f5e8546 {
+  position: relative;
+  top: 0rpx;
+  left: 0rpx;
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 30rpx;
+  margin-bottom: 20rpx;
 }
 .photoBox .bgImg.data-v-2f5e8546 {
   display: block;
   width: 150rpx;
   height: 150rpx;
-  margin-left: 30rpx;
+  margin: 0rpx 0rpx 20rpx 30rpx;
+  border-radius: 8rpx;
 }
 .photoBox .cancelImg.data-v-2f5e8546 {
-  display: block;
-  width: 40rpx;
-  height: 40rpx;
   position: absolute;
-  left: 150rpx;
-  top: 20rpx;
+  right: -40rpx;
+  top: -15rpx;
+  width: 30rpx;
+  height: 30rpx;
+  display: block;
 }
 

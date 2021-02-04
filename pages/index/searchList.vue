@@ -80,11 +80,14 @@
 					distantOrder:'',
 					pagesV:1,
 					pages:1,
-				    getMoreWay:1
+				    getMoreWay:1,
+					// 城市的id
+					searchDistrictid:''
 			}
 		},
 		onLoad(options){
 			this.setData(options);
+			console.log(options)
 			this.getALlList();
 		},
 		computed:{
@@ -182,6 +185,7 @@
 					user_lng:that.longitude,
 					user_lat:that.latitude,
 			 		sort_juli:that.distantOrder,
+					user_city_id:that.searchDistrictid,
 			 		keywords:that.searchKey
 			 	},(res)=>{
 			 		if(res.state ==0){

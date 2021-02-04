@@ -1,19 +1,19 @@
 <template>
-	<view class="uni-indexPage" @tap.stop="visible = false">
+	<view class="uni-indexPage" >
 	   <view  :style="{height:marginTop}" style="width:750rpx;background-color: #fff;position: fixed;left:0rpx;top:0rpx;z-index: 10;"></view>
        <view class="uni-search-box" style="width:750rpx;background-color: #fff;position: fixed;z-index:10;left:0rpx;" :style="{height:heights,top:marginTop}">
-			<view class="left" @tap.stop="visible = true" >
+			<view class="left"  >
 				<view  class="backsBox" @tap.stop="backs">
 					<image class="cancel" src="../../static/image/pink-back.png"></image>
 				</view>
-				<text class="addressValues">金华市</text>
-				<image  class="images" src="../../static/image/index-search-arrow.png"></image>
+			<!-- 	<text class="addressValues">{{districtNames}}</text>
+				<image  class="images" src="../../static/image/index-search-arrow.png"></image> -->
 			</view>
 			<view class="right"  >
 				<image class="images" @tap.stop="setInput"  src="../../static/image/index-search-search.png"></image>
 				<input class="inputs" confirm-type="search" @focus="getInput" @confirm="setInput" v-model="searchValue"  placeholder-style="font-size:26rpx;color:#A8A8A8" placeholder="搜索"/>
 			</view>
-			<view class="cancel" @tap.stop="searchValue=''">取消</view>
+			<!-- <view class="cancel" @tap.stop="searchValue=''">取消</view> -->
 	   </view>	
 	   <view style="width: 750rpx;" :style="{height:marginTop}"></view>
 	   <view class="uni-content"  :style='{"margin-top":heights}'>
@@ -21,8 +21,10 @@
 				<view class="list"  @tap.stop="getJump(index)">{{item}}</view>
 			</view>
 	   </view>
-	</view>
-		
+	  
+	  
+	   
+	</view>		
 </template>
 
 <script>
@@ -31,13 +33,30 @@
 			return { 
 				searchValue:'',
 				searchList:[1],
+				mainList:[],
 				id:'',
 				longitude:'',
-				latitude:''
+				latitude:'',
+				districtNames:'',
+				visible:false,
+				stystemDeviceH:'',
+				province:[],
+				city:[],
+				addFlag1:true,
+				county:[],
+				cityIndex:110000,
+				cityName:'',
+				countyIndex:110100,
+				countyName:'',
+				areaName:'',
+				areaIndex:'',
+				searchDistrictid:'',
+				indicatorStyle: `text-align:center;height: ${Math.round(uni.getSystemInfoSync().screenWidth/(750/100))}px;width:250rpx`,
 			}
 		},
 		onLoad(options){
 			this.setData(options);
+			console.log(this.searchDistrictid)
 			if(uni.getStorageSync('searchs')){
 				let aa=uni.getStorageSync('searchs')
 				if(aa.length>10){
@@ -47,8 +66,10 @@
 				}
 				this.searchList=uni.getStorageSync('searchs')
 			}
-			console.log(this.longitude)
-			console.log(this.latitude)
+			// 地址图标的高度
+			 this.stystemDeviceH=(Math.round(uni.getSystemInfoSync().screenWidth/(750/100))*2+'rpx');
+			 this.getAddress();
+			
 		 
 		},
 		computed:{
@@ -97,18 +118,18 @@
 			getJump(index){
 				let values=this.searchList[index]
 				uni.redirectTo({
-					url:'/pages/index/searchList?searchKey='+values+'&longitude='+this.longitude+'&latitude='+this.latitude
+					url:'/pages/index/searchList?searchKey='+values+'&longitude='+this.longitude+'&latitude='+this.latitude+'&searchDistrictid='+this.searchDistrictid
 				})
 			},
-			search(){
-				console.log('search')
-			}
+			
+		
 		}
 	}
 </script>
 
 <style scoped lang="scss">
     @import "../../static/scss/common.scss";
+	
    .uni-indexPage{
 	   position: relative;;
 	   left: 0rpx;
@@ -157,11 +178,11 @@
 		   .right{
 			  display: flex;
 			  height: 88rpx;
-			  width: 280rpx;
+			  width: 420rpx;
 			  align-items: center;
 			  height: 60rpx;
 			  background-image: url(http://zxyp.hzbixin.cn/files/6731607417392135.jpg);
-			  background-size: 280rpx  60rpx;
+			  background-size: 420rpx  60rpx;
 			  background-repeat: no-repeat;
 			  margin-left:30rpx;
 			   .images{
@@ -172,10 +193,9 @@
 				
 				   }
 			   .inputs{
-				   width: 220rpx;
+				   width: 420rpx;
 				   height: 60rpx;
 				   border-radius: 20rpx;
-				   // color:#A8A8A8;  
 				   color: #222;
 			   }
 		   }

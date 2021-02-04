@@ -2,71 +2,71 @@
 	<view class="uni-commissionDetailList">
 		<view class="uni-titles">
 			<view class="titles">
-				小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g          			
+				{{msgList.remark}}        			
 			</view>
-			<view class="valBox"><text class="values">+</text>¥25</view>
+			<view class="valBox"><text class="values" v-if="typeid==1">+</text><text class="values" v-if="typeid==2">-</text>{{msgList.amonut}}</view>
 		</view>
 		<view class="contentsBox">
 			<view class="list">
 				<view class="uni-left">会员编号</view>
-				<view class="uni-right">15685135855</view>
+				<view class="uni-right">{{msgList.uid}}</view>
 			</view>
 			 <view class="list">
 				<view class="uni-left">会员昵称</view>
-				<view class="uni-right">无敌元气妹</view>
+				<view class="uni-right">{{msgList.nickname}}</view>
 			</view>
 			<view class="list">
 				<view class="uni-left">服务名称</view>
-				<view class="uni-right">超声波美白(豪华套装)</view>
+				<view class="uni-right">{{msgList.service_name}}</view>
 			</view>
 			<view class="list">
 				<view class="uni-left">医疗机构全称</view>
-				<view class="uni-right">VVGGH口腔医疗机构(下沙江滨店)</view>
+				<view class="uni-right">{{msgList.store_name}}</view>
 			</view>
 			<view class="list">
 				<view class="uni-left">订单编号</view>
-				<view class="uni-right">15685135855</view>
+				<view class="uni-right">{{msgList.order_sn}}</view>
 			</view>
 			<view class="list">
 				<view class="uni-left">支付时间</view>
-				<view class="uni-right">2020年12月4日13:12:51</view>
+				<view class="uni-right">{{msgList.pay_time}}</view>
 			</view>
 			<view class="list">
 				<view class="uni-left">服务总价</view>
-				<view class="uni-right">¥6743元</view>
+				<view class="uni-right">¥{{msgList.total}}元</view>
 			</view>
 			<view class="list">
 				<view class="uni-left">应付金额</view>
-				<view class="uni-right">¥¥6000元元</view>
+				<view class="uni-right">¥{{msgList.total_price}}元</view>
 			</view>
 			<view class="list">
-				<view class="uni-left">医疗机构折扣</view>
-				<view class="uni-right">98折</view>
+				<view class="uni-left">医疗机构佣金</view>
+				<view class="uni-right">{{msgList.store_yongjin_real}}元</view>
 			</view>
 			<view class="list">
 				<view class="uni-left">代言人折扣</view>
-				<view class="uni-right">95折</view>
+				<view class="uni-right">{{msgList.daiyan_yongjin_real}}元</view>
 			</view>
 			<view class="list">
-				<view class="uni-left">合伙人折扣</view>
-				<view class="uni-right">95折</view>
+				<view class="uni-left">合伙人佣金</view>
+				<view class="uni-right">{{msgList.hehuo_yongjin_real}}元</view>
 			</view>
 			<view class="list">
-				<view class="uni-left">平台折扣</view>
-				<view class="uni-right">85折</view>
+				<view class="uni-left">平台佣金</view>
+				<view class="uni-right">{{msgList.pingtai_yongjin_real}}元</view>
 			</view>
 			<view class="list">
 				<view class="uni-left">实付金额</view>
-				<view class="uni-right">¥6743元</view>
+				<view class="uni-right">¥{{msgList.total_price}}元</view>
 			</view>
 			<view class="list">
 				<view class="uni-left">获得佣金</view>
-				<view class="red">¥6743元</view>
+				<view class="red">¥{{msgList.amonut}}元</view>
 			</view>
-			<view class="list">
+			<!-- <view class="list">
 				<view class="uni-left">获得专属商品兑换券</view>
 				<view class="red">3份</view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -75,14 +75,31 @@
 	export default {
 		data() {
 			return {
-				index:''
+				index:'',
+				link_type:'',
+				link_id:'',
+				msgList:[],
+				typeid:''
 			}
 		},
 		onLoad(options){
 			this.setData(options);
+			console.log(options)
+			this.getData()
 		},
 		methods:{
-				
+				getData(){
+					let that=this;
+					that.$http.post('mini/v1/user/brokerageinfo',{
+						link_type:that.link_type,
+						link_id:that.link_id
+					},(res)=>{
+						if(res.state==0){
+							that.msgList=res.data.list[0]
+							console.log(that.msgList)
+						}
+					})
+				}
 		}
 	}
 </script>

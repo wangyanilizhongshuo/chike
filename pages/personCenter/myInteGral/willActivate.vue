@@ -1,17 +1,30 @@
 <template>
 	<view class="uni-willActivate">
 		<view class="box">
-			<view  class="list" v-for="(item,index) in 6" :key="index">
+			<!-- <view  class="list" v-for="(item,index) in dataList1" :key="index">
 				<view class="uni-left">
-					<image class="imgs" src="../../../static/image/index-diamond.png"></image>
+					<image class="imgs" :src="item.avatar"></image>
 				    <view class="rights">
-						<view class="top">无敌元气妹</view>
-						<view class="down">15236214785</view>
+						<view class="top">{{item.nickname}}</view>
+						<view class="down">{{item.phone}}</view>
 					</view>
 				</view>
 				<view class="uni-right">
-					<view class="topss">待激活1000积分</view>
-					<view class="downss">注册时间2020年11月4日</view>
+					<view class="topss">待激活{{item.active_integral}}积分</view>
+					<view class="downss">注册时间{{item.add_time}}</view>
+				</view>
+			</view> -->
+			<view  class="list" v-for="(item,index) in dataList2" :key="index">
+				<view class="uni-left">
+					<image class="imgs" :src="item.avatar"></image>
+				    <view class="rights">
+						<view class="top">{{item.nickname}}</view>
+						<view class="down">{{item.phone}}</view>
+					</view>
+				</view>
+				<view class="uni-right">
+					<view class="topss">待激活{{item.active_integral}}积分</view>
+					<view class="downss">注册时间{{item.add_time}}</view>
 				</view>
 			</view>
 		</view>
@@ -22,13 +35,47 @@
 	export default {
 		data() {
 			return {
-				
+				// dataList1:[],
+				dataList2:[],
+				pages:1,
+				pageV:1
 			}
 		},
 		onLoad(){
+			// this.getList1();
+			this.getList2();
+		},
+		onReachBottom(){
+			if(this.pagesV==0){
+				this.pages+=1;
+				this.getList2();
+			}
 			
 		},
 		methods:{
+			// getList1(){
+			// 	this.$http.post('mini/v1/user/integralingmy',{},(res)=>{
+			// 		if(res.state==0){
+			// 			this.dataList1=res.data.list;
+			// 			console.log(this.dataList1)
+			// 		}
+			// 	})
+			// },
+			getList2(){
+				let that=this;
+				that.$http.post('mini/v1/user/integralingspread',{
+					page:that.pages,
+				},(res)=>{
+						 if(res.state==0){
+							that.pagesV=res.data.is_request;
+							if(res.data.is_request==0){
+								let aa = res.data.list;
+								let bb = that.dataList2;
+								that.dataList2 = bb.concat(aa)
+							}
+						 }
+				})
+			}
 			
 		}
 	}

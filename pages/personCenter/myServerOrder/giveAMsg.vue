@@ -1,14 +1,18 @@
 <template>
 	<view class="uni-myOpinion">
 		 <view class="contentBox">
-			  <textarea class="textArea"  placeholder-style="color:#888;font-size:28rpx;"  placeholder="请描述具体问题..."></textarea>
-		      <view class="photoBox">
-				 <image @tap.stop="getChoiceImg" v-if="ImageUrl" class="bgImg" :src="ImageUrl"></image>
-				  <image @tap.stop="getChoiceImg" v-if="!ImageUrl" class="bgImg" src=" http://zxyp.hzbixin.cn/files/57201608258002243.jpg"></image>
-			      <image class="cancelImg" src="http://zxyp.hzbixin.cn/files/84791608261985467.jpg"></image>
-			  </view>
+			  <textarea class="textArea" v-model="textAreas"  placeholder-style="color:#888;font-size:28rpx;"  placeholder="请描述具体问题..."></textarea>
+		     <view class="photoBox">
+				  <view class="image-box" v-for="(item,index) in imgList" :key="index">
+					  <image  class="bgImg" @tap.stop="preview(index)" :src="item"></image>
+					  <image class="cancelImg"  @tap="delPhoto(index)" src="http://zxyp.hzbixin.cn/files/86531608258070513.jpg"></image>
+				  </view>
+				  <view class="image-box" v-if="imgList.length >=0 && imgList.length<2">
+					 <image @tap.stop="getChoiceImg"  class="bgImg" src="http://zxyp.hzbixin.cn/files/57201608258002243.jpg"></image>
+		           </view>
+		     </view>
 		 </view>
-		 <view class="btnSub" @tap.stop="jumps">提交</view>
+		 <view class="btnSub" @tap.stop="btnSubmits">提交</view>
 	</view>
 </template>
 
@@ -16,47 +20,75 @@
 	export default {
 		data() {
 			return {
-				ImageUrl:''
+				imgList:[],
+				soId:'',
+				storeId:'',
+				textAreas:'',
+				upImgList:[]
 			}
 		},
-		onLoad(){
+		onLoad(options){
+			this.setData(options)
 			
 		},
 		methods: {
 			getChoiceImg(){
 				let _that = this;
 				uni.chooseImage({
-					count: 1, //上传图片的数量，默认是9
+					count: 3, //上传图片的数量，默认是9
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album', 'camera'], //从相册选择
 					success: function(res) {
 						const tempFilePaths = res.tempFilePaths; //拿到选择的图片，是一个数组
-							_that.ImageUrl=tempFilePaths[0];
-						
-						// tempFilePaths.map(sos => {
-						// 	uni.uploadFile({
-						// 		url: 'https://yaofangme.hzbixin.cn/Updimg/upload',
-						// 		filePath: sos,
-						// 		name: 'file',
-								
-						// 		success: function(datas) {
-						// 			let results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
-						// 			let aa = results.data[0];
-						// 			if(type ==1){
-						// 			  _that.positiveImage=aa;
-						// 			}
-									
-						// 		},
-						// 		fail: function(datas) {}
-						// 	})
-					 // })
+							_that.imgList=_that.imgList.concat(res.tempFilePaths)
+							console.log(_that.imgList)
+						tempFilePaths.map(sos => {
+							uni.uploadFile({
+								url: 'https://chikehometest.hzbixin.cn/mini/v1/overt/uploadimg',
+								filePath: sos,
+								name: 'file',
+								formData: {
+									'filetype':'feedback'
+								},
+								success: function(datas) {
+									let results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
+									let aa = results.data.imgpath;
+									_that.upImgList.push(aa);
+									console.log(_that.upImgList)
+								},
+								fail: function(datas) {
+									console.log(3333)
+								}
+							})
+					 })
 					},
 					
 				})
 			},
-			jumps(){
-				uni.redirectTo({
-					url:'/pages/personCenter/myOpinion/opinionSuccess'
+			// 照片删除
+			delPhoto(index){
+					let arr = this.upImgList;
+					let arrs=this.imgList;
+					arrs.splice(index,1);
+					arr.splice(index, 1);
+					this.upImgList = arr;
+					this.imgList=arrs;
+				
+			},
+			btnSubmits(){
+				let that=this;
+				that.$http.post('mini/v1/service/leave',{
+					so_id:that.soId,
+					store_id:that.storeId,
+					content:that.textAreas,
+					imgs:that.upImgList
+					
+				},(res)=>{
+					if(res.state==0){
+						uni.redirectTo({
+							url:'/pages/personCenter/myOpinion/opinionSuccess?typesName='+13
+						})
+					}
 				})
 			}
 		}
@@ -93,6 +125,31 @@
 		border-radius: 45rpx;
 	}
 }
+// .photoBox{
+// 	padding:40rpx 0rpx;
+// 	position: relative;
+// 	left:0rpx;
+// 	top:0rpx;
+// 	width: 750rpx;
+// 	box-sizing: border-box;
+// 	background-color: #fff;
+// 	display: flex;
+// 	flex-wrap: wrap;
+// 	.bgImg{
+// 		display: block;
+// 		width: 150rpx;
+// 		height: 150rpx;
+// 		margin-left: 30rpx;;
+// 	}
+// 	.cancelImg{
+// 		display: block;
+// 		width: 40rpx;
+// 		height: 40rpx;
+// 		position: absolute;
+// 		left:150rpx;
+// 		top:20rpx;
+// 	}
+// }
 .photoBox{
 	padding:40rpx 0rpx;
 	position: relative;
@@ -101,19 +158,30 @@
 	width: 750rpx;
 	box-sizing: border-box;
 	background-color: #fff;
+	display: flex;
+	flex-wrap: wrap;
+	.image-box{
+		 position: relative;
+		 top:0rpx;
+		 left:0rpx;
+		 width: 150rpx;
+		 height: 150rpx;
+		 margin-right:30rpx;
+		 margin-bottom: 20rpx;}
 	.bgImg{
 		display: block;
 		width: 150rpx;
 		height: 150rpx;
-		margin-left: 30rpx;;
+		margin:0rpx 0rpx 20rpx 30rpx;
+		border-radius: 8rpx;
 	}
 	.cancelImg{
-		display: block;
-		width: 40rpx;
-		height: 40rpx;
 		position: absolute;
-		left:150rpx;
-		top:20rpx;
+		right:-40rpx;
+		top:-15rpx;
+		width: 30rpx;
+		height: 30rpx;
+		display: block;
 	}
 }
 </style>

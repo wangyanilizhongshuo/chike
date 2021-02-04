@@ -28,9 +28,58 @@ function setData(obj) {
     });
 }
 
-
+function wxPayment(option) {
+        let options = Object.assign({
+          result: {},
+          success: () => {},
+          fail: () => {},
+          complete: () => {},
+        }, option);
+		console.log(options)
+		console.log('options')
+        uni.requestPayment({
+          
+          'nonceStr': options.result.nonceStr,
+          'package': options.result.package,
+          'signType': 'MD5',
+          'paySign': options.result.paySign,
+		  'timeStamp': options.result.timeStamp,
+          success(res) {
+            options.success(res);
+          },
+          fail(res) {
+            options.fail(res);
+          },
+          complete(res) {
+            options.complete(res);
+          }
+        });
+    }
+function urlEncode(data) {
+	    var _result = [];
+	    for (var key in data) {
+	      var value = data[key];
+	      if (value.constructor == Array) {
+	        value.forEach(function(_value) {
+	           _result.push(key + "=" + _value);
+	        });
+	      } else {
+	        _result.push(key + '=' + value);
+	      }
+	     }
+	    return _result.join('&');
+	  }
+function getShareUrlParams(params){
+	console.log(uni.getStorageSync('userId'))
+	return urlEncode(Object.assign({
+	    scene:uni.getStorageSync('userId') || 0
+	}, params));
+	
+}
 
 module.exports = {
-	setData
+	setData,
+	wxPayment,
+	getShareUrlParams
 
 }

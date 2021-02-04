@@ -9,17 +9,13 @@
 			  </view>
 			  <view class="boxs">
 				  <view class="uni-left">
-					  <image class="logo" src="../../static/image/index-diamond.png"></image>
+					  <image class="logos" src="../../static/image/index-diamonds.png"></image>
 					  <input  class="inputss" v-model="yzmvalue" placeholder-style="font-size:28rpx;color:#888" placeholder="验证码" />
 				  </view>
 				  <view class="uni-right" @tap.stop="getCode" v-if="timeFlag">获取验证码</view> 
 			      <view class="uni-right"  v-if="!timeFlag">还剩 {{timeValue}} 秒</view>
 			  </view>
-			 
-			  
-			  
 		  </view>
-		
 	  </view>
 	<button class="btnSubmit" lang="zh_CN"   open-type="getUserInfo" @getuserinfo="authorLogin">
 		 			  登录
@@ -37,11 +33,12 @@
 				timeFlag:true,
 				timeValue:60,
 				code:'',
-				openId:''
+				openId:'',
+				scenes:0
 			}
 		},
 		onLoad(){
-			
+		    
 		},
 		methods:{
 			//刚进去,就开始微信登录,后面绑定手机号
@@ -53,9 +50,11 @@
 			    //   title: "正在授权",
 			    //   mask: true
 			    // });
+				
 				let that=this;
 				that.timeValue=60;
 				console.log('comeLoinSubmit')
+				
 				uni.login({
 				  success (res) {
 				    if (res.code) {
@@ -64,38 +63,25 @@
 					   that.code =res.code;
 					    wx.getUserInfo({
 					      success: function(ress) {
-							  console.log('login22')
-					    	  console.log(ress)
-							  console.log(that.code)
-							  console.log('login22')
-					    	  that.$http.post('mini/v1/wechat/wxlogin',{
-					    		  code:that.code,
-					    		  encryptedData:ress.encryptedData,
-					    		  iv:ress.iv
-					    	  },function(res){
-					    	  	if(res.state ==0){
-									console.log('login33')
-									console.log(res.data.token)
+							  console.log('logincenter')
 								  // 微信登录成功
-								  that.openId=res.data.openid;
-								  uni.setStorageSync('token',res.data.token);
+								  that.openId=uni.getStorageSync('openId');
+								  // uni.setStorageSync('token',res.data.token);
 								  // 手机号码登录
 								  that.$http.post('mini/v1/wechat/bindmobile',{
-								     openid:that.openId,
-								  	 mobile:that.phone,
-								  	 smscode:that.yzmvalue
+									 openid:that.openId,
+									 mobile:that.phone,
+									 smscode:that.yzmvalue
 								  },(res)=>{
-								  	if(res.state==0){
-										uni.switchTab({
-											url:'/pages/index/index'
-										 })
-								  		
-								  	}
-								  	
+												if(res.state==0){
+													uni.switchTab({
+														url:'/pages/index/index'
+													 })
+													
+												}
+										
 								  })
-					    	  	}
-					    	  })
-					    	
+
 					      },
 					      fail:res=>{
 					          // 获取失败的去引导用户授权 
@@ -120,6 +106,8 @@
 					mobile:that.phone,
 					codetype:0
 				},(res)=>{
+					console.log('get验证')
+				console.log(res)
 					that.timeFlag=false;
 					setInterval(()=>{
 						that.timeValue=that.timeValue-1;
@@ -170,8 +158,14 @@
 					box-sizing: border-box;
 					justify-content: space-between;
 					.logo{
-						width: 32rpx;
-						height: 50rpx;
+						width: 52rpx;
+						height: 52rpx;
+						display: block;
+						margin-right:30rpx;
+					}
+					.logos{
+						width: 45rpx;
+						height: 39rpx;
 						display: block;
 						margin-right:30rpx;
 					}

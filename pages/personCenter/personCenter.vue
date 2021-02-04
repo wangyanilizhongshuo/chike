@@ -5,12 +5,12 @@
 			<view class="uni-head" >
 				<view class="perMsg">
 					<image class="imgs"  @tap.stop="jumps(1)" v-if="personData.avatar" :src="personData.avatar"></image>
-					<image class="imgs" @tap.stop="goLogin" v-if="!personData.avatar" src="../../static/image/head-Portraitcc.png"></image>
+					<image class="imgs" @tap.stop="goLogin" v-if="!personData.avatar" src="http://zxyp.hzbixin.cn/files/29221611907772249.jpg"></image>
 				    <view  class="mgs"   @tap.stop="jumps(1)" v-if="personData.uid">
 						<view class="top">{{personData.nickname}}</view>
 						<view class="center">
-							<image class="imgsSf" v-if="personData.user_type==2" src="../../static/image/person-centerSf2.png"></image>
-						    <image class="imgsSf" v-if="personData.user_type==1" src="../../static/image/person-centerSf1.png"></image>
+							<image class="imgsSf" v-if="personData.user_type==2" src="http://zxyp.hzbixin.cn/files/19901611908043331.jpg"></image>
+						    <image class="imgsSf" v-if="personData.user_type==1" src="http://zxyp.hzbixin.cn/files/55891611907996973.jpg"></image>
 						</view>
 						<view class="down" >用户ID：{{personData.uid }}</view>
 						<view class="down"  v-if="!personData.uid">去登录</view>
@@ -25,7 +25,7 @@
 						 <view class="values">{{personData.now_money || 0.00}}</view>
 						 <view class="field">我的余额</view>
 					 </view>
-					 <view class="first-2 style-detail" @tap.stop="jumpTop(2)">
+					 <view v-if="personData.user_type!=0" class="first-2 style-detail" @tap.stop="jumpTop(2)">
 						 <view class="values">{{personData.brokerage_price ||0.00}}</view>
 						 <view class="field">我的佣金</view>
 					 </view>
@@ -40,11 +40,11 @@
 				</view>
 			</view>
 			<view class="uni-center" >
-				    <view  class="titlexBox" style="display: none;"  @tap.stop="jumpOrder(0)">
+				    <view  class="titlexBox"   @tap.stop="jumpOrder(0)">
 						<view  class="uni-order">我的订单</view>
 						<view  class="lookAll">查看全部</view>
 					</view>
-				    <view class="center-first" style="display: none;" >
+				    <view class="center-first"  >
 						   <view  class="list" @tap.stop="jumpOrder(1)" >
 							   <image class="imgs" src="../../static/image/person-good-status-1.png"></image>
 							   <view class="fields">待付款</view>
@@ -62,7 +62,7 @@
 							   <view class="fields">售后</view>
 						   </view>
 	            	</view>
-				    <view class="center-second1"  style="display: none;">
+				    <view class="center-second1"  >
 						  <view  class="list"  @tap.stop="jumps(4)">
 							  <image class="imgs" src="../../static/image/person-center2-1.png"></image>
 							  <view class="fields">我的拼团</view>
@@ -75,13 +75,10 @@
 								  <image class="imgs" src="../../static/image/person-center2-3.png"></image>
 								  <view class="fields">我的收藏</view>
 						  </view>
-						  <view  class="list" @tap.stop="jumps(7)">
+						<view v-if="personData.user_type!=0" class="list" @tap.stop="jumps(7)">
 								  <image class="imgs" src="../../static/image/person-center2-4.png"></image>
 								  <view class="fields">我的团队</view>
 						  </view>
-				    </view>
-					<view style="width: 750rpx;height: 20rpx;"></view>
-					<view class="center-second2 " > 
 						  <view class="list" @tap.stop="jumps(8)">
 								  <image class="imgs" src="../../static/image/person-center2-5.png"></image>
 								  <view class="fields">店铺入驻</view>
@@ -97,8 +94,9 @@
 						  <view class="list" @tap.stop="jumps(11)">
 								  <image class="imgs" src="../../static/image/person-center2-8.png"></image>
 								  <view class="fields">设置</view>
-						  </view>
-                    </view>
+						  </view> 
+				    </view>
+					
 				   <view class="center-third" @tap.stop="jumps(12)" >
 				   	  <view class="list">
 				   		  <image class="imgs" src="../../static/image/person-center3-1.png"></image>
@@ -130,17 +128,22 @@
 			}
 		},
 		onLoad(){
-			console.log('comeOnload')
-		    this.getPersonMsg();
+			// this.getPersonMsg();
 		},
-		// onLoad(options){
-		// 	this.setData(options)
-		// 
-		// 	console.log(111)
 		
-		// },
 		onShow(){
+			// uni.showToast({
+			// 	title:'进去',
+			// 	duration:3000
+			// })
 			this.getPersonMsg();
+		},
+		onShareAppMessage: function () {
+		    let _this = this;
+		    return {
+		      title: "莱美牙",
+		      path: "/pages/index/index?" + _this.getShareUrlParams()
+		    };
 		},
 		methods: {
 			// 去登录
@@ -151,11 +154,26 @@
 			},
 			// 获取个人信息
 			getPersonMsg(){
+				
+				// uni.showToast({
+				// 	  title:'11111',
+				// 	  duration:1000
+				// })
+				 
 				this.$http.post('mini/v1/user/info',{},(res)=>{
+					// uni.showToast({
+					// 	title:123,
+					// 	duration:5000
+					// })
+					console.log(res)
+					console.log(123)
 					  if(res.state==0){
+						  
 						  this.personData=res.data;
-						  // 保存一下用户类型:代言人,普通用户
+						  // 保存一下用户类型:代言人,普通用户uid
 						  uni.setStorageSync('userType',res.data.user_type)
+						  uni.setStorageSync('userId',res.data.uid)
+						  uni.setStorageSync('phone',res.data.phone)
 						  // uni.setStorageSync('userPhone',res.data.phone)
 					  }
 				})
@@ -176,7 +194,7 @@
 				}
 				else if(types==4){
 					uni.navigateTo({
-						url:'/pages/personCenter/myInteGral/myInteGral'
+						url:'/pages/personCenter/myInteGral/myInteGral?jifen='+this.personData.integral+'&willjf='+this.personData.integral_active
 					})
 				}
 			},
@@ -266,8 +284,6 @@
 								success: function(datas) {
 									let results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
 									let aa = results.result;
-									
-				
 								},
 								fail: function(datas) {}
 							})
@@ -288,13 +304,13 @@
 			  background: #FFFFFF;
 			  border-radius: 8rpx;
 			  margin:0rpx 30rpx;
-			  padding:0 30rpx;
+			  // padding:0 30rpx;
 			  box-sizing: border-box;
 			  display: flex;
-			  justify-content: space-between;
+			 
 			  align-items: center;
 			  .list{
-				  width: 80rpx;
+				  width: 25%;
 				  height: 105rpx;
 				  display: flex;
 				  flex-direction: column;
@@ -313,6 +329,7 @@
 			  }
 				
 	}
+	
   .uni-person{
 	  position: relative;
 	  left:0rpx;
@@ -379,9 +396,10 @@
 				  height: 70rpx;
 				  display: flex;
 				  box-sizing: border-box;
+				  justify-content: space-between;
 				  margin:60rpx 30rpx 30rpx 30rpx;
 				  .style-detail{
-					  width: 172.5rpx;
+					 
 					  text-align: center;
 					  .values{
 						  color: #222222;
@@ -407,61 +425,32 @@
 				   @extend  %lists;
 				   font-size: 26rpx;
 				   color: #3B3B3B;
-				   padding-top:30rpx;
-				   
+				   padding:30rpx 30rpx 0rpx;
+				   justify-content: space-between;
 			   }
 			  .center-first{
 				  @extend  %lists;
 				  height:172rpx;
-				 
+				  justify-content: space-between;
 			  }
 			  .center-second1{
 				   @extend  %lists;
+				   flex-wrap: wrap;
 				   margin-top:20rpx;
 				   padding-top:40rpx;
 				  .list{
-					  width: 105rpx;
+					  margin-bottom:60rpx;
 				  }
 			  }
-			  .center-second2{
-					   @extend  %lists;
-					   // padding-top: 60rpx;
-					    padding:60rpx 30rpx 70rpx ;
-					  .list{
-						  width: 105rpx;
-					  }
-			  }
+			 
 			  .center-third{
-				  display: flex;
-				  width: 690rpx;
-				  margin-left:30rpx;
-				  height: 192rpx;
-				  border-top:20rpx solid #f2f2f2;
-				  align-items: center;
-				  padding-left:30rpx;
-				  box-sizing: border-box;
-                  border-radius: 8rpx;
-				  background-color: #fff;
+				  @extend  %lists;
+				  margin-top:20rpx;
+				  padding-top:40rpx;
 				  .list{
-					  display: flex;
-					  width: 105rpx;
-					  height: 105rpx;
-					  display: flex;
-					  flex-direction: column;
-					  justify-content: center;
-					  align-items: center;
-					  margin-right: 70rpx;
-					  .imgs{
-						  display: block;
-						  width: 60rpx;
-						  height: 60rpx;
-						  margin-bottom: 10rpx;
-					  }
-					  .fields{
-						  font-size: 26rpx;
-						  color: #3B3B3B;
-					  }
+					  margin-bottom:40rpx;
 				  }
+				  
 			  }
 			 
 		  }  

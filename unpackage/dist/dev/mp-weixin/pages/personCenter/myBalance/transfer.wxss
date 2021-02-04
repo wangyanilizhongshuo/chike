@@ -84,23 +84,27 @@
   margin-top: 117rpx;
 }
 .payBox.data-v-ede4ee74 {
-  width: 536rpx;
-  height: 521rpx;
+  width: 600rpx;
+  height: 246rpx;
   position: absolute;
-  left: 107rpx;
+  left: 75rpx;
   top: 236rpx;
   z-index: 50;
-  padding: 30rpx;
+  border-radius: 8rpx;
+  padding: 30rpx 40rpx;
   box-sizing: border-box;
   background-color: #fff;
   color: #000;
   text-align: center;
 }
-.payBox .cancelBox.data-v-ede4ee74 {
-  width: 476rpx;
+.payBox .firstLine.data-v-ede4ee74 {
+  text-align: center;
   position: relative;
   left: 0rpx;
   top: 0rpx;
+}
+.payBox .cancelBox.data-v-ede4ee74 {
+  width: 476rpx;
 }
 .payBox .cancelBox .cancel.data-v-ede4ee74 {
   display: block;
@@ -120,5 +124,20 @@
 }
 .payBox .signalBox.data-v-ede4ee74 {
   font-size: 28rpx;
+}
+.showtips.data-v-ede4ee74 {
+  width: 350rpx;
+  height: 100rpx;
+  background: #000000;
+  opacity: 0.6;
+  border-radius: 16rpx;
+  position: fixed;
+  left: 200rpx;
+  top: 400rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  text-align: center;
+  z-index: 1000;
 }
 

@@ -1,3 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -24,6 +48,16 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.payBox-mask.data-v-87be4d80, .wxPayBoxMask.data-v-87be4d80 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: #000;
+  opacity: 0.5;
+}
 .uni-serverDetail.data-v-87be4d80 {
   position: relative;
   left: 0rpx;
@@ -35,7 +69,6 @@
 }
 .style1 .listBox .list.data-v-87be4d80 {
   width: 750rpx;
-  height: 335rpx;
   padding: 30rpx 30rpx 0rpx;
   box-sizing: border-box;
 }
@@ -99,14 +132,19 @@
 }
 .ermBox.data-v-87be4d80 {
   width: 750rpx;
-  padding: 28rpx 263rpx;
+  padding: 50rpx 0rpx;
+  text-align: center;
   border-top: 2rpx solid #f2f2f2;
   border-bottom: 2rpx solid #f2f2f2;
+  color: #000000;
 }
-.ermBox .imgs.data-v-87be4d80 {
-  display: block;
-  width: 224rpx;
-  height: 224rpx;
+.ermBox .valuesCodes2.data-v-87be4d80 {
+  font-weight: bold;
+  font-size: 48rpx;
+}
+.ermBox .field2.data-v-87be4d80 {
+  margin-top: 26rpx;
+  font-size: 32rpx;
 }
 .listBoxss .lists.data-v-87be4d80 {
   width: 750rpx;
@@ -157,8 +195,158 @@
   color: #FF9A9E;
   font-size: 28rpx;
 }
+.footer .field.data-v-87be4d80 {
+  background: #FF9A9E;
+  color: #fff;
+}
 .footer .firsts.data-v-87be4d80 {
   margin-right: 28rpx;
   font-size: 24rpx;
+}
+.pay-box.data-v-87be4d80 {
+  width: 750rpx;
+  height: 530rpx;
+  padding-top: 20rpx;
+  position: fixed;
+  left: 0rpx;
+  bottom: 0rpx;
+  z-index: 20;
+  background-color: #fff;
+}
+.pay-box .title.data-v-87be4d80 {
+  width: 750rpx;
+  height: 80rpx;
+  padding: 0rpx 30rpx;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #f2f2f2;
+  text-align: center;
+  position: relative;
+  left: 0rpx;
+  top: 0rpx;
+}
+.pay-box .title .field.data-v-87be4d80 {
+  line-height: 80rpx;
+  color: #222222;
+  font-size: 28rpx;
+}
+.pay-box .title .cancel.data-v-87be4d80 {
+  display: block;
+  height: 30rpx;
+  width: 30rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 20rpx;
+}
+.pay-box .contents.data-v-87be4d80 {
+  width: 750rpx;
+  padding: 0rpx 30rpx;
+  box-sizing: border-box;
+  text-align: center !important;
+  color: #222;
+}
+.pay-box .contents .moneyBox.data-v-87be4d80 {
+  width: 690rpx;
+  text-align: center;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 40rpx;
+}
+.pay-box .contents .moneyBox .mon.data-v-87be4d80 {
+  font-size: 40rpx;
+}
+.pay-box .contents .choice-box .list.data-v-87be4d80 {
+  width: 690rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  height: 80rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.pay-box .contents .choice-box .list .left.data-v-87be4d80 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.pay-box .contents .choice-box .list .left .imgs.data-v-87be4d80 {
+  display: block;
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 30rpx;
+}
+.pay-box .contents .choice-box .list .left .field.data-v-87be4d80 {
+  font-size: 28rpx;
+}
+.pay-box .contents .choice-box .list .imgss.data-v-87be4d80 {
+  display: block;
+  width: 34rpx;
+  height: 34rpx;
+}
+.pay-box .contents .choice-box .btnss.data-v-87be4d80 {
+  width: 560rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  color: #fff;
+  border-radius: 30rpx;
+  background-color: #FF9A9E;
+  position: absolute;
+  left: 95rpx;
+  bottom: 20rpx;
+}
+.wxPayBox.data-v-87be4d80 {
+  width: 560rpx;
+  height: 520rpx;
+  position: absolute;
+  left: 95rpx;
+  top: 200rpx;
+  z-index: 30;
+  border-radius: 8rpx;
+  background-color: #fff;
+  text-align: center;
+}
+.wxPayBox .titleBox.data-v-87be4d80 {
+  width: 560rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+.wxPayBox .titleBox .cancel.data-v-87be4d80 {
+  display: block;
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 35rpx;
+  right: 30rpx;
+}
+.wxPayBox .PayTitles.data-v-87be4d80 {
+  color: #000000;
+  font-size: 30rpx;
+}
+.wxPayBox .monVlue.data-v-87be4d80 {
+  width: 560rpx;
+  margin: 10rpx 0rpx 30rpx;
+  font-size: 70rpx;
+}
+.wxPayBox .inputPsd.data-v-87be4d80 {
+  margin-bottom: 30rpx;
+}
+.showtips.data-v-87be4d80 {
+  width: 350rpx;
+  height: 100rpx;
+  background: #000000;
+  opacity: 0.6;
+  border-radius: 16rpx;
+  position: fixed;
+  left: 200rpx;
+  z-index: 1000;
+  top: 600rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  text-align: center;
 }
 

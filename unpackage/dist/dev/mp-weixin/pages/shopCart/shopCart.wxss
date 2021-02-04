@@ -1,3 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -213,10 +237,14 @@
   font-size: 28rpx;
 }
 .footer .uni-center.data-v-300b9974 {
+  width: 300rpx;
+  text-align: center;
   color: #FF0000;
   font-size: 24rpx;
 }
 .footer .uni-center .mon.data-v-300b9974 {
+  margin-left: 15rpx;
+  text-indent: 10rpx;
   font-size: 32rpx;
 }
 .footer .uni-right.data-v-300b9974 {

@@ -481,7 +481,7 @@
   margin-right: 20rpx;
 }
 .joincartBox .first .uni-left .goodBox.data-v-b99ceb18 {
-  width: 200rpx;
+  width: 280rpx;
   height: 240rpx;
   display: -webkit-box;
   display: -webkit-flex;

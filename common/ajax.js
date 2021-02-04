@@ -337,29 +337,6 @@ let request = {
     /**
     * 发起微信支付
     */
-    wxPayment(option) {
-        let options = Object.assign({
-          result: {},
-          success: () => {},
-          fail: () => {},
-          complete: () => {},
-        }, option);
-        uni.requestPayment({
-          'timeStamp': options.result.timeStamp,
-          'nonceStr': options.result.nonceStr,
-          'package': options.result.package,
-          'signType': options.result.signType,
-          'paySign': options.result.paySign,
-          success(res) {
-            options.success(res);
-          },
-          fail(res) {
-            options.fail(res);
-          },
-          complete(res) {
-            options.complete(res);
-          }
-        });
-    },
+    
 }
 export default  request 

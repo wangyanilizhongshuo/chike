@@ -9,47 +9,51 @@
 		<view style="width: 750rpx;height: 100rpx;;"></view>
 		<view class="contentBox" v-if="titleActiveIndex==0">
 			<view class="listbox">
-				<view class="list" @tap.stop="jumps" v-for="(item,index) in 10 " :key="index">
+				<view class="list" @tap.stop="jumps" v-for="(item,index) in mainList" :key="index">
 					<view  class="uni-left">
-						<image class="imgs" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+						<image class="imgs" :src="item.avatar"></image>
 					    <view class="uni-boxs">
-							<view class="uni-top">无敌元气妹</view>
-							<view class="uni-down">15236214785</view>
+							<view class="uni-top">{{item.nickname}}</view>
+							<view class="uni-down">{{item.phone}}</view>
 						</view>
 					</view>
 					<view  class="uni-right">
 						<view class="uni-tops">创建时间</view>
-						<view class="uni-downs">2020年11月4日</view>
+						<view class="uni-downs">{{item.add_time}}</view>
 					</view>
 				</view>
 			</view>
 		</view>
 	    <view class="contentBox" v-if="titleActiveIndex==1">
 			<view class="listbox">
-				<view class="list" v-for="(item,index) in 7 " :key="index">
+				<view class="list" @tap.stop="jumps" v-for="(item,index) in mainList" :key="index">
 					<view  class="uni-left">
-						<image class="imgs" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+						<image class="imgs" :src="item.avatar"></image>
 					    <view class="uni-boxs">
-							<view class="uni-top">无敌元气妹</view>
-							<view class="uni-down">15236214785</view>
+							<view class="uni-top">{{item.nickname}}</view>
+							<view class="uni-down">{{item.phone}}</view>
 						</view>
 					</view>
 					<view  class="uni-right">
 						<view class="uni-tops">创建时间</view>
-						<view class="uni-downs">2020年11月4日</view>
+						<view class="uni-downs">{{item.add_time}}</view>
 					</view>
 				</view>
 			</view>
 		</view>
         <view class="contentBox" v-if="titleActiveIndex==2">
 			<view class="listbox">
-				<view class="list" v-for="(item,index) in 3 " :key="index">
+				<view class="list" @tap.stop="jumps" v-for="(item,index) in mainList" :key="index">
 					<view  class="uni-left">
-						<image class="imgs" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+						<image class="imgs" :src="item.avatar"></image>
 					    <view class="uni-boxs">
-							<view class="uni-top">无敌元气妹</view>
-							<view class="uni-down">15236214785</view>
+							<view class="uni-top">{{item.nickname}}</view>
+							<view class="uni-down">{{item.phone}}</view>
 						</view>
+					</view>
+					<view  class="uni-right">
+						<view class="uni-tops">创建时间</view>
+						<view class="uni-downs">{{item.add_time}}</view>
 					</view>
 				</view>
 			</view>
@@ -58,21 +62,69 @@
 </template>
 
 <script>
+	import app from '../../../App.vue'
 	export default {
 		data() {
 			return {
 				titleActiveIndex:0,
-				titleList:['我的下级','我的平级','我的上级'],
+				titleList:[],
+				pages:1,
+				pageV:1,
+				mainList:[]
+			}
+		},
+		onReachBottom(){
+			if(this.pagesV==0){
+				this.pages+=1;
+				this.getList();
+			}
+			
+		},
+		onLoad(){
+			this.getList();
+			let types=uni.getStorageSync('userType');
+			if(types==1){
+				this.titleList=['我的下级','我的平级','我的上级'];
+			}else if(types==0){
+				this.titleList=['我的平级','我的上级'];
+			}else if(types==2){
+				this.titleList=['我的下级','我的平级'];
 			}
 		},
 		methods: {
 			// 头部点亮
 			getTitleActive(index){
+				this.mainList=[];
+				this.pages=1;
+				this.pageV=1;
 				this.titleActiveIndex=index;
+				this.getList()
 			},
 			jumps(){
 				uni.navigateTo({
 					url:'/pages/personCenter/myTeam/teamDetail'
+				})
+			},
+			getList(){
+				let that=this;
+				let types=uni.getStorageSync('userType');
+				that.$http.post('mini/v1/user/myteam',{
+					typeid:types==0?that.titleActiveIndex+2:that.titleActiveIndex+1,
+					page:that.pages
+				},(res)=>{
+					if(res.state==0){
+						that.pagesV=res.data.is_request;
+						if(res.data.is_request==0){
+							let aa = res.data.list;
+							console.log(aa)
+							aa.map((res)=>{
+								res.store_img=app.globalData.imgPrefixUrl+res.store_img
+							})
+							let bb = that.mainList;
+							that.mainList = bb.concat(aa);
+						}
+						console.log(that.mainList)
+					}
 				})
 			}
 		}

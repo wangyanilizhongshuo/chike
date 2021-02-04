@@ -66,8 +66,14 @@
           justify-content: space-between;
 }
 .uni-login .uni-titles .wriBox .boxs .logo.data-v-280c3f80 {
-  width: 32rpx;
-  height: 50rpx;
+  width: 52rpx;
+  height: 52rpx;
+  display: block;
+  margin-right: 30rpx;
+}
+.uni-login .uni-titles .wriBox .boxs .logos.data-v-280c3f80 {
+  width: 45rpx;
+  height: 39rpx;
   display: block;
   margin-right: 30rpx;
 }

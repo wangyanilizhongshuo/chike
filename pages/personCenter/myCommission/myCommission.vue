@@ -24,7 +24,7 @@
 			<view class="contentss">
 				<view class="first">余额记录</view>
 			    <view class="listBox">
-					<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(index)">
+					<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.link_type,item.link_id,item.typeid)">
 						<view class="uni-left">
 							<view class="uni-top">{{item.remark}}</view>
 							<view class="uni-down">{{item.change_time}}</view>
@@ -92,9 +92,9 @@
 					 })
 				 }
 			 },
-			 jumpDetail(indexs){
+			 jumpDetail(types,ids,typeID){
 				 uni.navigateTo({
-				 	url:'/pages/personCenter/myCommission/commissionDetailList?index='+indexs
+				 	url:'/pages/personCenter/myCommission/commissionDetailList?link_type='+types+'&link_id='+ids+'&typeid='+typeID
 				 })
 			 },
 			 getList(){

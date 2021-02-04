@@ -14,21 +14,23 @@
 			<view class="styless">
 				<input class="inputBox" v-model="id"  placeholder-style="color:#888;font-size:28rpx;" placeholder="请输入转赠账号" />
 			</view>
-			<view class="footer" @tap.stop="maskFlag=true">确认</view>
+			<view class="footer" @tap.stop="getPayPsd">确认</view>
 		</view>
 		<view class="moneyMask" v-if="maskFlag"></view>
 		<view class="payBox" v-if="maskFlag" >
-			<view class="cancelBox"@tap.stop="maskFlag=false">
-				<image class="cancel" src="../../../static/image/cancel.png"></image>
+			<view class="firstLine">
+				<view class="signalBox">请输入交易密码</view>
+				<view class="cancelBox"@tap.stop="maskFlag=false">
+				     <image class="cancel" src="../../../static/image/cancel.png"></image>
+		 	    </view>
 			</view>
-			<view class="zzWord">转赠</view>
-			<view class="moneyBox">47.0</view>
-			<view class="signalBox">请输入交易密码</view>
-			<view style="margin-top:24rpx;" class="item" @tap='KeyboarOpen'>
+			
+			<view style="width:462rpx;margin-top:48rpx;margin-left:39rpx;" class="item" @tap='KeyboarOpen'>
 				     <password-input :numLng='exPassword'></password-input>
 				</view>
 				<number-keyboard tdvabBar ref='KeyboarHid' @input='getPsd' psdLength='6'></number-keyboard>
 		</view>
+		<view class="showtips" v-if="tipflag">{{tipMsg}}</view>
 	</view>
 </template>
 
@@ -43,7 +45,10 @@
 				maskFlag:false,
 				moneyValue:'',
 				id:'',
-				exPassword:''
+				exPassword:'',
+				tipflag:false,
+				tipMsg:'',
+				
 			}
 		},
 		components: {
@@ -59,6 +64,35 @@
 			KeyboarOpen(e) {
 			       this.$refs.KeyboarHid.open();
 			},
+			getOpenDialog(){
+				this.maskFlag=true;
+				
+			},
+			//获取交易密码
+			getPayPsd(){
+				let that=this;
+				that.$http.post('mini/v1/user/paypasswordcheck',{},(res)=>{
+					if(res.state==0){
+						that.maskFlag=true;
+					}else{
+						uni.showModal({
+						    title: '提示',
+						    content: '您还没有设置交易密码',
+							confirmText:'设置密码',
+						    success: function (res) {
+						        if (res.confirm) {
+						            uni.navigateTo({
+						            	url:'/pages/personCenter/mySetting/mySetting'
+						            })
+						        } else if (res.cancel) {
+						            console.log('用户点击取消');
+						        }
+						    }
+						});
+					}
+					
+				})
+			},
 			//获取密码
 			getPsd(val){
 				this.exPassword = val;
@@ -71,10 +105,19 @@
 						paypassword:that.exPassword
 					},(res)=>{
 						if(res.state ==0){
+							 this.maskFlag=false;
 							 this.$refs.KeyboarHid.close();
 							 uni.redirectTo({
 							 	url:'/pages/personCenter/myOpinion/opinionSuccess?typesName='+4
 							 }) 
+						}else{
+							this.maskFlag=false;
+							this.$refs.KeyboarHid.close();
+							this.tipflag=true ;
+							this.tipMsg=res.msg
+							setTimeout(()=>{
+									this.tipflag=false
+							},3000)
 						}
 					})
 					
@@ -147,22 +190,27 @@
 	@extend  %maskBox;
 }
 .payBox{
-	width: 536rpx;
-	height: 521rpx;
+	width: 600rpx;
+	height: 246rpx;
 	position: absolute;
-	left:107rpx;
+	left:75rpx;
 	top:236rpx;
 	z-index: 50;
-	padding:30rpx;
+	border-radius: 8rpx;
+	padding:30rpx 40rpx;
 	box-sizing: border-box;
 	background-color: #fff;;
 	color: #000;
 	text-align: center;
-	.cancelBox{
-		width: 476rpx;
-        position: relative;
+	.firstLine{
+		text-align: center;
+		position: relative;
 		left:0rpx;
 		top:0rpx;
+	}
+	.cancelBox{
+		width: 476rpx;
+       
 		.cancel{
 			display: block;
 		    width: 30rpx;
@@ -184,4 +232,20 @@
 		font-size: 28rpx;;
 	}
 }
+ .showtips{
+	  width: 350rpx;
+	  height: 100rpx;
+	  background: #000000;
+	  opacity: 0.6;
+	  border-radius: 16rpx;
+	  position: fixed;
+	  left:200rpx;
+	  top:400rpx;
+	  color: #FFFFFF;
+	  font-size: 28rpx;
+	  line-height: 100rpx;
+	  text-align: center;
+	  z-index:1000;
+	  
+  }
 </style>

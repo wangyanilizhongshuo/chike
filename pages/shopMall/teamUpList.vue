@@ -1,19 +1,19 @@
 <template>
 	<view class="uni-teamUpList">
 		<view class="listBox">
-			<view class="list" v-for="(item,index) in 5" :key="index" @tap.stop="getTeam(index)">
-				  <image class="imgs uni-left" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+			<view class="list" v-for="(item,index) in pintuanList" :key="index" @tap.stop="getTeam(index)">
+				  <image class="imgs uni-left" :src="item.goods_img"></image>
 			      <view  class="uni-right">
-					  <view class="uni-first"> SY口气清新剂喷雾便携持久型去口臭口气重口腔异味 </view>
+					  <view class="uni-first">{{item.goods_name}} </view>
 					  <view class="uni-second">
 						  <view class="lefts">
 							  <view class="first">
-								  <text class="money">¥268.00</text>
-								  <text class="frontMon">¥563.40</text> 
+								  <text class="money">¥{{item.user_price}}</text>
+								  <text class="frontMon">¥{{item.price}}</text> 
 							  </view>
 							  <view class="second">
 								  <text class="pep">已有3652人拼团  </text>
-								  <text class="number">已售12535件</text> 
+								  <text class="number">已售{{item.sales}}件</text> 
 							  </view>
 						  </view>
 						  <view class="rights">去拼团</view>
@@ -25,18 +25,53 @@
 </template>
 
 <script>
+	import app from '../../App.vue'
 	export default {
 		 data () {
-			return { }
+			return {
+				pages:1,
+				pageV:1,
+				pintuanList:[]
+			}
 			},
 		 onLoad(){
+			 this.getList();
 			 
+		 },
+		 onReachBottom(){
+		 	if(this.pagesV==0){
+				console.log('bottom')
+		 		this.pages+=1;
+		 		this.getList();
+		 	}
 		 },
 		 methods:{
 			 getTeam(){
 				 uni.navigateTo({
 				 	url:'/pages/shopMall/teamDetail'
 				 })
+			 },
+			 getList(){
+				 	let that =this;
+				 	that.$http.post('mini/v1/goods/indexCombination',{
+				 		page:that.pages
+				 	},(res)=>{
+				 		if(res.state ==0){
+							that.pagesV=res.data.is_request;
+							if(res.data.is_request==0){
+								let aa = res.data.list;
+								aa.map((res)=>{
+									res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
+								})
+								let bb = that.pintuanList;
+								that.pintuanList = bb.concat(aa);
+								
+							}
+							
+				 			
+				 		}
+				 	})
+				 
 			 }
 		 }
 			

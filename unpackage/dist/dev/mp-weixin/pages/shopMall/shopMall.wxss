@@ -48,16 +48,6 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.pickerMask.data-v-2eaff474 {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10;
-  background-color: #000;
-  opacity: 0.5;
-}
 .content-second .list-Box .first.data-v-2eaff474, .content-third .list-Box .first.data-v-2eaff474, .content-second .list-Box .second.data-v-2eaff474, .content-third .list-Box .second.data-v-2eaff474, .content-second .list-Box .second .money.data-v-2eaff474, .content-third .list-Box .second .money.data-v-2eaff474, .content-second .list-Box .third.data-v-2eaff474, .content-third .list-Box .third.data-v-2eaff474 {
   padding-left: 10rpx;
   width: 200rpx;
@@ -364,7 +354,7 @@
   font-size: 24rpx;
 }
 .content-third .list-Box.data-v-2eaff474 {
-  width: 720rpx;
+  width: 750rpx;
   height: 315rpx;
   display: -webkit-box;
   display: -webkit-flex;
@@ -469,19 +459,6 @@
   z-index: 50;
   right: 30rpx;
   top: 70%;
-}
-.picker-box.data-v-2eaff474 {
-  padding: 0rpx 80rpx;
-  width: 750rpx;
-  height: 400rpx;
-  position: fixed;
-  left: 0rpx;
-  bottom: 0rpx;
-  z-index: 50;
-  background-color: #fff;
-}
-.pickBox.data-v-2eaff474 {
-  line-height: 110rpx;
 }
 .scroll-view_H.data-v-2eaff474 {
   white-space: nowrap;

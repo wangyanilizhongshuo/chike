@@ -1,3 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -25,7 +49,7 @@
 /* 透明度 */
 /* 文章场景相关 */
 .uni-server.data-v-440f723a {
-  background-color: #f2f2f2;
+  background-color: #fff;
   height: 100vh;
 }
 .titleBox.data-v-440f723a {
@@ -36,7 +60,7 @@
   background-color: #fff;
   width: 750rpx;
   height: 100rpx;
-  padding: 0rpx 175rpx;
+  padding: 0rpx 75rpx;
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -85,7 +109,6 @@
 }
 .style1 .listBox .list.data-v-440f723a {
   width: 750rpx;
-  height: 365rpx;
   padding: 30rpx;
   box-sizing: border-box;
 }
@@ -110,7 +133,7 @@
   font-size: 24rpx;
 }
 .style1 .listBox .list .uni-bottom.data-v-440f723a {
-  margin-top: 16rpx;
+  height: 60rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -142,7 +165,8 @@
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  margin-top: 46rpx;
+  height: 150rpx;
+  margin: 46rpx 0rpx 16rpx;
 }
 .style1 .listBox .list .uni-center .lefts.data-v-440f723a {
   display: block;
@@ -179,5 +203,20 @@
 }
 .style1 .listBox .list .uni-center .right .third .money.data-v-440f723a {
   font-size: 42rpx;
+}
+.showtips.data-v-440f723a {
+  width: 350rpx;
+  height: 100rpx;
+  background: #000000;
+  opacity: 0.6;
+  border-radius: 16rpx;
+  position: fixed;
+  left: 200rpx;
+  z-index: 1000;
+  top: 600rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  text-align: center;
 }
 
