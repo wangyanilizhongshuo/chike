@@ -100,6 +100,9 @@
 						<view class="allNum">共计{{item.count_num}}件商品</view>
 						<view  class="allMoney">实付款：<text class="mon">￥{{item.total_price}}</text></view>
 					</view>
+					<view class="uni-bottom">
+						<view class="toPay style1" @tap.stop="refundMoney(item.order_sn)">退款</view>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -255,6 +258,31 @@
 						
 					}
 				})
+			},
+			refundMoney(orders){
+				let that=this;
+				 uni.showModal({
+				     title: '提示',
+				     content: '确认退款?',
+				     success: function (res) {
+				         if (res.confirm) {
+				             that.$http.post('mini/v1/goods/cancelGood',{
+				             	order_sn:orders,
+				             },(res1)=>{
+								    uni.showToast({
+								        title: '申请退款成功',
+								        duration: 2000
+								    });
+				             	
+				             })
+				         } else if (res.cancel) {
+				             console.log('用户点击取消');
+				         }
+				     }
+				 });
+				
+				
+				
 			}
 			
 		}

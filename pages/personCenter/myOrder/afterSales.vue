@@ -14,7 +14,9 @@
 				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn)">
 					<view class="uni-titles">
 						<view class="left">订单编号  {{item.order_sn}}</view>
-					    <view class="right">售后</view>
+						<view class="right" v-if="item.return_status==1">售后</view>
+					    <view class="right" v-if="item.return_status==2">退款中</view>
+						<view class="right" v-if="item.return_status==3">退款成功</view>
 					</view>
 					<view class="uni-content" v-for="(item1,index1) in item.goods" :key="index1">
 						<image class="uni-left" :src="item1.goods_img"></image>
@@ -32,7 +34,7 @@
 						<view  class="allMoney">实付款：<text class="mon">￥{{item.total_price}}</text></view>
 					</view>
 					<view class="uni-timeBox" >
-						<view class="timevalue">2020年11月4日15:40:13</view>
+						<view class="timevalue">{{item.create_time}}</view>
 					    <view class="field style1" @tap.stop="refundMaskFlag=true,indexFlag=index">退款退货 </view>
 						<!-- <view class="field">退款 </view> -->
 					</view>
@@ -71,7 +73,7 @@
 				pages:1,
                 pageV:1,
 				msgList:[],
-				refundMaskFlag:true,
+				refundMaskFlag:false,
 				indexFlag:1,//选择的是哪一个
 				textValues:'',
 				expressName:'',//物流名称

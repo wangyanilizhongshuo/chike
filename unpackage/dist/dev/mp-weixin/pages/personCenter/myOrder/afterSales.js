@@ -231,6 +231,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -296,12 +298,12 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../App.vue */ 5)
 //
 //
 //
-var _default = { data: function data() {return { pages: 1, pageV: 1, msgList: [], refundMaskFlag: true, indexFlag: 1, //选择的是哪一个
+//
+//
+var _default = { data: function data() {return { pages: 1, pageV: 1, msgList: [], refundMaskFlag: false, indexFlag: 1, //选择的是哪一个
       textValues: '', expressName: '', //物流名称
       expressCode: '', //物流单号
-      signalFlag: false, signalMsg: '' };}, onLoad: function onLoad() {this.getMsg();}, onReachBottom: function onReachBottom() {if (this.pagesV == 0) {this.pages += 1;this.getMsg();}}, methods: { getMsg: function getMsg() {var that = this;that.$http.post('/mini/v1/user/orderlist', { page: that.pages, status: 4 }, function (res) {if (res.state == 0) {that.pagesV = res.data.is_request;if (res.data.is_request == 0) {var aa = res.data.list;aa.map(function (res1) {res1.goods.map(function (res2) {res2.goods_img = _App.default.globalData.imgPrefixUrl + res2.goods_img;});});var bb = that.msgList;that.msgList = bb.concat(aa);}}});}, jumpDetail: function jumpDetail(values) {uni.navigateTo({ url: '/pages/personCenter/myOrder/orderDetail?order_sn=' + values });}, btnSubmit: function btnSubmit() {console.log(this.textValues);var that = this;if (that.expressName == '' || that.expressCode == '') {that.signalFlag = true;that.signalMsg = '补充物流相关信息';setTimeout(function () {that.signalFlag = false;}, 3000);} else {that.$http.post('mini/v1/goods/cancelGood', { order_sn: that.msgList[that.indexFlag].order_sn, return_remark: that.textValues }, function (res) {});
-      }
-
+      signalFlag: false, signalMsg: '' };}, onLoad: function onLoad() {this.getMsg();}, onReachBottom: function onReachBottom() {if (this.pagesV == 0) {this.pages += 1;this.getMsg();}}, methods: { getMsg: function getMsg() {var that = this;that.$http.post('/mini/v1/user/orderlist', { page: that.pages, status: 4 }, function (res) {if (res.state == 0) {that.pagesV = res.data.is_request;if (res.data.is_request == 0) {var aa = res.data.list;aa.map(function (res1) {res1.goods.map(function (res2) {res2.goods_img = _App.default.globalData.imgPrefixUrl + res2.goods_img;});});var bb = that.msgList;that.msgList = bb.concat(aa);}}});}, jumpDetail: function jumpDetail(values) {uni.navigateTo({ url: '/pages/personCenter/myOrder/orderDetail?order_sn=' + values });}, btnSubmit: function btnSubmit() {console.log(this.textValues);var that = this;if (that.expressName == '' || that.expressCode == '') {that.signalFlag = true;that.signalMsg = '补充物流相关信息';setTimeout(function () {that.signalFlag = false;}, 3000);} else {that.$http.post('mini/v1/goods/cancelGood', { order_sn: that.msgList[that.indexFlag].order_sn, return_remark: that.textValues }, function (res) {});}
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

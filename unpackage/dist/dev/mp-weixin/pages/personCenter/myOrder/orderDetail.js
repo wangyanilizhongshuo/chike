@@ -120,20 +120,15 @@ var render = function() {
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       $event.stopPropagation()
-      _vm.refundMaskFlag = true
+      _vm.payFlag = true
     }
 
     _vm.e1 = function($event) {
       $event.stopPropagation()
-      _vm.payFlag = true
-    }
-
-    _vm.e2 = function($event) {
-      $event.stopPropagation()
       _vm.payFlag = false
     }
 
-    _vm.e3 = function($event) {
+    _vm.e2 = function($event) {
       $event.stopPropagation()
       _vm.payFlag = false
     }
@@ -172,6 +167,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
 
 
 
@@ -478,6 +476,9 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../App.vue */ 5)
 //
 //
 //
+//
+//
+//
 var numberKeyboard = function numberKeyboard() {__webpack_require__.e(/*! require.ensure | components/number-keyboard/number-keyboard */ "components/number-keyboard/number-keyboard").then((function () {return resolve(__webpack_require__(/*! @/components/number-keyboard/number-keyboard.vue */ 637));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var passwordInput = function passwordInput() {__webpack_require__.e(/*! require.ensure | components/password-input/password-input */ "components/password-input/password-input").then((function () {return resolve(__webpack_require__(/*! @/components/password-input/password-input.vue */ 630));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { defaultAddFlag: true, // 交易状况完成 0 ：'待付款 1 ','待发货 2 ','待收货 3'
       transactionNum: 4, refundMaskFlag: false, refundWay: false, returnGoods: false, textAreaValue: '', titleActiveIndex: '', order_sn: '', msgDetail: '', payFlag: false, //支付商品
       extraFlag: false, wxFlag: false, // 余额支付,输入密码
@@ -501,9 +502,7 @@ var numberKeyboard = function numberKeyboard() {__webpack_require__.e(/*! requir
           uni.showModal({ title: '提示', content: '支付密码输入错误', confirmText: '重新输入', success: function success(res) {if (res.confirm) {// 重新继续支付
                 that.exPassword = '';that.exDialogflag = true;} else if (res.cancel) {}} });} else if (res.state == 1) {that.exPassword = '';that.exDialogflag = false;that.tipflag = true;that.tipMsg = res.msg;setTimeout(function () {that.tipflag = false;}, 3000);}});}, //微信支付
     wxpays: function wxpays() {var _this = this;var callback = function callback(data) {// 发起微信支付
-        _this.wxPayment({ result: data, success: function success(data) {uni.redirectTo({ url: '/pages/personCenter/myOpinion/opinionSuccess?typesName=' + 15 });}, fail: function fail(data) {uni.redirectTo({ url: '/pages/personCenter/myOpinion/opinionSuccess?typesName=' + 16 });} });};this.$http.post('mini/v1/payment/orderpay', { order_sn: this.msgDetail.order_sn, pay_price: this.msgDetail.total_price, pay_type: 1 }, function (res) {if (res.state == 0) {var aa = res.data;callback(aa);}});}, cancelOrder: function cancelOrder(codes) {var that = this;uni.showModal({ title: '提示', content: '取消订单？', success: function success(res) {if (res.confirm) {
-            that.$http.post('mini/v1/goods/cancelGood', {
-              order_sn: codes },
+        _this.wxPayment({ result: data, success: function success(data) {uni.redirectTo({ url: '/pages/personCenter/myOpinion/opinionSuccess?typesName=' + 15 });}, fail: function fail(data) {uni.redirectTo({ url: '/pages/personCenter/myOpinion/opinionSuccess?typesName=' + 16 });} });};this.$http.post('mini/v1/payment/orderpay', { order_sn: this.msgDetail.order_sn, pay_price: this.msgDetail.total_price, pay_type: 1 }, function (res) {if (res.state == 0) {var aa = res.data;callback(aa);}});}, cancelOrder: function cancelOrder(codes) {var that = this;uni.showModal({ title: '提示', content: '取消订单？', success: function success(res) {if (res.confirm) {that.$http.post('mini/v1/goods/cancelGood', { order_sn: codes },
             function (res1) {
               if (res1.state == 0) {
                 that.tipflag = true;
@@ -520,6 +519,55 @@ var numberKeyboard = function numberKeyboard() {__webpack_require__.e(/*! requir
 
         } });
 
+
+    },
+    // 退款
+    refundMoney: function refundMoney(orders) {
+      var that = this;
+      uni.showModal({
+        title: '提示',
+        content: '确认退款?',
+        success: function success(res) {
+          if (res.confirm) {
+            that.$http.post('mini/v1/goods/cancelGood', {
+              order_sn: orders },
+            function (res1) {
+              uni.showToast({
+                title: '申请退款成功',
+                duration: 2000 });
+
+
+            });
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
+        } });
+
+    },
+    receiveGoods: function receiveGoods(codes) {
+      var that = this;
+      uni.showModal({
+        title: '提示',
+        content: '确认收货？',
+        success: function success(res) {
+          if (res.confirm) {
+            that.$http.post('mini/v1/user/confirm', {
+              order_sn: codes },
+            function (res1) {
+              if (res1.state == 0) {
+                that.tipflag = true;
+                that.tipMsg = '确认收货';
+                setTimeout(function () {
+                  that.tipflag = false;
+                }, 2000);
+
+              }
+            });
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
+
+        } });
 
     }
 

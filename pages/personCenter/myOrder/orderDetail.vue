@@ -51,8 +51,8 @@
 							</view>
 						</view>
 					</view>
-					<view class="uni-bottoms" style="height: 70rpx;margin:25rpx 0rpx;" v-if="transactionNum==2 ||transactionNum==3 " @tap.stop="refundMaskFlag=true">
-						<view class="cancel style1">退款</view>
+					<view class="uni-bottoms" style="height: 70rpx;margin:25rpx 0rpx;"  v-if="msgDetail.status==2">
+						<view class="cancel style1" @tap.stop="refundMoney(item.order_sn)">退款</view>
 					</view>
 				</view>
 					<view class="uni-bottom">
@@ -95,10 +95,13 @@
 					<view class="cancel style1"  @tap.stop="cancelOrder(msgDetail.order_sn)">取消订单</view>
 					<view class="toPay style1" @tap.stop="payFlag=true">去支付</view>
 				</view>
-				<view class="uni-bottoms" v-if="transactionNum==3">
+				<view class="uni-bottoms" v-if="msgDetail.status==3">
 					<!-- <view class="cancel style1">取消订单</view> -->
-					<view class="toPay style1">确认收货</view>
+					<view class="toPay style1" @tap.stop="receiveGoods(msgDetail.order_sn)">确认收货</view>
 				</view>
+				
+				
+				
 			</view>
 		
 		
@@ -184,6 +187,7 @@
 			console.log(this.titleActiveIndex)
 			this.setData(options);
 			this.getMsg();
+			
 		},
 		components: {
 		      numberKeyboard,
@@ -348,7 +352,56 @@
 					}
 				})
 				
-			}
+			},
+			// 退款
+			refundMoney(orders){
+				let that=this;
+				 uni.showModal({
+				     title: '提示',
+				     content: '确认退款?',
+				     success: function (res) {
+				         if (res.confirm) {
+				             that.$http.post('mini/v1/goods/cancelGood',{
+				             	order_sn:orders,
+				             },(res1)=>{
+								    uni.showToast({
+								        title: '申请退款成功',
+								        duration: 2000
+								    });
+				             	
+				             })
+				         } else if (res.cancel) {
+				             console.log('用户点击取消');
+				         }
+				     }
+				 });
+				 },
+				 receiveGoods(codes){
+				 	let that=this;
+				 	uni.showModal({
+				 	    title: '提示',
+				 	    content: '确认收货？',
+				 	    success: function (res) {
+				 			 if (res.confirm) {
+				 					that.$http.post('mini/v1/user/confirm',{
+				 						order_sn:codes
+				 					},(res1)=>{
+				 						if(res1.state==0){
+				 							that.tipflag=true ;
+				 							that.tipMsg='确认收货';
+				 							setTimeout(()=>{
+				 									that.tipflag=false
+				 							},2000)
+				 							
+				 						}
+				 					})
+				 				} else if (res.cancel) {
+				 					console.log('用户点击取消');
+				 				}
+				 			
+				 		}
+				 	})
+				 },
 			
 			// // 去支付
 			// goPay(){
