@@ -201,7 +201,7 @@
 						 that.cartSucFlag=true;
 						 setTimeout(()=>{
 						 	that.cartSucFlag=false;
-						 },2000)
+						 },1500)
 					 }
 				})	
 				

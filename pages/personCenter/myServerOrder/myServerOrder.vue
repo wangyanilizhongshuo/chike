@@ -56,7 +56,7 @@
 						</view>
 					</view>
 					<view class="uni-bottom"  >
-						<view class="fields stylesss"  @tap.stop="cancelOrder(item.so_id,2)" >取消订单</view>
+						<!-- <view class="fields stylesss"  @tap.stop="cancelOrder(item.so_id,2)" >取消订单</view> -->
 						<timePicker
 							showType="yearToMinute"
 							:beginDate=times
@@ -247,6 +247,12 @@
 					if(res.state==0){
 						that.tipflag=true ;
 						that.tipMsg='时间修改成功';
+						setTimeout(()=>{
+								that.tipflag=false
+						},3000)
+					}else {
+						that.tipflag=true ;
+						that.tipMsg=res.msg;
 						setTimeout(()=>{
 								that.tipflag=false
 						},3000)

@@ -320,6 +320,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var carousel = function carousel() {__webpack_require__.e(/*! require.ensure | components/vear-carousel/vear-carousel */ "components/vear-carousel/vear-carousel").then((function () {return resolve(__webpack_require__(/*! @/components/vear-carousel/vear-carousel */ 609));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
@@ -359,11 +365,11 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
       // 邀请人 
       scene: 0,
       // 公告列表
-      noticeList: [] };
-
-
-
-
+      noticeList: [],
+      dwDownH: '',
+      dwDownHs: ''
+      // locationFlag:false		 
+    };
   },
   components: {
     carousel: carousel },
@@ -386,14 +392,20 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
     this.moreFalg = 0;
     // 公告
     this.getNotice();
-
+    this.dwDownH = uni.getSystemInfoSync().screenHeight - 150 + 'px';
+    this.dwDownHs = uni.getSystemInfoSync().screenHeight - 210 + 'px';
+    console.log(this.dwDownH);
   },
   onShow: function onShow() {
     // 正式的时候解开
     this.pagesV = 1;
     this.pages = 1;
+    // console.log(this.locationFlag)
+    // if(this.locationFlag==false){
+    //  this.getLocation();
+    // }
+    // this.getLocation(0);	
 
-    // this.getLocation(0);		
   },
   onReachBottom: function onReachBottom() {
     if (this.pagesV == 0) {
@@ -458,10 +470,12 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
             success: function success(res) {
               if (res.confirm) {
                 //打开授权设置
+                that.locationFlag = true;
                 uni.openSetting();
               }
             },
             fail: function fail(res) {
+              that.locationFlag = false;
               console.log('fail');
 
             } });

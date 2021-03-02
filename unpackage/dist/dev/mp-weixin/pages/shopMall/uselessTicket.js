@@ -151,33 +151,71 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
       // 优惠券
-      occurFlag: true };
-
+      occurFlag: true,
+      ticketList: [],
+      pages: 1,
+      pageV: 1,
+      serverShopId: '' };
 
 
   },
-  onLoad: function onLoad() {
-    // if (this.labelList[index].active == 0) {
-    // 					   const item = {
-    // 						 ...this.labelList[index],
-    // 						 active:1
-    // 					   };
-    //       this.$set(this.labelList, index, item);
+  onLoad: function onLoad(options) {
+    this.setData(options);
+    this.getList();
+    console.log(options);
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.pagesV == 0) {
+      this.pages += 1;
+      this.getList();
+    }
   },
   methods: {
+    getList: function getList() {
+      var that = this;
+      this.$http.post('mini/v1/coupon/couponlist', {
+        cateid: 1,
+        status: 3,
+        store_id: that.serverShopId,
+        page: that.pages },
+      function (res) {
+        if (res.state == 0) {
+          that.pagesV = res.data.is_request;
+          if (res.data.is_request == 0) {
+            var aa = res.data.list;
+            var bb = that.ticketList;
+            that.ticketList = bb.concat(aa);
+          }
+
+        }
+      });
+    },
     jumps: function jumps(type) {
       if (type == 1) {
         uni.navigateTo({
-          url: '/pages/index/useRegular' });
+          url: '/pages/shopMall/useRegular' });
 
       } else {
         uni.navigateTo({
-          url: '/pages/index/uselessTicket' });
+          url: '/pages/shopMall/uselessTicket' });
 
       }
 

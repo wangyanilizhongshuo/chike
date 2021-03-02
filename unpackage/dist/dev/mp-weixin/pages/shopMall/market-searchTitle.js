@@ -186,6 +186,7 @@ var _default =
       }
       this.searchList = uni.getStorageSync('shopSearchs');
     }
+    console.log('wangyibi');
 
   },
   computed: {
@@ -211,13 +212,16 @@ var _default =
 
   methods: {
     setInput: function setInput(e) {
-      if (e.target.value) {
-        this.searchList.push(e.target.value);
+      var b = e.target.value;
+      if (b) {
+        this.searchList.push(b);
         uni.setStorageSync('shopSearchs', this.searchList);
         uni.redirectTo({
-          url: '/pages/shopMall/market-searchList' });
+          url: '/pages/shopMall/market-searchList?searchKey=' + this.searchValue });
 
       }
+
+
 
     },
     backs: function backs() {
@@ -233,9 +237,10 @@ var _default =
 
     },
     // 底下的提醒列表跳转
-    jumpList: function jumpList() {
+    jumpList: function jumpList(index) {
+      var values = this.searchList[index];
       uni.navigateTo({
-        url: '/pages/shopMall/market-searchList' });
+        url: '/pages/shopMall/market-searchList?searchKey=' + values });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

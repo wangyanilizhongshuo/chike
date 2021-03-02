@@ -1,6 +1,10 @@
 <template>
 	<view class="uni-myCustomer">
-		 <view class="contentBox">
+		<button style="margin: 0rpx;padding:0rpx;"  open-type="contact">
+		 		 <!-- <image class="imgs" style="display: inline-block;width: 60rpx;height: 60rpx;" src="../../static/image/person-center3-1.png"></image> -->
+		 		 <view class="fields">进入咨询</view>
+		 </button>
+		 <!-- <view class="contentBox">
 			  <textarea class="textArea"  placeholder-style="color:#888;font-size:28rpx;"  placeholder="请描述具体问题..."></textarea>
 		      <view class="photoBox">
 				 <image @tap.stop="getChoiceImg" v-if="ImageUrl" class="bgImg" :src="ImageUrl"></image>
@@ -8,7 +12,7 @@
 			      <image class="cancelImg" src="http://zxyp.hzbixin.cn/files/86531608258070513.jpg"></image>
 			  </view>
 		 </view>
-		 <view class="btnSub" @tap.stop="jumps">提交</view>
+		 <view class="btnSub" @tap.stop="jumps">提交</view> -->
 	</view>
 </template>
 

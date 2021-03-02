@@ -4,12 +4,12 @@
 		  <image class="imgss" src="../../static/image/login-bg.png"></image>
 	      <view class="wriBox">
 			  <view class="box">
-				  <image class="logo" src="../../static/image/index-diamond.png"></image>
+				  <image class="logo" style="width: 50rpx;height: 50rpx;display: block;" src="../../static/image/index-diamond.png"></image>
 				  <input  class="inputss" type="number" v-model="phone" placeholder-style="font-size:28rpx;color:#888" placeholder="输入手机号码" />
 			  </view>
 			  <view class="boxs">
 				  <view class="uni-left">
-					  <image class="logos" src="../../static/image/index-diamonds.png"></image>
+					  <image class="logos"  style="width: 60rpx;height: 50rpx;display: block;" src="../../static/image/index-diamonds.png"></image>
 					  <input  class="inputss" v-model="yzmvalue" placeholder-style="font-size:28rpx;color:#888" placeholder="验证码" />
 				  </view>
 				  <view class="uni-right" @tap.stop="getCode" v-if="timeFlag">获取验证码</view> 
@@ -158,20 +158,21 @@
 					box-sizing: border-box;
 					justify-content: space-between;
 					.logo{
-						width: 52rpx;
-						height: 52rpx;
+						width: 50rpx;
+						height: 50rpx;
 						display: block;
 						margin-right:30rpx;
 					}
-					.logos{
-						width: 45rpx;
-						height: 39rpx;
-						display: block;
-						margin-right:30rpx;
-					}
+					
 					.uni-left{
 						display: flex;
 						width: 300rpx;
+						.logos{
+							width: 50rpx;
+							height: 50rpx;
+							display: block;
+							margin-right:30rpx;
+						}
 					}
 					.uni-right{
 						color: #FF9A9E;

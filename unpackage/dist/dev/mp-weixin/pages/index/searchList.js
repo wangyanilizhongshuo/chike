@@ -284,10 +284,10 @@ var _default = { data: function data() {return { titleFirstActive: true, titleSe
         url: '/pages/index/index' });
 
     },
-    jumps: function jumps() {
+    jumps: function jumps(ids) {
 
       uni.navigateTo({
-        url: '/pages/index/searchDetail' });
+        url: '/pages/index/searchDetail?storeId=' + ids });
 
     },
     getPriceBtn: function getPriceBtn() {
@@ -327,7 +327,8 @@ var _default = { data: function data() {return { titleFirstActive: true, titleSe
         this.mainList = [];
         this.pages = 1;
       }
-      console.log(this.searchKey);
+      console.log(this.mainList);
+      console.log(1111);
       // 按距离排序，固定值【desc=降序，asc=升序】
       // trangleSecond==1 上(从低到高 asc)
       if (this.trangleSecond == 1 || this.trangleFirst == 1) {

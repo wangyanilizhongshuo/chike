@@ -30,7 +30,7 @@
 			 </view>
 		     </view>
 			 <view class="content-lists">
-				 <view class="list" v-for="(item,index) in mainList" :key="index" @tap.stop="jumps(index)" >
+				 <view class="list" v-for="(item,index) in mainList" :key="index" @tap.stop="jumps(item.store_id)" >
 					 <image class="imgs uni-left" :src="item.store_img"></image>
 					 <view class="uni-right">
 							 <view class="title">{{item.store_name}}</view>
@@ -126,10 +126,10 @@
 					url:'/pages/index/index'
 				})
 			},
-		     jumps(){
+		     jumps(ids){
 				
 				 uni.navigateTo({
-				 	url:'/pages/index/searchDetail'
+				 	url:'/pages/index/searchDetail?storeId='+ids
 				 })
 			 },
 			 getPriceBtn(){
@@ -169,7 +169,8 @@
 					 this.mainList=[];
 					 this.pages=1;
 				 }
-				 console.log(this.searchKey)
+				 console.log(this.mainList)
+				 console.log(1111)
 						// 按距离排序，固定值【desc=降序，asc=升序】
 						// trangleSecond==1 上(从低到高 asc)
 					if(this.trangleSecond==1 || this.trangleFirst==1){

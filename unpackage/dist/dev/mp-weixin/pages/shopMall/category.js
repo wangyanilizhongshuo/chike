@@ -262,27 +262,12 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
 //
 //
 //
-var _default = { data: function data() {return { titleActiveIndex: 0, titleList: [], contentList: [], cate_id: '', cates_ids: '', keyValue: '', pagesV: 1, pages: 1, lists: [{ url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: "云齿口腔医院", address: '下沙路521号  齿科', desc: '详情详情详情详情详情详情详情详情详情详详情详情详情详情详情详情详情详情详情详详情详情详情详情详情详情详情详情详情详' }, { url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: "云齿口腔医院", address: '下沙路521号  齿科', desc: '详情详情详情详情详情详情详情详情详情详' }, { url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: "云齿口腔医院", address: '下沙路521号  齿科', desc: '详情详情详情详情详情详情详情详情详情详' }] };}, onLoad: function onLoad(options) {this.setData(options);this.getTitleList();}, computed: { heights: function heights() {var _uni$getSystemInfoSyn = uni.getSystemInfoSync(),platform = _uni$getSystemInfoSyn.platform,statusBarHeight = _uni$getSystemInfoSyn.statusBarHeight;
-      var height = statusBarHeight + 4; //ios 24px
-      if (platform.toLowerCase() == "android") {
-        height += 4; //android 28px
-      }
-      // 胶囊高度 32px 下边框6px height 状态栏高度
-      return height + 38 + "px";
-    },
-    marginTop: function marginTop() {var _uni$getSystemInfoSyn2 =
-      uni.getSystemInfoSync(),platform = _uni$getSystemInfoSyn2.platform,statusBarHeight = _uni$getSystemInfoSyn2.statusBarHeight;
-      var height = statusBarHeight + 4;
-      if (platform.toLowerCase() == "android") {
-        height += 4;
-      }
-
-      return height + "rpx";
-    } },
-
-  onReachBottom: function onReachBottom() {
-    if (this.pagesV == 0) {
-      this.pages += 1;
+var _default = { data: function data() {return { titleActiveIndex: 0, titleList: [], contentList: [], cate_id: '', cates_ids: '', keyValue: '', pagesV: 1, pages: 1, lists: [] // erjiCatesId:''
+      // keyWords:''
+    };}, onLoad: function onLoad(options) {this.setData(options);this.getTitleList();}, computed: { heights: function heights() {var _uni$getSystemInfoSyn = uni.getSystemInfoSync(),platform = _uni$getSystemInfoSyn.platform,statusBarHeight = _uni$getSystemInfoSyn.statusBarHeight;var height = statusBarHeight + 4; //ios 24px
+      if (platform.toLowerCase() == "android") {height += 4; //android 28px
+      } // 胶囊高度 32px 下边框6px height 状态栏高度
+      return height + 38 + "px";}, marginTop: function marginTop() {var _uni$getSystemInfoSyn2 = uni.getSystemInfoSync(),platform = _uni$getSystemInfoSyn2.platform,statusBarHeight = _uni$getSystemInfoSyn2.statusBarHeight;var height = statusBarHeight + 4;if (platform.toLowerCase() == "android") {height += 4;}return height + "rpx";} }, onReachBottom: function onReachBottom() {if (this.pagesV == 0) {this.pages += 1;
       this.getConentList(2);
     }
   },
@@ -291,14 +276,17 @@ var _default = { data: function data() {return { titleActiveIndex: 0, titleList:
     backs: function backs() {
       uni.navigateBack();
     },
-    jumps: function jumps() {
+    jumps: function jumps(ids) {
       uni.navigateTo({
-        url: '/pages/shopMall/list-detail' });
+        url: '/pages/shopMall/list-detail?goodsId=' + ids });
 
     },
     // 头部点亮
-    getTitleActive: function getTitleActive(index, id) {
+    getTitleActive: function getTitleActive(index, id, name) {
+      this.keyValue = '';
       this.titleActiveIndex = index;
+      this.cates_ids = id;
+      console.log(this.cates_ids);
       this.getConentList(1);
     },
     getTitleList: function getTitleList() {
@@ -308,6 +296,8 @@ var _default = { data: function data() {return { titleActiveIndex: 0, titleList:
       function (res) {
         if (res.state == 0) {
           that.titleList = res.data.list;
+          console.log(that.titleList);
+          console.log('that.titleList');
           that.cates_ids = that.titleList[0].id;
           // 头部初始化获取之后,获取列表
           that.getConentList(1);
@@ -334,6 +324,7 @@ var _default = { data: function data() {return { titleActiveIndex: 0, titleList:
             });
             var bb = that.contentList;
             that.contentList = bb.concat(aa);
+            console.log(that.contentList);
 
           }
         }

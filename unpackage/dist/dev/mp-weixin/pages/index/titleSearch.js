@@ -188,7 +188,7 @@ var _default =
   },
   onLoad: function onLoad(options) {
     this.setData(options);
-    console.log(this.searchDistrictid);
+
     if (uni.getStorageSync('searchs')) {
       var aa = uni.getStorageSync('searchs');
       if (aa.length > 10) {
@@ -200,7 +200,7 @@ var _default =
     }
     // 地址图标的高度
     this.stystemDeviceH = Math.round(uni.getSystemInfoSync().screenWidth / (750 / 100)) * 2 + 'rpx';
-    this.getAddress();
+    // this.getAddress();
 
 
   },

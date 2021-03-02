@@ -113,9 +113,8 @@
 						is_default:flags
 					},(res)=>{
 						if(res.state==0){
-							uni.redirectTo({
-								url:'/pages/personCenter/myOpinion/opinionSuccess?typesName='+9
-							}) 
+							uni.navigateBack(
+							)
 						}
 					})
 					
@@ -126,10 +125,7 @@
 				      const val = e.detail.value;
 					 that.cityIndex=that.province[val[0]].id;
 					 that.cityName=that.province[val[0]].name;
-					 console.log('省份')
-					 console.log(that.cityIndex)
-					 console.log(that.cityName)
-					 console.log('省份')
+				
 					  that.getAddress(val);  
 				   },   
 				   getAddress(val){

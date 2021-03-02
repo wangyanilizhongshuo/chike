@@ -130,7 +130,21 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -160,18 +174,31 @@ var _default =
   data: function data() {
     return {
       // 优惠券
-      occurFlag: true };
+      occurFlag: true,
+      ticketList: [],
+      pages: 1,
+      pageV: 1,
+      serverShopId: '',
+      payAllMoney: '',
+      // 选中的红包id
+      cu_id: '' };
 
+  },
+  onLoad: function onLoad(options) {
+    this.setData(options);
+    console.log(options);
+    this.getList();
+    if (uni.getStorageSync('goodsRedId')) {
+      this.cu_id = uni.getStorageSync('goodsRedId');
+    }
 
 
   },
-  onLoad: function onLoad() {
-    // if (this.labelList[index].active == 0) {
-    // 					   const item = {
-    // 						 ...this.labelList[index],
-    // 						 active:1
-    // 					   };
-    //       this.$set(this.labelList, index, item);
+  onReachBottom: function onReachBottom() {
+    if (this.pagesV == 0) {
+      this.pages += 1;
+      this.getList();
+    }
   },
   methods: {
     jumps: function jumps(type) {
@@ -180,9 +207,86 @@ var _default =
           url: '/pages/shopMall/useRegular' });
 
       } else if (type == 2) {
+        console.log(this.serverShopId);
         uni.navigateTo({
-          url: '/pages/shopMall/uselessTicket' });
+          url: '/pages/shopMall/uselessTicket?serverShopId=' + this.serverShopId });
 
+      }
+    },
+    getList: function getList() {
+      var that = this;
+      that.$http.post('mini/v1/coupon/couponlist', {
+        cateid: 1,
+        status: 0,
+        store_id: that.serverShopId,
+        page: that.pages },
+      function (res) {
+        if (res.state == 0) {
+          that.pagesV = res.data.is_request;
+          if (res.data.is_request == 0) {
+            var aa = res.data.list;
+            aa.map(function (res) {
+              console.log('conme');
+              if (Number(res.user_value) <= Number(that.payAllMoney)) {
+                res.is_check = 0;
+
+              } else if (Number(res.user_value) >= Number(that.payAllMoney)) {
+                res.is_check = 2;
+              }
+              if (res.cu_id == that.cu_id) {
+                res.is_check = 1;
+              }
+              // if(Number(res.user_value)<= Number(that.payAllMoney)  ||res.typeid==1 ){
+              // 	res.is_check=0
+
+              // }else if(res.user_value<=that.payAllMoney&&res.typeid==2){
+              // 	res.is_check=2;
+              // }
+              // if(res.cu_id==that.cu_id){
+              // 	res.is_check=1
+              // }
+
+            });
+            var bb = that.ticketList;
+            that.ticketList = bb.concat(aa);
+            console.log(that.ticketList);
+            console.log('that.ticketList');
+          }
+        }
+      });
+    },
+    // 选中优惠券
+    getChoice: function getChoice(index) {
+      var that = this;
+      console.log(index);
+      console.log('wangyani');
+      // 将所有的票都不选中
+      that.ticketList.map(function (items, indexs, array) {
+        if (indexs !== index) {
+          if (items.is_check == 1) {
+            items.is_check = 0;
+            uni.removeStorageSync('goodsRedId');
+          }
+
+        }
+      });
+
+      if (that.ticketList[index].is_check == 0) {
+        var item = _objectSpread(_objectSpread({},
+        that.ticketList[index]), {}, {
+          is_check: 1 });
+
+        that.$set(that.ticketList, index, item);
+
+        uni.setStorageSync('goodsRedId', that.ticketList[index].cu_id);
+
+      } else if (that.ticketList[index].is_check == 1) {
+        var _item = _objectSpread(_objectSpread({},
+        that.ticketList[index]), {}, {
+          is_check: 0 });
+
+        uni.setStorageSync('goodsRedId', 0);
+        that.$set(that.ticketList, index, _item);
       }
 
     } } };exports.default = _default;

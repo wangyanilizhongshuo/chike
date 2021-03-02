@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -166,11 +166,11 @@ var _default =
 
   },
   methods: {
-    jumps: function jumps() {
-      uni.navigateTo({
-        url: '/pages/personCenter/myCommission/commissionDetailList' });
-
-    },
+    // jumps(){
+    // 	uni.navigateTo({
+    // 		url:'/pages/personCenter/myCommission/commissionDetailList'
+    // 	})
+    // },
     getList: function getList() {
       var that = this;
       that.$http.post('mini/v1/user/integrallog', {
@@ -189,7 +189,6 @@ var _default =
         }
       });
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

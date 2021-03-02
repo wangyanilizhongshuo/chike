@@ -7,13 +7,13 @@
 			</view>
 			<view class="right"  >
 				<image class="images"  src="../../static/image/index-search-search.png"></image>
-				<input class="inputs" confirm-type="search" @confirm="getTitleList(1)" v-model="keyValue"  placeholder-style="font-size:26rpx;color:#A8A8A8" placeholder="搜索"/>
+				<input class="inputs" confirm-type="search" @confirm="getConentList(1)" v-model="keyValue"  placeholder-style="font-size:26rpx;color:#A8A8A8" placeholder="搜索"/>
 			</view>
 	   </view>	
 	   <view class="uni-content"  :style='{"margin-top":heights,"padding-top":marginTop}'>
 		     <view  class="titleBox">
 				 <scroll-view class="scroll-view_H" scroll-with-animation="true"   scroll-x="true">
-					  <view class="titleList"  v-for="(item,index) in titleList" :key="index" @tap.stop="getTitleActive(index,item.goods_id)">
+					  <view class="titleList"  v-for="(item,index) in titleList" :key="index" @tap.stop="getTitleActive(index,item.id,item.name)">
 						 <view :class="titleActiveIndex ==index?'fieldActive':'field'" >{{item.name}}</view>
 						 <view v-if="titleActiveIndex ==index" class="lines"></view>
 					  </view>
@@ -22,7 +22,7 @@
 			 </view>
 		</view>
 		<view class="content-box">
-			<view class="list" v-for="(item,index) in contentList" :key="index" @tap.stop="jumps">
+			<view class="list" v-for="(item,index) in contentList" :key="index" @tap.stop="jumps(item.goods_id)">
 				 <image class="imsgs" :src="item.goods_img"></image>
 			    <view class="bottom">
 				    <view  class="smallField">{{item.goods_name}}</view>
@@ -50,25 +50,10 @@
 				keyValue:'',
 				pagesV:1,
 				pages:1,
-				lists:[{
-					url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-				    title:"云齿口腔医院",
-					address:'下沙路521号  齿科',
-					desc:'详情详情详情详情详情详情详情详情详情详详情详情详情详情详情详情详情详情详情详详情详情详情详情详情详情详情详情详情详'          
-			   	    } ,
-					{
-						url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-					    title:"云齿口腔医院",
-						address:'下沙路521号  齿科',
-						desc:'详情详情详情详情详情详情详情详情详情详'          
-					 } ,
-					{
-						url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-						title:"云齿口腔医院",
-						address:'下沙路521号  齿科',
-						desc:'详情详情详情详情详情详情详情详情详情详'          
-					} 
-					]
+				lists:[],
+				// erjiCatesId:''
+				// keyWords:''
+					
 			}
 		},
 		onLoad(options){
@@ -106,14 +91,17 @@
 			backs(){
 				uni.navigateBack()
 			},
-		    jumps(){
+		    jumps(ids){
 				 uni.navigateTo({
-				 	url:'/pages/shopMall/list-detail'
+				 	url:'/pages/shopMall/list-detail?goodsId='+ids
 				 })
 			},
 		   // 头部点亮
-		   getTitleActive(index,id){
+		   getTitleActive(index,id,name){
+			   this.keyValue='';
 			   this.titleActiveIndex=index;
+			   this.cates_ids=id;
+			   console.log(this.cates_ids)
 			   this.getConentList(1);
 		   },
 		   getTitleList(){
@@ -123,6 +111,8 @@
 			   },(res)=>{
 				   if(res.state ==0){
 					   that.titleList=res.data.list;
+					   console.log(that.titleList)
+					   console.log('that.titleList')
 					   that.cates_ids=that.titleList[0].id;
 					    // 头部初始化获取之后,获取列表
 					   that.getConentList(1);
@@ -149,6 +139,7 @@
 							})
 							let bb = that.contentList;
 							that.contentList = bb.concat(aa);
+							console.log(that.contentList)
 						
 					   }
 				   }

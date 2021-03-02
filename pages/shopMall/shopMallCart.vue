@@ -1,31 +1,24 @@
 <template>
 	<view class="uni-shopcart">
 		
-		<view class="listBox"  v-for="(item,index) in cartList" :key="index">
-			<!-- <view class="listTitle">
-				<view class="logoBox" @tap.stop="shopNameAllChoice(index)">
-					<image v-if="!item.allChoice" class="logos" src="../../static/image/shopCart-btn.png"></image>
-					<image v-if="item.allChoice" class="logos" src="../../static/image/shopCart-btnActive.png"></image>
-				</view>
-				<view class="names">{{item.store_name}}
-                 </view>
-			</view> -->
-			<side-slip class="sideSlipBox"   v-for="(items,indexs) in item.infos" :key="indexs" @remove="onRemove(index,indexs,items.cart_id)">
+		<view class="listBox"  >
+		
+			<side-slip class="sideSlipBox" v-for="(item,index) in cartList" :key="index"  @remove="onRemove(index,item.cart_id)">
 			<!-- <side-slip class="sideSlipBox" @remove="onRemove(index)" v-for="(item,index) in  3"  :key="index"> -->
 				<view class="list">
-					 <view class="uni-lefts" @tap.stop="signalChoice(index,indexs)">
-						 <image v-if="!items.choiceFlag" class="imsgs" src="../../static/image/shopCart-btn.png"></image>
-						 <image v-if="items.choiceFlag" class="imsgs" src="../../static/image/shopCart-btnActive.png"></image>
+					 <view class="uni-lefts" @tap.stop="signalChoice(index)">
+						 <image v-if="!item.choiceFlag" class="imsgs" src="../../static/image/shopCart-btn.png"></image>
+						 <image v-if="item.choiceFlag" class="imsgs" src="../../static/image/shopCart-btnActive.png"></image>
 					 </view>
-					<image class="uni-centers" :src="items.img"></image>
+					<image class="uni-centers" :src="item.goods_img"></image>
 					 <view class="uni-rights">
-						  <view class="firsts">{{items.name}}</view>
+						  <view class="firsts">{{item.goods_name}}</view>
 						  <view class="third">
-							  <view class="left">¥{{items.price}}</view>
+							  <view class="left">¥{{item.user_price}}</view>
 							  <view class="right">
-									  <view class="zuo" @tap.stop="getGoodsNum(1,index,indexs,items.cart_id,items.num)">-</view>
-									  <input class="zhong"  type="number" v-model="items.num" :maxlength="2" @blur="getGoodNumsInput($event,index,indexs,items.cart_id,items.num)"></input>
-									  <view class="you"  @tap.stop="getGoodsNum(2,index,indexs,items.cart_id,items.num)">+</view>
+									  <view class="zuo" @tap.stop="getGoodsNum(1,index,item.cart_id,item.cart_num)">-</view>
+									  <input class="zhong"  type="number" v-model="item.cart_num" :maxlength="2" @blur="getGoodNumsInput($event,index,item.cart_id)"></input>
+									  <view class="you"  @tap.stop="getGoodsNum(2,index,item.cart_id,item.cart_num)">+</view>
 							  </view>
 						  </view>
 					 </view>
@@ -55,14 +48,15 @@
 				
 				
 				// 全选
-				// allChoiceFlag:false,
+				 allChoiceFlag:false,
 				// 购物车数量
 				goodNum:1,
 				allGoodsPrice:123,
 				allGoodNum:0,
 				cartList:[],
 				cartPages:1,
-				cartPageV:1
+				cartPageV:1,
+				
 			}
 		},
 		onLoad(options){
@@ -97,129 +91,87 @@
 			// 获取购物车数据的列表
 			getList(type){
 				let that=this;
-				that.$http.post('mini/v1/service/cartlist',{},(res)=>{
+				that.$http.post('mini/v1/goods/cartList',{},(res)=>{
 					if(res.state==0){
 						 if(res.data.is_request==0){
 						 	let aa = res.data.list;
-						 	aa.map((res)=>{
+						 	aa.map((res1)=>{
 								// 店铺的全选
-								res.allChoice=false;
-								for(let i=0;i<=res.infos.length-1;i++){
-									res.infos[i].img=app.globalData.imgPrefixUrl+res.infos[i].img;
-									// 对每个商品的选中
-									res.infos[i].choiceFlag=false;
-								}
+								res1.goods_img=app.globalData.imgPrefixUrl+res1.goods_img;
+								// 对每个商品的选中
+								res1.choiceFlag=false;
 						 	})
-						 	that.cartList = aa
-							
+						 	that.cartList = aa;
 						 }else if(res.data.is_request==1){
 							 if(type==2){
 								 that.cartList=[]
 							 }
-							 
 						 }
-						
 					}
 				})
 			},
 			// 底部,全选
-			
-			// getAllChoice(){
-			// 	let that=this;
-			// 	that.allChoiceFlag=(!that.allChoiceFlag);
-			// 	// 当全选 按钮被按下了
-			// 	if(that.allChoiceFlag==true){
-			// 		that.cartList.map((item,index,array)=>{
-			// 			const bigItem={
-			// 				...this.cartList[index],
-			// 				allChoice:true
-			// 			}
-						
-			// 			// 让所有的门店title 都亮起来
-			// 			that.$set(this.cartList,index,bigItem);
-			// 			that.cartList[index].infos.map((items,indexs,arrays)=>{
-			// 				 const smallItem={
-			// 					 ...items,
-			// 					 choiceFlag:true
-			// 				 }
-			// 				 // 让门店下面的所有按钮亮起来
-			// 				  that.$set(that.cartList[index].infos,indexs,smallItem);
-			// 			})
-			// 		})
-			// 	}else if(that.allChoiceFlag==false){
-			// 		// 关闭了全选按钮
-			// 		that.cartList.map((item,index,array)=>{
-			// 			const bigItem={
-			// 				...this.cartList[index],
-			// 				allChoice:false
-			// 			}
-			// 			this.$set(this.cartList,index,bigItem);
-			// 			this.cartList[index].infos.map((items,indexs,arrays)=>{
-			// 				 const smallItem={
-			// 					 ...items,
-			// 					 choiceFlag:false
-			// 				 }
-			// 				 this.$set(this.cartList[index].infos,indexs,smallItem);
-			// 			})
-			// 		})
-			// 	}
-			// 	// 计算所有的金额
-			// 	this.getAllMoney()
+			getAllChoice(){
+				let that=this;
+				that.allChoiceFlag=!(that.allChoiceFlag);
+				console.log(that.allChoiceFlag)
+				// 当全选 按钮被按下了
+				if(that.allChoiceFlag==true){
+					that.cartList.map((items,indexs,arrays)=>{
+						that.$set(that.cartList[indexs],'choiceFlag',true)
+					})
+					console.log(that.cartList)
+				}else if(that.allChoiceFlag==false){
+					// 关闭了全选按钮
+					that.cartList.map((items,indexs,arrays)=>{
+						console.log(indexs)
+						that.$set(that.cartList[indexs],'choiceFlag',false)
+					})
+					
+				}
+				// 计算所有的金额
+				 this.getAllMoney()
 				
-			// },
+			},
 			// 购物车数量增加减少
-			getGoodsNum(style,index,indexs,ids,nums){
-			 let numbers=nums;
+			getGoodsNum(style,index,ids,nums){
+			 let numbers=Number(nums) ;
 				if(style ==1 && numbers>1){
-				   const  items={
-					   ...this.cartList[index].infos[indexs],
-					   num:numbers-=1,
-				   }
-				   this.$set(this.cartList[index].infos,indexs,items)
+				   this.$set(this.cartList[index],'cart_num',numbers-=1)
 				}
 				else if (style ==2 && numbers<99){
-                     const  items={
-						   ...this.cartList[index].infos[indexs],
-						   num:numbers+=1,
-                     }
-                     this.$set(this.cartList[index].infos,indexs,items)				
+		           this.$set(this.cartList[index],'cart_num',numbers+=1)
+                     // this.$set(this.cartList,index,items)				
 				}
 				// 对数量 进行修改
-				// if(numbers>=1  && numbers<99){
-				// 	this.$http.post('mini/v1/service/cartchange',{
-				// 			cart_id:ids,
-				// 			cart_num:numbers
-				// 	},(res)=>{
-				// 		if(res.state==0){
+				if(numbers>=1  && numbers<99){
+					this.$http.post('mini/v1/goods/changenum',{
+							cart_id:ids,
+							cart_num:numbers
+					},(res)=>{
+						if(res.state==0){
 							
-				// 		}
-				// 	})
-				// }
+						}
+					})
+				}
 				// 计算所有的金额
 				this.getAllMoney()
 				
 			},
 			// 购物车中间的输入
-			getGoodNumsInput(e,index,indexs,ids,nums){
-				let numbers=nums;
-				if(numbers<1){
-					numbers=1;
-				}
-				const  items={
-				   ...this.cartList[index].infos[indexs],
-				   num:numbers,
-				}
-				this.$set(this.cartList[index].infos,indexs,items)	;
-				// 对数量 进行修改
-		
-					// this.$http.post('mini/v1/service/cartchange',{
-					// 		cart_id:ids,
-					// 		cart_num:numbers
-					// },(res)=>{
-					// 	if(res.state==0){
-							
-					// 	}
-					// })
+			getGoodNumsInput(e,index,ids){
+				let numbers=Number(e.detail.value);
+				 if(numbers<100 && numbers>1){
+					 this.$set(this.cartList[index],'cart_num',numbers);
+					 // 对数量 进行修改
+					 	this.$http.post('mini/v1/goods/changenum',{
+					 			cart_id:ids,
+					 			cart_num:numbers
+					 	},(res)=>{
+					 		if(res.state==0){
+					 		}
+					 	})
+				 }
 				// 计算所有的金额
 				this.getAllMoney()
 				
@@ -228,25 +180,14 @@
 			getAllMoney(){
 				this.allGoodsPrice=0.00
 				let that=this;
+				let money=0.00;
 				this.cartList.map(res=>{
-					  let money=0.00;
-					res.infos.map(ress=>{
-						if(ress.choiceFlag==true){
-							 money+=ress.num*ress.price;
-							let nums=ress.num;
-							let prices=ress.price;
-							
-					      // that.masss(nums,prices)
-							 // let big=(Number(nums)*Number(prices)).toFixed(2);
-							 // this.allGoodsPrice=this.allGoodsPrice+big;
-							 // console.log(big)
-							 // console.log('big')
-							// console.log((parseFloat(nums)*parseFloat(prices)).toFixed(2))
-							//  money=parseFloat(money)+ big ;
-							// console.log(money)
-							   that.keepTwoDecimalFull(money)
-						}
-					})
+					if(res.choiceFlag==true){
+						money+=res.cart_num*res.user_price;
+						let nums=res.cart_num;
+						let prices=res.user_price;
+						that.keepTwoDecimalFull(money)
+					}
 				})
 			},
 		 masss(arg1, arg2) {
@@ -278,161 +219,57 @@
 			    s_x += '0';
 			  }
 			  this.allGoodsPrice=s_x;
-			 
+			  console.log(this.allGoodsPrice)
 			},
 			// 计算所有的数量
 			getAllNumber(){
 				this.allGoodNum=0;
 				this.cartList.map(res=>{
-					res.infos.map(ress=>{
-						if(ress.choiceFlag==true){
-							 this.allGoodNum+=1;
-						}
-					})
-				})
-			},
-			// 选中店铺,关闭其他店铺的所有内容
-			closeBtn(index){
-				this.cartList.map((item1,index1,array1)=>{
-					if(index!=index1){
-						// 对除了这个的其他店铺title消失
-						const items={
-							...this.cartList[index1],
-							allChoice:false
-						}
-						this.$set(this.cartList,index1,items)
-						item1.infos.map((items2,index2,array2)=>{
-							const item2={
-								...this.cartList[index1].infos[index2],
-								choiceFlag:false
-							}
-							this.$set(this.cartList[index1].infos,index2,item2);
-						})
+					if(res.choiceFlag==true){
+						 this.allGoodNum+=1;
 					}
 				})
 			},
 			// 购物车单选按钮
-			signalChoice(index,indexs){
-				// 除了被选中的店铺,其他的都消失
-			    this.closeBtn(index);
-				console.log(index,indexs)
-				console.log(this.cartList[index].infos[indexs].choiceFlag)
+			signalChoice(index){
 				// 单一 的选中
-				if(this.cartList[index].infos[indexs].choiceFlag==false){
-					const item={
-						...this.cartList[index].infos[indexs],
-						choiceFlag:true
-					}
-					this.$set(this.cartList[index].infos,indexs,item);
-				}else if(this.cartList[index].infos[indexs].choiceFlag==true){
-					const item={
-						...this.cartList[index].infos[indexs],
-						choiceFlag:false
-					}
-					this.$set(this.cartList[index].infos,indexs,item);
+				// console.log(this.cartList)
+				if(this.cartList[index].choiceFlag==false){
+					this.$set(this.cartList[index],'choiceFlag',true);
+				}else if(this.cartList[index].choiceFlag==true){
+					this.$set(this.cartList[index],'choiceFlag',false);
 				}
-				// 如果全部都被选中了,店铺的中的按钮会亮
-				let aa=this.cartList[index].infos;
-					let aa1=aa.every(res=>{
-						return res.choiceFlag==true
-					})
-					if(aa1==true){
-						const items={
-							...this.cartList[index],
-							allChoice:true
-						}
-						this.$set(this.cartList,index,items)
-					}else{
-						const items={
-							...this.cartList[index],
-							allChoice:false
-						}
-						this.$set(this.cartList,index,items)
-					}
 					// // 底部的全选按钮
-					// let cc=this.cartList.every(res=>{
-					//      return	res.allChoice==true
-					// })
-					// if(cc==true){
-					// 	 this.allChoiceFlag=true;
-					// }else{
-					// 	this.allChoiceFlag=false;
-					// }
-					// 计算所有的金额
-					this.getAllMoney();
-					this.getAllNumber();
-					console.log(this.cartList)
-					
-			},
-			// 商品店铺全选按钮
-			shopNameAllChoice(index){
-				  this.closeBtn(index)
-				
-				// 店铺选中里面所有的商品全部点亮
-				if(this.cartList[index].allChoice==true){
-					const items={
-						...this.cartList[index],
-						allChoice:false
-				    }
-				    this.$set(this.cartList,index,items);
-					// 关闭的商品点亮 i作为他们的节点
-					let i=0;
-					this.cartList[index].infos.map(res=>{
-						const itemss={
-							...res,
-							choiceFlag:false
-						}
-						this.$set(this.cartList[index].infos,i,itemss)
-						i++;
-					})
+				let cc=this.cartList.every(res=>{
+					 if(res.choiceFlag==true){
+						 return true
+					 }
+				})
+				if(cc==true){
+					 this.allChoiceFlag=true;
 				}else{
-					const items={
-						...this.cartList[index],
-						allChoice:true
-					}
-					this.$set(this.cartList,index,items);
-					// 所有的商品点亮 i作为他们的节点
-					let i=0;
-					this.cartList[index].infos.map(res=>{
-						const itemss={
-							...res,
-							choiceFlag:true
-						}
-						this.$set(this.cartList[index].infos,i,itemss)
-						i++;
-						
-					})
+					this.allChoiceFlag=false;
 				}
-				// 所有的店铺被选中了,底部的购物选中全选
-				// let cc=this.cartList.every(res=>{
-				//      return	res.allChoice==true
-				// })
-				// if(cc==true){
-				// 	 this.allChoiceFlag=true;
-				// }else if(cc==false){
-				// 	this.allChoiceFlag=false;
-				// }
 				// 计算所有的金额
 				this.getAllMoney();
 				this.getAllNumber();
 			},
+			
 			// 跳到订单页面 
 			btnSubmit(){
 				let arrayId=[];
 				this.cartList.map(res=>{
-					res.infos.map(ress=>{
-						if(ress.choiceFlag==true){
-							arrayId=arrayId.concat(ress.cart_id)
-						}
-					})
+					if(res.choiceFlag==true){
+						arrayId=arrayId.concat(res.cart_id)
+					}
 				})
-				this.$http.post('mini/v1/service/cartcheckbox',{
+				this.$http.post('mini/v1/goods/cartbox',{
 					cart_ids:arrayId.join(',')
 				},(res)=>{
 					if(res.state==0){
 					   uni.setStorageSync('payAllMoney',this.allGoodsPrice)
 						uni.navigateTo({
-							url:'/pages/shopCart/submitOrder'
+							url:'/pages/shopMall/confirm?source_type='+1
 						})
 					}
 					
@@ -440,9 +277,9 @@
 				
 			},
 			// 购物车数据进行删除
-			onRemove(index,indexs,id) {
+			onRemove(index,id) {
 				let that=this;
-				that.$http.post('mini/v1/service/cartdel',{
+				that.$http.post('mini/v1/goods/cartdel',{
 					cart_id:id
 				},(res)=>{
 					if(res.state==0){
@@ -467,32 +304,7 @@
 	.listBox{
 		border-top:2rpx solid #f2f2f2;
 		
-		.listTitle{
-			background-color: #fff;
-			display: flex;
-			height: 100rpx;
-			align-items: center;
-			padding-left: 30rpx;
-			width: 750rpx;;
-			box-sizing: border-box;
-			.logoBox{
-				width:50rpx;
-				height: 50rpx;
-			}
-			.logos{
-				display:block ;
-				width: 34rpx;
-				height: 34rpx;
-				margin:8rpx ;
-			}
-			.names{
-				color: #000000;
-				font-size: 34rpx;
-				font-weight: bold;
-				margin-left: 12rpx;;
-			}
-			
-		}
+		
 		.list{
 			width: 750rpx;
 			padding: 30rpx 65rpx;

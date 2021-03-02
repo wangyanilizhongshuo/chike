@@ -14,15 +14,15 @@
 	   <view class="uni-content"  :style='{"margin-top":heights,"padding-top":marginTop}'>
 		  <view class="uni-title">
 			 <view  class="left"  :style="titleFirstActive==true?'color:#FF9A9E':'color:#B6B6B6'" @tap.stop="trangleFirst=2,trangleSecond=2,titleFirstActive=(!titleFirstActive),titleSecondActive=false,titleThirdActive=false">综合排序</view>
-			 <view class="center styless" @tap.stop="getPriceBtn">
+			 <view class="center styless" @tap.stop="getPrice">
 			 				  <view class="uni-left"  :style="titleSecondActive==true?'color:#FF9A9E':'color:#B6B6B6'" >价格</view>
 			 				  <view class="uni-right">
 			 					  <view  :class="trangleFirst==0?'tangleUpActive':'trangleUp'" ></view>
 			 					  <view  :class="trangleFirst==1?'trangleDownActive':'trangleDown'" ></view>
 			 				  </view>
 			 </view>
-			 <view class="right styless" @tap.stop="getKilBtn">
-			 				  <view class="uni-left" :style="titleThirdActive==true?'color:#FF9A9E':'color:#B6B6B6'"   >距离</view>
+			 <view class="right styless" @tap.stop="getxlNum">
+			 				  <view class="uni-left" :style="titleThirdActive==true?'color:#FF9A9E':'color:#B6B6B6'"   >销量</view>
 			 				  <view class="uni-right">
 			 					  <view :class="trangleSecond==0?'tangleUpActive':'trangleUp'" class="trangleUp" ></view>
 			 					  <view :class="trangleSecond==1?'trangleDownActive':'trangleDown'" class="trangleDown" ></view>
@@ -31,13 +31,13 @@
 		    </view>	
 		</view>
 		<view class="content-box">
-			<view class="list" v-for="(item,index) in 5" :key="index" @tap.stop="jumps">
-				 <image class="imsgs" src="https://img9.51tietu.net/pic/2019-091200/143tt0ta4sr143tt0ta4sr.jpg"></image>
+			<view class="list" v-for="(item,index) in recommondList" :key="index" @tap.stop="jumps(item.goods_id)">
+				 <image class="imsgs" :src="item.goods_img"></image>
 			    <view class="bottom">
-				    <view  class="smallField">SY口气清新剂喷雾便携持久型去口臭口气重口腔异味...</view>
+				    <view  class="smallField">{{item.goods_name}}</view>
 				    <view class="bto-up">
-				    <view class="left"> ¥ <text class="mom">122.3</text></view>
-			       <view class="right">已售239件</view>
+				    <view class="left"> ¥ <text class="mom">{{item.user_price}}</text></view>
+			       <view class="right">已售{{item.sales}}件</view>
 			    </view>
 			 </view>
 		</view>
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+	import app from '../../App.vue'
 	export default {
 		 data () {
 			return { 
@@ -73,12 +74,21 @@
 						address:'下沙路521号  齿科',
 						desc:'详情详情详情详情详情详情详情详情详情详'          
 					} 
-					]
+					],
+					searchKey:'',//关键字
+					getMoreWay:'',//字段标识
+					pages:1,
+					pageV:1,
+					sortPrice:'',
+					salesOrder:'',
+					recommondList:[]
 				
 			}
 		},
 		onLoad(options){
-		  
+			this.setData(options)
+			this.getListData();
+		   console.log('1234546')
 		},
 		computed:{
 			heights(){
@@ -100,45 +110,108 @@
 				return height + "rpx"				
 			}
 		},
-		
+		onReachBottom(){
+			if(this.pagesV==0){
+				this.pages+=1;
+				this.getListData();
+			}
+			
+		},
 		methods:{
 			// 返回
 			backs(){
 				uni.navigateTo({
-					url:'/pages/index/titleSearch'
+					url:'/pages/shopMall/market-searchTitle'
 				})
 			},
-		    jumps(){
+		    jumps(ids){
 				
 				 uni.navigateTo({
-				 	url:'/pages/shopMall/list-detail'
+				 	url:'/pages/shopMall/list-detail?goodsId='+ids
 				 })
 			},
-			getPriceBtn(){
-							 this.titleFirstActive=false;
-							 this.titleThirdActive=false;
-							 this.titleSecondActive=true
-							 this.trangleSecond=2;
-							if(this.trangleFirst==1){
-								this.trangleFirst=0;
-							}else if (this.trangleFirst==0){
-								this.trangleFirst=1;
-							}else if(this.trangleFirst==2){
-								this.trangleFirst=1;
-							}
+			getPrice(){
+					 this.titleFirstActive=false;
+					 this.titleThirdActive=false;
+					 this.titleSecondActive=true
+					 this.trangleSecond=2;
+					if(this.trangleFirst==1){
+						this.trangleFirst=0;
+					}else if (this.trangleFirst==0){
+						this.trangleFirst=1;
+					}else if(this.trangleFirst==2){
+						this.trangleFirst=1;
+					}
+					this.getMoreWay=1;
+					this.getListData();
 			},
-			getKilBtn(){
-							 this.titleFirstActive=false;
-							  this.titleThirdActive=true;
-							  this.titleSecondActive=false;
-							  this.trangleFirst=2;
-							 if(this.trangleSecond==1){
-							 	this.trangleSecond=0;
-							 }else if (this.trangleSecond==0){
-							 	this.trangleSecond=1;
-							 }else if(this.trangleSecond==2){
-							 	this.trangleSecond=1;
-							 }
+			getxlNum(){
+					 this.titleFirstActive=false;
+					  this.titleThirdActive=true;
+					  this.titleSecondActive=false;
+					  this.trangleFirst=2;
+					 if(this.trangleSecond==1){
+						this.trangleSecond=0;
+					 }else if (this.trangleSecond==0){
+						this.trangleSecond=1;
+					 }else if(this.trangleSecond==2){
+						this.trangleSecond=1;
+					 }
+					 this.getMoreWay=1;
+					 this.getListData();
+			},
+			getListData(){
+				let that=this;
+				
+				let url='';
+				
+				// 这里是清除之前的数据
+				if(that.getMoreWay==1){
+					 that.recommondList=[];
+					 that.pages=1;
+					 console.log(1111443546)
+				}
+				// 价格排序,固定值:asc=升序，desc=降序，
+				// 销量不亮了,只需要价格的变化
+				if(that.trangleFirst==2){
+					that.salesOrder=''
+					if(that.trangleSecond==1){
+						that.sortPrice='desc'
+					}else if(that.trangleSecond==2){
+						that.sortPrice='desc'
+					}else if(that.trangleSecond==0){
+						that.sortPrice='asc'
+					}
+					
+				}else if(that.trangleSecond==2){
+					  that.sortPrice=''
+					if(that.trangleFirst==1){
+						that.salesOrder='desc'
+					}else if(that.trangleFirst==2){
+						that.salesOrder='desc'
+					}else if(that.trangleFirst==0){
+						that.salesOrder='asc'
+					}
+				}
+				that.$http.post('mini/v1/goods/goodslist',{
+					page:that.pages,
+					keywords:that.searchKey,
+					sort_price:that.salesOrder,
+					sort_sales:that.sortPrice,
+				},(res)=>{
+					if(res.state==0){
+						that.pagesV=res.data.is_request;
+						if(res.data.is_request==0){
+							let aa = res.data.list;
+							aa.map((res)=>{
+								res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
+							})
+							let bb = that.recommondList;
+							that.recommondList = bb.concat(aa)
+							console.log(that.recommondList)
+						}
+					}
+				})
 			}
 		}
 	}

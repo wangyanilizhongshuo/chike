@@ -1,22 +1,35 @@
 <template>
 	<view class="uni-serverTicket" >
-		<view class="uni-useLessTicker uni-TicketStyle">
-			<view class="ticket-box" v-for="(item,index) in ticketList" :key="index">
-				<view class="box" >
-					<view class="left">
-						<view class="money activess">{{item.value}}</view>
-						<view class="detaisls">
-							<view class="first activess" >RMB</view>
-							<view class="second activess">{{item.title}}</view>
-							<view class="third">使用时间：{{item.expiration}}前使用</view>
-						</view>
+		
+		<view class="ticketBox" v-for="(item,index) in ticketList" :key="index">
+			<view class="ticketList" @tap.stop="getChoice(index)">
+				<view class="uni-tops">
+					<view class="uni-lefts">
+						 <image class="left1" src="http://zxyp.hzbixin.cn/files/81531613971952490.jpg" mode=""></image>
+						 <view class="right1">
+							 <view class="top1">服务券</view>
+							 <view class="down1">{{item.expiration}}</view>
+						 </view>
 					</view>
-					<view class="right activess">已使用</view>
+					<view class="uni-rights">
+						<view class="top2" v-if="item.typeid==1">
+							<view class="priLogo">¥</view>
+							<view class="moneyValue">{{item.value}}</view>
+						</view>
+						<view class="top2" v-if="item.typeid==2"  style="align-items: flex-end;">
+							<view class="moneyValue" style="font-size:50rpx;">{{item.value}}</view>
+							<view class="priLogo">折</view>
+						</view>
+						<view class="down2">{{item.title}}</view>
+					</view>
 				</view>
+				<view class="uni-center"></view>
+				<view class="uni-downs">
+					{{item.info}}
+				</view>
+				<image class="clickImg" v-if="item.is_check==1" src="http://zxyp.hzbixin.cn/files/21341608268240828.jpg"></image>
 			</view>
 		</view>
-		
-		
 	</view>
 </template>
 <script>
@@ -83,118 +96,107 @@
 </script>
 
 <style scoped lang="scss">
+	@import "../../static/scss/common.scss";
 	.uni-serverTicket{
-		height: 100vh;
+		// height: 100vh;
+		min-height: 100vh;
 		background-color: #f2f2f2;;
 		position: relative;
 		left:0rpx;
 		top:0rpx;
 		padding-top:40rpx;
 		box-sizing: border-box;
-		.bottom-tips{
-			width: 750rpx;
-			height: 90rpx;
-			padding:0rpx 30rpx;
-			position: fixed;
-			z-index: 10;;
-			bottom:0rpx;
-			left:0rpx;
-			box-sizing: border-box;
-			background-color: #fff;
+		
+	}
+	.uni-center{
+	
+		border:1rpx dashed #f2f2f2;
+	}
+	.ticketBox{
+		width: 750rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		
+		.ticketList{
+			width: 657rpx;
+			height: 220rpx;
+			margin-bottom: 26rpx;
+			border-radius: 8rpx;
 			display: flex;
-		    align-items: center;
-			justify-content: space-around;
-			color: #888888;
-			font-size: 26rpx;
-			.style123{
-				width: 345rpx;
-				text-align: center;
-				height: 90rpx;
-				line-height: 90rpx;
+			flex-direction: column;
+			justify-content: space-between;
+			background-color:#fff;
+			padding:25rpx 30rpx;
+			box-sizing: border-box;
+			position: relative;
+			left:0rpx;
+			top:0rpx;
+			color: #C8C8C8;;
+			.uni-tops{
+				display: flex;
+				justify-content: space-between;
+				.uni-lefts{
+					display: flex;
+					// border: 1rpx solid red;;
+					.left1{
+						display: block;
+						width: 76rpx;
+						height: 76rpx;
+						margin-right: 22rpx;;
+					}
+					.right1{
+						height: 76rpx;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						.top1{
+							font-weight: bold;
+							
+							font-size: 32rpx;
+						}
+						.down1{
+							
+							font-size: 20rpx;
+						}
+					}
+				}
+				.uni-rights{
+				     
+					
+					font-weight: bold;
+					height: 76rpx;
+					flex-direction: column;
+					align-items: center;
+					display: flex;
+					justify-content: space-between;
+					.top2{
+						
+						display: flex;
+						justify-content: flex-start;
+						
+					  .priLogo{
+						  
+						  font-size: 20rpx;
+						  margin-right:4rpx;
+					  }
+					  .moneyValue{
+						  font-size: 30rpx;
+					  }
+					}
+					.down2{
+						font-size: 20rpx;
+						
+						font-weight: normal;
+					}
+				}
+			}
+			.uni-downs{
+				font-size: 20rpx;
+			
+				 @include ellipsis(2);
 			}
 			
-		}
-		.uni-TicketStyle{
-			width: 750rpx;
-			background-color: #f2f2f2;
-			margin-bottom:100rpx;
-			.ticket-box{
-				width: 660rpx;
-				height: 220rpx;
-				margin-bottom: 40rpx;;
-				margin-left:45rpx;
-				position: relative;
-				left:0rpx;
-				top:0rpx;
-				.clickImg{
-					display: block;
-					width: 79rpx;
-					height: 73rpx;
-					position: absolute;
-					right:0rpx;
-					top:0rpx;;
-				}
-				.active{
-					color: #EE5845;
-				}
-				.activess{
-					color: #888;;
-				}
-				.box{
-					width: 660rpx;
-					height: 220rpx;
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					padding:0rpx 25rpx 0 0rpx;
-					box-sizing: border-box;
-					background-image: url(../../static/image/ticket-bg.png);
-					background-repeat: no-repeat;
-					background-size: 660rpx 220rpx;
-					
-					.left{
-						display: flex;
-						height: 220rpx;
-						align-items: center;
-						.money{
-							font-size: 50rpx;
-							margin-right:20rpx;
-							width: 150rpx;
-							text-align: center;
-						}
-						.detaisls{
-							padding-right:35rpx;
-							box-sizing: border-box;
-							.first{
-								font-size: 28rpx;;
-							}
-							.second{
-								font-size: 40rpx;
-								margin:10rpx 0rpx;
-							}
-							.third{
-								color: #616161;
-								font-size: 20rpx;
-							}
-						}
-					}
-					.right{
-						line-height: 90rpx;
-						width: 130rpx;
-						height: 90rpx;
-						font-size: 40rpx;
-					}
-				}
-			}
-		}
-	}
-	.uni-regularBox{
-		width: 750rpx;;
-		padding:30rpx;
-		box-sizing: border-box;
-		.list{
-			color: #888;
-			margin:20rpx 0rpx;;
 		}
 	}
 </style>

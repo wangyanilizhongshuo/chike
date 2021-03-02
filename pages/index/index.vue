@@ -57,7 +57,13 @@
 			   <view class="item " :style="{'line-height':stystemDeviceH}"   v-for="(item,index) in county" :key="index">{{item.name}}</view>
 		   </picker-view-column>
 	   </picker-view>
-       <image class="backTopLogo" @tap.stop="backTop" src="http://zxyp.hzbixin.cn/files/53311608200388887.jpg"></image>
+	  <button class="kefuLogo" plain="true"  style="border:none;border-radius: 0rpx;margin: 0rpx;padding:0rpx;" :style="{top:dwDownHs}" hover-class="none"   sessionFrom="weapp"  open-type="contact">
+		   <image  class="kefuImg" @tap.stop="getKefu" src="http://zxyp.hzbixin.cn/files/51201613699863023.jpg"></image>
+	   </button>
+	  <!-- <image  class="kefuImg" :style="{top:dwDownHs}" @tap.stop="getKefu" src="http://zxyp.hzbixin.cn/files/51201613699863023.jpg">
+		   <button   open-type="contact"></button>
+	   </image> -->
+       <image :style="{top:dwDownH}" class="backTopLogo" @tap.stop="backTop" src="http://zxyp.hzbixin.cn/files/53311608200388887.jpg"></image>
 	</view>
 </template>
 <script>
@@ -101,10 +107,10 @@
 				// 邀请人 
 				scene:0,
 				// 公告列表
-			    noticeList:[]
-					 
-				 
-				 
+			    noticeList:[],
+				dwDownH:'',
+				dwDownHs:'',
+				// locationFlag:false		 
 		   }
 	},
 		components:{
@@ -128,14 +134,20 @@
 		     this.moreFalg=0;
 			 // 公告
 			 this.getNotice();
-			 
+			  this.dwDownH= (uni.getSystemInfoSync().screenHeight-150)+'px';
+			  this.dwDownHs= (uni.getSystemInfoSync().screenHeight-210)+'px';
+			  console.log(this.dwDownH)
 		},
 		onShow(){
 			// 正式的时候解开
 			 this.pagesV=1;
 			 this.pages=1;
-			
-			 // this.getLocation(0);		
+			 // console.log(this.locationFlag)
+			 // if(this.locationFlag==false){
+				//  this.getLocation();
+			 // }
+			 // this.getLocation(0);	
+				
 		},
 		onReachBottom(){
 			if(this.pagesV==0){
@@ -200,10 +212,12 @@
 					        success(res){
 					            if (res.confirm) {
 					                //打开授权设置
+									that.locationFlag=true
 					                uni.openSetting();
 					            }
 					        },
 							fail(res){
+								that.locationFlag=false
 								console.log('fail')
 								
 							}
@@ -603,8 +617,21 @@
 	height: 100rpx;
 	position: fixed;
 	right:0rpx;
-	top:90%;
+	// top:90%;
 	
 }
+.kefuLogo{
+	position: fixed;
+	right:0rpx;
+	// top:85%;
+	.kefuImg{
+	
+		display: block;
+	    width: 100rpx;
+	    height: 100rpx;
+	}
+	
+}
+
 
 </style>

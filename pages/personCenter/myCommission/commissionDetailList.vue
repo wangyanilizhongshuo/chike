@@ -31,7 +31,7 @@
 				<view class="uni-left">支付时间</view>
 				<view class="uni-right">{{msgList.pay_time}}</view>
 			</view>
-			<view class="list">
+			<view class="list" v-if="brokerage_type==1" >
 				<view class="uni-left">服务总价</view>
 				<view class="uni-right">¥{{msgList.total}}元</view>
 			</view>
@@ -39,19 +39,27 @@
 				<view class="uni-left">应付金额</view>
 				<view class="uni-right">¥{{msgList.total_price}}元</view>
 			</view>
-			<view class="list">
+			<view class="list" v-if="brokerage_type==1" >
 				<view class="uni-left">医疗机构佣金</view>
 				<view class="uni-right">{{msgList.store_yongjin_real}}元</view>
 			</view>
-			<view class="list">
+			<view class="list" v-if="brokerage_type==1">
 				<view class="uni-left">代言人折扣</view>
 				<view class="uni-right">{{msgList.daiyan_yongjin_real}}元</view>
 			</view>
-			<view class="list">
+			<view class="list" v-if="brokerage_type==2">
+				<view class="uni-left">代言人折扣</view>
+				<view class="uni-right">{{msgList.daiyan_yongjin}}元</view>
+			</view>
+			<view class="list"  v-if="brokerage_type==1">
 				<view class="uni-left">合伙人佣金</view>
 				<view class="uni-right">{{msgList.hehuo_yongjin_real}}元</view>
 			</view>
-			<view class="list">
+			<view class="list"  v-if="brokerage_type==2">
+				<view class="uni-left">合伙人佣金</view>
+				<view class="uni-right">{{msgList.hehuo_yongjin}}元</view>
+			</view>
+			<view class="list" v-if="brokerage_type==1">
 				<view class="uni-left">平台佣金</view>
 				<view class="uni-right">{{msgList.pingtai_yongjin_real}}元</view>
 			</view>
@@ -79,7 +87,7 @@
 				link_type:'',
 				link_id:'',
 				msgList:[],
-				typeid:''
+				brokerage_type:''
 			}
 		},
 		onLoad(options){
@@ -92,7 +100,8 @@
 					let that=this;
 					that.$http.post('mini/v1/user/brokerageinfo',{
 						link_type:that.link_type,
-						link_id:that.link_id
+						link_id:that.link_id,
+						brokerage_type:that.brokerage_type
 					},(res)=>{
 						if(res.state==0){
 							that.msgList=res.data.list[0]

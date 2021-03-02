@@ -67,6 +67,11 @@
           align-items: center;
   color: #B6B6B6;
   font-size: 28rpx;
+  position: fixed;
+  left: 0rpx;
+  top: 0rpx;
+  z-index: 100;
+  background-color: #fff;
 }
 .uni-content .uni-title .styless.data-v-288fb7da {
   display: -webkit-box;

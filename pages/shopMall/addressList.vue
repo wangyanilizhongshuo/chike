@@ -2,7 +2,7 @@
 	<view class="uni-addressList">
 		<view class="listBox">
 			<side-slip class="sideSlipBox"  @remove="onRemove(items.id)" v-for="(items,indexs) in listData" :key="indexs">
-				<view class="list"  >
+				<view class="list"  @tap.stop="choices(items.id)" >
 					<view class="uni-top">
 						<view class="left">{{items.real_name}}</view>
 						<view class="center">{{items.phone}}</view>
@@ -25,11 +25,15 @@
 		 data () {
 			return { 
 				defaultAddFlag:false,
-				listData:[]
+				listData:[],
+				from:''
 			}
 		 },
-		 onLoad() {
-		 	this.getList();
+		 onLoad(options) {
+			 this.setData(options)
+		 },
+		 onShow(){
+			 this.getList(); 
 		 },
 		 components: {
 		 	'side-slip': SideSlip
@@ -52,6 +56,15 @@
 						 
 					 }
 				 })
+			 },
+			 //商品购物选中返回
+			 choices(ids){
+				 if(this.from=='shangpin'){
+					 uni.setStorageSync('shangpinAddId',ids)
+					 // if(uni.getStorageSync('shangpinAddId')!=''){
+						  uni.navigateBack()
+					 // }
+				 }
 			 },
 			 // 选择默认地址
 			 getDefault(ids){

@@ -345,9 +345,9 @@
   line-height: 50rpx;
   text-align: center;
   background: #EE5845;
-  border-radius: 4rpx;
+  border-radius: 8rpx;
   color: #fff;
-  margin-left: 40rpx;
+  margin: 0 20rpx;
 }
 .content-third .titles .more.data-v-2eaff474 {
   color: #888888;

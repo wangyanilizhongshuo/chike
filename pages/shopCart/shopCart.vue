@@ -235,16 +235,7 @@
 							 money+=ress.num*ress.price;
 							let nums=ress.num;
 							let prices=ress.price;
-							
-					      // that.masss(nums,prices)
-							 // let big=(Number(nums)*Number(prices)).toFixed(2);
-							 // this.allGoodsPrice=this.allGoodsPrice+big;
-							 // console.log(big)
-							 // console.log('big')
-							// console.log((parseFloat(nums)*parseFloat(prices)).toFixed(2))
-							//  money=parseFloat(money)+ big ;
-							// console.log(money)
-							   that.keepTwoDecimalFull(money)
+							that.keepTwoDecimalFull(money)
 						}
 					})
 				})

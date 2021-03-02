@@ -1,28 +1,57 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-				"path": "pages/index/index",
+			
+			{
+					"path": "pages/index/index",
+					"style": {
+						"navigationStyle":"custom"
+					}
+			 },
+			 {
+			   "path" : "pages/personCenter/myOpinion/opinionSuccess",
+			   "style" :                                                                                    
+			   {
+			 				 "navigationBarTitleText": "意见反馈",
+			 				 "navigationBarBackgroundColor":"#fff",
+			 				 "navigationBarTextStyle":"black"
+			   }
+			 							  
+			 },
+			{
+				"path": "pages/shopCart/ticket",
 				"style": {
-					"navigationStyle":"custom"
+					"navigationBarTitleText": "服务券",
+					"navigationBarBackgroundColor":"#fff",
+					"navigationBarTextStyle":"black"
 				}
-		},
-		{
-			"path": "pages/shopMall/shopMallCart",
-			"style": {
-				"navigationBarTitleText": "购物车",
-				"navigationBarBackgroundColor":"#fff",
-				"navigationBarTextStyle":"black"
-			}
-		},
-		{
-				"path" : "pages/index/logins",
-				"style" :                                                                                    
-				{
-				   "navigationBarTitleText": "登录",
-				   "navigationBarBackgroundColor":"#fff",
-				   "navigationBarTextStyle":"black"
+			},
+			{
+				"path": "pages/shopCart/uselessTicket",
+				"style": {
+					"navigationBarTitleText": "服务券",
+					"navigationBarBackgroundColor":"#fff",
+					"navigationBarTextStyle":"black"
 				}
-		},
+			},
+			
+			{
+					"path" : "pages/index/logins",
+					"style" :                                                                                    
+					{
+					   "navigationBarTitleText": "登录",
+					   "navigationBarBackgroundColor":"#fff",
+					   "navigationBarTextStyle":"black"
+					}
+			},
+			
+		    {
+				"path": "pages/shopMall/shopMallCart",
+				"style": {
+					"navigationBarTitleText": "购物车",
+					"navigationBarBackgroundColor":"#fff",
+					"navigationBarTextStyle":"black"
+				}
+			},
 		{
 			"path" : "pages/index/login",
 			"style" :                                                                                    
@@ -31,6 +60,16 @@
 			   "navigationBarBackgroundColor":"#fff",
 			   "navigationBarTextStyle":"black"
 			}
+		},
+		{
+				   "path" : "pages/personCenter/myOpinion/myOpinion",
+				   "style" :                                                                                    
+				   {
+					  "navigationBarTitleText": "意见反馈",
+					  "navigationBarBackgroundColor":"#fff",
+					  "navigationBarTextStyle":"black"
+				   }
+									   
 		},
 		{
 					"path" : "pages/index/noticeList",
@@ -138,16 +177,7 @@
 						 "navigationBarTextStyle":"black"
 					  }
 			 } ,
-			 {
-					   "path" : "pages/personCenter/myOpinion/myOpinion",
-					   "style" :                                                                                    
-					   {
-						  "navigationBarTitleText": "意见反馈",
-						  "navigationBarBackgroundColor":"#fff",
-						  "navigationBarTextStyle":"black"
-					   }
-							   
-			 },
+			
 			{
 				"path": "pages/index/fourLogoList",
 				"style": {
@@ -167,14 +197,7 @@
 					"navigationStyle":"custom"
 				}
 			},
-			{
-				"path": "pages/shopCart/ticket",
-				"style": {
-					"navigationBarTitleText": "服务券",
-					"navigationBarBackgroundColor":"#fff",
-					"navigationBarTextStyle":"black"
-				}
-			},
+			
 			{
 				"path" : "pages/shopCart/shopCart",
 				"style" :                                                                                    
@@ -233,16 +256,7 @@
 				
 			},
 	
-			 {
-			   "path" : "pages/personCenter/myOpinion/opinionSuccess",
-			   "style" :                                                                                    
-			   {
-				 "navigationBarTitleText": "意见反馈",
-				 "navigationBarBackgroundColor":"#fff",
-				 "navigationBarTextStyle":"black"
-			   }
-							  
-			 },
+			
 			{
 				"path" : "pages/personCenter/myMsg/myMsg",
 				"style" :                                                                                    
@@ -351,17 +365,6 @@
 				  "navigationBarTextStyle":"black"
 			  }
 		},
-		{
-			"path": "pages/shopCart/uselessTicket",
-			"style": {
-				"navigationBarTitleText": "服务券",
-				"navigationBarBackgroundColor":"#fff",
-				"navigationBarTextStyle":"black"
-			}
-		},
-
-		
-		
 		
 		{
 			"path": "pages/shopMall/goodRecommend",
@@ -630,16 +633,10 @@
 					}
 				},
 				
-				
-				
-				
-				
-				
-				
 				{
 					"path": "pages/shopMall/ticket",
 					"style": {
-						"navigationBarTitleText": "服务券",
+						"navigationBarTitleText": "商品券",
 						"navigationBarBackgroundColor":"#fff",
 						"navigationBarTextStyle":"black"
 					}

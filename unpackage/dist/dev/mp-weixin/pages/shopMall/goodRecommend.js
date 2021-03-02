@@ -192,6 +192,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -230,8 +231,23 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
 //
 //
 //
-var _default = { data: function data() {return { titleFirstActive: true, titleSecondActive: false, titleThirdActive: false, trangleFirst: 2, trangleSecond: 2, lists: [{ url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: "云齿口腔医院", address: '下沙路521号  齿科', desc: '详情详情详情详情详情详情详情详情详情详详情详情详情详情详情详情详情详情详情详详情详情详情详情详情详情详情详情详情详' }, { url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: "云齿口腔医院", address: '下沙路521号  齿科', desc: '详情详情详情详情详情详情详情详情详情详' }, { url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: "云齿口腔医院", address: '下沙路521号  齿科', desc: '详情详情详情详情详情详情详情详情详情详' }], category: '', pagesV: 1, pages: 1, recommondList: [] };}, onLoad: function onLoad(options) {this.setData(options);uni.setNavigationBarTitle({ title: this.category });
+//
+var _default = { data: function data() {return { titleFirstActive: true, titleSecondActive: false, titleThirdActive: false, trangleFirst: 2, trangleSecond: 2, lists: [{ url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: "云齿口腔医院", address: '下沙路521号  齿科', desc: '详情详情详情详情详情详情详情详情详情详详情详情详情详情详情详情详情详情详情详详情详情详情详情详情详情详情详情详情详' }, { url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: "云齿口腔医院", address: '下沙路521号  齿科', desc: '详情详情详情详情详情详情详情详情详情详' }, { url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: "云齿口腔医院", address: '下沙路521号  齿科', desc: '详情详情详情详情详情详情详情详情详情详' }], category: '', pagesV: 1, pages: 1, getMoreWay: 0, urls: '', salesOrder: '', sortPrice: '', recommondList: [] };}, onLoad: function onLoad(options) {
+    this.setData(options);
+    uni.setNavigationBarTitle({
+      title: this.category });
 
+    if (this.category == '推荐好物') {
+      this.urls = 'mini/v1/goods/indextui';
+    } else if (this.category == '硬核补贴') {
+      this.urls = 'mini/v1/goods/indexubsidy';
+    } else if (this.category == '每日特价') {
+      this.urls = 'mini/v1/goods/indexhot';
+    } else if (this.category == '发现好物') {
+      this.urls = 'mini/v1/goods/indexfind';
+    } else if (this.category == '甄选精品') {
+      this.urls = 'mini/v1/goods/indexnew';
+    }
     this.getGoodList();
   },
   computed: {
@@ -257,7 +273,8 @@ var _default = { data: function data() {return { titleFirstActive: true, titleSe
   onReachBottom: function onReachBottom() {
     if (this.pagesV == 0) {
       this.pages += 1;
-      this.getList();
+      console.log(11111);
+      this.getGoodList();
     }
 
   },
@@ -269,17 +286,18 @@ var _default = { data: function data() {return { titleFirstActive: true, titleSe
         url: '/pages/index/titleSearch' });
 
     },
-    jumps: function jumps() {
+    jumps: function jumps(ids) {
 
       uni.navigateTo({
-        url: '/pages/shopMall/list-detail' });
+        url: '/pages/shopMall/list-detail?goodsId=' + ids });
 
     },
+    // 价格排序
     getPriceBtn: function getPriceBtn() {
-      this.titleFirstActive = false;
-      this.titleThirdActive = false;
-      this.titleSecondActive = true;
-      this.trangleSecond = 2;
+      this.titleFirstActive = false; //综合
+      this.titleThirdActive = false; //距离
+      this.titleSecondActive = true; //价格
+      this.trangleSecond = 2; //让销量不亮了
       if (this.trangleFirst == 1) {
         this.trangleFirst = 0;
       } else if (this.trangleFirst == 0) {
@@ -287,8 +305,11 @@ var _default = { data: function data() {return { titleFirstActive: true, titleSe
       } else if (this.trangleFirst == 2) {
         this.trangleFirst = 1;
       }
+      this.getMoreWay = 1;
+      this.getGoodList();
     },
-    getKilBtn: function getKilBtn() {
+    // 销量排序
+    getxl: function getxl() {
       this.titleFirstActive = false;
       this.titleThirdActive = true;
       this.titleSecondActive = false;
@@ -300,31 +321,66 @@ var _default = { data: function data() {return { titleFirstActive: true, titleSe
       } else if (this.trangleSecond == 2) {
         this.trangleSecond = 1;
       }
+      this.getMoreWay = 1;
+      this.getGoodList();
     },
     getGoodList: function getGoodList() {
       var that = this;
-      if (that.category = '推荐好物') {
-        // 价格排序,固定值:asc=升序，desc=降序，
-        that.$http.post('mini/v1/goods/indextui', {
-          page: that.pages,
-          sort_price: 'asc' },
-        function (res) {
-          if (res.state == 0) {
-            that.pagesV = res.data.is_request;
-            if (res.data.is_request == 0) {
-              var aa = res.data.list;
-              aa.map(function (res) {
-                res.goods_img = _App.default.globalData.imgPrefixUrl + res.goods_img;
-              });
-              var bb = that.recommondList;
-              that.recommondList = bb.concat(aa);
-            }
-
-
-          }
-        });
-
+      var url = '';
+      // console.log(that.category)
+      // console.log(that.getMoreWay)
+      // 这里是清除之前的数据
+      if (that.getMoreWay == 1) {
+        that.recommondList = [];
+        that.pages = 1;
+        // console.log(1111443546)
       }
+      // 价格排序,固定值:asc=升序，desc=降序，
+      // 销量不亮了,只需要价格的变化
+      if (that.trangleFirst == 2) {
+        that.salesOrder = '';
+        if (that.trangleSecond == 1) {
+          that.sortPrice = 'desc';
+        } else if (that.trangleSecond == 2) {
+          that.sortPrice = 'desc';
+        } else if (that.trangleSecond == 0) {
+          that.sortPrice = 'asc';
+        }
+
+      } else if (that.trangleSecond == 2) {
+        that.sortPrice = '';
+        if (that.trangleFirst == 1) {
+          that.salesOrder = 'desc';
+        } else if (that.trangleFirst == 2) {
+          that.salesOrder = 'desc';
+        } else if (that.trangleFirst == 0) {
+          that.salesOrder = 'asc';
+        }
+      }
+      console.log(that.getMoreWay);
+      console.log(that.pages);
+      // 价格排序,固定值:asc=升序，desc=降序，
+      that.$http.post(that.urls, {
+        page: that.pages,
+        sales: that.sortPrice,
+        sort_price: that.salesOrder },
+      function (res) {
+        if (res.state == 0) {
+          that.pagesV = res.data.is_request;
+          if (res.data.is_request == 0) {
+            var aa = res.data.list;
+            aa.map(function (res) {
+              res.goods_img = _App.default.globalData.imgPrefixUrl + res.goods_img;
+            });
+            var bb = that.recommondList;
+            that.recommondList = bb.concat(aa);
+            console.log(that.recommondList);
+          }
+
+
+        }
+      });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

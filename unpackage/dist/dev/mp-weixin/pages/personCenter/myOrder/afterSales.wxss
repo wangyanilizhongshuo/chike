@@ -1,3 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -24,6 +48,31 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.refundMoneyDialog.data-v-04bd7f79 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: #000;
+  opacity: 0.5;
+}
+.showtips.data-v-04bd7f79 {
+  width: 350rpx;
+  height: 100rpx;
+  background: #000000;
+  opacity: 0.6;
+  border-radius: 16rpx;
+  position: fixed;
+  left: 200rpx;
+  z-index: 1000;
+  top: 600rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  text-align: center;
+}
 .bigBox .listBox .list.data-v-04bd7f79 {
   width: 750rpx;
   padding: 0rpx 30rpx 30rpx;
@@ -176,5 +225,67 @@
 .searchBox .inputBox .inputValue.data-v-04bd7f79 {
   color: #A8A8A8;
   font-size: 26rpx;
+}
+.style1.data-v-04bd7f79 {
+  width: 160rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border: 2rpx solid #FF9A9E;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+.refundMoneyBox.data-v-04bd7f79 {
+  position: fixed;
+  left: 0rpx;
+  bottom: 0rpx;
+  z-index: 30;
+  background-color: #fff;
+  width: 750rpx;
+  padding: 0rpx 30rpx;
+  box-sizing: border-box;
+  padding-bottom: 45rpx;
+}
+.refundMoneyBox .titleBox.data-v-04bd7f79 {
+  height: 80rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  font-size: 28rpx;
+  color: #888888;
+}
+.refundMoneyBox .titleBox .confirmBox.data-v-04bd7f79 {
+  color: #FF9A9E;
+}
+.refundMoneyBox .textareaStyle.data-v-04bd7f79 {
+  width: 690rpx;
+  height: 382rpx;
+  padding: 15rpx;
+  box-sizing: border-box;
+  background: #F3F3F3;
+  border-radius: 8rpx;
+}
+.refundMoneyBox .chioceBox .list.data-v-04bd7f79 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  color: #222222;
+  font-size: 26rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin-bottom: 30rpx;
+}
+.refundMoneyBox .chioceBox .list .field.data-v-04bd7f79 {
+  margin-right: 30rpx;
+  color: #FF9A9E;
 }
 

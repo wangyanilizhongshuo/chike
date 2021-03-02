@@ -36,9 +36,10 @@
 			
 		},
 		methods:{
-			jumps(indexs){
+			jumps(index){
+				let aa=this.msgList[index]
 				uni.navigateTo({
-					url:'/pages/personCenter/myCommission/commissionDetailList?index='+indexs
+					 url:'/pages/personCenter/myCommission/commissionDetailList?link_type='+aa.link_type+'&link_id='+aa.link_id+'&brokerage_type='+aa.brokerage_type
 				})
 			},
 			getList(){

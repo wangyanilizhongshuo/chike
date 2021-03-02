@@ -196,4 +196,9 @@
 .uni-person .uni-content .uni-center .center-third .list.data-v-502c7846 {
   margin-bottom: 40rpx;
 }
+button.data-v-502c7846::after {
+  border: none;
+  margin: 0rpx;
+  padding: 0rpx;
+}
 

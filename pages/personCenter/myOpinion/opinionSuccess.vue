@@ -3,23 +3,25 @@
 		<view class="boxBg">
 			<image class="imgs" src="http://zxyp.hzbixin.cn/files/33401608261677488.jpg"></image>
 		</view>
-		<view class="word" v-if="typesName!=12">提交成功</view>
-		<view class="word" v-if="typesName==12">提交失败</view>
+		<view class="word" v-if="occur" >提交成功</view>
+		<view class="word" v-if="!occur">提交失败</view>
+		<!-- <view class="word">{{name}}</view> -->
 		<view class="footer" @tap.stop="jumps">返回主页面</view>
 	</view>
 </template>
-
 <script>
 	export default {
 		 data () {
 			return { 
-				typesName:'',
-				name:''
+				typesName:12,
+				name:'',
+				occur:true
+				
 				}
 		},
 		onLoad(options){
-			console.log(options)
 			this.setData(options);
+			
 			if(this.typesName==1){
 				this.name='意见反馈'
 			}else if (this.typesName==2){
@@ -54,13 +56,27 @@
 			}
 			else if(this.typesName==12){
 				this.name='微信支付';
+				this.occur=false;
+				
 			}
 			else if(this.typesName==13){
 				this.name='服务订单评价';
 			}
+			else if(this.typesName==14){
+				this.name='商品购买成功';
+			}
+			else if(this.typesName==15){
+				this.name='商品购买成功';
+			}
+			else if(this.typesName==16){
+				this.name='商品购买失败';
+				this.occur=false;
+				
+			}
 			uni.setNavigationBarTitle({
 				 title:this.name
 			})
+			
 		},
 		methods:{
 			jumps(){

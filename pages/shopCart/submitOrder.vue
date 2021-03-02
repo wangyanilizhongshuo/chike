@@ -147,17 +147,17 @@
 					      cu_id:uni.getStorageSync('serverRedId') || 0
 					    } 
 			        ]
-			 
 				 that.$http.post('mini/v1/service/cartsettle',{
 					 param:JSON.stringify(arrays)
 				 },(res)=>{
 					 if(res.state==0){
+						  that.yhData=res.data;
 						  if(uni.getStorageSync('dataList')){
 							   that.dataList=uni.getStorageSync('dataList')
 						  }else{
 							    let  aa=res.data.list;
 								 that.cu_id=res.data.cu_id || 0;
-								 that.yhData=res.data;
+								
 								  aa.map((res)=>{
 									
 									for(let i=0;i<=res.infos.length-1;i++){
@@ -167,6 +167,7 @@
 								  that.dataList = aa;
 						  }
 						  that.extraPName=that.dataList[0].store_name;
+						 
 						
 					 }
 				 })
@@ -274,11 +275,13 @@
 			 payBtn(){
 			 	let that=this;
 			 	// 选择支付方式的弹框
-			 	this.payFlag=false;
+			 	
+				this.exPassword='';//输入框里面的数据清除
 			 	// 微信付款
 				// console.log(that.wxFlag)
 				// console.log(that.extraFlag)
 			 	if(that.wxFlag){
+					this.payFlag=false;
 					// 选中的小按钮
 					that.wxFlag=false;
 					// that.wxPay();
@@ -286,6 +289,7 @@
 			 	}
 			 	//余额付款
 			 	else if(that.extraFlag){
+					this.payFlag=false;
 					// 判断是否有密码
 					that.$http.post('mini/v1/user/paypasswordcheck',{},(res)=>{
 						if(res.state==0){
@@ -320,7 +324,6 @@
 				 let that=this;
 				let callback = data => {
 					// 发起微信支付
-					
 					that.wxPayment({
 						result: data,
 						success: data => {
@@ -350,7 +353,6 @@
 			 //余额支付
 			 extraPay(){
 				// payData
-				
 				let that=this;
 				console.log(that.payData)
 				console.log('that.payDat2')
@@ -363,7 +365,6 @@
 					that.exDialogflag=false;
 					that.exPassword ='';
 					if(res.state==0){
-						
 						uni.redirectTo({
 							url:'/pages/personCenter/myOpinion/opinionSuccess?typesName='+10
 						})
@@ -385,6 +386,7 @@
 						    }
 						});
 					}else if(res.state==1){
+						console.log('shijianmeiy')
 						that.exPassword='';
 						that.exDialogflag=false;
 						that.tipflag=true ;
@@ -417,31 +419,32 @@
 			 // 选择支付方式后,给一个数据
 			 sendOrder(types){
 				 let that=this;
-				 // console.log(11111)
+				  console.log(11111)
 				 let value=[];
 				let goFlag= this.dataList.every(res=>{
+					console.log(res)
 					 value.push({
 						store_id: res.store_id,
 						service_ids:res.service_ids,
 						appo_time:res.timeValue,
 						cu_id:that.redId || 0,
-						order:that.orderCode || 0
+						
 					 })
 					 
 					 return res.timeValue!=''
 				 })
-				 console.log(goFlag)
+				
 				 // 使用goFlag判断时间是否选择的正确
 				if(goFlag){
 					that.$http.post('mini/v1/service/createorder',{
-						 param:JSON.stringify((value)) 
+						 param:JSON.stringify((value)),
+						 order:that.orderCode || 0
 					},(res)=>{
 						 if(res.state==0){
 							 // 提交数据订单返回的数值,以及订单号
 							 that.payData=res.data;
 							 that.orderCode=res.data.order_sn;
-							 console.log(that.payData)
-							 console.log('11111that.payData')
+							 uni.removeStorageSync('serverRedId')//红包用完之后需要删除
 							 if(types==1){
 								 that.wxPay()
 							 }else if(types==2){

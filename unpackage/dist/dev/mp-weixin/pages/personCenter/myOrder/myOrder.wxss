@@ -1,3 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -24,6 +48,21 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.showtips.data-v-6826302e {
+  width: 350rpx;
+  height: 100rpx;
+  background: #000000;
+  opacity: 0.6;
+  border-radius: 16rpx;
+  position: fixed;
+  left: 200rpx;
+  z-index: 1000;
+  top: 400rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  text-align: center;
+}
 .titleBox.data-v-6826302e {
   position: fixed;
   left: 0rpx;
@@ -195,5 +234,8 @@
   margin-left: 20rpx;
   color: #fff;
   background: #FF9A9E;
+}
+.uni-bottom .transClose.data-v-6826302e {
+  margin-left: 20rpx;
 }
 

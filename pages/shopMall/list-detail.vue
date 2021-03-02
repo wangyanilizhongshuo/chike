@@ -5,7 +5,7 @@
 		   <view class="uni-content">
 		   <uni-swiper-dot class="swiper-dot" :info="info" mode="round "  :current="current" field="content" :mode="mode">
 		       <swiper style="width: 750rpx;height: 750rpx;;" class="swiper-box" @change="change">
-		           <swiper-item v-for="(item ,index) in info" :key="index">
+		           <swiper-item v-for="(item ,index) in bannersList" :key="index">
 		               <view class="swiper-item">
 						   <image style="margin-left:0rpx;height: 750rpx;width:750rpx;;" class="swiImgs" :src="item.url"></image>
 		               </view>
@@ -16,36 +16,32 @@
 			   <view class="boxFirst">
 				     <view class="uni-first">
 						 <view class="uni-left">
-							 <text class="lefts">¥<text class="mon">12.3</text></text>
-							 <text class="rights">4232</text>
+							 <text class="lefts">¥<text class="mon">{{detailData.user_price}}</text></text>
+							 <text class="rights">{{detailData.price}}</text>
 						 </view>
-						 <view class="uni-right">已售86件</view>
+						 <view class="uni-right">已售{{detailData.sales}}件</view>
 					 </view>
 					 <view class="uni-second">
-						 小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g
+						 {{detailData.goods_name}}
 					 </view>
 					 <view class="uni-third">
 						 <view class="leftss">
 							 <view class="tops">
 								 <!-- <view class="jfbox style1">返20积分</view> -->
-								 <view class="yjbox style1">佣金¥5.6</view>
+								 <view class="yjbox style1" v-if="detailData.user_brokerage">佣金¥{{detailData.user_brokerage}}</view>
 							 </view>
-							 <view class="downs">
-								 <text  class="words">极速退款 </text>
-								 |<text class="words">全场包邮 </text>|
-								 <text class="words">七天无理由退货</text>
+							 <view class="downs" >
+								 <text  class="words" v-for="(item,index) in detailData.label_str" :key="index">{{item}} | </text>
+								
 							 </view>
 						 </view>
 						 <button open-type="share"  class="rightss">
-						 <!-- <view class="rightss" @tap.stop="shareBoxFlag=true"> -->
 							 <image  class="imgs" src="../../static/image/share.png"></image>
 						     <view class="field">分享</view>
-						 <!-- </view> -->
 						</button>
 					 </view>
-					 
 			   </view>
-			   <view class="boxSecond" v-for="(item,index) in 2" :key="index">
+			  <!-- <view class="boxSecond" v-for="(item,index) in 2" :key="index">
 			   		 <view class="sFirst">1人正在拼单，可直接参与</view>
 				     <view class="sSecond">
 						 <view class="sLeft">
@@ -60,7 +56,7 @@
 						   <view class="rightss" @tap.stop="joinCartBoxflag=true,category=3">去拼单</view>
 						 </view>
 					 </view>
-			   </view>
+			   </view> -->
 		   </view>
 		   <view class="box-introduce">
 			   <view class="titles">
@@ -73,13 +69,15 @@
 				       <view v-if="goodsFlag" class="lines"></view>
 				</view>
 			   </view>
-			   <view class="picBox" v-if="tuwordFlag">
-				   <image class="bgs" mode="widthFix" src="http://zxyp.hzbixin.cn/files/s_63601607416945757.jpg"></image>
+			   <view class="picBox"  v-if="tuwordFlag">
+				    <!-- <rich-text class="bgs" :nodes=""></rich-text> -->
+				   <!-- <image  mode="aspectFill"  :src="detailData.description"></image> -->
+				   <image  mode="widthFix"   v-for="(item,index) in tuDetailList" :src="item.pic" :key="index"></image>
 			   </view>
 			   <view class="goodBox" v-if="goodsFlag">
-				   <view class="list" v-for="(item,index) in goodsDetailList" :key="index">
-					   <view class="field">{{item.title}}</view>
-					   <view class="sss">{{item.fieldss}}</view>
+				   <view class="list" v-for="(item,index) in detailData.attr" :key="index">
+					   <view class="field">{{item.attr_name}}</view>
+					   <view class="sss">{{item.attr_values}}</view>
 				   </view>
 			   </view>
 		   </view>
@@ -96,7 +94,7 @@
 		   <view class="uni-right">
 			   <view class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=2">
 				   <text class="upss">单独购买</text>
-				   <text class="downss">¥<text>49.90</text></text>
+				   <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text>
 			   </view>
 			   <view class="makeGroupBox styless2" @tap.stop="joinCartBoxflag=true,category=3">
 				   <text class="upss">发起拼团</text>
@@ -104,6 +102,7 @@
 			   </view>
 		   </view>
 	   </view>
+	   
 	   <!-- 购物车固定的logo -->
 	  <image v-if="!shareBoxFlag" @tap.stop="jumps" class="shopCartLogo" src="http://zxyp.hzbixin.cn/files/98501608270933265.jpg"></image>
 	  <!-- 加入购物车 -->
@@ -111,13 +110,13 @@
 	  <view class="joincartBox"  v-if="joinCartBoxflag">
 		  <view class="first">
 			  <view class="uni-left">
-				 <image class="imgs" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+				 <image class="imgs" :src="cartGoodMsg.goods_img"></image>
 			     <view class="goodBox">
 					 <view class="priBox">
-						 <view class="lefts">¥ <text class="mon">34.9</text></view>
-					     <view class="rights">已减¥16</view>
+						 <view class="lefts">¥ <text class="mon">{{smallCarMsg[0].price}}</text></view>
+					     <view class="rights"  v-if="smallCarMsg.youhuiPrice!=0">已减¥{{smallCarMsg[1].youhuiPrice}}</view>
 					 </view>
-					 <view class="norms">已选择:60ml</view>
+					 <view class="norms">已选择:{{smallCarMsg[2].values}}</view>
 				 </view>
 			  </view>
 			  <view class="uni-right" @tap.stop="joinCartBoxflag=false">
@@ -125,46 +124,40 @@
 			  </view>
 		  </view>
 		  <view class="second">
-			  <view class="field">规格</view>
+			  <view class="field">{{cartGoodMsg.rule_name}}</view>
 			  <view class="listBOx">
-				  <view :class="choiceSpecificeIndex==index?'active':'lists'" class="stylesm"
-				      v-for="(item,index) in 3":key="index" @tap.stop="getChoiceSpec(index)">60ml</view>
+				  <view :class="choiceSpecificeIndex==indexs?'active':'lists'" class="stylesm"
+				      v-for="(item,indexs) in cartGoodMsg.rules":key="index" @tap.stop="getChoiceSpec(indexs)">{{item.rule_values}}</view>
 			  </view>
 		  </view>
 		  <view class="third">
 			  <view class="field">数量</view>
 			  <view class="right">
 					  <view class="zuo" @tap.stop="getGoodsNum(1)">-</view>
-					  <view class="zhong">{{goodNum}}</view>
+					 <input class="zhong"  type="number" v-model="goodNum" :maxlength="2" @blur="getGoodNumsInput($event)"></input>
 					  <view class="you" @tap.stop="getGoodsNum(2)">+</view>
 			  </view>
 		  </view>
-		  <view class="fourth" @tap.stop="joinCart">确定</view>
+		  <view class="fourth" @tap.stop="btnJoinCart">确定</view>
 	  </view>
 	  <view class="cartSuccessBox" v-if="cartSucFlag">
 		  <view class="tips">加入成功，在购物车等您~</view>
 		  <image class="imgss" src="../../static/image/joinCartSuccess.png"></image>
 	  </view>
-	 
-		  
+	 <view class="showtips" v-if="signalFlag">{{signalMsg}}</view>
 	  </view>
 	 </view>
 </template>
 
 <script>
+	import app from '../../App.vue'
 	import uniSwiperDot from "@/components/uni-swiper-dot/uni-swiper-dot.vue"
 	export default {
 		 data () {
 			return { 
 				address:'优琦口腔（下沙江滨店）',
 				collectActive:false,
-				info: [{
-					      url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg'
-						}, {
-						  url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg'
-						}, {
-						  url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg'
-						}],
+				bannersList: [],
 				current: 0,
 				mode: 'round',
 				listData:[
@@ -187,20 +180,7 @@
 						  desc:'无痛清除牙结石，利用超声波的高频震动，将牙齿表面的牙结石，牙渍，菌斑等击碎并冲刷下来以达到清洁牙齿的目的。'
 					}
 				],
-				goodsDetailList:[
-					{
-						title:'产地',
-						fieldss:'韩国首尔'
-					},
-					{
-						title:'产地',
-						fieldss:'韩国首尔'
-					},
-					{
-						title:'产地',
-						fieldss:'韩国首尔'
-					}
-				],
+				
 				// 图文 ,商品细节的展现,切换
 				tuwordFlag:true,
 				goodsFlag:false,
@@ -216,6 +196,14 @@
 				choiceSpecificeIndex:0,
 				// 购物车 单独购买,发起拼团 1 2 3
 				category:0,
+				goodsId:'',
+				detailData:'',// 详情数据
+				signalFlag:false,
+				signalMsg:'',
+				cartGoodMsg:'',
+				smallCarMsg:[],
+				cartRuleId:'',
+				tuDetailList:[]//图文详情的列表
 				
 				
 				
@@ -224,39 +212,33 @@
 		
 	    components: {uniSwiperDot},
 		onShareAppMessage: function (res) {
-					let _this = this;
-					if(res.from === 'button' ){
-						
-						return {
-						  title: "智享婴品",
-						  // path: "/pages/index/index?" + _this.getShareUrlParams()
-						};
-					}else if(res.from ==='menu' ){
-						console.log(2222)
-						return {
-						  title: "智享婴品",
-						  // path: "/pages/index/index?" + _this.getShareUrlParams()
-						};
-					}
+				let _this = this;
+				if(res.from === 'button' ){
+					
+					return {
+					  title: "智享婴品",
+					  // path: "/pages/index/index?" + _this.getShareUrlParams()
+					};
+				}else if(res.from ==='menu' ){
+					console.log(2222)
+					return {
+					  title: "智享婴品",
+					  // path: "/pages/index/index?" + _this.getShareUrlParams()
+					};
+				}
 					
 		},
-		onShareTimeline:function(){
-			
-				return {
-				  title: "智享婴品",
-				  // path: "/pages/index/index?" + _this.getShareUrlParams()
-				};
-			
-		},
+		
 		onLoad(options){
 		   wx.showShareMenu({
 		  		withShareTicket:true,
 		  		//设置下方的Menus菜单，才能够让发送给朋友与分享到朋友圈两个按钮可以点击
 		  		menus:["shareAppMessage","shareTimeline"]
 		  	})
-			
+			this.setData(options)
 			this.backHeight=((parseInt(this.heights)*2-46)/2+parseInt(this.marginTop))+'rpx';
-			
+			this.getDetail();
+			this.joinCartMsg();
 		},
 		computed:{
 			heights(){
@@ -283,6 +265,7 @@
 			backs(){
 				uni.navigateBack()
 			},
+		
 		    change(e) {
 		           this.current = e.detail.current;
 		         },
@@ -298,8 +281,8 @@
 				  url:'/pages/shopMall/shopMallCart'
 				})
 			},
-			// 加入购物车
-			joinCart(){
+			// 加入确定购物车
+			btnJoinCart(){
 				// 加入购物车成功提示
 				let that=this;
 				// 购物车的整个box 关闭
@@ -307,14 +290,10 @@
 				// 用category来判断是那种 
 				// 1来自购物车
 				if(that.category==1){
-					that.cartSucFlag=true;
-					setTimeout(()=>{
-						that.cartSucFlag=false;
-					},2000)
+					that.getJoinCart();
+					
 				}else if(that.category==2){
-					uni.navigateTo({
-						url:'/pages/shopMall/confirm'
-					})
+					that.getSignalBug()
 				}
 				else if(that.category==3){
 					uni.navigateTo({
@@ -323,9 +302,49 @@
 				}
 				
 			},
+			//加入购物车获取商品信息
+			joinCartMsg(){
+				let that=this;
+				that.$http.post('mini/v1/goods/cartinfo',{
+					goods_id:that.goodsId
+				},(res)=>{
+					if(res.state==0){
+						that.cartGoodMsg=res.data.list;
+						that.cartGoodMsg.goods_img=app.globalData.imgPrefixUrl+that.cartGoodMsg.goods_img;
+						that.smallCarMsg.push({price:that.cartGoodMsg.rules[0].user_price})
+						that.smallCarMsg.push({youhuiPrice:that.cartGoodMsg.rules[0].youhui}),
+						that.smallCarMsg.push({values:that.cartGoodMsg.rules[0].rule_values})
+						that.cartRuleId=that.cartGoodMsg.rules[0].rule_id;
+					}
+					
+				})
+			},
+			// 单独购买
+			getSignalBug(){
+				let that=this;
+				that.$http.post('mini/v1/goods/addgoodscart',{	
+					rule_id:that.cartRuleId,
+					goods_id:that.goodsId,
+					cart_num:that.goodNum,
+					source_type:2
+					},(res)=>{
+					if(res.state==0){
+						uni.navigateTo({
+							url:'/pages/shopMall/confirm?source_type='+2
+				       })
+					}		
+				})	
+				
+			},
 			// 购物车添加选择规格
 			getChoiceSpec(index){
-				this.choiceSpecificeIndex=index
+				console.log(index)
+				this.choiceSpecificeIndex=index;
+				this.smallCarMsg[0].price= this.cartGoodMsg.rules[index].user_price;
+				this.smallCarMsg[1].youhuiPrice=this.cartGoodMsg.rules[index].youhui
+				this.smallCarMsg[2].values=this.cartGoodMsg.rules[index].rule_values
+				this.cartRuleId=this.cartGoodMsg.rules[index].rule_id;
+				
 			},
 			// 商品数量的加减
 			getGoodsNum(style){
@@ -335,6 +354,55 @@
 				else if (style ==2){
 					this.goodNum=this.goodNum+1;
 				}
+			},
+			// 加入购物车输入的数据
+			getGoodNumsInput(e){
+				
+				this.goodNum=Number(e.detail.value);
+			},
+			//加入 购物车
+			getJoinCart(){
+				let that=this;
+				that.$http.post('mini/v1/goods/addgoodscart',{	
+					rule_id:that.cartRuleId,
+					goods_id:that.goodsId,
+					cart_num:that.goodNum,
+					source_type:1
+					},(res)=>{
+					if(res.state==0){
+						console.log(res)
+						that.cartSucFlag=true;
+						setTimeout(()=>{
+							that.cartSucFlag=false;
+						},2000)
+					}		
+				})	
+			},
+			getDetail(){
+				let that=this;
+				that.$http.post('mini/v1/goods/gooddetailed',{
+					goods_id:that.goodsId
+				},(res)=>{
+					if(res.state==0){
+						that.detailData=res.data.list;
+						let aas=JSON.parse(that.detailData.goods_imgs) 
+						let aas2=JSON.parse(that.detailData.description)
+						aas.map(res=>{
+							res.url=app.globalData.imgPrefixUrl+res.img
+						})
+						that.detailData.label_str=that.detailData.label_str.split(',')
+						aas2.map(res1=>{
+							res1.pic=app.globalData.imgPrefixUrl+res1.pic;
+							console.log(res1)
+						})
+						that.bannersList=aas;
+						that.tuDetailList=aas2
+						console.log(that.tuDetailList)
+						console.log('that.detailData.description')
+					}
+					
+				})
+				
 			}
 			
 		}
@@ -560,6 +628,7 @@
 		}
 	}
 	.picBox{
+		text-align: center;
 		.bgs{
 			display: block;
 			 width: 750rpx;
@@ -664,7 +733,7 @@
 	position: fixed;
 	z-index:50;
 	right:30rpx;
-	top:70%;
+	top:80%;
 }
 .joincartBox{
 	position:fixed;
@@ -687,6 +756,7 @@
 				width: 240rpx;
 				height: 240rpx;
 				margin-right:20rpx;
+				border-radius: 8rpx;
 			}
 			.goodBox{
 				width: 280rpx;
@@ -840,6 +910,23 @@
  	background-color: none;
 	-webkit-appearance: none;
 	-webkit-appearance: none;
+ }
+ .showtips{
+ 	  width: 350rpx;
+ 	  height: 100rpx;
+ 	  background: #000000;
+	  // background: red;
+ 	  opacity: 0.6;
+ 	  border-radius: 16rpx;
+ 	  position: fixed;
+ 	  left:200rpx;
+ 	  z-index:1000;
+ 	  top:600rpx;
+ 	  color: #FFFFFF;
+ 	  font-size: 28rpx;
+ 	  line-height: 100rpx;
+ 	  text-align: center;
+ 	  
  }
 </style>
 

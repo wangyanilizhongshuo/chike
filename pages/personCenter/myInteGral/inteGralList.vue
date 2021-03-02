@@ -2,7 +2,7 @@
 	<view class="uni-balance">
 		<view class="contentss">
 		    <view class="listBox">
-				<view class="list" v-for="(item,index) in mainList" :key="index" @tap.stop="jumps(index)">
+				<view class="list" v-for="(item,index) in mainList" :key="index" >
 					<view class="uni-left">
 						<view class="uni-top">{{item.remark}}</view>
 						<view class="uni-down">{{item.change_time}}</view>
@@ -34,11 +34,11 @@
 			
 		},
 		methods:{
-			jumps(){
-				uni.navigateTo({
-					url:'/pages/personCenter/myCommission/commissionDetailList'
-				})
-			},
+			// jumps(){
+			// 	uni.navigateTo({
+			// 		url:'/pages/personCenter/myCommission/commissionDetailList'
+			// 	})
+			// },
 			getList(){
 					 let that=this;
 					 that.$http.post('mini/v1/user/integrallog',{

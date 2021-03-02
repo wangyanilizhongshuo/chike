@@ -23,7 +23,7 @@
 				   <view class="more">查看更多</view>
 			   </view>
 			   <view class="list-Box">
-				   <view class="list style1" v-for="(item,index) in recommondList" :key="index" @tap.stop="jumps(1,index)">
+				   <view class="list style1" v-for="(item,index) in recommondList" :key="index" @tap.stop="jumps(1,item.goods_id)">
 					 <image class="logosBg" :src="item.goods_img"></image>
 				     <view class="first">{{item.goods_name}}</view>
 					 <view class="second">¥<text class="money">{{item.user_price}}</text></view>
@@ -35,16 +35,19 @@
 			   <view class="titles" @tap.stop="getTeam">
 				   <view class="left">
 					   <view class="filed">组队拼团</view>
-					   <view class="schedule">
-						   <view class="box">12</view>
-						   <view class="box">12</view>
-						   <view class="box">12</view>
+					  <view class="schedule">
+						   <view class="box">{{days}}</view>
+						   <view>天</view>
+						   <view class="box">{{hours}}</view>
+						   <view>时</view>
+						   <view class="box">{{minutes}}</view>
+						   <view>分</view>
 					   </view>
 				   </view>
 				   <view class="more">查看更多</view>
 			   </view>
 			   <view class="list-Box ">
-				   <view class="list style1 " v-for="(item,index) in pintuanList" :key="index" @tap.stop="jumps(2)">
+				   <view class="list style1 " v-for="(item,index) in pintuanList" :key="index" @tap.stop="jumps(2,item.goods_id)">
 					 <image class="logosBg" :src="item.goods_img"></image>
 					 <view class="first">{{item.goods_name}}</view>
 					 <view class="second">¥<text class="money">{{item.user_price}}</text></view>
@@ -58,9 +61,9 @@
 							<view class="uni-right">限时购</view>
 					   </view>
 					   <view  class="smallTitle">不用算  降到底</view>
-					   <view class="picBox">
-						   <image class="igmg" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
-					       <image class="igmg" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+					   <view class="picBox" >
+						   <image class="igmg" v-if="disPriceList.length>=1" :src="yingheList[0].goods_img"></image>
+						   <image class="igmg" v-if="disPriceList.length>=2" :src="yingheList[1].goods_img"></image>
 					   </view>
 				   </view>
 				   <view  class="uni-right styless" @tap.stop="jumpss(3)">
@@ -69,8 +72,9 @@
 					   </view>
 					   <view  class="smallTitles">上千品类 随心挑选</view>
 					   <view class="picBox">
-						   <image class="igmg" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
-						   <image class="igmg" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+						   <image class="igmg" v-if="disPriceList.length>=1" :src="disPriceList[0].goods_img"></image>
+						   <image class="igmg"  v-if="disPriceList.length>=2" :src="disPriceList[1].goods_img"></image>
+						 
 					   </view>
 				   </view>
 			   </view>
@@ -82,8 +86,8 @@
 						   </view>
 						   <view  class="smallTitle qubie2">时尚潮流  万人疯抢</view>
 						   <view class="picBox">
-							   <image class="igmg" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
-							   <image class="igmg" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+							   <image class="igmg" v-if="disPriceList.length>=1" :src="findGoodsList[0].goods_img"></image>
+							   <image class="igmg" v-if="disPriceList.length>=2" :src="findGoodsList[1].goods_img"></image>
 						   </view>
 					   </view>
 					   <view  class="uni-right styless" @tap.stop="jumpss(5)">
@@ -92,14 +96,14 @@
 						   </view>
 						   <view  class="smallTitles qubie3">美好新生活  闭眼买不吃亏</view>
 						   <view class="picBox">
-							   <image class="igmg" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
-							   <image class="igmg" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+							   <image class="igmg" v-if="disPriceList.length>=1" :src="pickGoodsList[0].goods_img"></image>
+							   <image class="igmg" v-if="disPriceList.length>=2" :src="pickGoodsList[1].goods_img"></image>
 						   </view>
 					   </view>
 			   </view>
 		   </view>
 		   <view class="content-fourth">
-			   <view class="list" @tap.stop="jumps(2,index)" v-for="(item,index) in mainList" :key="index">
+			   <view class="list"  v-for="(item,index) in mainList" :key="index" @tap.stop="jumps(2,item.goods_id)">
 				   <image class="imsgs" :src="item.goods_img"></image>
 			       <view class="bottom">
 					   <view  class="smallField">{{item.goods_name}}</view>
@@ -157,7 +161,16 @@
 				 					 field:'种植'
 				 }],
 				 // 拼团列表
-				 pintuanList:[]
+				 pintuanList:[],
+				 yingheList:[],//硬核补贴
+				 disPriceList:[],//每日折扣
+				 findGoodsList:[],//发现好物
+				 pickGoodsList:[],
+				 days:'',
+				 hours:'',
+				 minutes:"",
+				 endTs:'',
+				 ptTime:''
 				 
 			}
 		},
@@ -171,26 +184,25 @@
 		   this.getRecommond();
 		   //拼团
 		   this.getPinTuan();
+		   //拼团时间
+		   this.getpinTime();
+		   // 硬核补贴
+		   this.getYingHe();
+		   // 每日低价
+		   this.getDiscount();
+		   // 发现好物
+		   this.getFindGoods()
+		   // 甄选好物
+		   this.pickGoods();
 		   // console.log(app.globalData.imgPrefixUrl) 
 		   // 地址图标的高度
+		   
 		    
 		},
 		onShow(){
-			let endtime=new Date('2020-08-19 12:01')//结束时间
-			               let nowtime=new Date();//获取当前时间
-			               console.log(endtime)
-			               console.log(nowtime)
-						 
-			               let lefttime=parseInt((endtime.getTime()-nowtime.getTime())/1000);   // 获取毫秒数  
-						 				let d=parseInt(lefttime/(24*60*60));
-						 				let h=parseInt(lefttime/(60*60)%24);
-						 				let m=parseInt(lefttime/60%60);
-			               let s=(lefttime%60);
-							// this.day=d;
-							// this.hour=h;
-							// this.minute=m;
-			    //            this.seconds=s;
-						 //  setTimeout(this.time,5000);
+			
+		
+		
 		},
 		components:{
 			carousel
@@ -198,7 +210,6 @@
 		
 		
 		methods:{
-			
 			//跳转到搜索页面
 			jumpSearch(){
 				uni.navigateTo({
@@ -216,14 +227,14 @@
 				  url:'/pages/shopMall/shopMallCart'
 				})
 			},
-			jumps(type,index){
+			jumps(type,ids){
 				if(type==1){
 					uni.navigateTo({
-					  url:'/pages/shopMall/list-detail'
+					  url:'/pages/shopMall/list-detail?goodsId='+ids
 				   })
 				}else if(type ==2){
 					uni.navigateTo({
-						url:'/pages/shopMall/list-detail'
+						url:'/pages/shopMall/list-detail?goodsId='+ids
 					})
 				}
 			},
@@ -283,8 +294,132 @@
 						that.recommondList.map((res)=>{
 							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
 						})
-						console.log(that.recommondList)
-						console.log(123)
+						// console.log('reconnmd')
+						// console.log(that.recommondList)
+					}
+				})
+				
+			},
+			
+			// 组队拼团
+			getPinTuan(){
+				let that =this;
+				that.$http.post('mini/v1/goods/indexCombination',{
+					page:1
+				},(res)=>{
+					if(res.state ==0){
+						let aa=res.data.list;
+						aa.map((res)=>{
+							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
+						})
+						that.pintuanList=aa.slice(0,3);
+						// console.log(that.pintuanList)
+					}
+				})
+			},
+			// 组队时间
+			getpinTime(){
+				let that=this;
+				that.$http.get('mini/v1/goods/getcombinationtime',{},(res)=>{
+					 if(res.state==0){
+						 that.ptTime=res.data.list.end_time
+						
+						 that.getNowTime();
+						
+						
+					 }
+				})
+			},
+			getNowTime(){
+				
+				let nowtime=Math.round(new Date().getTime()/1000).toString();//获取当前时间
+				 let times= this.ptTime-nowtime;
+				this.days=parseInt(times/60/60/24, 10).toString().padStart(2,'0');//计算剩余的天数
+				this.hours= parseInt(times/60/60%24, 10).toString().padStart(2,'0');//计算剩余的小时数
+				this.minutes =parseInt(times/60%60, 10).toString().padStart(2,'0');//计算剩余的分钟数;//计算剩余的分钟数
+				var ss = parseInt(times%60,10);//计算剩余的秒数
+				setInterval(()=>{
+					// console.log(1111)
+					 let nowtime=Math.round(new Date().getTime()/1000).toString();//获取当前时间
+					 let times= this.ptTime-nowtime;
+					this.days=parseInt(times/60/60/24, 10).toString().padStart(2,'0');//计算剩余的天数
+					this.hours= parseInt(times/60/60%24, 10).toString().padStart(2,'0');//计算剩余的小时数
+					this.minutes =parseInt(times/60%60, 10).toString().padStart(2,'0');//计算剩余的分钟数;//计算剩余的分钟数
+					var ss = parseInt(times%60,10);//计算剩余的秒数
+					// console.log(this.days, this.hours,this.minutes)
+				},60000)
+				
+				
+						
+				
+			},
+			// 硬核补贴？
+			getYingHe(){
+				let that =this;
+				that.$http.post('mini/v1/goods/indexubsidy',{
+					page:1
+				},(res)=>{
+						
+					if(res.state ==0){
+						let aa=res.data.list;
+						aa.map((res)=>{
+							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
+						})
+						that.yingheList=aa;
+						// console.log(112221)
+						// console.log(that.yingheList.length)
+					}
+				})
+			},
+			//每日特价
+			getDiscount(){
+				let that =this;
+				that.$http.post('mini/v1/goods/indexhot',{
+					page:1
+				},(res)=>{
+						
+					if(res.state ==0){
+						let aa=res.data.list;
+						aa.map((res)=>{
+							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
+						})
+						that.disPriceList=aa;
+						// console.log(111)
+						// console.log(that.disPriceList)
+					}
+				})
+			},
+			//发现好物
+			getFindGoods(){
+				let that =this;
+				that.$http.post('mini/v1/goods/indexfind',{
+					page:1
+				},(res)=>{
+					if(res.state ==0){
+						let aa=res.data.list;
+						aa.map((res)=>{
+							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
+						})
+						that.findGoodsList=aa;
+						// console.log(111)
+						// console.log(that.disPriceList)
+					}
+				})
+			},
+			//甄选好物
+			pickGoods(){
+				let that =this;
+				that.$http.post('mini/v1/goods/indexnew',{
+					page:1
+				},(res)=>{
+					if(res.state ==0){
+						let aa=res.data.list;
+						aa.map((res)=>{
+							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
+						})
+						that.pickGoodsList=aa;
+						// console.log(111)
+						// console.log(that.disPriceList)
 					}
 				})
 			},
@@ -298,24 +433,6 @@
 						that.mainList.map((res)=>{
 							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
 						})
-						
-					}
-				})
-			},
-			// 拼团
-			getPinTuan(){
-				let that =this;
-				that.$http.post('mini/v1/goods/indexCombination',{
-					page:1
-				},(res)=>{
-						console.log(1111)
-					if(res.state ==0){
-						let aa=res.data.list;
-						aa.map((res)=>{
-							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
-						})
-						that.pintuanList=aa.slice(0,3);
-						console.log(that.pintuanList)
 						
 					}
 				})
@@ -599,11 +716,12 @@
 						width: 50rpx;
 						height: 50rpx;
 						line-height: 50rpx;
+						
 						text-align: center;
 						background: #EE5845;
-						border-radius: 4rpx;
+						border-radius: 8rpx;
 						color: #fff;
-						margin-left:40rpx;
+						margin:0 20rpx;
 					}
 				}
 			}

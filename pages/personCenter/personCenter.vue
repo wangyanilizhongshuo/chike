@@ -79,10 +79,10 @@
 								  <image class="imgs" src="../../static/image/person-center2-4.png"></image>
 								  <view class="fields">我的团队</view>
 						  </view>
-						  <view class="list" @tap.stop="jumps(8)">
+						<!--  <view class="list" @tap.stop="jumps(8)">
 								  <image class="imgs" src="../../static/image/person-center2-5.png"></image>
 								  <view class="fields">店铺入驻</view>
-						  </view>
+						  </view> -->
 						  <view class="list" @tap.stop="jumps(9)">
 								  <image class="imgs" src="../../static/image/person-center2-6.png"></image>
 								  <view class="fields">我的消息</view>
@@ -96,13 +96,15 @@
 								  <view class="fields">设置</view>
 						  </view> 
 				    </view>
-					
-				   <view class="center-third" @tap.stop="jumps(12)" >
-				   	  <view class="list">
-				   		  <image class="imgs" src="../../static/image/person-center3-1.png"></image>
+					<view class="center-third">
+				 
+				  	<view class="list">
+						 <button plain="true"  style="border:none;border-radius: 0rpx;padding:0rpx;" hover-class="none"   sessionFrom="weapp"  open-type="contact">
+				   		    <image style="display: block;width: 60rpx;height: 60rpx;margin-bottom: 10rpx;" src="../../static/image/person-center3-1.png"></image>
+						  </button>
 				   		  <view class="fields">客服系统</view>
 				   	  </view>
-					  
+					
 				   	  <!-- <view class="list"  @tap.stop="jumps(13)"> -->
 					  <view class="list"  @tap.stop="getImage()">
 				   		  <image class="imgs" src="../../static/image/person-center3-2.png"></image>
@@ -154,19 +156,7 @@
 			},
 			// 获取个人信息
 			getPersonMsg(){
-				
-				// uni.showToast({
-				// 	  title:'11111',
-				// 	  duration:1000
-				// })
-				 
 				this.$http.post('mini/v1/user/info',{},(res)=>{
-					// uni.showToast({
-					// 	title:123,
-					// 	duration:5000
-					// })
-					console.log(res)
-					console.log(123)
 					  if(res.state==0){
 						  
 						  this.personData=res.data;
@@ -174,7 +164,6 @@
 						  uni.setStorageSync('userType',res.data.user_type)
 						  uni.setStorageSync('userId',res.data.uid)
 						  uni.setStorageSync('phone',res.data.phone)
-						  // uni.setStorageSync('userPhone',res.data.phone)
 					  }
 				})
 			},
@@ -200,7 +189,7 @@
 			},
 			jumpOrder(type){
 					uni.navigateTo({
-						url:'/pages/personCenter/myOrder/myOrder?titleActiveIndex='+type
+						url:'/pages/personCenter/myOrder/myOrder?titleActiveIndex='+type+'&types='+type
 				})
 			},
 			jumps(type){
@@ -269,27 +258,35 @@
 			},
 			
 			getImage(){
-				let _that = this;
-				uni.chooseImage({
-					count: 1, //上传图片的数量，默认是9
-					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-					sourceType: ['album', 'camera'], //从相册选择
-					success: function(res) {
-						const tempFilePaths = res.tempFilePaths; //拿到选择的图片，是一个数组
-						tempFilePaths.map(sos => {
-							uni.uploadFile({
-								url: 'http://zxyptest.hzbixin.cn/file/upload',
-								filePath: sos,
-								name: 'file',
-								success: function(datas) {
-									let results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
-									let aa = results.result;
-								},
-								fail: function(datas) {}
-							})
-						})
-					}
+				uni.downloadFile({
+				    url: 'https://www.example.com/file/test', //仅为示例，并非真实的资源
+				    success: (res) => {
+				        if (res.statusCode === 200) {
+				            console.log('下载成功');
+				        }
+				    }
 				});
+				// let _that = this;
+				// uni.chooseImage({
+				// 	count: 1, //上传图片的数量，默认是9
+				// 	sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+				// 	sourceType: ['album', 'camera'], //从相册选择
+				// 	success: function(res) {
+				// 		const tempFilePaths = res.tempFilePaths; //拿到选择的图片，是一个数组
+				// 		tempFilePaths.map(sos => {
+				// 			uni.uploadFile({
+				// 				url: 'http://zxyptest.hzbixin.cn/file/upload',
+				// 				filePath: sos,
+				// 				name: 'file',
+				// 				success: function(datas) {
+				// 					let results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
+				// 					let aa = results.result;
+				// 				},
+				// 				fail: function(datas) {}
+				// 			})
+				// 		})
+				// 	}
+				// });
 				
 				
 			}
@@ -317,7 +314,7 @@
 				  justify-content: center;
 				  align-items: center;
 				  .imgs{
-					  display: block;
+					  display:block ;
 					  width: 60rpx;
 					  height: 60rpx;
 					  margin-bottom: 10rpx;
@@ -457,4 +454,9 @@
 	  }
 	  
   }
+button::after{
+		border: none;
+		margin: 0rpx;
+		padding:0rpx;
+	}
 </style>

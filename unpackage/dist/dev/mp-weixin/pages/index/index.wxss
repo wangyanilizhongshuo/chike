@@ -277,6 +277,14 @@
   height: 100rpx;
   position: fixed;
   right: 0rpx;
-  top: 90%;
+}
+.kefuLogo.data-v-57280228 {
+  position: fixed;
+  right: 0rpx;
+}
+.kefuLogo .kefuImg.data-v-57280228 {
+  display: block;
+  width: 100rpx;
+  height: 100rpx;
 }
 

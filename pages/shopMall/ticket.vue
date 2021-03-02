@@ -1,26 +1,40 @@
 <template>
 	<view class="uni-serverTicket" >
-		<view class="uni-useTicket uni-TicketStyle" >
-			 <view class="ticket-box" v-for="(item,index) in 7" :key="index">
-			 	<view class="box" >
-			 		<view class="left">
-						<view class="money active">5</view>
-						<view class="detaisls">
-							<view class="first active" >RMB</view>
-							<view class="second active">无门槛服务券</view>
-							<view class="third">使用时间： 12.30前使用</view>
-						</view>
+		
+	<view class="ticketBox" v-for="(item,index) in ticketList" :key="index">
+		<view class="ticketList" @tap.stop="getChoice(index)">
+			<view class="uni-tops">
+				<view class="uni-lefts">
+					 <image class="left1" src="http://zxyp.hzbixin.cn/files/87031613961971298.jpg" mode=""></image>
+					 <view class="right1">
+						 <view class="top1">商品券</view>
+						 <view class="down1">{{item.expiration}}</view>
+					 </view>
+				</view>
+				<view class="uni-rights">
+					<view class="top2" v-if="item.typeid==1">
+						<view class="priLogo">¥</view>
+						<view class="moneyValue">{{item.value}}</view>
 					</view>
-					<view class="right active">立即使用 </view>
-			 	</view>
-				<image class="clickImg" src="http://zxyp.hzbixin.cn/files/35271607417284272.jpg"></image>
-			 </view>
+					<view class="top2" v-if="item.typeid==2"  style="align-items: flex-end;">
+						<view class="moneyValue" style="font-size:50rpx;">{{item.value}}</view>
+						<view class="priLogo">折</view>
+					</view>
+					<view class="down2">{{item.title}}</view>
+				</view>
+			</view>
+			<view class="uni-center"></view>
+			<view class="uni-downs">
+				{{item.info}}
+			</view>
+			<image class="clickImg" v-if="item.is_check==1" src="http://zxyp.hzbixin.cn/files/21341608268240828.jpg"></image>
 		</view>
-
-		<view class="bottom-tips">
-			<view class="reguler style123" @tap.stop="jumps(1)">使用规则</view>
-			<view class="uselessTicker style123"  v-if="occurFlag" @tap.stop="jumps(2)" >查看无效券</view>
-		</view>
+	</view>
+	<view class="bottom-tips">
+		<view class="reguler style123" @tap.stop="jumps(1)">使用规则</view>
+		<view class="uselessTicker style123"  v-if="occurFlag" @tap.stop="jumps(2)" >查看无效券</view>
+	</view> 
+	<view style="height: 125rpx;width: 750rpx;;"></view>
 	</view>
 </template>
 <script>
@@ -29,17 +43,30 @@
 			return {
 				// 优惠券
 				occurFlag:true,
-				
-				
+				ticketList:[],
+				pages:1,
+				pageV:1,
+				serverShopId:'',
+				payAllMoney:'',	
+				// 选中的红包id
+				cu_id:''
 			}
 			},
-		 onLoad(){
-			 // if (this.labelList[index].active == 0) {
-			 // 					   const item = {
-			 // 						 ...this.labelList[index],
-			 // 						 active:1
-			 // 					   };
-			 //       this.$set(this.labelList, index, item);
+		 onLoad(options){
+			 this.setData(options);
+			 console.log(options)
+			  this.getList();
+			  if(uni.getStorageSync('goodsRedId')){
+				  this.cu_id=uni.getStorageSync('goodsRedId')
+			  }
+			 
+			
+		 },
+		 onReachBottom(){
+		 	if(this.pagesV==0){
+		 		this.pages+=1;
+		 		this.getList();
+		 	}
 		 },
 		 methods:{
 			jumps(type){
@@ -48,126 +75,226 @@
 					url:'/pages/shopMall/useRegular'
 				  })
 				}else if(type ==2 ){
+					console.log(this.serverShopId)
 					uni.navigateTo({
-						url:'/pages/shopMall/uselessTicket'
+						url:'/pages/shopMall/uselessTicket?serverShopId='+this.serverShopId
 					})
+				}
+			},
+			getList(){
+				 let that=this;
+					 that.$http.post('mini/v1/coupon/couponlist',{
+						 cateid:1,
+						 status:0,
+						 store_id:that.serverShopId,
+						 page:that.pages
+					 },(res)=>{
+						 if(res.state==0){
+							 that.pagesV=res.data.is_request;
+							 if(res.data.is_request==0){
+							 	let aa = res.data.list;
+							 	aa.map(res=>{
+									console.log('conme')
+									if(Number(res.user_value)<= Number(that.payAllMoney) ){
+										res.is_check=0
+										
+									}else if(Number(res.user_value)>= Number(that.payAllMoney)){
+										res.is_check=2;
+									}
+									if(res.cu_id==that.cu_id){
+										res.is_check=1
+									}
+									// if(Number(res.user_value)<= Number(that.payAllMoney)  ||res.typeid==1 ){
+									// 	res.is_check=0
+										
+									// }else if(res.user_value<=that.payAllMoney&&res.typeid==2){
+									// 	res.is_check=2;
+									// }
+									// if(res.cu_id==that.cu_id){
+									// 	res.is_check=1
+									// }
+
+								})
+							 	let bb = that.ticketList;
+							 	that.ticketList = bb.concat(aa);
+								console.log(that.ticketList)
+								console.log('that.ticketList')
+							 }
+						 }
+					 })
+			},
+			// 选中优惠券
+			getChoice(index){
+				let that=this;
+				console.log(index)
+				console.log('wangyani')
+				// 将所有的票都不选中
+				that.ticketList.map((items,indexs,array)=>{
+					if(indexs!==index){
+						if(items.is_check==1  ){
+							items.is_check=0;
+							uni.removeStorageSync('goodsRedId')
+						}
+						
+					}
+				})
+				
+				if(that.ticketList[index].is_check==0){
+					const item={
+						...that.ticketList[index],
+						is_check:1
+					}
+					that.$set(that.ticketList,index,item);
+					
+					uni.setStorageSync('goodsRedId',that.ticketList[index].cu_id)
+					
+				}else if(that.ticketList[index].is_check==1){
+					const item={
+						...that.ticketList[index],
+						is_check:0
+					}
+					uni.setStorageSync('goodsRedId',0)
+					that.$set(that.ticketList,index,item);
 				}
 				
 			}
-		 },
+		 }
+		
 		 
 	}
 </script>
 
 <style scoped lang="scss">
+	@import "../../static/scss/common.scss";
+	// @include ellipsis(1);
 	.uni-serverTicket{
-		height: 100vh;
+		// height: 100vh;
+		min-height: 100vh;
 		background-color: #f2f2f2;;
 		position: relative;
 		left:0rpx;
 		top:0rpx;
 		padding-top:40rpx;
 		box-sizing: border-box;
-		.bottom-tips{
-			width: 750rpx;
-			height: 90rpx;
-			padding:0rpx 30rpx;
-			position: fixed;
-			z-index: 10;;
-			bottom:0rpx;
-			left:0rpx;
-			box-sizing: border-box;
-			background-color: #fff;
+		
+	}
+	.clickImg{
+		display: blcok;
+		width: 50rpx;
+		height: 50rpx;
+		position: absolute;
+		right:0rpx;
+		top:0rpx;
+	}
+	.uni-center{
+	
+		border:1rpx dashed #f2f2f2;
+	}
+	.ticketBox{
+		width: 750rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		
+		.ticketList{
+			width: 657rpx;
+			height: 220rpx;
+			margin-bottom: 26rpx;
+			border-radius: 8rpx;
 			display: flex;
-		    align-items: center;
-			justify-content: space-around;
-			color: #888888;
-			font-size: 26rpx;
-			.style123{
-				width: 345rpx;
-				text-align: center;
-				height: 90rpx;
-				line-height: 90rpx;
+			flex-direction: column;
+			justify-content: space-between;
+			background-color:#fff;
+			padding:25rpx 30rpx;
+			box-sizing: border-box;
+			position: relative;
+			left:0rpx;
+			top:0rpx;
+			.uni-tops{
+				display: flex;
+				justify-content: space-between;
+				.uni-lefts{
+					display: flex;
+					// border: 1rpx solid red;;
+					.left1{
+						display: block;
+						width: 76rpx;
+						height: 76rpx;
+						margin-right: 22rpx;;
+					}
+					.right1{
+						height: 76rpx;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						.top1{
+							font-weight: bold;
+							color: #030303;
+							font-size: 32rpx;
+						}
+						.down1{
+							color: #7E7E7E;
+							font-size: 20rpx;
+						}
+					}
+				}
+				.uni-rights{
+				     // border: 1rpx solid red;;
+					height: 76rpx;
+					color: #ED593F;
+					font-weight: bold;
+					flex-direction: column;
+					align-items: center;
+					display: flex;
+					justify-content: space-between;
+					.top2{
+						
+						display: flex;
+						justify-content: flex-start;
+						
+					  .priLogo{
+						  
+						  font-size: 20rpx;
+						  margin-right:4rpx;
+					  }
+					  .moneyValue{
+						  font-size: 30rpx;
+					  }
+					}
+					.down2{
+						font-size: 20rpx;
+						color: #7E7E7E;
+						font-weight: normal;
+					}
+				}
+			}
+			.uni-downs{
+				font-size: 20rpx;
+				color: #7E7E7E;
+				 @include ellipsis(2);
 			}
 			
 		}
-		.uni-TicketStyle{
-			width: 750rpx;
-			background-color: #f2f2f2;
-			margin-bottom:100rpx;
-			.ticket-box{
-				width: 660rpx;
-				height: 220rpx;
-				margin-bottom: 40rpx;;
-				margin-left:45rpx;
-				position: relative;
-				left:0rpx;
-				top:0rpx;
-				.clickImg{
-					display: block;
-					width: 79rpx;
-					height: 73rpx;
-					position: absolute;
-					right:0rpx;
-					top:0rpx;;
-				}
-				.active{
-					color: #EE5845;
-				}
-				.activess{
-					color: #888;;
-				}
-				.box{
-					width: 660rpx;
-					height: 220rpx;
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					padding:0rpx 55rpx;
-					box-sizing: border-box;
-					background-image: url(../../static/image/ticket-bg.png);
-					background-repeat: no-repeat;
-					background-size: 660rpx 220rpx;
-					
-					.left{
-						display: flex;
-						height: 220rpx;
-						align-items: center;
-						.money{
-							font-size: 180rpx;
-							margin-right:20rpx;
-						}
-						.detaisls{
-							.first{
-								font-size: 28rpx;;
-							}
-							.second{
-								font-size: 40rpx;
-								margin:10rpx 0rpx;
-							}
-							.third{
-								color: #616161;
-								font-size: 20rpx;
-							}
-						}
-					}
-					.right{
-						margin-top:65rpx;
-						width: 90rpx;
-						height: 90px;
-						font-size: 40rpx;
-					}
-				}
-			}
-		}
 	}
-	.uni-regularBox{
-		width: 750rpx;;
-		padding:30rpx;
+	.bottom-tips{
+		position: fixed;
+		bottom:0rpx;
+		left: 0rpx;;
+		height: 125rpx;
+		width: 750rpx;
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		color: #888888;
+		font-size: 26rpx;
+		z-index: 100;
+		background-color: #f2f2f2;
+		padding-top: 20rpx;
 		box-sizing: border-box;
-		.list{
-			color: #888;
-			margin:20rpx 0rpx;;
+		.reguler{
+			margin-right:107rpx;
 		}
+		.uselessTicker{}
 	}
+	
 </style>

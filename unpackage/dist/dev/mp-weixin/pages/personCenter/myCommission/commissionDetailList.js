@@ -203,6 +203,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -211,7 +219,7 @@ var _default =
       link_type: '',
       link_id: '',
       msgList: [],
-      typeid: '' };
+      brokerage_type: '' };
 
   },
   onLoad: function onLoad(options) {
@@ -224,7 +232,8 @@ var _default =
       var that = this;
       that.$http.post('mini/v1/user/brokerageinfo', {
         link_type: that.link_type,
-        link_id: that.link_id },
+        link_id: that.link_id,
+        brokerage_type: that.brokerage_type },
       function (res) {
         if (res.state == 0) {
           that.msgList = res.data.list[0];

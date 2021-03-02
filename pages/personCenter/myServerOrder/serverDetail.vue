@@ -99,10 +99,10 @@
         	<view class="PayTitles">{{dataList.store_name}}</view>
         	<view  class="monVlue">{{dataList.cancel_price}}</view>
         	<view class="inputPsd">请输入交易密码</view>
-        	 <view style="margin-left:49rpx;" class="item" @tap='KeyboarOpen'>
+        	 <view style="margin-left:49rpx;" class="item" @tap.stop='KeyboarOpen'>
         	      <password-input :numLng='exPassword'></password-input>
         	 </view>
-        	 <number-keyboard tabBar ref='KeyboarHid' @input='getPsd' psdLength='6'></number-keyboard>
+        	 <number-keyboard tabBar ref='KeyboarHid' @input.stop='getPsd' psdLength='6'></number-keyboard>
         </view>
         <view class="showtips" v-if="tipflag">{{tipMsg}}</view>		
 	</view> 
@@ -126,6 +126,8 @@
 				dataList:[],
 				extraPName:'', //余额弹框name
 				payAllMoney:0,
+				tipflag:false,
+				tipMsg:''
 			}
 		},
 		components:{
@@ -168,7 +170,9 @@
 						  		res2.img=app.globalData.imgPrefixUrl+res2.img
 						  })
 						   that.dataList=aa;
+						   console.log(123456)
 						   console.log(that.dataList)
+						   console.log(123456)
 					  }
 				  })
 			},
@@ -187,6 +191,7 @@
 				let that=this;
 				// 选择支付方式的弹框
 				this.payFlag=false;
+				this.exPassword='';//输入框里面的数据清除
 				// 微信付款
 				if(that.wxFlag){
 					// 选中的小按钮
@@ -269,22 +274,37 @@
 						pay_price:that.dataList.cancel_price,
 						pay_password:that.exPassword
 					},(res)=>{
-						console.log(res)
+						that.exDialogflag=false;
 						if(res.state==0){
-							that.exDialogflag=false;
 							uni.redirectTo({
 								url:'/pages/personCenter/myOpinion/opinionSuccess?typesName='+10
 							})
 						}else if(res.state==1){
 							that.exPassword='';
-							that.exDialogflag=false;
 							that.tipflag=true ;
 							that.tipMsg=res.msg;
-							
 							setTimeout(()=>{
 									that.tipflag=false
 							},3000)
-						}
+						}else if(res.state==3){
+						uni.showModal({
+						    title: '提示',
+						    content: '支付密码输入错误',
+							confirmText:'重新输入',
+						    success: function (res) {
+						        if (res.confirm) {
+									// 重新继续支付
+									that.exPassword ='';
+									console.log(that.exDialogflag)
+									that.exDialogflag=true;
+						        } else if (res.cancel) {
+						           uni.switchTab({
+						           	url:'/pages/personCenter/personCenter'
+						           })
+						        }
+						    }
+						});
+					}
 					})
 			},
 			// 余额 支付
@@ -293,6 +313,8 @@
 			},
 			//获取键盘上的密码
 			getPsd(val){
+				console.log(val)
+				console.log('获取键盘')
 				this.exPassword = val;
 				// 密码输入六位数字的时候,弹窗关闭,可请求接口
 				if(this.exPassword.length ==6){

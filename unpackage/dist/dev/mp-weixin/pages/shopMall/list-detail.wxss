@@ -1,3 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -317,6 +341,9 @@
   border-radius: 2rpx;
   margin-top: 10rpx;
 }
+.box-introduce .picBox.data-v-b99ceb18 {
+  text-align: center;
+}
 .box-introduce .picBox .bgs.data-v-b99ceb18 {
   display: block;
   width: 750rpx;
@@ -445,7 +472,7 @@
   position: fixed;
   z-index: 50;
   right: 30rpx;
-  top: 70%;
+  top: 80%;
 }
 .joincartBox.data-v-b99ceb18 {
   position: fixed;
@@ -479,6 +506,7 @@
   width: 240rpx;
   height: 240rpx;
   margin-right: 20rpx;
+  border-radius: 8rpx;
 }
 .joincartBox .first .uni-left .goodBox.data-v-b99ceb18 {
   width: 280rpx;
@@ -636,5 +664,20 @@ button.data-v-b99ceb18::after {
   background-color: none;
   -webkit-appearance: none;
   -webkit-appearance: none;
+}
+.showtips.data-v-b99ceb18 {
+  width: 350rpx;
+  height: 100rpx;
+  background: #000000;
+  opacity: 0.6;
+  border-radius: 16rpx;
+  position: fixed;
+  left: 200rpx;
+  z-index: 1000;
+  top: 600rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  text-align: center;
 }
 

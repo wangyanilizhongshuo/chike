@@ -1,22 +1,35 @@
 <template>
 	<view class="uni-serverTicket" >
-		<view class="uni-useLessTicker uni-TicketStyle">
-			<view class="ticket-box" v-for="(item,index) in 7" :key="index">
-				<view class="box" >
-					<view class="left">
-						<view class="money activess">5</view>
-						<view class="detaisls">
-							<view class="first activess" >RMB</view>
-							<view class="second activess">无门槛服务券</view>
-							<view class="third">使用时间： 12.30前使用</view>
-						</view>
+		
+		<view class="ticketBox" v-for="(item,index) in ticketList" :key="index">
+			<view class="ticketList" @tap.stop="getChoice(index)">
+				<view class="uni-tops">
+					<view class="uni-lefts">
+						 <image class="left1" src="http://zxyp.hzbixin.cn/files/81531613971952490.jpg" mode=""></image>
+						 <view class="right1">
+							 <view class="top1">商品券</view>
+							 <view class="down1">{{item.expiration}}</view>
+						 </view>
 					</view>
-					<view class="right activess">已使用</view>
+					<view class="uni-rights">
+						<view class="top2" v-if="item.typeid==1">
+							<view class="priLogo">¥</view>
+							<view class="moneyValue">{{item.value}}</view>
+						</view>
+						<view class="top2" v-if="item.typeid==2"  style="align-items: flex-end;">
+							<view class="moneyValue" style="font-size:50rpx;">{{item.value}}</view>
+							<view class="priLogo">折</view>
+						</view>
+						<view class="down2">{{item.title}}</view>
+					</view>
 				</view>
+				<view class="uni-center"></view>
+				<view class="uni-downs">
+					{{item.info}}
+				</view>
+				<image class="clickImg" v-if="item.is_check==1" src="http://zxyp.hzbixin.cn/files/21341608268240828.jpg"></image>
 			</view>
 		</view>
-		
-		
 	</view>
 </template>
 <script>
@@ -25,39 +38,68 @@
 			return {
 				// 优惠券
 				occurFlag:true,
-				
+				ticketList:[],
+				pages:1,
+				pageV:1,
+			    serverShopId:''
 				
 			}
 			},
-		 onLoad(){
-			 // if (this.labelList[index].active == 0) {
-			 // 					   const item = {
-			 // 						 ...this.labelList[index],
-			 // 						 active:1
-			 // 					   };
-			 //       this.$set(this.labelList, index, item);
+		 onLoad(options){
+			 this.setData(options);
+			 this.getList();
+			 console.log(options)
+		 },
+		 onReachBottom(){
+		 	if(this.pagesV==0){
+		 		this.pages+=1;
+		 		this.getList();
+		 	}
 		 },
 		 methods:{
+			 getList(){
+			 	 let  that=this;
+			 		 this.$http.post('mini/v1/coupon/couponlist',{
+			 			  cateid:1,
+			 			  status:3,
+			 			  store_id:that.serverShopId,
+			 			  page:that.pages
+			 		 },(res)=>{
+			 			 if(res.state==0){
+			 				 that.pagesV=res.data.is_request;
+			 				 if(res.data.is_request==0){
+			 					 let aa = res.data.list;
+			 					 let bb = that.ticketList;
+			 					 that.ticketList = bb.concat(aa);
+			 				 }
+			 				
+			 			 }
+			 		 })
+			 },
 			jumps(type){
 				if(type ==1 ){
 					uni.navigateTo({
-					url:'/pages/index/useRegular'
+					url:'/pages/shopMall/useRegular'
 				  })
 				}else {
 					uni.navigateTo({
-						url:'/pages/index/uselessTicket'
+						url:'/pages/shopMall/uselessTicket'
 					})
 				}
 				
 			}
-		 },
+			
+		 }
+		 
 		 
 	}
 </script>
 
 <style scoped lang="scss">
+	@import "../../static/scss/common.scss";
 	.uni-serverTicket{
-		height: 100vh;
+		// height: 100vh;
+		min-height: 100vh;
 		background-color: #f2f2f2;;
 		position: relative;
 		left:0rpx;
@@ -65,77 +107,96 @@
 		padding-top:40rpx;
 		box-sizing: border-box;
 		
-		.uni-TicketStyle{
-			width: 750rpx;
-			background-color: #f2f2f2;
-			margin-bottom:100rpx;
-			.ticket-box{
-				width: 660rpx;
-				height: 220rpx;
-				margin-bottom: 40rpx;;
-				margin-left:45rpx;
-				position: relative;
-				left:0rpx;
-				top:0rpx;
-				.clickImg{
-					display: block;
-					width: 79rpx;
-					height: 73rpx;
-					position: absolute;
-					right:0rpx;
-					top:0rpx;;
-				}
-				.active{
-					color: #EE5845;
-				}
-				.activess{
-					color: #888;;
-				}
-				.box{
-					width: 660rpx;
-					height: 220rpx;
+	}
+	.uni-center{
+	
+		border:1rpx dashed #f2f2f2;
+	}
+	.ticketBox{
+		width: 750rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		
+		.ticketList{
+			width: 657rpx;
+			height: 220rpx;
+			margin-bottom: 26rpx;
+			border-radius: 8rpx;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			background-color:#fff;
+			padding:25rpx 30rpx;
+			box-sizing: border-box;
+			position: relative;
+			left:0rpx;
+			top:0rpx;
+			color: #C8C8C8;;
+			.uni-tops{
+				display: flex;
+				justify-content: space-between;
+				.uni-lefts{
 					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					padding:0rpx 55rpx;
-					box-sizing: border-box;
-					background-image: url(../../static/image/ticket-bg.png);
-					background-repeat: no-repeat;
-					background-size: 660rpx 220rpx;
-					
-					.left{
+					// border: 1rpx solid red;;
+					.left1{
+						display: block;
+						width: 76rpx;
+						height: 76rpx;
+						margin-right: 22rpx;;
+					}
+					.right1{
+						height: 76rpx;
 						display: flex;
-						height: 220rpx;
-						align-items: center;
-						.money{
-							font-size: 180rpx;
-							margin-right:20rpx;
+						flex-direction: column;
+						justify-content: space-between;
+						.top1{
+							font-weight: bold;
+							
+							font-size: 32rpx;
 						}
-						.detaisls{
-							.first{
-								font-size: 28rpx;;
-							}
-							.second{
-								font-size: 40rpx;
-								margin:10rpx 0rpx;
-							}
-							.third{
-								color: #616161;
-								font-size: 20rpx;
-							}
+						.down1{
+							
+							font-size: 20rpx;
 						}
 					}
-					.right{
-						margin-top:65rpx;
-						width: 190rpx;
-						text-align: center;
-						height: 90px;
-						line-height: 100rpx;
-						font-size: 40rpx;
+				}
+				.uni-rights{
+				     
+					
+					font-weight: bold;
+					height: 76rpx;
+					flex-direction: column;
+					align-items: center;
+					display: flex;
+					justify-content: space-between;
+					.top2{
+						
+						display: flex;
+						justify-content: flex-start;
+						
+					  .priLogo{
+						  
+						  font-size: 20rpx;
+						  margin-right:4rpx;
+					  }
+					  .moneyValue{
+						  font-size: 30rpx;
+					  }
+					}
+					.down2{
+						font-size: 20rpx;
+						
+						font-weight: normal;
 					}
 				}
 			}
+			.uni-downs{
+				font-size: 20rpx;
+			
+				 @include ellipsis(2);
+			}
+			
 		}
 	}
-	
 </style>

@@ -2,7 +2,7 @@
 	<view class="uni-balance">
 		<view class="contentss">
 		    <view class="listBox">
-				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumps(index)">
+				<view class="list" v-for="(item,index) in msgList" :key="index" >
 					<view class="uni-left">
 							<view class="uni-top">{{item.remark}}</view>
 							<view class="uni-down">{{item.change_time}}</view>
@@ -36,11 +36,6 @@
 			
 		},
 		methods:{
-			jumps(indexs){
-				uni.navigateTo({
-					url:'/pages/personCenter/myCommission/commissionDetailList?index='+indexs
-				})
-			},
 			getList(){
 				 let that=this;
 				 this.$http.post('mini/v1/user/moneylog',{

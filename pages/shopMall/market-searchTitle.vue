@@ -43,6 +43,7 @@
 				}
 				this.searchList=uni.getStorageSync('shopSearchs')
 			}
+			console.log('wangyibi')
 		   
 		},
 		computed:{
@@ -68,13 +69,16 @@
 		
 		methods:{
 			setInput(e){
-				if(e.target.value){
-					this.searchList.push(e.target.value)
+				let b=e.target.value;
+				if(b){
+					this.searchList.push(b)
 					uni.setStorageSync('shopSearchs',this.searchList);
 					uni.redirectTo({
-						url:'/pages/shopMall/market-searchList'
+						url:'/pages/shopMall/market-searchList?searchKey='+this.searchValue
 					})
 				}
+				
+		
 				
 			},
 			backs(){
@@ -90,9 +94,10 @@
 				
 			},
 			// 底下的提醒列表跳转
-			jumpList(){
+			jumpList(index){
+				let values=this.searchList[index]
 				uni.navigateTo({
-					url:'/pages/shopMall/market-searchList'
+					url:'/pages/shopMall/market-searchList?searchKey='+values
 				})
 			}
 		}

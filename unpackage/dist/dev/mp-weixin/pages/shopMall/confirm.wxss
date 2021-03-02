@@ -1,3 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -295,7 +319,7 @@
 }
 .footerBox.data-v-ab684a58 {
   width: 690rpx;
-  position: absolute;
+  position: fixed;
   left: 30rpx;
   bottom: 30rpx;
   display: -webkit-box;
@@ -451,5 +475,20 @@
 }
 .wxPayBox .inputPsd.data-v-ab684a58 {
   margin-bottom: 30rpx;
+}
+.showtips.data-v-ab684a58 {
+  width: 350rpx;
+  height: 100rpx;
+  background: #000000;
+  opacity: 0.6;
+  border-radius: 16rpx;
+  position: fixed;
+  left: 200rpx;
+  z-index: 1000;
+  top: 600rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  text-align: center;
 }
 

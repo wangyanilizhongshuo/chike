@@ -67,7 +67,7 @@
 			downLoadPic(){
 				 uni.downloadFile({  
 				            //https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top-e3b63a0b1b.png  
-				             url: 'https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E7%8E%8B%E4%B8%80%E5%8D%9A%E5%9B%BE%E7%89%87&hs=2&pn=0&spn=0&di=170980&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&ie=utf-8&oe=utf-8&cl=2&lm=-1&cs=2628330876%2C3804218267&os=2243715513%2C3276544433&simid=0%2C0&adpicid=0&lpn=0&ln=30&fr=ala&fm=&sme=&cg=&bdtype=11&oriquery=%E7%8E%8B%E4%B8%80%E5%8D%9A%E5%9B%BE%E7%89%87&objurl=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F13114630740%2F641%26refer%3Dhttp%3A%2F%2Finews.gtimg.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1614751183%26t%3D8bc825e411c0a126c073caea32ee9c7b&fromurl=ippr_z2C%24qAzdH3FAzdH3Fxo_z%26e3Bqq_z%26e3Bv54AzdH3Frw6pgj6AzdH3FfxfAzdH3Fdad8a8n8Aalm8cAzdH3Fdad8a8n8Aalm8caa%3FADTAG%3Dfxf%26r2e_6ju%3Dfxf&gsm=1&islist=&querylist=',   
+				             url: this.pics,
 				             success: (res) => {  
 				                    var tempFilePath = res.tempFilePath; // 这里拿到后端返回的图片路径
 									uni.saveImageToPhotosAlbum({  // 然后调用这个方法
