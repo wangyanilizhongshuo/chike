@@ -288,4 +288,21 @@
   margin-right: 30rpx;
   color: #FF9A9E;
 }
+.refundMoneyBox .chioceBox .lists.data-v-04bd7f79 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  color: #222222;
+  font-size: 26rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin-bottom: 30rpx;
+}
+.refundMoneyBox .chioceBox .lists .imgs.data-v-04bd7f79 {
+  display: block;
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 22rpx;
+}
 

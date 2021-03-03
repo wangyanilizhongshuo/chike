@@ -311,35 +311,28 @@ var _default =
     },
 
     getImage: function getImage() {
-      uni.downloadFile({
-        url: 'https://www.example.com/file/test', //仅为示例，并非真实的资源
+
+      var _that = this;
+      uni.chooseImage({
+        count: 1, //上传图片的数量，默认是9
+        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], //从相册选择
         success: function success(res) {
-          if (res.statusCode === 200) {
-            console.log('下载成功');
-          }
+          var tempFilePaths = res.tempFilePaths; //拿到选择的图片，是一个数组
+          tempFilePaths.map(function (sos) {
+            uni.uploadFile({
+              url: 'http://zxyptest.hzbixin.cn/file/upload',
+              filePath: sos,
+              name: 'file',
+              success: function success(datas) {
+                var results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
+                var aa = results.result;
+              },
+              fail: function fail(datas) {} });
+
+          });
         } });
 
-      // let _that = this;
-      // uni.chooseImage({
-      // 	count: 1, //上传图片的数量，默认是9
-      // 	sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-      // 	sourceType: ['album', 'camera'], //从相册选择
-      // 	success: function(res) {
-      // 		const tempFilePaths = res.tempFilePaths; //拿到选择的图片，是一个数组
-      // 		tempFilePaths.map(sos => {
-      // 			uni.uploadFile({
-      // 				url: 'http://zxyptest.hzbixin.cn/file/upload',
-      // 				filePath: sos,
-      // 				name: 'file',
-      // 				success: function(datas) {
-      // 					let results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
-      // 					let aa = results.result;
-      // 				},
-      // 				fail: function(datas) {}
-      // 			})
-      // 		})
-      // 	}
-      // });
 
 
     } } };exports.default = _default;

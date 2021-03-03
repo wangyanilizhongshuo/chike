@@ -504,15 +504,12 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
       that.$http.post('mini/v1/goods/indexubsidy', {
         page: 1 },
       function (res) {
-
         if (res.state == 0) {
           var aa = res.data.list;
           aa.map(function (res) {
             res.goods_img = _App.default.globalData.imgPrefixUrl + res.goods_img;
           });
           that.yingheList = aa;
-          // console.log(112221)
-          // console.log(that.yingheList.length)
         }
       });
     },
@@ -522,17 +519,13 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
       that.$http.post('mini/v1/goods/indexhot', {
         page: 1 },
       function (res) {
-
-        if (res.state == 0) {
-          var aa = res.data.list;
-          aa.map(function (res) {
-            res.goods_img = _App.default.globalData.imgPrefixUrl + res.goods_img;
-          });
-          that.disPriceList = aa;
-          // console.log(111)
-          // console.log(that.disPriceList)
-        }
+        var aa = res.data.list;
+        aa.map(function (res) {
+          res.goods_img = _App.default.globalData.imgPrefixUrl + res.goods_img;
+        });
+        that.disPriceList = aa;
       });
+
     },
     //发现好物
     getFindGoods: function getFindGoods() {
@@ -546,8 +539,6 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
             res.goods_img = _App.default.globalData.imgPrefixUrl + res.goods_img;
           });
           that.findGoodsList = aa;
-          // console.log(111)
-          // console.log(that.disPriceList)
         }
       });
     },
@@ -563,8 +554,6 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
             res.goods_img = _App.default.globalData.imgPrefixUrl + res.goods_img;
           });
           that.pickGoodsList = aa;
-          // console.log(111)
-          // console.log(that.disPriceList)
         }
       });
     },
@@ -578,7 +567,6 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
           that.mainList.map(function (res) {
             res.goods_img = _App.default.globalData.imgPrefixUrl + res.goods_img;
           });
-
         }
       });
     } } };exports.default = _default;

@@ -66,7 +66,6 @@
 			},
 			downLoadPic(){
 				 uni.downloadFile({  
-				            //https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top-e3b63a0b1b.png  
 				             url: this.pics,
 				             success: (res) => {  
 				                    var tempFilePath = res.tempFilePath; // 这里拿到后端返回的图片路径

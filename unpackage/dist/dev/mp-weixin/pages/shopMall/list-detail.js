@@ -583,12 +583,9 @@ var uniSwiperDot = function uniSwiperDot() {__webpack_require__.e(/*! require.en
           that.detailData.label_str = that.detailData.label_str.split(',');
           aas2.map(function (res1) {
             res1.pic = _App.default.globalData.imgPrefixUrl + res1.pic;
-            console.log(res1);
           });
           that.bannersList = aas;
           that.tuDetailList = aas2;
-          console.log(that.tuDetailList);
-          console.log('that.detailData.description');
         }
 
       });

@@ -388,7 +388,7 @@
 				 					},(res1)=>{
 				 						if(res1.state==0){
 				 							that.tipflag=true ;
-				 							that.tipMsg='确认收货';
+				 							that.tipMsg='收货成功';
 				 							setTimeout(()=>{
 				 									that.tipflag=false
 				 							},2000)

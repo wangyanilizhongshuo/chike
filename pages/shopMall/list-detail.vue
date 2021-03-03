@@ -393,12 +393,9 @@
 						that.detailData.label_str=that.detailData.label_str.split(',')
 						aas2.map(res1=>{
 							res1.pic=app.globalData.imgPrefixUrl+res1.pic;
-							console.log(res1)
 						})
 						that.bannersList=aas;
 						that.tuDetailList=aas2
-						console.log(that.tuDetailList)
-						console.log('that.detailData.description')
 					}
 					
 				})

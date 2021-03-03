@@ -556,7 +556,7 @@ var numberKeyboard = function numberKeyboard() {__webpack_require__.e(/*! requir
             function (res1) {
               if (res1.state == 0) {
                 that.tipflag = true;
-                that.tipMsg = '确认收货';
+                that.tipMsg = '收货成功';
                 setTimeout(function () {
                   that.tipflag = false;
                 }, 2000);

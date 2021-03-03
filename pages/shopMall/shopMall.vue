@@ -342,10 +342,10 @@
 					// console.log(1111)
 					 let nowtime=Math.round(new Date().getTime()/1000).toString();//获取当前时间
 					 let times= this.ptTime-nowtime;
-					this.days=parseInt(times/60/60/24, 10).toString().padStart(2,'0');//计算剩余的天数
-					this.hours= parseInt(times/60/60%24, 10).toString().padStart(2,'0');//计算剩余的小时数
-					this.minutes =parseInt(times/60%60, 10).toString().padStart(2,'0');//计算剩余的分钟数;//计算剩余的分钟数
-					var ss = parseInt(times%60,10);//计算剩余的秒数
+					 this.days=parseInt(times/60/60/24, 10).toString().padStart(2,'0');//计算剩余的天数
+					 this.hours= parseInt(times/60/60%24, 10).toString().padStart(2,'0');//计算剩余的小时数
+					 this.minutes =parseInt(times/60%60, 10).toString().padStart(2,'0');//计算剩余的分钟数;//计算剩余的分钟数
+					 var ss = parseInt(times%60,10);//计算剩余的秒数
 					// console.log(this.days, this.hours,this.minutes)
 				},60000)
 				
@@ -359,15 +359,12 @@
 				that.$http.post('mini/v1/goods/indexubsidy',{
 					page:1
 				},(res)=>{
-						
 					if(res.state ==0){
 						let aa=res.data.list;
 						aa.map((res)=>{
 							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
 						})
 						that.yingheList=aa;
-						// console.log(112221)
-						// console.log(that.yingheList.length)
 					}
 				})
 			},
@@ -377,17 +374,13 @@
 				that.$http.post('mini/v1/goods/indexhot',{
 					page:1
 				},(res)=>{
-						
-					if(res.state ==0){
 						let aa=res.data.list;
 						aa.map((res)=>{
 							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
 						})
 						that.disPriceList=aa;
-						// console.log(111)
-						// console.log(that.disPriceList)
 					}
-				})
+				)
 			},
 			//发现好物
 			getFindGoods(){
@@ -401,8 +394,6 @@
 							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
 						})
 						that.findGoodsList=aa;
-						// console.log(111)
-						// console.log(that.disPriceList)
 					}
 				})
 			},
@@ -418,8 +409,6 @@
 							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
 						})
 						that.pickGoodsList=aa;
-						// console.log(111)
-						// console.log(that.disPriceList)
 					}
 				})
 			},
@@ -433,11 +422,9 @@
 						that.mainList.map((res)=>{
 							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
 						})
-						
 					}
 				})
 			}
-			
 		}
 	}
 </script>

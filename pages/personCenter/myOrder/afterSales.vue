@@ -14,9 +14,10 @@
 				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn)">
 					<view class="uni-titles">
 						<view class="left">订单编号  {{item.order_sn}}</view>
-						<view class="right" v-if="item.return_status==1">售后</view>
-					    <view class="right" v-if="item.return_status==2">退款中</view>
-						<view class="right" v-if="item.return_status==3">退款成功</view>
+						<view class="right" v-if="item.status==4">售后</view>
+					    <view class="right" v-if="item.status==5">售后处理中</view>
+						<view class="right" v-if="item.status==6">售后成功</view>
+						<view class="right" v-if="item.status==7">售后失败</view>
 					</view>
 					<view class="uni-content" v-for="(item1,index1) in item.goods" :key="index1">
 						<image class="uni-left" :src="item1.goods_img"></image>
@@ -50,11 +51,21 @@
 				<view class="confirmBox" @tap.stop="btnSubmit">确认</view>
 			</view>
 			<view class="chioceBox">
-				 <view class="list">
+				<view class="lists"  @tap.stop="refundFlag=(!refundFlag),refundGoodFlag=false">
+					<image class="imgs" v-if="refundFlag==false" src="../../../static/image/shopCart-btn.png"></image>
+					<image class="imgs" v-if="refundFlag==true" src="../../../static/image/shopCart-btnActive.png"></image>
+					<view class="fields">退款</view>
+				</view>
+				<view class="lists" @tap.stop="refundGoodFlag=(!refundGoodFlag),refundFlag=false">
+					<image class="imgs" v-if="refundGoodFlag==false" src="../../../static/image/shopCart-btn.png"></image>
+					<image class="imgs" v-if="refundGoodFlag==true" src="../../../static/image/shopCart-btnActive.png"></image>
+					<view class="fields">退货退款</view>
+				</view>
+				 <view class="list" v-if="refundGoodFlag==true">
 					  <view class="field">物流名称</view>
 					  <input v-model="expressName" placeholder="请输入物流名称" />
 				 </view>
-				 <view class="list">
+				 <view class="list" v-if="refundGoodFlag==true">
 					  <view class="field">物流单号</view>
 					  <input v-model="expressCode" placeholder="请输入物流单号" />
 				 </view>
@@ -79,7 +90,9 @@
 				expressName:'',//物流名称
 				expressCode:'',//物流单号
 				signalFlag:false,
-				signalMsg:''
+				signalMsg:'',
+				refundFlag:false,//退款
+				refundGoodFlag:false//退款退货
 			}
 		},
 		onLoad(){
@@ -347,6 +360,21 @@
 					  
 				  }
 			  } 
+			  .lists{
+				  display: flex;
+				  color: #222222;
+				  font-size: 26rpx;
+				  align-items: center;
+				  margin-bottom:30rpx;
+				  .imgs{
+					  display: block;
+					  width: 34rpx;
+					  height: 34rpx;
+					  margin-right: 22rpx;;
+				  }
+				  .fields{}
+				  
+			  }
 		 }
 		 
 	}
