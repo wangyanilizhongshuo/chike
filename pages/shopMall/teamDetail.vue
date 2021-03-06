@@ -238,7 +238,7 @@
 		onShareAppMessage: function () {
 					let _this = this;
 					return {
-					  title: "智享婴品",
+					  title: "莱美牙",
 					  // path: "/pages/index/index?" + _this.getShareUrlParams()
 					};
 		},

@@ -3,10 +3,10 @@
 		<view class="contentBox">
 			<view class="uni-title">
 				<image  class="imgBgRed" src="http://zxyp.hzbixin.cn/files/30071608262696986.jpg"></image>
-			    <view class="titleBox" v-if="transactionNum==0">
+			   <!-- <view class="titleBox" v-if="transactionNum==0">
 					<view class="filed">交易成功</view>
 				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/30481608263126400.jpg"></image>
-				</view>
+				</view> -->
 				<view class="titleBox" v-if="msgDetail.status==1">
 					<view class="filed">
 						<view>待付款</view>
@@ -23,8 +23,24 @@
 				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/36921608262907029.jpg"></image>
 				</view>
 				<view class="titleBox" v-if="msgDetail.status==4">
-					<view class="filed">待评价 </view>
+					<view class="filed">售后 </view>
 				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/30501608262741477.jpg"></image>
+				</view>
+				<view class="titleBox" v-if="msgDetail.status==5">
+					<view class="filed">已完成</view>
+				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62931608262986532.jpg"></image>
+				</view>
+				<view class="titleBox" v-if="msgDetail.status==6">
+					<view class="filed">售后成功</view>
+				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62931608262986532.jpg"></image>
+				</view>
+				<view class="titleBox" v-if="msgDetail.status==7">
+					<view class="filed">售后失败</view>
+				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62931608262986532.jpg"></image>
+				</view>
+				<view class="titleBox" v-if="msgDetail.status==8">
+					<view class="filed">售后中</view>
+				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62931608262986532.jpg"></image>
 				</view>
 			</view>
 			<view class="addressBox">
@@ -51,9 +67,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="uni-bottoms" style="height: 70rpx;margin:25rpx 0rpx;"  v-if="msgDetail.status==2">
-						<view class="cancel style1" @tap.stop="refundMoney(item.order_sn)">退款</view>
-					</view>
+					
 				</view>
 					<view class="uni-bottom">
 						<view class="allNum">共计2件商品</view>
@@ -70,15 +84,17 @@
 						</view>
 						<view class="list">
 							<view class="uni-left">支付方式</view>
-							<view class="uni-right">微信支付</view>
+							<view class="uni-right" v-if="msgDetail.pay_type==1">微信支付</view>
+							<view class="uni-right" v-if="msgDetail.pay_type==2">余额支付</view>
 						</view>
+						
 						<view class="list">
 							<view class="uni-left">运费</view>
 							<view class="uni-right">¥0</view>
 						</view>
 						<view class="list">
-							<view class="uni-left">服务券</view>
-							<view class="uni-right active">-¥5</view>
+							<view class="uni-left">优惠券</view>
+							<view class="uni-right active">-¥{{msgDetail.coupon_dk_price}}</view>
 						</view>
 						<view class="list">
 							<view class="uni-left">积分抵扣</view>
@@ -91,16 +107,36 @@
 					</view>
 				</view>
 				<!-- <view  style="width: 750rpx;background-color: #f2f2f2;height: 50rpx;;"></view> -->
+				<!-- <view class="uni-bottoms" v-if="msgDetail.status==1">
+					<view class="cancel style1"  @tap.stop="cancelOrder(msgDetail.order_sn)">取消订单</view>
+					<view class="toPay style1" @tap.stop="payFlag=true">去支付</view>
+				</view>
+				<view class="uni-bottoms" v-if="msgDetail.status==3">
+					
+					<view class="toPay style1" @tap.stop="receiveGoods(msgDetail.order_sn)">确认收货</view>
+				</view>
+				<view class="uni-bottoms" v-if="msgDetail.status==5">
+					
+					<view class="toPay style1" @tap.stop="refundGoodMoney(msgDetail.order_sn)">退货退款</view>
+				</view>
+				<view class="uni-bottoms" style="height: 70rpx;margin:25rpx 0rpx;"  v-if="msgDetail.status==2">
+					<view class="cancel style1" @tap.stop="refundMoney(msgDetail.order_sn)">退款</view>
+				</view> -->
 				<view class="uni-bottoms" v-if="msgDetail.status==1">
 					<view class="cancel style1"  @tap.stop="cancelOrder(msgDetail.order_sn)">取消订单</view>
 					<view class="toPay style1" @tap.stop="payFlag=true">去支付</view>
 				</view>
 				<view class="uni-bottoms" v-if="msgDetail.status==3">
-					<!-- <view class="cancel style1">取消订单</view> -->
+					<view class="cancel style1" @tap.stop="refundGoodMoney(msgDetail.order_sn)">退货退款</view>
 					<view class="toPay style1" @tap.stop="receiveGoods(msgDetail.order_sn)">确认收货</view>
 				</view>
-				
-				
+				<!-- <view class="uni-bottoms" v-if="msgDetail.status==5">
+					
+					<view class="toPay style1" @tap.stop="refundGoodMoney(msgDetail.order_sn)">退货退款</view>
+				</view> -->
+				<view class="uni-bottoms"  v-if="msgDetail.status==2" style="height: 70rpx;margin:25rpx 0rpx;">
+					<view class="cancel style1" @tap.stop="refundMoney(msgDetail.order_sn)">退款</view>
+				</view>
 				
 			</view>
 		
@@ -150,6 +186,29 @@
 			 </view>
 			 <number-keyboard tabBar ref='KeyboarHid' @input='getPsd' psdLength='6'></number-keyboard>
 		</view>
+		<!-- 退货退款 -->
+		<!-- 退款的弹框 -->
+		<view class="refundMoneyDialog" v-if="refundMaskFlag"  @tap.stop="refundMaskFlag=false,visible=false"></view>
+		<view class="refundMoneyBox"  v-if="refundMaskFlag" @tap.stop="visible=false">
+			<view class="titleBox" @tap.stop="refundMaskFlag=false">
+				<view class="cancelBox" @tap.stop="visible=false">取消</view>
+				<view class="confirmBox" @tap.stop="refundGoodSubmit">确认</view>
+			</view>
+			<view class="chioceBox">
+				<!-- <view class="lists"  @tap.stop="refundFlag=(!refundFlag),refundGoodFlag=false,expressCode='',expressName='',wuCode=''">
+					<image class="imgs" v-if="refundFlag==false" src="../../../static/image/shopCart-btn.png"></image>
+					<image class="imgs" v-if="refundFlag==true" src="../../../static/image/shopCart-btnActive.png"></image>
+					<view class="fields">退款</view>
+				</view> -->
+				<view class="lists" @tap.stop="refundGoodFlag=(!refundGoodFlag),refundFlag=false">
+					<image class="imgs" v-if="refundGoodFlag==false" src="../../../static/image/shopCart-btn.png"></image>
+					<image class="imgs" v-if="refundGoodFlag==true" src="../../../static/image/shopCart-btnActive.png"></image>
+					<view class="fields">退货退款</view>
+				</view>
+				
+				 <textarea v-model="textValues" confirm-type="done" class="textareaStyle" placeholder-style="color:##555555;font-size:28rpx;" placeholder="请输入退款理由"/>
+			</view>
+		</view>
 		<view class="showtips" v-if="tipflag">{{tipMsg}}</view>
 	</view>
 </template>
@@ -165,7 +224,6 @@
 				defaultAddFlag:true,
 				// 交易状况完成 0 ：'待付款 1 ','待发货 2 ','待收货 3'
 				transactionNum:4,
-				refundMaskFlag:false,
 				refundWay:false,
 				returnGoods:false,
 				textAreaValue:'',
@@ -180,13 +238,24 @@
 				exPassword: "", //输入的内容
 				wxPayFlags:false,//微信支付的flag
 				tipflag:false,
-				tipMsg:''
+				tipMsg:'',
+				refundMaskFlag:false,
+				expressName:'',//物流名称
+				expressCode:'',//物流单号
+				wuCode:'',//物流名称下面的code
+				refundFlag:false,//退款
+				textValues:'',
+				refundGoodFlag:false,//退款退货\
+				expressNameList:[],//物流公司的列表
+				expressSecKey:'',//搜索物流的关键字
+				refundGoodCode:'',
 				}
 		},
 		onLoad(options){
 			console.log(this.titleActiveIndex)
 			this.setData(options);
 			this.getMsg();
+			
 			
 		},
 		components: {
@@ -340,8 +409,10 @@
 											that.tipflag=true ;
 											that.tipMsg='订单取消成功';
 											setTimeout(()=>{
-													that.tipflag=false
+													that.tipflag=false;
+													uni.navigateBack()
 											},3000)
+											
 											
 										}
 									})
@@ -356,6 +427,8 @@
 			// 退款
 			refundMoney(orders){
 				let that=this;
+				console.log('tuikuan')
+				console.log(orders)
 				 uni.showModal({
 				     title: '提示',
 				     content: '确认退款?',
@@ -363,11 +436,16 @@
 				         if (res.confirm) {
 				             that.$http.post('mini/v1/goods/cancelGood',{
 				             	order_sn:orders,
+								type:1,
+								wang:3
 				             },(res1)=>{
 								    uni.showToast({
 								        title: '申请退款成功',
 								        duration: 2000
 								    });
+									setTimeout(()=>{
+										uni.navigateBack()
+									},2500)
 				             	
 				             })
 				         } else if (res.cancel) {
@@ -390,7 +468,8 @@
 				 							that.tipflag=true ;
 				 							that.tipMsg='收货成功';
 				 							setTimeout(()=>{
-				 									that.tipflag=false
+				 									that.tipflag=false;
+													uni.navigateBack()
 				 							},2000)
 				 							
 				 						}
@@ -402,7 +481,60 @@
 				 		}
 				 	})
 				 },
-			
+				refundGoodSubmit(){
+					let that=this;
+					if(that.refundGoodFlag==false && that.textValues==''){
+						that.tipflag=true ;
+						that.tipMsg='填写退款说明';
+						setTimeout(()=>{
+								that.tipflag=false;
+								
+						},3000)
+					  return false
+					}else if(that.refundGoodFlag==false  ){
+						that.tipflag=true ;
+						that.tipMsg='选择退款说明';
+						setTimeout(()=>{
+								that.tipflag=false;
+								
+						},3000)
+						return false
+					}
+					else if(that.textValues==false  ){
+						that.tipflag=true ;
+						that.tipMsg='填写退款理由';
+						setTimeout(()=>{
+								that.tipflag=false;
+								
+						},3000)
+						return false
+					}
+						that.$http.post('mini/v1/goods/cancelGood',{
+							order_sn:that.refundGoodCode,
+							return_remark:that.textValues,
+							return_type:that.refundGoodFlag==true? '2':'1'
+							
+						},(res)=>{
+							if(res.state==0){
+								that.tipflag=true ;
+								that.tipMsg='申请成功';
+								that.refundMaskFlag=false;
+								that.refundGoodFlag=false;
+								that.refundFlag=false;
+								setTimeout(()=>{
+										that.tipflag=false;
+										uni.navigateBack()				
+								},2500)
+								
+							}
+						})
+					
+					
+				},
+				refundGoodMoney(mes){
+					this.refundMaskFlag=true;
+					this.refundGoodCode=mes;
+				}
 			// // 去支付
 			// goPay(){
 				
@@ -844,4 +976,81 @@
  	  text-align: center;
  	  
  }
+ .refundMoneyDialog{
+ 	 @extend  %maskBox;
+ }
+ .refundMoneyBox{
+ 	 position: fixed;
+ 	 left:0rpx;
+ 	 bottom:0rpx;
+ 	 z-index:30;
+ 	 background-color: #fff;;
+ 	 width: 750rpx;
+ 	 padding: 0rpx 30rpx;
+ 	 box-sizing: border-box;
+ 	 padding-bottom:45rpx;
+ 	 .titleBox{
+ 		height: 80rpx;
+ 		display: flex;
+ 		align-items: center;
+ 		justify-content: space-between;
+ 		font-size: 28rpx;
+ 		color: #888888;;
+ 		 .confirmBox{
+ 			 color: #FF9A9E;;
+ 		 }
+ 	 }
+ 	 .textareaStyle{
+ 		 width: 690rpx;
+ 		 height: 382rpx;
+ 		 padding:15rpx ;
+ 		 box-sizing: border-box;
+ 		 background: #F3F3F3;
+ 		 border-radius: 8rpx;
+ 	 }
+ 	 .chioceBox{
+ 		  .list{
+ 			  display: flex;
+ 			  color: #222222;
+ 			  font-size: 26rpx;
+ 			  align-items: center;
+ 			  height: 60rpx;
+ 			  .field{
+ 				  width: 120rpx;
+ 				  color: #FF9A9E;
+ 				  
+ 			  }
+ 		  } 
+ 		  .list1{
+ 			
+ 			   .imgs{
+ 					  display: block;
+ 					  width: 30rpx;
+ 					  height: 30rpx;;
+ 			   }
+ 			  
+ 		  }
+ 		  .uni-input{
+ 			  
+ 		  }
+ 		 
+ 		  .lists{
+ 			  display: flex;
+ 			  color: #222222;
+ 			  font-size: 26rpx;
+ 			  align-items: center;
+ 			  margin-bottom:30rpx;
+ 			  .imgs{
+ 				  display: block;
+ 				  width: 34rpx;
+ 				  height: 34rpx;
+ 				  margin-right: 22rpx;;
+ 			  }
+ 			
+ 			  
+ 		  }
+ 	 }
+ 	 
+ }
+
 </style>

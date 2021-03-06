@@ -31,7 +31,7 @@
 					 </view>
 					 <view class="first-3 style-detail" @tap.stop="jumpTop(3)">
 						 <view class="values">{{personData.service_coupon_num || 0}}</view>
-						 <view class="field">服务券</view>
+						 <view class="field">优惠券</view>
 					 </view>
 					 <view class="first-4 style-detail" @tap.stop="jumpTop(4)">
 						 <view class="values">{{personData.integral || 0}}</view>
@@ -178,7 +178,7 @@
 					})
 				}else if(types==3){
 					uni.navigateTo({
-						url:'/pages/shopCart/ticket'
+						url:'/pages/personCenter/myTicket/myTicket'
 					})
 				}
 				else if(types==4){

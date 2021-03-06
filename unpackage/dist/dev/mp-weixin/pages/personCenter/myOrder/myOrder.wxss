@@ -48,6 +48,16 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.refundMoneyDialog.data-v-6826302e {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: #000;
+  opacity: 0.5;
+}
 .showtips.data-v-6826302e {
   width: 350rpx;
   height: 100rpx;
@@ -237,5 +247,78 @@
 }
 .uni-bottom .transClose.data-v-6826302e {
   margin-left: 20rpx;
+}
+.refundMoneyBox.data-v-6826302e {
+  position: fixed;
+  left: 0rpx;
+  bottom: 0rpx;
+  z-index: 30;
+  background-color: #fff;
+  width: 750rpx;
+  padding: 0rpx 30rpx;
+  box-sizing: border-box;
+  padding-bottom: 45rpx;
+}
+.refundMoneyBox .titleBoxs1.data-v-6826302e {
+  height: 80rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  font-size: 28rpx;
+  color: #888888;
+}
+.refundMoneyBox .titleBoxs1 .confirmBox.data-v-6826302e {
+  color: #FF9A9E;
+}
+.refundMoneyBox .textareaStyle.data-v-6826302e {
+  width: 690rpx;
+  height: 382rpx;
+  padding: 15rpx;
+  box-sizing: border-box;
+  background: #F3F3F3;
+  border-radius: 8rpx;
+}
+.refundMoneyBox .chioceBox .list.data-v-6826302e {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  color: #222222;
+  font-size: 26rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  height: 60rpx;
+}
+.refundMoneyBox .chioceBox .list .field.data-v-6826302e {
+  width: 120rpx;
+  color: #FF9A9E;
+}
+.refundMoneyBox .chioceBox .list1 .imgs.data-v-6826302e {
+  display: block;
+  width: 30rpx;
+  height: 30rpx;
+}
+.refundMoneyBox .chioceBox .lists.data-v-6826302e {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  color: #222222;
+  font-size: 26rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin-bottom: 30rpx;
+}
+.refundMoneyBox .chioceBox .lists .imgs.data-v-6826302e {
+  display: block;
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 22rpx;
 }
 

@@ -1,12 +1,51 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-			
-			{
+		{
 					"path": "pages/index/index",
 					"style": {
 						"navigationStyle":"custom"
-					}
-			 },
+					   }
+		},
+		{
+			"path" : "pages/index/login",
+			"style" :                                                                                    
+			{
+			   "navigationBarTitleText": "登录",
+			   "navigationBarBackgroundColor":"#fff",
+			   "navigationBarTextStyle":"black"
+			}
+		},
+		{
+				"path" : "pages/index/logins",
+				"style" :                                                                                    
+				{
+				   "navigationBarTitleText": "登录",
+				   "navigationBarBackgroundColor":"#fff",
+				   "navigationBarTextStyle":"black"
+				}
+		 },
+	  
+	  
+	  
+		{
+         	"path" : "pages/index/loginPsd",
+         	"style" :                                                                                    
+         	{
+         	   "navigationBarTitleText": "密码登录",
+         	   "navigationBarBackgroundColor":"#fff",
+         	   "navigationBarTextStyle":"black"
+         	}
+         },
+		
+			 {
+			 	"path" : "pages/personCenter/myOrder/orderDetail",
+			 	"style" :                                                                                    
+			 	{
+			 		"navigationBarTitleText": "订单详情",
+			 		"navigationBarBackgroundColor":"#fff",
+			 		"navigationBarTextStyle":"black"
+			 	}
+			  },
 			 {
 			   "path" : "pages/personCenter/myOpinion/opinionSuccess",
 			   "style" :                                                                                    
@@ -34,15 +73,7 @@
 				}
 			},
 			
-			{
-					"path" : "pages/index/logins",
-					"style" :                                                                                    
-					{
-					   "navigationBarTitleText": "登录",
-					   "navigationBarBackgroundColor":"#fff",
-					   "navigationBarTextStyle":"black"
-					}
-			},
+			
 			
 		    {
 				"path": "pages/shopMall/shopMallCart",
@@ -52,15 +83,7 @@
 					"navigationBarTextStyle":"black"
 				}
 			},
-		{
-			"path" : "pages/index/login",
-			"style" :                                                                                    
-			{
-			   "navigationBarTitleText": "登录",
-			   "navigationBarBackgroundColor":"#fff",
-			   "navigationBarTextStyle":"black"
-			}
-		},
+		
 		{
 				   "path" : "pages/personCenter/myOpinion/myOpinion",
 				   "style" :                                                                                    
@@ -236,15 +259,7 @@
 					"navigationBarTextStyle":"black"
 				}
 			  },
-			 {
-				"path" : "pages/personCenter/myOrder/orderDetail",
-				"style" :                                                                                    
-				{
-					"navigationBarTitleText": "我的订单",
-					"navigationBarBackgroundColor":"#fff",
-					"navigationBarTextStyle":"black"
-				}
-			  },
+			
 			{
 				"path" : "pages/personCenter/myMsg/messageDetail",
 				"style" :                                                                                    
@@ -705,7 +720,37 @@
 					}
 					
 				}
-        ],
+            ,{
+            "path" : "pages/personCenter/myTicket/myTicket",
+            "style" :                                                                                    
+            {
+               "navigationBarTitleText": "优惠券",
+               "navigationBarBackgroundColor":"#fff",
+               "navigationBarTextStyle":"black"
+            }
+            
+        }
+		,{
+		    "path" : "pages/personCenter/myTicket/useRegular",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "使用规则",
+		        "navigationBarBackgroundColor":"#fff",
+		        "navigationBarTextStyle":"black"
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/personCenter/myTicket/uselessTicket",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "优惠券",
+		        "navigationBarBackgroundColor":"#fff",
+		        "navigationBarTextStyle":"black"
+		    }
+		    
+		}
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

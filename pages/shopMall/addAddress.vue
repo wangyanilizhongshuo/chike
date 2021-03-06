@@ -23,7 +23,7 @@
 			 </view>
 			 <view class="list lists">
 				 <view class="fields">设置默认地址</view>
-				 <switch checked color="#FF9A9E" @change="switch1Change" />
+				 <switch :checked="addDefault" color="#FF9A9E" @change="switch1Change" />
 			 </view>
 		 </view>
 		 <view class="footer" @tap.stop="submit" >确认</view>
@@ -101,9 +101,7 @@
 						is_default:flags
 					},(res)=>{
 						if(res.state==0){
-							uni.redirectTo({
-								url:'/pages/personCenter/myOpinion/opinionSuccess?typesName='+8
-							}) 
+							uni.navigateBack()
 						}
 					})
 					

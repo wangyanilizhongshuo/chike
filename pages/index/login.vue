@@ -5,14 +5,13 @@
 	     
 	  </view>
 	<view class="tips">请完成微信授权以继续使用</view>
-	<!-- <button class="btnSubmit" lang="zh_CN"   open-type="getUserInfo"  @getuserinfo="authorLogin"> -->
-		<button class="btnSubmit" open-type="getUserInfo" lang="zh_CN" @getuserinfo="authorLogin">
+	<!-- <button class="btnSubmit" lang="zh_CN"   open-type="getPhoneNumber"  @getphonenumber="getPhoneNumber"> -->
+		<button class="btnSubmit"  open-type="getUserInfo" lang="zh_CN" @getuserinfo="authorLogin">
 					 微信授权用户信息
 	</button>
 	  <image class="botttomBg" src="http://zxyp.hzbixin.cn/files/73781608195989134.jpg"></image>
 	</view>
 </template>
-
 <script>
 	export default {
 		 data () {
@@ -36,22 +35,25 @@
 			
 		},
 		methods:{
-			
+			// getPhoneNumber(e){
+			// 	if (e.detail.errMsg !== 'getPhoneNumber:ok') {
+			// 	  return false;
+			// 	}
+			// 	console.log(e.detail)
+			// 	console.log(18828)
+			// },
 			//刚进去,就开始微信登录,后面绑定手机号
 			authorLogin: function (e) {
-				console.log(e)
+				
 				let that=this;
 			    // if (e.detail.errMsg !== 'getPhoneNumber:ok') {
-					if (e.detail.errMsg !== 'getUserInfo:ok') {
-			        return false;
+				if (e.detail.errMsg !== 'getUserInfo:ok') {
+				  return false;
 			    }
 				if(uni.getStorageSync('scene')){
 				     that.scenes=uni.getStorageSync('scene')
 				}
-				console.log('kizhogsho')
-				console.log(that.code)
-				console.log(e.detail.encryptedData)
-				console.log(e.detail.iv)
+			
 				that.$http.post('mini/v1/wechat/wxlogin',{
 						  code:that.code,
 						  encryptedData:e.detail.encryptedData,
@@ -59,8 +61,8 @@
 						  spreaduid:that.scenes
 					  },function(res){
 					    	if(res.state ==0){
-								console.log(res.data)
-								console.log('res.data')
+								// console.log(res.data)
+								// console.log('res.data')
 								uni.setStorageSync('token',res.data.token);
 								uni.setStorageSync('openId',res.data.openid);
 								if(res.data.is_bind_mobile==1){

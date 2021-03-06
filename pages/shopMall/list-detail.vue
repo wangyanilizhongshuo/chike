@@ -216,13 +216,13 @@
 				if(res.from === 'button' ){
 					
 					return {
-					  title: "智享婴品",
+					  title: "莱美牙",
 					  // path: "/pages/index/index?" + _this.getShareUrlParams()
 					};
 				}else if(res.from ==='menu' ){
 					console.log(2222)
 					return {
-					  title: "智享婴品",
+					  title: "莱美牙",
 					  // path: "/pages/index/index?" + _this.getShareUrlParams()
 					};
 				}

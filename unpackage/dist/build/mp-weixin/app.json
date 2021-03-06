@@ -1,12 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/login",
+    "pages/index/logins",
+    "pages/index/loginPsd",
+    "pages/personCenter/myOrder/orderDetail",
     "pages/personCenter/myOpinion/opinionSuccess",
     "pages/shopCart/ticket",
     "pages/shopCart/uselessTicket",
-    "pages/index/logins",
     "pages/shopMall/shopMallCart",
-    "pages/index/login",
     "pages/personCenter/myOpinion/myOpinion",
     "pages/index/noticeList",
     "pages/index/searchDetail",
@@ -27,7 +29,6 @@
     "pages/personCenter/personData",
     "pages/personCenter/myServerOrder/giveAMsg",
     "pages/personCenter/myOrder/afterSales",
-    "pages/personCenter/myOrder/orderDetail",
     "pages/personCenter/myMsg/messageDetail",
     "pages/personCenter/myMsg/myMsg",
     "pages/personCenter/myInteGral/myInteGral",
@@ -73,7 +74,10 @@
     "pages/shopMall/market-searchTitle",
     "pages/index/titleSearch",
     "pages/shopMall/uselessTicket",
-    "pages/personCenter/myGuide/myGuide"
+    "pages/personCenter/myGuide/myGuide",
+    "pages/personCenter/myTicket/myTicket",
+    "pages/personCenter/myTicket/useRegular",
+    "pages/personCenter/myTicket/uselessTicket"
   ],
   "subPackages": [],
   "window": {
@@ -119,6 +123,5 @@
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

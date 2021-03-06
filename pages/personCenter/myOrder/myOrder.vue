@@ -14,7 +14,13 @@
 				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn)">
 					<view class="uni-titles">
 						<view class="left">订单编号  {{item.order_sn}}</view>
-					    <!-- <view class="right">交易完成</view> -->
+						<view class="right" v-if="item.status==1">待付款</view>
+					    <view class="right" v-if="item.status==2">待发货</view>
+						<view class="right" v-if="item.status==3">待收货</view>
+						<view class="right" v-if="item.status==4">售后</view>
+						<view class="right" v-if="item.status==5">售后中</view>
+						<view class="right" v-if="item.status==6">售后成功</view>
+						<view class="right" v-if="item.status==7">售后失败</view>
 					</view>
 					<view class="uni-content" v-for="(item1,index1) in item.goods" :key="index1">
 						<image class="uni-left" :src="item1.goods_img"></image>
@@ -32,14 +38,14 @@
 						<view  class="allMoney">实付款：<text class="mon">￥{{item.total_price}}</text></view>
 					</view>
 					<view class="uni-bottom" v-if="item.status==1">
-						<view class="cancel style1" >取消订单</view>
+						<view class="cancel style1"  @tap.stop="cancelOrder(item.order_sn)" >取消订单</view>
 						<view class="toPay style1">去支付</view>
 					</view>
-					<view class="uni-bottom" v-if="item.status==3">
+					<view class="uni-bottom" v-if="item.status==3"  @tap.stop="receiveGoods(item.order_sn)">
 						<view class="toPay style1">确认收货</view>
 					</view>
-					<view class="uni-bottom" v-if="item.status==2">
-						<view class="transClose">待发货</view>
+					<view class="uni-bottom" v-if="item.status==2" @tap.stop="refundMoney(item.order_sn)">
+						<view class="toPay style1" >退款</view>
 					</view>
 					<view class="uni-bottom" v-if="item.status==-1">
 						<view class="transClose ">交易关闭</view>
@@ -100,9 +106,9 @@
 						<view class="allNum">共计{{item.count_num}}件商品</view>
 						<view  class="allMoney">实付款：<text class="mon">￥{{item.total_price}}</text></view>
 					</view>
-					<view class="uni-bottom">
+					<!-- <view class="uni-bottom">
 						<view class="toPay style1" @tap.stop="refundMoney(item.order_sn)">退款</view>
-					</view>
+					</view> -->
 				</view>
 			</view>
 		</view>
@@ -130,9 +136,61 @@
 						<view  class="allMoney">实付款：<text class="mon">￥{{item.total_price}}</text></view>
 					</view>
 					<view class="uni-bottom">
+					
 						<view class="toPay style1" @tap.stop="receiveGoods(item.order_sn)">确认收货</view>
 					</view>
 				</view>
+			</view>
+		</view>
+		<!--已经完成 -->
+		<view  v-if="titleActiveIndex==4" class="bigBox">
+			<view class="listBox">
+				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn)">
+					<view class="uni-titles">
+						<view class="left">订单编号  {{item.order_sn}}</view>
+					    <view class="right">已完成</view>
+					</view>
+					<view class="uni-content" v-for="(item1,index1) in item.goods" :key="index1">
+						<image class="uni-left" :src="item1.goods_img"></image>
+						<view class="uni-right">
+							<view class="uni-first">{{item1.goods_name}}  </view>
+			                <view class="uni-second">¥<text  class="money">{{item1.user_price}}</text></view>
+							<view class="uni-third">
+								<view class="uniLeft">{{item1.rule_name}}：{{item1.rule_values}}</view>
+								<view class="uniRight">×{{item1.cart_num}}</view>
+							</view>
+						</view>
+					</view>
+					<view class="uni-bottom">
+						<view class="allNum">共计{{item.count_num}}件商品</view>
+						<view  class="allMoney">实付款：<text class="mon">￥{{item.total_price}}</text></view>
+					</view>
+					<view class="uni-bottom">
+						<!-- <view class="toPay style1" @tap.stop="refundMaskFlag=true,indexFlag=index">退款退货</view> -->
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 退款的弹框 -->
+		<view class="refundMoneyDialog" v-if="refundMaskFlag"  @tap.stop="refundMaskFlag=false"></view>
+		<view class="refundMoneyBox"  v-if="refundMaskFlag" > 
+			<view class="titleBoxs1" @tap.stop="refundMaskFlag=false">
+				<view class="cancelBox" >取消</view>
+				<view class="confirmBox" @tap.stop="btnSubmit">确认</view>
+			</view>
+			<view class="chioceBox">
+				<!-- <view class="lists"  @tap.stop="refundFlag=(!refundFlag),refundGoodFlag=false">
+					<image class="imgs" v-if="refundFlag==false" src="../../../static/image/shopCart-btn.png"></image>
+					<image class="imgs" v-if="refundFlag==true" src="../../../static/image/shopCart-btnActive.png"></image>
+					<view class="fields">退款</view>
+				</view> -->
+				<view class="lists" @tap.stop="refundGoodFlag=(!refundGoodFlag),refundFlag=false">
+					<image class="imgs" v-if="refundGoodFlag==false" src="../../../static/image/shopCart-btn.png"></image>
+					<image class="imgs" v-if="refundGoodFlag==true" src="../../../static/image/shopCart-btnActive.png"></image>
+					<view class="fields">退货退款</view>
+				</view>
+				
+				 <textarea v-model="textValues" confirm-type="done" class="textareaStyle" placeholder-style="color:##555555;font-size:28rpx;" placeholder="请输入退款理由"/>
 			</view>
 		</view>
 		<view class="showtips" v-if="tipflag">{{tipMsg}}</view>
@@ -145,13 +203,19 @@
 		data() {
 			return {
 				titleActiveIndex:0,
-				titleList:['全部','待付款','待发货','待收货'],
+				titleList:['全部','待付款','待发货','待收货','已完成'],
 				pages:1,
 				pagev:1,
 				msgList:[],
 				types:1,
 				tipflag:false,
-				tipMsg:''
+				tipMsg:'',
+				indexFlag:'',
+				refundMaskFlag:false,
+				refundGoodFlag:false,
+				refundFlag:false,
+				textValues:''//退款理由
+				
 			}
 		},
 		onLoad(options){
@@ -169,18 +233,20 @@
 			// 头部点亮
 			getTitleActive(index){
 				this.titleActiveIndex=index;
-				this.types=index;
+				if(index==4){
+					this.types=5
+				}else{
+					this.types=index;
+				}
 				this.msgList=[];
 				this.pages=1;
 				this.getOrderList()				
-				console.log(index)
 			},
 			jumpDetail(values){
 				uni.navigateTo({
 					url:'/pages/personCenter/myOrder/orderDetail?transactionNum='+this.titleActiveIndex+'&order_sn='+values
 				})
 			},
-			
 			getOrderList(){
 				let that =this;
 				that.$http.post('mini/v1/user/orderlist',{
@@ -198,11 +264,10 @@
 							})
 							let bb = that.msgList;
 							that.msgList = bb.concat(aa);
-						}
-						
-						
+						}	
 					}
 				})
+				
 			},
 			cancelOrder(codes){
 			     let that=this;
@@ -217,20 +282,20 @@
 										if(res1.state==0){
 											that.tipflag=true ;
 											that.tipMsg='订单取消成功';
+											that.pages=1;
+											that.msgList=[]
+											that.getOrderList();
 											setTimeout(()=>{
 													that.tipflag=false
 											},3000)
-											that.msgList=[]
-				                           that.getOrderList();
+											
 										}
 									})
 							} else if (res.cancel) {
 								console.log('用户点击取消');
 							}
-						
-					}
+ 					}
 				})
-				
 			},
 			receiveGoods(codes){
 				let that=this;
@@ -245,11 +310,13 @@
 									if(res1.state==0){
 										that.tipflag=true ;
 										that.tipMsg='收货成功';
+										that.pages=1;
+										that.msgList=[]
+										that.getOrderList();
 										setTimeout(()=>{
 												that.tipflag=false
 										},2000)
-										that.msgList=[]
-										that.getOrderList();
+										
 									}
 								})
 							} else if (res.cancel) {
@@ -281,9 +348,62 @@
 				     }
 				 });
 				
+			},
+			btnSubmit(){
 				
-				
-			}
+				let that=this;
+				if(that.refundGoodFlag==false&&that.textValues==''){
+					console.log(11111)
+					that.tipflag=true ;
+					that.tipMsg='填写退款说明';
+					setTimeout(()=>{
+							that.tipflag=false;
+							
+					},3000)
+				  return false
+				}else if(that.refundGoodFlag==false){
+					console.log(22222)
+					that.tipflag=true ;
+					that.tipMsg='选择退款说明';
+					setTimeout(()=>{
+							that.tipflag=false;
+							
+					},3000)
+					return false
+				}
+				else if(that.textValues==false  ){
+					console.log(33333)
+					that.tipflag=true ;
+					that.tipMsg='填写退款理由';
+					setTimeout(()=>{
+							that.tipflag=false;
+							
+					},3000)
+					return false
+				}
+				that.$http.post('mini/v1/goods/cancelGood',{
+					order_sn:that.msgList[that.indexFlag].order_sn,
+					return_remark:that.textValues,
+					return_type:that.refundGoodFlag==true? '2':'1'
+					
+				},(res)=>{
+					if(res.state==0){
+						that.tipflag=true ;
+						that.tipMsg='申请成功';
+						that.pages=1;
+						that.msgList=[];
+						that.refundMaskFlag=false;
+						that.refundGoodFlag=false;
+						that.refundFlag=false;
+						that.getOrderList();
+						setTimeout(()=>{
+								that.tipflag=false;
+								
+						},3000)
+						console.log(res.data)
+					}
+				})
+			},
 			
 		}
 	}
@@ -450,4 +570,80 @@
 	   margin-left: 20rpx;
 	}
 }
+.refundMoneyDialog{
+		 @extend  %maskBox;
+	}
+	.refundMoneyBox{
+		 position: fixed;
+		 left:0rpx;
+		 bottom:0rpx;
+		 z-index:30;
+		 background-color: #fff;;
+		 width: 750rpx;
+		 padding: 0rpx 30rpx;
+		 box-sizing: border-box;
+		 padding-bottom:45rpx;
+		 .titleBoxs1{
+			height: 80rpx;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 28rpx;
+			color: #888888;;
+			 .confirmBox{
+				 color: #FF9A9E;;
+			 }
+		 }
+		 .textareaStyle{
+			 width: 690rpx;
+			 height: 382rpx;
+			 padding:15rpx ;
+			 box-sizing: border-box;
+			 background: #F3F3F3;
+			 border-radius: 8rpx;
+		 }
+		 .chioceBox{
+			  .list{
+				  display: flex;
+				  color: #222222;
+				  font-size: 26rpx;
+				  align-items: center;
+				  height: 60rpx;
+				  .field{
+					  width: 120rpx;
+					  color: #FF9A9E;
+					  
+				  }
+			  } 
+			  .list1{
+				
+				   .imgs{
+						  display: block;
+						  width: 30rpx;
+						  height: 30rpx;;
+				   }
+				  
+			  }
+			  .uni-input{
+				  
+			  }
+			 
+			  .lists{
+				  display: flex;
+				  color: #222222;
+				  font-size: 26rpx;
+				  align-items: center;
+				  margin-bottom:30rpx;
+				  .imgs{
+					  display: block;
+					  width: 34rpx;
+					  height: 34rpx;
+					  margin-right: 22rpx;;
+				  }
+				
+				  
+			  }
+		 }
+		 
+	}
 </style>

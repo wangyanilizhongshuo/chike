@@ -326,7 +326,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var carousel = function carousel() {__webpack_require__.e(/*! require.ensure | components/vear-carousel/vear-carousel */ "components/vear-carousel/vear-carousel").then((function () {return resolve(__webpack_require__(/*! @/components/vear-carousel/vear-carousel */ 609));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var carousel = function carousel() {__webpack_require__.e(/*! require.ensure | components/vear-carousel/vear-carousel */ "components/vear-carousel/vear-carousel").then((function () {return resolve(__webpack_require__(/*! @/components/vear-carousel/vear-carousel */ 641));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
     return {

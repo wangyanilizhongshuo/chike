@@ -48,7 +48,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.refundMoneyDialog.data-v-04bd7f79 {
+.pickerMask.data-v-04bd7f79, .refundMoneyDialog.data-v-04bd7f79 {
   position: fixed;
   top: 0;
   left: 0;
@@ -282,11 +282,16 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  margin-bottom: 30rpx;
+  height: 60rpx;
 }
 .refundMoneyBox .chioceBox .list .field.data-v-04bd7f79 {
-  margin-right: 30rpx;
+  width: 120rpx;
   color: #FF9A9E;
+}
+.refundMoneyBox .chioceBox .list1 .imgs.data-v-04bd7f79 {
+  display: block;
+  width: 30rpx;
+  height: 30rpx;
 }
 .refundMoneyBox .chioceBox .lists.data-v-04bd7f79 {
   display: -webkit-box;

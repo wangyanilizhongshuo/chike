@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/vear-carousel/vear-carousel":1,"components/side-slip/del":1,"components/uni-swiper-dot/uni-swiper-dot":1,"components/number-keyboard/number-keyboard":1,"components/password-input/password-input":1,"components/side-slip/index":1};
+/******/ 		var cssChunks = {"components/vear-carousel/vear-carousel":1,"components/number-keyboard/number-keyboard":1,"components/password-input/password-input":1,"components/side-slip/del":1,"components/uni-swiper-dot/uni-swiper-dot":1,"components/side-slip/index":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/vear-carousel/vear-carousel":"components/vear-carousel/vear-carousel","components/side-slip/del":"components/side-slip/del","components/uni-swiper-dot/uni-swiper-dot":"components/uni-swiper-dot/uni-swiper-dot","components/number-keyboard/number-keyboard":"components/number-keyboard/number-keyboard","components/password-input/password-input":"components/password-input/password-input","components/wing-time-selector/wing-time-selector":"components/wing-time-selector/wing-time-selector","components/side-slip/index":"components/side-slip/index"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/vear-carousel/vear-carousel":"components/vear-carousel/vear-carousel","components/number-keyboard/number-keyboard":"components/number-keyboard/number-keyboard","components/password-input/password-input":"components/password-input/password-input","components/side-slip/del":"components/side-slip/del","components/uni-swiper-dot/uni-swiper-dot":"components/uni-swiper-dot/uni-swiper-dot","components/wing-time-selector/wing-time-selector":"components/wing-time-selector/wing-time-selector","components/side-slip/index":"components/side-slip/index"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {
