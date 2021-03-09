@@ -147,10 +147,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   passwordInput: function() {
-    return __webpack_require__.e(/*! import() | components/password-input/password-input */ "components/password-input/password-input").then(__webpack_require__.bind(null, /*! @/components/password-input/password-input.vue */ 648))
+    return __webpack_require__.e(/*! import() | components/password-input/password-input */ "components/password-input/password-input").then(__webpack_require__.bind(null, /*! @/components/password-input/password-input.vue */ 656))
   },
   numberKeyboard: function() {
-    return __webpack_require__.e(/*! import() | components/number-keyboard/number-keyboard */ "components/number-keyboard/number-keyboard").then(__webpack_require__.bind(null, /*! @/components/number-keyboard/number-keyboard.vue */ 655))
+    return __webpack_require__.e(/*! import() | components/number-keyboard/number-keyboard */ "components/number-keyboard/number-keyboard").then(__webpack_require__.bind(null, /*! @/components/number-keyboard/number-keyboard.vue */ 663))
   }
 }
 var render = function() {
@@ -662,7 +662,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../App.vue */ 5)
 //
 //
 //
-var numberKeyboard = function numberKeyboard() {__webpack_require__.e(/*! require.ensure | components/number-keyboard/number-keyboard */ "components/number-keyboard/number-keyboard").then((function () {return resolve(__webpack_require__(/*! @/components/number-keyboard/number-keyboard.vue */ 655));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var passwordInput = function passwordInput() {__webpack_require__.e(/*! require.ensure | components/password-input/password-input */ "components/password-input/password-input").then((function () {return resolve(__webpack_require__(/*! @/components/password-input/password-input.vue */ 648));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { defaultAddFlag: true, // 交易状况完成 0 ：'待付款 1 ','待发货 2 ','待收货 3'
+var numberKeyboard = function numberKeyboard() {__webpack_require__.e(/*! require.ensure | components/number-keyboard/number-keyboard */ "components/number-keyboard/number-keyboard").then((function () {return resolve(__webpack_require__(/*! @/components/number-keyboard/number-keyboard.vue */ 663));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var passwordInput = function passwordInput() {__webpack_require__.e(/*! require.ensure | components/password-input/password-input */ "components/password-input/password-input").then((function () {return resolve(__webpack_require__(/*! @/components/password-input/password-input.vue */ 656));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { defaultAddFlag: true, // 交易状况完成 0 ：'待付款 1 ','待发货 2 ','待收货 3'
       transactionNum: 4, refundWay: false, returnGoods: false, textAreaValue: '', titleActiveIndex: '', order_sn: '', msgDetail: '', payFlag: false, //支付商品
       extraFlag: false, wxFlag: false, // 余额支付,输入密码
       exDialogflag: false, //弹框

@@ -122,8 +122,8 @@
 				 <image class="imgs" :src="cartGoodMsg.goods_img"></image>
 			     <view class="goodBox">
 					 <view class="priBox">
-						 <view class="lefts">¥ <text class="mon">{{smallCarMsg[0].price}}</text></view>
-					     <view class="rights"  v-if="smallCarMsg.youhuiPrice!=0">已减¥{{smallCarMsg[1].youhuiPrice}}</view>
+						 <view class="lefts">¥ <text class="mon">{{smallCarMsg[0].com_price}}</text></view>
+					     <view class="rights" style="text-decoration:line-through">{{smallCarMsg[1].price_0}}</view>
 					 </view>
 					 <view class="norms">已选择:{{smallCarMsg[2].values}}</view>
 				 </view>
@@ -314,16 +314,18 @@
 			//加入购物车获取商品信息
 			joinCartMsg(){
 				let that=this;
-				that.$http.post('mini/v1/goods/cartinfo',{
+				that.$http.post('mini/v1/goods/comInfo',{
 					goods_id:that.goodsId
 				},(res)=>{
 					if(res.state==0){
-						that.cartGoodMsg=res.data.list;
+						that.cartGoodMsg=res.data.list[0];
 						that.cartGoodMsg.goods_img=app.globalData.imgPrefixUrl+that.cartGoodMsg.goods_img;
-						that.smallCarMsg.push({price:that.cartGoodMsg.rules[0].user_price})
-						that.smallCarMsg.push({youhuiPrice:that.cartGoodMsg.rules[0].youhui}),
+						that.smallCarMsg.push({com_price:that.cartGoodMsg.com_price})
+						that.smallCarMsg.push({price_0:that.cartGoodMsg.price_0}),
 						that.smallCarMsg.push({values:that.cartGoodMsg.rules[0].rule_values})
 						that.cartRuleId=that.cartGoodMsg.rules[0].rule_id;
+						console.log(that.smallCarMsg)
+						console.log(12345)
 					}
 					
 				})
@@ -349,11 +351,14 @@
 			getChoiceSpec(index){
 				console.log(index)
 				this.choiceSpecificeIndex=index;
-				this.smallCarMsg[0].price= this.cartGoodMsg.rules[index].user_price;
-				this.smallCarMsg[1].youhuiPrice=this.cartGoodMsg.rules[index].youhui
+				this.smallCarMsg[0].com_price= this.cartGoodMsg.com_price;
+				this.smallCarMsg[1].price_0=this.cartGoodMsg.price_0
 				this.smallCarMsg[2].values=this.cartGoodMsg.rules[index].rule_values
 				this.cartRuleId=this.cartGoodMsg.rules[index].rule_id;
-				
+				console.log(1234)
+				console.log(index)
+				console.log(this.cartGoodMsg.rules[index])
+				console.log(this.cartRuleId)
 			},
 			// 商品数量的加减
 			getGoodsNum(style){
@@ -389,7 +394,6 @@
 			},
 			getDetail(){
 				let that=this;
-				
 				that.$http.post('mini/v1/goods/comGoods',{
 					goods_id:that.goodsId
 				},(res)=>{
