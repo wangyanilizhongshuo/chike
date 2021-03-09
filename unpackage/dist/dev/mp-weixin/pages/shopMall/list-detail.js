@@ -132,25 +132,20 @@ var render = function() {
 
     _vm.e3 = function($event) {
       $event.stopPropagation()
-      ;(_vm.joinCartBoxflag = true), (_vm.category = 1)
+      ;(_vm.joinCartBoxflag = true), (_vm.category = 2)
     }
 
     _vm.e4 = function($event) {
       $event.stopPropagation()
-      ;(_vm.joinCartBoxflag = true), (_vm.category = 2)
+      ;(_vm.joinCartBoxflag = true), (_vm.category = 3)
     }
 
     _vm.e5 = function($event) {
       $event.stopPropagation()
-      ;(_vm.joinCartBoxflag = true), (_vm.category = 3)
-    }
-
-    _vm.e6 = function($event) {
-      $event.stopPropagation()
       _vm.joinCartBoxflag = false
     }
 
-    _vm.e7 = function($event) {
+    _vm.e6 = function($event) {
       $event.stopPropagation()
       _vm.joinCartBoxflag = false
     }
@@ -189,6 +184,44 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -491,6 +524,44 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var uniSwiperDot = function uniSwiperDot() {__webpack_require__.e(/*! require.ensure | components/uni-swiper-dot/uni-swiper-dot */ "components/uni-swiper-dot/uni-swiper-dot").then((function () {return resolve(__webpack_require__(/*! @/components/uni-swiper-dot/uni-swiper-dot.vue */ 669));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { address: '优琦口腔（下沙江滨店）', collectActive: false, bannersList: [], current: 0, mode: 'round', listData: [{ url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: '超声波洗牙（豪华套餐）', price: '49.00', desc: '无痛清除牙结石，利用超声波的高频震动，将牙齿表面的牙结石，牙渍，菌斑等击碎并冲刷下来以达到清洁牙齿的目的。' }, { url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: '超声波洗牙（豪华套餐）', price: '49.00', desc: '无痛清除牙结石，利用超声波的高频震动，将牙齿表面的牙结石，牙渍，菌斑等击碎并冲刷下来以达到清洁牙齿的目的。' }, { url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg', title: '超声波洗牙（豪华套餐）', price: '49.00', desc: '无痛清除牙结石，利用超声波的高频震动，将牙齿表面的牙结石，牙渍，菌斑等击碎并冲刷下来以达到清洁牙齿的目的。' }], // 图文 ,商品细节的展现,切换
       tuwordFlag: true, goodsFlag: false, collectFlag: false, // 商品的加减
       goodNum: 1, backHeight: '', // 购物车的蒙面层
@@ -515,49 +586,11 @@ var uniSwiperDot = function uniSwiperDot() {__webpack_require__.e(/*! require.en
       // 1来自购物车
       if (that.category == 1) {that.getJoinCart();} else if (that.category == 2) {that.getSignalBug();} else if (that.category == 3) {uni.navigateTo({ url: '/pages/shopMall/confirm' });}}, //加入购物车获取商品信息
     joinCartMsg: function joinCartMsg() {var that = this;that.$http.post('mini/v1/goods/cartinfo', { goods_id: that.goodsId }, function (res) {if (res.state == 0) {that.cartGoodMsg = res.data.list;that.cartGoodMsg.goods_img = _App.default.globalData.imgPrefixUrl + that.cartGoodMsg.goods_img;that.smallCarMsg.push({ price: that.cartGoodMsg.rules[0].user_price });that.smallCarMsg.push({ youhuiPrice: that.cartGoodMsg.rules[0].youhui }), that.smallCarMsg.push({ values: that.cartGoodMsg.rules[0].rule_values });that.cartRuleId = that.cartGoodMsg.rules[0].rule_id;}});}, // 单独购买
-    getSignalBug: function getSignalBug() {var that = this;that.$http.post('mini/v1/goods/addgoodscart', { rule_id: that.cartRuleId, goods_id: that.goodsId, cart_num: that.goodNum,
-        source_type: 2 },
-      function (res) {
-        if (res.state == 0) {
-          uni.navigateTo({
-            url: '/pages/shopMall/confirm?source_type=' + 2 });
-
-        }
-      });
-
-    },
-    // 购物车添加选择规格
-    getChoiceSpec: function getChoiceSpec(index) {
-      console.log(index);
-      this.choiceSpecificeIndex = index;
-      this.smallCarMsg[0].price = this.cartGoodMsg.rules[index].user_price;
-      this.smallCarMsg[1].youhuiPrice = this.cartGoodMsg.rules[index].youhui;
-      this.smallCarMsg[2].values = this.cartGoodMsg.rules[index].rule_values;
-      this.cartRuleId = this.cartGoodMsg.rules[index].rule_id;
-
-    },
-    // 商品数量的加减
-    getGoodsNum: function getGoodsNum(style) {
-      if (style == 1 && this.goodNum > 1) {
-        this.goodNum = this.goodNum - 1;
-      } else
-      if (style == 2) {
-        this.goodNum = this.goodNum + 1;
-      }
-    },
-    // 加入购物车输入的数据
-    getGoodNumsInput: function getGoodNumsInput(e) {
-
-      this.goodNum = Number(e.detail.value);
-    },
-    //加入 购物车
-    getJoinCart: function getJoinCart() {
-      var that = this;
-      that.$http.post('mini/v1/goods/addgoodscart', {
-        rule_id: that.cartRuleId,
-        goods_id: that.goodsId,
-        cart_num: that.goodNum,
-        source_type: 1 },
+    getSignalBug: function getSignalBug() {var that = this;that.$http.post('mini/v1/goods/addgoodscart', { rule_id: that.cartRuleId, goods_id: that.goodsId, cart_num: that.goodNum, source_type: 2 }, function (res) {if (res.state == 0) {uni.navigateTo({ url: '/pages/shopMall/confirm?source_type=' + 2 });}});}, // 购物车添加选择规格
+    getChoiceSpec: function getChoiceSpec(index) {console.log(index);this.choiceSpecificeIndex = index;this.smallCarMsg[0].price = this.cartGoodMsg.rules[index].user_price;this.smallCarMsg[1].youhuiPrice = this.cartGoodMsg.rules[index].youhui;this.smallCarMsg[2].values = this.cartGoodMsg.rules[index].rule_values;this.cartRuleId = this.cartGoodMsg.rules[index].rule_id;}, // 商品数量的加减
+    getGoodsNum: function getGoodsNum(style) {if (style == 1 && this.goodNum > 1) {this.goodNum = this.goodNum - 1;} else if (style == 2) {this.goodNum = this.goodNum + 1;}}, // 加入购物车输入的数据
+    getGoodNumsInput: function getGoodNumsInput(e) {this.goodNum = Number(e.detail.value);}, //加入 购物车
+    getJoinCart: function getJoinCart() {var that = this;that.$http.post('mini/v1/goods/addgoodscart', { rule_id: that.cartRuleId, goods_id: that.goodsId, cart_num: that.goodNum, source_type: 1 },
       function (res) {
         if (res.state == 0) {
           console.log(res);
@@ -570,6 +603,7 @@ var uniSwiperDot = function uniSwiperDot() {__webpack_require__.e(/*! require.en
     },
     getDetail: function getDetail() {
       var that = this;
+
       that.$http.post('mini/v1/goods/gooddetailed', {
         goods_id: that.goodsId },
       function (res) {

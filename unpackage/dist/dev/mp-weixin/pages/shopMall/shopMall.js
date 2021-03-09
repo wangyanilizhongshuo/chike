@@ -378,8 +378,9 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
           url: '/pages/shopMall/list-detail?goodsId=' + ids });
 
       } else if (type == 2) {
+        // type==2 的时候是拼团
         uni.navigateTo({
-          url: '/pages/shopMall/list-detail?goodsId=' + ids });
+          url: '/pages/shopMall/ptlist-detail?goodsId=' + ids });
 
       }
     },

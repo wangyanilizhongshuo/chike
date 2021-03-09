@@ -8,7 +8,33 @@
 		</view>
 		<view style="width: 750rpx;height: 100rpx;;"></view>
 		<view class="uni-list" v-if="titleActiveIndex==0" >
-			<side-slip class="sideSlipBox" @remove="onRemove(index)" v-for="(item,index) in  listData"  :key="index">
+		<side-slip class="sideSlipBox" @remove="onRemove(index)" v-for="(item,index) in  3"  :key="index">
+			<view class="box">
+				<view class="img-box">
+					<image class="imgs" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+					
+				</view>
+				<view class="uni-right">
+					<view class="uni-first"> 123</view>
+				    <view class="uni-second">¥<text class="money">发送到大师傅第三帝国</text></view>
+				</view>
+			</view>
+		
+		</side-slip>
+		<side-slip class="sideSlipBox" @remove="onRemove(index)" v-for="(item,index) in  2"  :key="index">
+			<view class="box">
+				<view class="img-box">
+					<image class="imgs" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+					<view class="uselessImg">已失效</view>
+				</view>
+				<view class="uni-right uni-rightLost" >
+					<view class="uni-first" > 123</view>
+				    <view class="uni-second" >¥<text class="money">发送到大师傅第三帝国</text></view>
+				</view>
+			</view>
+		
+		</side-slip>
+			<!-- <side-slip class="sideSlipBox" @remove="onRemove(index)" v-for="(item,index) in  listData"  :key="index">
 				<view class="box">
 					<image class="imgs" :src="item.url"></image>
 					<view class="uni-right">
@@ -17,9 +43,24 @@
 					</view>
 				</view>
 			
-			</side-slip>
+			</side-slip> -->
 		</view>
 		<view class="uni-list" v-if="titleActiveIndex==1" >
+			<side-slip class="sideSlipBox" @remove="onRemove(item.store_id,1)" v-for="(item,index) in  listData1"  :key="index">
+				<view class="box">
+					<image class="imgs" :src="item.store_img"></image>
+					<view class="uni-right">
+						<view class="uni-first"> {{item.store_name}} </view>
+					    <view class="uni-third">{{item.address}} </view>
+						<view class="uni-third">{{item.info}}</view>
+						<!-- <view class="uni-second">¥<text class="money">{{item.price}}</text></view> -->
+					</view>
+				</view>
+			
+			</side-slip>
+		</view>
+		<!-- 服务 -->
+		<view class="uni-list" v-if="titleActiveIndex==2" >
 			<side-slip class="sideSlipBox" @remove="onRemove(item.store_id,1)" v-for="(item,index) in  listData1"  :key="index">
 				<view class="box">
 					<image class="imgs" :src="item.store_img"></image>
@@ -46,7 +87,7 @@
 				tipflag:false,
 				tipMsg:'',
 				titleActiveIndex:0,
-				titleList:['商品','店铺'],
+				titleList:['商品','店铺','服务'],
 				listData:[
 					{
 						url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
@@ -177,13 +218,36 @@
 				display: flex;
 				height: 216rpx;;
 				justify-content: space-between;
-			.imgs{
-				display: block;
-				width: 150rpx;
-				height: 150rpx;
-				margin-right: 30rpx;
-				border-radius: 8rpx;
-			}
+				.img-box{
+					width: 150rpx;
+					height: 150rpx;
+					margin-right: 30rpx;
+					position: relative;
+					left:0rpx;
+					top:0rpx;
+					.imgs{
+						display: block;
+						width: 150rpx;
+						height: 150rpx;
+						border-radius: 8rpx;
+			         }
+					 .uselessImg{
+						  width: 110rpx;
+						  height: 110rpx;
+						  background: #000000;
+						  opacity: 0.7;
+						  border-radius: 50%;
+						  text-align: center;
+						  position: absolute;
+						  left:20rpx;
+						  top:20rpx;
+						  z-index: 30;
+						  line-height: 110rpx;
+						  font-size: 26rpx;
+						  color: #fff;
+					 }
+				}
+			
 			.uni-right{
 				flex:1;
 				display: flex;
@@ -234,6 +298,14 @@
 					.money{
 						font-size: 32rpx;;
 					}
+				}
+			}
+			.uni-rightLost{
+				.uni-first{
+					color: #9A9A9A;
+				}
+				.uni-second{
+					color: #9A9A9A;
 				}
 			}
 			

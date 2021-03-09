@@ -103,7 +103,7 @@
 			   </view>
 		   </view>
 		   <view class="content-fourth">
-			   <view class="list"  v-for="(item,index) in mainList" :key="index" @tap.stop="jumps(2,item.goods_id)">
+			   <view class="list"  v-for="(item,index) in mainList" :key="index" @tap.stop="jumps(1,item.goods_id)">
 				   <image class="imsgs" :src="item.goods_img"></image>
 			       <view class="bottom">
 					   <view  class="smallField">{{item.goods_name}}</view>
@@ -233,8 +233,9 @@
 					  url:'/pages/shopMall/list-detail?goodsId='+ids
 				   })
 				}else if(type ==2){
+					// type==2 的时候是拼团
 					uni.navigateTo({
-						url:'/pages/shopMall/list-detail?goodsId='+ids
+						url:'/pages/shopMall/ptlist-detail?goodsId='+ids
 					})
 				}
 			},

@@ -224,6 +224,47 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var SideSlip = function SideSlip() {__webpack_require__.e(/*! require.ensure | components/side-slip/index */ "components/side-slip/index").then((function () {return resolve(__webpack_require__(/*! @/components/side-slip/index */ 681));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {var _ref;
@@ -231,7 +272,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../App.vue */ 5)
       tipflag: false,
       tipMsg: '',
       titleActiveIndex: 0,
-      titleList: ['商品', '店铺'],
+      titleList: ['商品', '店铺', '服务'],
       listData: [
       {
         url: 'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',

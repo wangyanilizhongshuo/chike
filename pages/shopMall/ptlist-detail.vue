@@ -41,7 +41,7 @@
 						</button>
 					 </view>
 			   </view>
-			  <!-- <view class="boxSecond" v-for="(item,index) in 2" :key="index">
+			  <view class="boxSecond" v-for="(item,index) in 2" :key="index">
 			   		 <view class="sFirst">1人正在拼单，可直接参与</view>
 				     <view class="sSecond">
 						 <view class="sLeft">
@@ -56,7 +56,7 @@
 						   <view class="rightss" @tap.stop="joinCartBoxflag=true,category=3">去拼单</view>
 						 </view>
 					 </view>
-			   </view> -->
+			   </view>
 		   </view>
 		   <view class="box-introduce">
 			   <view class="titles">
@@ -82,67 +82,38 @@
 			   </view>
 		   </view>
 	   </view>
-	  <!-- <view class="footer">
-		   <view class="uni-left" @tap.stop="collectFlag=(!collectFlag)">
-			   <image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
-			   <image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
-		       <text class="field">收藏</text>
-		   </view>
-		   <view class="uni-center" @tap.stop="joinCartBoxflag=true,category=1">
-			   加入购物车
-		   </view>
-		   <view class="uni-right">
-			   <view class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=2">
-				   <text class="upss">单独购买</text>
-				   <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text>
-			   </view>
-			   <view class="makeGroupBox styless2" @tap.stop="joinCartBoxflag=true,category=3">
-				   <text class="upss">发起拼团</text>
-				   <text class="downss">¥<text>29.90</text></text>
-			   </view>
-		   </view>
-	   </view> -->
-	   <view class="footers" >
-	   		   <view class="uni-left" >
-				   <view class="bigbox">
-					   <button class="serverBox bigbox" plain="true" sessionFrom="weapp"  open-type="contact" style="border:none;border-radius: 0rpx;padding:0rpx;">
-					   					     <image class="imgStart"   src="http://zxyp.hzbixin.cn/files/81491615275583100.jpg"></image>
-					   </button>
-					   <text class="field">客服</text>
-				   </view>
-				 <!--  <button class="serverBox bigbox" plain="true" sessionFrom="weapp"  open-type="contact" style="border:none;border-radius: 0rpx;padding:0rpx;">
-					     <image class="imgStart"   src="http://zxyp.hzbixin.cn/files/81491615275583100.jpg"></image>
-	   		              <text class="field">客服</text>
-				   </button> -->
-				   <view class="collectBox bigbox" @tap.stop="collectFlag=(!collectFlag)">
-				   		<image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
-				        <image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
-				         <text class="field">收藏</text>
-				   </view>
-				   <view class="collectBox bigbox" @tap.stop="jumps">
-				   		<image class="imgStart"   src="http://zxyp.hzbixin.cn/files/69161615275540069.jpg"></image>
-				         <text class="field">购物车</text>
-				   </view>
-	   			 
-	   		   </view>
-			   <view class="uni-right">
-					   <view class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=2">
-						   <text class="upss">加入购物车</text>
-						   <!-- <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text> -->
-					   </view>
-					   <view class="makeGroupBox styless2" @tap.stop="joinCartBoxflag=true,category=3">
-						   <text class="upss">立即购买</text>
-						   <!-- <text class="downss">¥<text>29.90</text></text> -->
-					   </view>
-	   		 <!--  <view class="uni-center" @tap.stop="joinCartBoxflag=true,category=1">
-	   			   加入购物车
-	   		   </view>
-	   		  
-	   		   </view> -->
-	   </view>
+	 <view class="footers" >
+	 		   <view class="uni-left" >
+	 				  <view class="bigbox">
+						   <button class="serverBox bigbox" plain="true" sessionFrom="weapp"  open-type="contact" style="border:none;border-radius: 0rpx;padding:0rpx;">
+								 <image class="imgStart"   src="http://zxyp.hzbixin.cn/files/81491615275583100.jpg"></image>
+						   </button>
+						   <text class="field">客服</text>
+	 				  </view>
+	 				   <view class="collectBox bigbox" @tap.stop="collectFlag=(!collectFlag)">
+	 				   		<image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
+	 				        <image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
+	 				         <text class="field">收藏</text>
+	 				   </view>
+	 				  <!-- <view class="collectBox bigbox" @tap.stop="jumps">
+	 				   		<image class="imgStart"   src="http://zxyp.hzbixin.cn/files/69161615275540069.jpg"></image>
+	 				         <text class="field">购物车</text>
+	 				   </view> -->
+	 			 
+	 		   </view>
+	 			   <view class="uni-right">
+	 					   <view class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=2">
+	 						   <text class="upss">直接购买</text>
+	 						   <!-- <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text> -->
+	 					   </view>
+	 					   <view class="makeGroupBox styless2" @tap.stop="joinCartBoxflag=true,category=3">
+	 						   <text class="upss">参与拼团</text>
+	 						   <!-- <text class="downss">¥<text>29.90</text></text> -->
+	 					   </view>
+	 		
+	 </view>
 	   
 	   <!-- 购物车固定的logo -->
-	  <!-- <image v-if="!shareBoxFlag" @tap.stop="jumps" class="shopCartLogo" src="http://zxyp.hzbixin.cn/files/98501608270933265.jpg"></image> -->
 	  <!-- 加入购物车 -->
 	  <view class="joincartBoxMask" @tap.stop="joinCartBoxflag=false" v-if="joinCartBoxflag"></view>
 	  <view class="joincartBox"  v-if="joinCartBoxflag">
@@ -314,11 +285,11 @@
 				 });
 			},
 			 // 预约跳转 1 	  
-		    jumps(){
-				uni.navigateTo({
-				  url:'/pages/shopMall/shopMallCart'
-				})
-			},
+		 //    jumps(){
+			// 	uni.navigateTo({
+			// 	  url:'/pages/shopMall/shopMallCart'
+			// 	})
+			// },
 			// 加入确定购物车
 			btnJoinCart(){
 				// 加入购物车成功提示
@@ -419,7 +390,7 @@
 			getDetail(){
 				let that=this;
 				
-				that.$http.post('mini/v1/goods/gooddetailed',{
+				that.$http.post('mini/v1/goods/comGoods',{
 					goods_id:that.goodsId
 				},(res)=>{
 					if(res.state==0){
@@ -931,19 +902,21 @@
 	}
 }
 
-
+// .btns{
+//  		border: none;
+//  		outline: none;
+//  		border: none;
+//  		background-color: none;
+//  		-webkit-appearance: none;
+//  		-webkit-appearance: none;
+//  	}
  button::after{
-	
-	width: 0rpx;
-	height: 0rpx;
+	border: none;
+	outline: none;
  	border: none;
-	border-radius: 0rpx;
-	transform:none;
-	content: '';
  	background-color: none;
-	background:none;border:none;
-	box-sizing: content-box;
-	position: static;
+	-webkit-appearance: none;
+	-webkit-appearance: none;
  }
  .showtips{
  	  width: 350rpx;
@@ -963,69 +936,69 @@
  	  
  }
  .footers{
-	 width: 750rpx;
-	 height: 150rpx;
-	 position: fixed;
-	 background-color: #fff;;
-	 left:0rpx;
-	 bottom:0rpx;
-	 z-index: 10;
-	 display: flex;
-	 justify-content: space-between;
-	 align-items: center;
-	 padding:0rpx 30rpx ;
-	 box-sizing: border-box;
-	 .uni-left{
-		 display: flex;;
-		 .bigbox{
-			width: 70rpx;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-around;
-			align-items: center;
-			margin-right: 30rpx;
-			.imgStart{
-				display: block;
-				width: 40rpx;
-				height: 40rpx;;
-			}
-			.field{
-				
-				color: #888888;
-				font-size: 22rpx;
-			}
-		 }
-		 
-	 }
-	 .uni-right{
-	 	width: 360rpx;
-	 	display: flex;
-	 	.buyBox{
-	 		border-radius: 45rpx 0rpx 0rpx 45rpx;
-	 		background-color: #FF9A9E;
-	 	}
-	 	.makeGroupBox{
-	         background-color: #FF666C;
-	 		border-radius: 0rpx 45rpx  45rpx 0rpx;
-	 	}
-	 	.styless2{
-	 		width: 190rpx;
-	 		height: 90rpx;
-	 		text-align: center;
-	 	    display: flex;
-	 		flex-direction: column;
-	 		justify-content: center;
-	 		align-items: center;
-	 		color: #fff;
-	 		.upss{
-	 			font-size: 28rpx;
-	 		}
-	 		.downss{
-	 			font-size: 24rpx;;
-	 		}
-	 	}
-	 }
-	 
+ 	 width: 750rpx;
+ 	 height: 150rpx;
+ 	 position: fixed;
+ 	 background-color: #fff;;
+ 	 left:0rpx;
+ 	 bottom:0rpx;
+ 	 z-index: 10;
+ 	 display: flex;
+ 	 justify-content: space-between;
+ 	 align-items: center;
+ 	 padding:0rpx 30rpx ;
+ 	 box-sizing: border-box;
+ 	 .uni-left{
+ 		 display: flex;;
+ 		 .bigbox{
+ 			width: 70rpx;
+ 			display: flex;
+ 			flex-direction: column;
+ 			justify-content: space-around;
+ 			align-items: center;
+ 			margin-right: 30rpx;
+ 			.imgStart{
+ 				display: block;
+ 				width: 40rpx;
+ 				height: 40rpx;;
+ 			}
+ 			.field{
+ 				
+ 				color: #888888;
+ 				font-size: 22rpx;
+ 			}
+ 		 }
+ 		 
+ 	 }
+ 	 .uni-right{
+ 	 	width: 360rpx;
+ 	 	display: flex;
+ 	 	.buyBox{
+ 	 		border-radius: 45rpx 0rpx 0rpx 45rpx;
+ 	 		background-color: #FF9A9E;
+ 	 	}
+ 	 	.makeGroupBox{
+ 	         background-color: #FF666C;
+ 	 		border-radius: 0rpx 45rpx  45rpx 0rpx;
+ 	 	}
+ 	 	.styless2{
+ 	 		width: 190rpx;
+ 	 		height: 90rpx;
+ 	 		text-align: center;
+ 	 	    display: flex;
+ 	 		flex-direction: column;
+ 	 		justify-content: center;
+ 	 		align-items: center;
+ 	 		color: #fff;
+ 	 		.upss{
+ 	 			font-size: 28rpx;
+ 	 		}
+ 	 		.downss{
+ 	 			font-size: 24rpx;;
+ 	 		}
+ 	 	}
+ 	 }
+ 	 
  }
 </style>
 
