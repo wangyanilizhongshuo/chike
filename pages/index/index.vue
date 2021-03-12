@@ -147,7 +147,7 @@
 				//  this.getLocation();
 			 // }
 			 // this.getLocation(0);	
-				
+			
 		},
 		onReachBottom(){
 			if(this.pagesV==0){

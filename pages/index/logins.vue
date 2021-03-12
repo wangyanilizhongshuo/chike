@@ -85,11 +85,9 @@
 				  success (res) {
 				    if (res.code) {
 				      //发起网络请求获取code 码
-					 
 					   that.code =res.code;
 					    wx.getUserInfo({
 					      success: function(ress) {
-							 
 								  // 微信登录成功
 								  that.openId=uni.getStorageSync('openId');
 								  // uni.setStorageSync('token',res.data.token);
@@ -122,7 +120,6 @@
 					}
 				  },
 				  fail(res){}
-					
 				 })
 			},
 			getCode(){
@@ -153,8 +150,7 @@
 					  setTimeout(()=>{
 					  		that.tipflag=false
 					  },3000)
-				  }
-					
+				  }			        	
 				})
 			},
 			goPasLogin(e){
@@ -170,8 +166,6 @@
 										   url:'/pages/index/loginPsd?phone='+res1.data.phone
 									 }) 
 								 }else if(res1.data.user_type==0){
-									 console.log('wangyani ')
-									 console.log(res1)
 									 that.tipflag=true ;
 									 that.tipMsg=res1.msg;
 									 setTimeout(()=>{
@@ -179,14 +173,9 @@
 									 },3000)
 
 								 }
-								     
-					
 				  }
 				 })
-	
-				
 			}
-			
 		}
 	}
 </script>

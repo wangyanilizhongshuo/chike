@@ -70,9 +70,15 @@ function urlEncode(data) {
 	    return _result.join('&');
 	  }
 function getShareUrlParams(params){
-	console.log(uni.getStorageSync('userId'))
 	return urlEncode(Object.assign({
 	    scene:uni.getStorageSync('userId') || 0
+	}, params));
+	
+}
+function getSharePTdata(params){
+	return urlEncode(Object.assign({
+	    scene:uni.getStorageSync('userId') || 0,
+		sendPtUid:uni.getStorageSync('ptLeadId') ||0
 	}, params));
 	
 }

@@ -193,8 +193,8 @@
 			 			that.pagesV=res.data.is_request;
 			 			if(res.data.is_request==0){
 			 				let aa = res.data.list;
-			 				aa.map((res)=>{
-			 					res.store_img=app.globalData.imgPrefixUrl+res.store_img
+			 				aa.map((res1)=>{
+			 					res1.store_img=app.globalData.imgPrefixUrl+res1.store_img
 			 				})
 			 				let bb = that.mainList;
 			 				that.mainList = bb.concat(aa);

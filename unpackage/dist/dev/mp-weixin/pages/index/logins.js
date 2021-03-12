@@ -217,11 +217,9 @@ var _default =
         success: function success(res) {
           if (res.code) {
             //发起网络请求获取code 码
-
             that.code = res.code;
             wx.getUserInfo({
               success: function success(ress) {
-
                 // 微信登录成功
                 that.openId = uni.getStorageSync('openId');
                 // uni.setStorageSync('token',res.data.token);
@@ -255,7 +253,6 @@ var _default =
         },
         fail: function fail(res) {} });
 
-
     },
     getCode: function getCode() {
       var that = this;
@@ -286,7 +283,6 @@ var _default =
             that.tipflag = false;
           }, 3000);
         }
-
       });
     },
     goPasLogin: function goPasLogin(e) {
@@ -302,8 +298,6 @@ var _default =
               url: '/pages/index/loginPsd?phone=' + res1.data.phone });
 
           } else if (res1.data.user_type == 0) {
-            console.log('wangyani ');
-            console.log(res1);
             that.tipflag = true;
             that.tipMsg = res1.msg;
             setTimeout(function () {
@@ -311,12 +305,8 @@ var _default =
             }, 3000);
 
           }
-
-
         }
       });
-
-
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

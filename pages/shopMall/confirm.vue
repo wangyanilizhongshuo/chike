@@ -50,7 +50,7 @@
 				<view class="field">共计<text class="nums">{{detailList.total_num}}</text>件商品</view>
                 <view class="rights"> 合计：<text class="moneys">¥{{detailList.total_price}}</text></view> 
 			</view>
-			<view class="consumerCouBoxs" @tap.stop="jumpsServer">
+			<view class="consumerCouBoxs" @tap.stop="jumpsServer" v-if="ptCome==1">
 				<view class="field">
 					<image class="logos" src="../../static/image/index-smallRedLogo.png"></image>
 				     <text class="words">商品券</text>
@@ -60,7 +60,7 @@
 				   <image class="logos" src="../../static/image/index-arrow-right.png"></image>
 				</view> 
 			</view>
-			<view class="ujfBoxs">
+			<view class="ujfBoxs"  v-if="ptCome==1">
 				<view class="field">
 					<image class="logos" src="../../static/image/index-diamond.png"></image>
 				     <text class="words">可用{{detailList.jifen}}积分抵用{{detailList.jifen}}元</text>
@@ -153,12 +153,12 @@
 				submitData:'',//提交订单之后的价格
 				tipflag:false,
 				tipMsg:'',
-				wxPayFlags:false//微信支付
+				wxPayFlags:false,//微信支付
+				ptCome:1
 				
 			}
 		 },
 		 onLoad(options) {
-		 	
 			this.setData(options)
 			console.log(options)
 			this.getMsg();//商品的详情信息

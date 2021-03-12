@@ -20,6 +20,7 @@
     "pages/shopMall/editAddress",
     "pages/shopMall/shopMall",
     "pages/shopMall/confirm",
+    "pages/shopMall/ptConfirm",
     "pages/personCenter/myShopSettlement/myShopSettlement",
     "pages/personCenter/myBalance/myBalance",
     "pages/index/fourLogoList",

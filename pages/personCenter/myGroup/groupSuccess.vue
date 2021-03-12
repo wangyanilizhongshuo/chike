@@ -1,14 +1,14 @@
 <template>
 	<view class="uni-myGroup">
 			<view class="contentBox">
-					<view class="contentSmallBox">
-						<image class="uni-left" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+					<view class="contentSmallBox" v-for="(item,index) in msgData.goods" :key="index">
+						<image class="uni-left" :src="item.goods_img"></image>
 						<view class="uni-right">
-							<view class="first">小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g  </view>
-							<view class="second">¥<text  class="mon">85.85</text></view>
+							<view class="first">{{item.goods_name}} </view>
+							<view class="second">¥<text  class="mon">{{item.user_price}}</text></view>
 							<view class="third">
-								<view class="lefts">规格：120ml</view>
-								<view class="rights">×1</view>
+								<view class="lefts">{{item.rule_name}}：{{item.rule_values}}</view>
+								<view class="rights">×{{item.cart_num}}</view>
 							</view>
 						</view>
 					</view>
@@ -17,25 +17,15 @@
 						<view class="uni-first"> 团长人气太高，已经拼团成功啦</view>
 						<view class="uni-third">
 							<view class="leftGirl">
-								<image class="imgss" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
+								<image class="imgss"  :src="msgData.user[0].headimg"></image>
 							    <view class="field">团长</view>
 							</view>
-							<view class="rightBox">
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
+							<view class="rightBox" >
+								<view class="list" v-for="(item1,index1) in msgData1" :key="index1">
+									<image class="imgs" :src="item1.headimg"></image>
 									<!-- <image class="imgs" src="http://zxyp.hzbixin.cn/files/83621607479563768.jpg"></image> -->
 								</view>
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-									<!-- <image class="imgs" src="http://zxyp.hzbixin.cn/files/83621607479563768.jpg"></image> -->
-								</view>
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-									<!-- <image class="imgs" src="http://zxyp.hzbixin.cn/files/83621607479563768.jpg"></image> -->
-								</view>
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-								</view>
+								<!--  -->
 								
 							</view>
 						</view>
@@ -49,11 +39,19 @@
 </template>
 
 <script>
+	import app from '../../../App.vue'
 	export default {
 		data() {
 			return {
-				
+				msgData1:[],
+				msgData:[],
+				order_sn:''
 			}
+		},
+		onLoad(options){
+			this.setData(options)
+			console.log(12345)
+			this.getData();
 		},
 		methods: {
 			jumps(){
@@ -61,7 +59,36 @@
 					url:'/pages/index/index'
 				})
 				
-			}
+			},
+			getData(){
+				let that=this;
+				that.$http.post('mini/v1/user/combDetail',{
+					order_sn:that.order_sn,
+					status:1
+				},(res)=>{
+					console.log(res)
+					if(res.state==0){
+						let aa = JSON.parse(JSON.stringify(res.data.list[0]))  ;
+						// that.msgData=res.data.list[0]
+						// let aa = res.data.list[0]  ;
+						
+						aa.goods.map((res1)=>{
+								res1.goods_img=app.globalData.imgPrefixUrl+res1.goods_img
+						})
+						that.msgData=aa ;
+						that.msgData1=res.data.list[0].user;
+						that.msgData1.shift();
+						console.log(111111)
+						console.log(that.msgData1)
+						console.log(that.msgData)
+						console.log(111111)
+						
+						
+						
+					}
+					
+				})
+			},
 		}
 	}
 </script>

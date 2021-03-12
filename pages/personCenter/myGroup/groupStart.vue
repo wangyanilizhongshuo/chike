@@ -1,14 +1,14 @@
 <template>
 	<view class="uni-myGroup">
 			<view class="contentBox">
-					<view class="contentSmallBox">
-						<image class="uni-left" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+					<view class="contentSmallBox" v-for="(item,index) in msgData.goods">
+						<image class="uni-left" :src="item.goods_img"></image>
 						<view class="uni-right">
-							<view class="first">小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g  </view>
-							<view class="second">¥<text  class="mon">85.85</text></view>
+							<view class="first">{{item.goods_name}} </view>
+							<view class="second">¥<text  class="mon">{{item.user_price}}</text></view>
 							<view class="third">
-								<view class="lefts">规格：120ml</view>
-								<view class="rights">×1</view>
+								<view class="lefts">{{item.rule_name}}：{{item.rule_values}}</view>
+								<view class="rights">×{{item.cart_num}}</view>
 							</view>
 						</view>
 					</view>
@@ -17,37 +17,32 @@
 						<view class="uni-first">
 							<view class="fileds">剩余</view>
 							<view class="timeBox">
-								<view class="list">12</view>
+								<view class="list">{{hours}}</view>
 								<view class="lists">:</view>
-								<view class="list">12</view>
+								<view class="list">{{minutes}}</view>
 								<view class="lists">:</view>
-								<view class="list">12</view>
+								<view class="list">{{mm}}</view>
 							</view>
 						</view>
-						<view class="uni-second">还差<text class="num">1</text> 人成团，赶快邀请好友加入吧！</view>
+						<view class="uni-second">还差<text class="num">{{msgData.cha}}</text> 人成团，赶快邀请好友加入吧！</view>
 						<view class="uni-third">
-							<view class="leftGirl">
-								<image class="imgss" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-							    <view class="field">团长</view>
+							<view class="leftGirl" >
+								<image class="imgss"  :src="msgData.user[0].headimg"></image>
+								<view class="field" >团长</view>
+							</view>
+							<view class="centerBox"  v-for="(item,index) in msgData1" :key="index">
+								<image class="imgss2"  :src="item.headimg"></image>
 							</view>
 							<view class="rightBox">
-								<view class="list">
+								<view class="list" v-for="(item1,index1) in perpleCha" :key="index1">
 									<image class="imgs" src="http://zxyp.hzbixin.cn/files/25821608259248820.jpg"></image>
 								</view>
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/25821608259248820.jpg"></image>
-								</view>
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/25821608259248820.jpg"></image>
-								</view>
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/25821608259248820.jpg"></image>
-								</view>
+								
 								
 							</view>
 						</view>
 						<view class="uni-fourth">
-							<view class="inviteBtn">邀请好友</view>
+							<button style="border: none;"  open-type="share" plain="true"    class="inviteBtn">邀请好友</button>
 						</view>
 					</view>
 			 </view>
@@ -56,14 +51,109 @@
 </template>
 
 <script>
+	import app from '../../../App.vue'
 	export default {
 		data() {
 			return {
-				
+				order_sn:'',
+				msgData:'',
+				msgData1:'',
+				hours:'00',
+				minutes:'00',
+				mm:'00',
+				peopleNumBox:'',
+				peopleNum:'',
+				perpleCha:'',
+				pvTime:1000,
+				sendMsg:false,
+				setIntervalName:''//定时器的名字
 			}
 		},
+		onLoad(options){
+			this.setData(options)
+			this.getData();
+		},
+		onShareAppMessage: function () {
+		    let _this = this;
+			if (res.from === 'button'   ) {// 来自页面内分享按钮
+			  
+			    return {
+			      title: "智享婴品",
+			      path: "/pages/shopMall/ptlist-detail?" + _this.getSharePTdata()
+			    };
+			   }
+		},
 		methods: {
-			
+			getData(){
+				let that=this;
+				that.$http.post('mini/v1/user/combDetail',{
+					order_sn:that.order_sn,
+					status:0
+				},(res)=>{
+					if(res.state==0){
+						clearInterval(that.setIntervalName);
+						// that.msgData=res.data.list[0]
+						let aa = JSON.parse(JSON.stringify(res.data.list[0]))  ;
+						that.peopleNumBox=aa.goods[0].com_total_num;
+						that.peopleNum=aa.user.length;
+						that.perpleCha=that.peopleNumBox-that.peopleNum;
+						aa.goods.map((res1)=>{
+								res1.goods_img=app.globalData.imgPrefixUrl+res1.goods_img
+						})
+						that.msgData=aa ;
+						that.msgData1=res.data.list[0].user;
+						that.msgData1.shift();//有效的任务的渲染
+						that.hours='00';
+						that.minutes='00'
+						that.mm='00'
+						uni.setStorageSync('ptLeadId',that.msgData.user[0].uid)//f分享出去，队长的id
+						if(that.sendMsg==false){
+							
+							that.getTime(aa.expiration_time)
+							// console.log(2222)
+							// clearInterval(that.setIntervalName);
+							// that.setIntervalName = null
+						}
+						
+					}
+					
+				})
+			},
+			getTime(value){
+				let that=this;
+				let nowtime=Math.round(new Date().getTime()/1000).toString();//获取当前时间
+				let times= value;
+				if( times<=0){
+					 that.sendMsg=true;
+					 clearInterval(that.setIntervalName);
+					 that.hours='00';
+					 that.minutes='00'
+					 that.mm='00'
+					 that.getData();
+				}
+				that.hours= parseInt(times/60/60%24, 10).toString().padStart(2,'0');//计算剩余的小时数
+				that.minutes =parseInt(times/60%60, 10).toString().padStart(2,'0');//计算剩余的分钟数;//计算剩余的分钟数
+				that.mm = parseInt(times%60,10).toString().padStart(2,'0');//计算剩余的秒数
+				that.setIntervalName=setInterval(()=>{
+					 let nowtime=Math.round(new Date().getTime()/1000).toString();//获取当前时间
+					 let times= value-nowtime;
+					 console.log(value)
+					 console.log(nowtime,'noetime',times)
+					 if( times<=0){
+					 	 that.sendMsg=true;
+					 	 clearInterval(that.setIntervalName);
+					 	 that.hours='00';
+					 	 that.minutes='00'
+					 	 that.mm='00'
+					 	 that.getData();
+					 }
+					 that.hours= parseInt(times/60/60%24, 10).toString().padStart(2,'0');//计算剩余的小时数
+					 that.minutes =parseInt(times/60%60, 10).toString().padStart(2,'0');//计算剩余的分钟数;//计算剩余的分钟数
+					 that.mm = parseInt(times%60,10).toString().padStart(2,'0');//计算剩余的秒数
+					
+				},2000)
+				
+			}
 		}
 	}
 </script>
@@ -188,6 +278,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	    height: 100rpx;
 		.leftGirl{
 			width: 100rpx;
 			display: flex;
@@ -195,6 +286,14 @@
 			align-items: center;
 			.imgss{
 				display: block;
+				height: 70rpx;
+				width: 90rpx;
+				border-radius: 50%;
+			}
+			.imgss2{
+				display: block;
+				// width: 94rpx;
+				// height: 94rpx;
 				height: 70rpx;
 				width: 90rpx;
 				border-radius: 50%;
@@ -208,16 +307,35 @@
 			   color: #fff;
                font-size: 24rpx;
 			}
+			.fields{
+			   width: 90rpx;
+			   height: 34rpx;
+			   
+			}
 		}
 		.rightBox{
-			display: flex;;
+			display: flex;
+			height: 100rpx;
 			.list{
-				margin-left: 25rpx;;
+				margin-left: 25rpx;
 				.imgs{
 					display: block;
 					width: 94rpx;
-					height: 94rpx;;
+					height: 94rpx;
 				}
+			}
+			
+		}
+		.centerBox{
+			height: 100rpx;
+			display: flex;
+			margin-left: 25rpx;
+				.imgss2{
+					display: block;
+					width: 94rpx;
+					height: 94rpx;
+					border-radius: 50%;
+				
 			}
 			
 		}

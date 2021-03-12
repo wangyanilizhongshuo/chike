@@ -114,7 +114,7 @@
 					     <image class="imgStart"   src="http://zxyp.hzbixin.cn/files/81491615275583100.jpg"></image>
 	   		              <text class="field">客服</text>
 				   </button> -->
-				   <view class="collectBox bigbox" @tap.stop="collectFlag=(!collectFlag)">
+				   <view class="collectBox bigbox" @tap.stop="getCollect">
 				   		<image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
 				        <image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
 				         <text class="field">收藏</text>
@@ -340,6 +340,14 @@
 				}
 				
 			},
+			getCollect(){
+				this.collectFlag=(!this.collectFlag);
+				this.$http.post('mini/v1/goods/goodsCollec',{
+					goods_id:this.goodsId
+				},(res)=>{
+					if(res.status==0){}
+				})
+			},
 			//加入购物车获取商品信息
 			joinCartMsg(){
 				let that=this;
@@ -395,7 +403,6 @@
 			},
 			// 加入购物车输入的数据
 			getGoodNumsInput(e){
-				
 				this.goodNum=Number(e.detail.value);
 			},
 			//加入 购物车
@@ -413,6 +420,12 @@
 						setTimeout(()=>{
 							that.cartSucFlag=false;
 						},2000)
+					}else{
+						that.signalFlag=true ;
+						that.signalMsg=res.msg;
+						setTimeout(()=>{
+								that.signalFlag=false;
+						},3000)
 					}		
 				})	
 			},
@@ -433,6 +446,11 @@
 						aas2.map(res1=>{
 							res1.pic=app.globalData.imgPrefixUrl+res1.pic;
 						})
+						if(that.detailData.is_collect==1){
+							that.collectFlag=true
+						}else{
+							that.collectFlag=false
+						}
 						that.bannersList=aas;
 						that.tuDetailList=aas2
 					}

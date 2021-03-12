@@ -8,19 +8,19 @@
 		</view>
 		<view style="width: 750rpx;height: 100rpx;;"></view>
 			<view class="contentBox" v-if="titleActiveIndex==0">
-				<view class="lists" v-for="(item,index) in 3" :key="index" @tap.stop="jump(1)">
+				<view class="lists" v-for="(item,index) in mainList" :key="index" @tap.stop="jump(1,item.order_sn)">
 					<view class="contentTitle">
-						<view class="field">2020年11月3日17:06:30</view>
-						<view class="uni-right">拼团中，还差 <text class="red">1</text>人</view>          
+						<view class="field">{{item.create_time}}</view>
+						<view class="uni-right">拼团中，还差 <text class="red">{{item.cha}}</text>人</view>          
 					</view>
-					<view class="contentSmallBox">
-						<image class="uni-left" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+					<view class="contentSmallBox" v-for="(item1,index1) in item.goods" :key="index1">
+						<image class="uni-left" :src="item1.goods_img"></image>
 						<view class="uni-right">
-							<view class="first">小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g  </view>
-							<view class="second">¥<text  class="mon">85.85</text></view>
+							<view class="first">{{item1.goods_name}}</view>
+							<view class="second">¥<text  class="mon">{{item1.user_price}}</text></view>
 							<view class="third">
-								<view class="lefts">规格：120ml</view>
-								<view class="rights">×1</view>
+								<view class="lefts">{{item1.rule_name}}：{{item1.rule_values}}</view>
+								<view class="rights">×{{item1.cart_num}}</view>
 							</view>
 						</view>
 					</view>
@@ -28,19 +28,19 @@
 		      	</view>
 			</view>
 			<view class="contentBox" v-if="titleActiveIndex==1">
-				<view class="lists" v-for="(item,index) in 3" :key="index" @tap.stop="jump(2)">
+				<view class="lists" v-for="(item,index) in mainList" :key="index" @tap.stop="jump(2,item.order_sn)">
 					<view class="contentTitle">
-						<view class="field">2020年11月3日17:06:30</view>
-						<view class="uni-right"> <text class="successLogo">拼单成功</text></view>          
+						<view class="field">{{item.create_time}}</view>
+						<view class="uni-right">拼团中，还差 <text class="red">{{item.cha}}</text>人</view>          
 					</view>
-					<view class="contentSmallBox">
-						<image class="uni-left" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+					<view class="contentSmallBox" v-for="(item1,index1) in item.goods" :key="index1">
+						<image class="uni-left" :src="item1.goods_img"></image>
 						<view class="uni-right">
-							<view class="first">小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g  </view>
-							<view class="second">¥<text  class="mon">85.85</text></view>
+							<view class="first">{{item1.goods_name}}</view>
+							<view class="second">¥<text  class="mon">{{item1.user_price}}</text></view>
 							<view class="third">
-								<view class="lefts">规格：120ml</view>
-								<view class="rights">×1</view>
+								<view class="lefts">{{item1.rule_name}}：{{item1.rule_values}}</view>
+								<view class="rights">×{{item1.cart_num}}</view>
 							</view>
 						</view>
 					</view>
@@ -48,19 +48,19 @@
 				</view>
 			</view>
 			<view class="contentBox" v-if="titleActiveIndex==2">
-				<view class="lists" v-for="(item,index) in 3" :key="index" @tap.stop="jump(3)">
+				<view class="lists" v-for="(item,index) in mainList" :key="index" @tap.stop="jump(3,item.order_sn)">
 					<view class="contentTitle">
-						<view class="field">2020年11月3日17:06:30</view>
-						<view class="uni-right"> <text class="failLogo">拼单失败</text></view>          
+						<view class="field">{{item.create_time}}</view>
+						<view class="uni-right">拼团中，还差 <text class="red">{{item.cha}}</text>人</view>          
 					</view>
-					<view class="contentSmallBox">
-						<image class="uni-left" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+					<view class="contentSmallBox" v-for="(item1,index1) in item.goods" :key="index1">
+						<image class="uni-left" :src="item1.goods_img"></image>
 						<view class="uni-right">
-							<view class="first">小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g  </view>
-							<view class="second">¥<text  class="mon">85.85</text></view>
+							<view class="first">{{item1.goods_name}}</view>
+							<view class="second">¥<text  class="mon">{{item1.user_price}}</text></view>
 							<view class="third">
-								<view class="lefts">规格：120ml</view>
-								<view class="rights">×1</view>
+								<view class="lefts">{{item1.rule_name}}：{{item1.rule_values}}</view>
+								<view class="rights">×{{item1.cart_num}}</view>
 							</view>
 						</view>
 					</view>
@@ -73,34 +73,75 @@
 </template>
 
 <script>
+	import app from '../../../App.vue'
 	export default {
 		data() {
 			return {
 				titleActiveIndex:0,
 				titleList:['拼团中','拼团成功','拼团失败'],
+				pagesV:1,
+				pages:1,
+				mainList:[],
 			}
+		},
+		onLoad(){
+			this.getListData();
+		},
+		onReachBottom(){
+			
+			if(this.pagesV==0){
+				this.pages+=1;				
+				this.getListData();
+			}
+			
 		},
 		methods: {
 			// 头部点亮
 			getTitleActive(index){
 				this.titleActiveIndex=index;
+				this.mainList=[];
+				this.pages=1;
+				this.getListData()
 			},
-			jump(type){
+			jump(type,code){
 				
 				if(type ==1){
 					uni.navigateTo({
-						url:'/pages/personCenter/myGroup/groupStart'
+						url:'/pages/personCenter/myGroup/groupStart?order_sn='+code
 					})
 				}else if(type ==2){
 					uni.navigateTo({
-						url:'/pages/personCenter/myGroup/groupSuccess'
+						url:'/pages/personCenter/myGroup/groupSuccess?order_sn='+code
 					})
 				}else if(type ==3){
 					uni.navigateTo({
-						url:'/pages/personCenter/myGroup/groupFail'
+						url:'/pages/personCenter/myGroup/groupFail?order_sn='+code
 					})
 				}
 				
+			},
+			getListData(){
+				let that=this;
+				that.$http.post('mini/v1/user/mycombination',{
+					status:that.titleActiveIndex,
+					page:that.pages
+				},(res)=>{
+					if(res.state==0){
+						that.pagesV=res.data.is_request;
+						if(res.data.is_request==0){
+							let aa = res.data.list;
+							
+							aa.map((res1)=>{
+								res1.goods.map(res2=>{
+									res2.goods_img=app.globalData.imgPrefixUrl+res2.goods_img
+								})
+							})
+							let bb = that.mainList;
+							that.mainList = bb.concat(aa);
+							
+						}
+					}
+				})
 			}
 		}
 	}

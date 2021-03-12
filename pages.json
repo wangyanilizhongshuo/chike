@@ -181,6 +181,14 @@
 					"navigationBarTextStyle":"black"
 				}
 			 },
+			 {
+			 				"path": "pages/shopMall/ptConfirm",
+			 				"style": {
+			 					"navigationBarTitleText": "确认订单",
+			 					"navigationBarBackgroundColor":"#fff",
+			 					"navigationBarTextStyle":"black"
+			 				}
+			 },
 
 			{
 					"path" : "pages/personCenter/myShopSettlement/myShopSettlement",

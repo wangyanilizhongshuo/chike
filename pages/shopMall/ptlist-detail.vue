@@ -41,21 +41,23 @@
 						</button>
 					 </view>
 			   </view>
-			  <view class="boxSecond" v-for="(item,index) in 2" :key="index">
-			   		 <view class="sFirst">1人正在拼单，可直接参与</view>
-				     <view class="sSecond">
-						 <view class="sLeft">
-							 <image  class="imgs"  src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-						     <text class="field">无敌元气妹</text> 
-						 </view>
-						 <view class="sRight"> 
-						   <view  class="leftss">
-							  <view  class="ups"> 还差1人拼成 </view>
-							  <view class="downs">剩余11:14:25</view>
-						   </view>
-						   <view class="rightss" @tap.stop="joinCartBoxflag=true,category=3">去拼单</view>
-						 </view>
-					 </view>
+			   <view class="bigBox" v-if="sendPtUid==0">
+					  <view class="boxSecond" v-for="(item1,index1) in ptGroopList" :key="index1">
+							 <view class="sFirst">已有{{item1.coming_num}}人，可直接参与</view>
+							 <view class="sSecond">
+								 <view class="sLeft">
+									 <image  class="imgs"  :src="item1.headimg"></image>
+									 <text class="field">{{item1.nickname}}</text> 
+								 </view>
+								 <view class="sRight"> 
+								   <view  class="leftss">
+									  <view  class="ups"> 还差{{item1.cha}}人拼成 </view>
+									  <view class="downs">剩{{item1.hours}}:{{item1.minutes}}:{{item1.ss}}</view>
+								   </view>
+								   <view class="rightss" @tap.stop="joinCartBoxflag=true,category=4,ptUserId=item1.uid">去拼单</view>
+								 </view>
+							 </view>
+					   </view>
 			   </view>
 		   </view>
 		   <view class="box-introduce">
@@ -90,7 +92,7 @@
 						   </button>
 						   <text class="field">客服</text>
 	 				  </view>
-	 				   <view class="collectBox bigbox" @tap.stop="collectFlag=(!collectFlag)">
+	 				   <view class="collectBox bigbox" @tap.stop="getCollect">
 	 				   		<image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
 	 				        <image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
 	 				         <text class="field">收藏</text>
@@ -106,8 +108,8 @@
 	 						   <text class="upss">直接购买</text>
 	 						   <!-- <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text> -->
 	 					   </view>
-	 					   <view class="makeGroupBox styless2" @tap.stop="joinCartBoxflag=true,category=3">
-	 						   <text class="upss">参与拼团</text>
+	 					   <view class="makeGroupBox styless2" @tap.stop="getjudge() ">
+	 						   <text class="upss">发起拼团</text>
 	 						   <!-- <text class="downss">¥<text>29.90</text></text> -->
 	 					   </view>
 	 		
@@ -117,12 +119,14 @@
 	  <!-- 加入购物车 -->
 	  <view class="joincartBoxMask" @tap.stop="joinCartBoxflag=false" v-if="joinCartBoxflag"></view>
 	  <view class="joincartBox"  v-if="joinCartBoxflag">
-		  <view class="first">
+		  <view class="first" >
 			  <view class="uni-left">
 				 <image class="imgs" :src="cartGoodMsg.goods_img"></image>
 			     <view class="goodBox">
 					 <view class="priBox">
-						 <view class="lefts">¥ <text class="mon">{{smallCarMsg[0].com_price}}</text></view>
+						 <view class="lefts" v-if="category==2">¥ <text class="mon">{{smallCarMsg[3].old_price}}</text></view>
+						<view class="lefts" v-if="category==3">¥ <text class="mon">{{smallCarMsg[0].com_price}}</text></view>
+						 <view class="lefts" v-if="category==4">¥ <text class="mon">{{smallCarMsg[0].com_price}}</text></view>
 					     <view class="rights" style="text-decoration:line-through">{{smallCarMsg[1].price_0}}</view>
 					 </view>
 					 <view class="norms">已选择:{{smallCarMsg[2].values}}</view>
@@ -213,9 +217,10 @@
 				smallCarMsg:[],
 				cartRuleId:'',
 				tuDetailList:[],//图文详情的列表
-				
-				
-				
+				ptGroopList:[],//拼团人数列表
+				ptUserId:'',
+				sendPtUid:0,//发起拼团的人
+				scene:0//邀请人的数据
 			}
 		},
 		
@@ -248,6 +253,9 @@
 			this.backHeight=((parseInt(this.heights)*2-46)/2+parseInt(this.marginTop))+'rpx';
 			this.getDetail();
 			this.joinCartMsg();
+			if(this.scene!=0){
+				uni.setStorageSync('scene',this.scene)
+			}
 		},
 		computed:{
 			heights(){
@@ -290,6 +298,17 @@
 			// 	  url:'/pages/shopMall/shopMallCart'
 			// 	})
 			// },
+			
+			// 收藏
+			getCollect(){
+				this.collectFlag=(!this.collectFlag);
+				this.$http.post('mini/v1/goods/goodsCollec',{
+					goods_id:this.goodsId
+				},(res)=>{
+					console.log(12345)
+					if(res.status==0){}
+				})
+			},
 			// 加入确定购物车
 			btnJoinCart(){
 				// 加入购物车成功提示
@@ -304,10 +323,14 @@
 				}else if(that.category==2){
 					that.getSignalBug()
 				}
-				else if(that.category==3){
-					uni.navigateTo({
-						url:'/pages/shopMall/confirm'
-					})
+				else if(that.category==3){//去拼单
+					// uni.navigateTo({
+					// 	url:'/pages/shopMall/confirm'
+					// })
+					that.getSignalBug()
+				}
+				else if (that.category==4){
+					that.getPtBug()
 				}
 				
 			},
@@ -319,46 +342,121 @@
 				},(res)=>{
 					if(res.state==0){
 						that.cartGoodMsg=res.data.list[0];
+						console.log(that.cartGoodMsg)
 						that.cartGoodMsg.goods_img=app.globalData.imgPrefixUrl+that.cartGoodMsg.goods_img;
-						that.smallCarMsg.push({com_price:that.cartGoodMsg.com_price})
-						that.smallCarMsg.push({price_0:that.cartGoodMsg.price_0}),
+						that.smallCarMsg.push({com_price:that.cartGoodMsg.rules[0].user_price})
+						that.smallCarMsg.push({price_0:that.cartGoodMsg.rules[0].price_0}),
 						that.smallCarMsg.push({values:that.cartGoodMsg.rules[0].rule_values})
+						that.smallCarMsg.push({old_price:that.cartGoodMsg.rules[0].old_price})
 						that.cartRuleId=that.cartGoodMsg.rules[0].rule_id;
 						console.log(that.smallCarMsg)
-						console.log(12345)
+						console.log('hat.smallCarMsg')
+						console.log(12345678)
 					}
 					
 				})
 			},
-			// 单独购买
-			getSignalBug(){
-				let that=this;
-				that.$http.post('mini/v1/goods/addgoodscart',{	
+			// 拼团购买
+			getPtBug(){
+				let that =this;
+				console.log(that.ptUserId)
+				let items={
 					rule_id:that.cartRuleId,
 					goods_id:that.goodsId,
 					cart_num:that.goodNum,
-					source_type:2
-					},(res)=>{
+					source_type:3,
+					head_uid:that.ptUserId
+				}
+				that.$http.post('mini/v1/goods/addgoodscart',items,(res)=>{
 					if(res.state==0){
-						uni.navigateTo({
-							url:'/pages/shopMall/confirm?source_type='+2
-				       })
+							uni.navigateTo({
+							    url:'/pages/shopMall/ptConfirm?source_type='+3
+							})
+						
+					}else{
+						that.signalFlag=true ;
+						that.signalMsg=res.msg;
+						setTimeout(()=>{
+								that.signalFlag=false;
+						},3000)
 					}		
 				})	
+			},
+			// 单独购买
+			getSignalBug(){
+				let that=this;
+				let items=[];
+				if(that.category==2){//单独买
+				  if(that.sendPtUid==0){//正常购买
+					items={
+						rule_id:that.cartRuleId,
+						goods_id:that.goodsId,
+						cart_num:that.goodNum,
+						source_type:2,
+						
+					}  
+				  }else{//被分享之后进行购买
+					   items={
+						rule_id:that.cartRuleId,
+						goods_id:that.goodsId,
+						cart_num:that.goodNum,
+						source_type:2,
+						head_uid:that.sendPtUid 
+					}
+					console.log(items)
+					console.log('chuanshuguoq d shu ')
+				  }
+					
+				}else if(that.category==3){//拼团商品
+					items={
+						rule_id:that.cartRuleId,
+						goods_id:that.goodsId,
+						cart_num:that.goodNum,
+						source_type:3,
+						head_uid:0 
+					}
+				}
+				that.$http.post('mini/v1/goods/addgoodscart',items,(res)=>{
+					if(res.state==0){
+						if(that.category==2){
+							uni.navigateTo({
+							    url:'/pages/shopMall/confirm?source_type='+2+'&ptCome='+2
+				            })
+						}else if(that.category==3){
+							uni.navigateTo({
+							    url:'/pages/shopMall/ptConfirm?source_type='+3
+							})
+						}
+					}else{
+						that.signalFlag=true ;
+						that.signalMsg=res.msg;
+						setTimeout(()=>{
+								that.signalFlag=false;
+						},3000)
+					}		
+				})	
+			},
+			getjudge(){
+				this.category=3;
+				if(this.sendPtUid==0){
+					this.joinCartBoxflag=true;
+				    
+				}
 				
 			},
 			// 购物车添加选择规格
 			getChoiceSpec(index){
 				console.log(index)
 				this.choiceSpecificeIndex=index;
-				this.smallCarMsg[0].com_price= this.cartGoodMsg.com_price;
-				this.smallCarMsg[1].price_0=this.cartGoodMsg.price_0
-				this.smallCarMsg[2].values=this.cartGoodMsg.rules[index].rule_values
+				console.log(this.cartGoodMsg)
+				this.smallCarMsg[0].com_price= this.cartGoodMsg.rules[index].user_price;
+				this.smallCarMsg[1].price_0=this.cartGoodMsg.rules[index].price_0;
+				this.smallCarMsg[2].values=this.cartGoodMsg.rules[index].rule_values;
+				this.smallCarMsg[3].old_price=this.cartGoodMsg.rules[index].old_price;
+				// that.smallCarMsg.push({old_price:that.cartGoodMsg.rules[0].old_price})
 				this.cartRuleId=this.cartGoodMsg.rules[index].rule_id;
-				console.log(1234)
-				console.log(index)
-				console.log(this.cartGoodMsg.rules[index])
-				console.log(this.cartRuleId)
+				console.log(this.smallCarMsg)
+				
 			},
 			// 商品数量的加减
 			getGoodsNum(style){
@@ -384,7 +482,7 @@
 					source_type:1
 					},(res)=>{
 					if(res.state==0){
-						console.log(res)
+						
 						that.cartSucFlag=true;
 						setTimeout(()=>{
 							that.cartSucFlag=false;
@@ -410,11 +508,47 @@
 						})
 						that.bannersList=aas;
 						that.tuDetailList=aas2
+						that.ptGroopList=that.detailData.user;
+					that.detailData.is_collect
+					if(that.detailData.is_collect==1){
+						that.collectFlag=true
+					}else{
+						that.collectFlag=false
 					}
-					
+						that.ptGroopList.map((item,index,array)=>{
+							// res.expiration
+							 that.getNowTime(index,item.expiration)
+							//截止
+						})
+					}
 				})
-				
-			}
+			},
+			getNowTime(indexs,values){			
+				let nowtime=Math.round(new Date().getTime()/1000).toString();//获取当前时间
+				 let times= values;
+				// this.days=parseInt(times/60/60/24, 10).toString().padStart(2,'0');//计算剩余的天数
+				this.ptGroopList[indexs].hours= parseInt(times/60/60%24, 10).toString().padStart(2,'0');//计算剩余的小时数
+				this.ptGroopList[indexs].minutes =parseInt(times/60%60, 10).toString().padStart(2,'0');//计算剩余的分钟数;//计算剩余的分钟数
+				this.ptGroopList[indexs].ss = parseInt(times%60,10).toString().padStart(2,'0');//计算剩余的秒数
+				setInterval(()=>{
+					// console.log(1111)
+					 let nowtime=Math.round(new Date().getTime()/1000).toString();//获取当前时间
+					 let times= values-nowtime;
+					 // let days=parseInt(times/60/60/24, 10).toString().padStart(2,'0');//计算剩余的天数
+					 let hours= parseInt(times/60/60%24, 10).toString().padStart(2,'0');//计算剩余的小时数
+					 let minutes =parseInt(times/60%60, 10).toString().padStart(2,'0');//计算剩余的分钟数;//计算剩余的分钟数
+					 let ss = parseInt(times%60,10).toString().padStart(2,'0');//计算剩余的秒数
+					// console.log(this.days, this.hours,this.minutes)
+					const items={
+						...this.ptGroopList[indexs],
+						hours:hours,
+						minutes:minutes,
+						ss:ss
+					}
+					this.$set(this.ptGroopList,indexs,items)
+					
+				},1000)
+			},
 			
 		}
 	}

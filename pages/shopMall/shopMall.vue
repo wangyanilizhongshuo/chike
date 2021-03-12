@@ -201,7 +201,7 @@
 		},
 		onShow(){
 			
-		
+		// console.log(valueOf(12345))
 		
 		},
 		components:{
@@ -234,6 +234,7 @@
 				   })
 				}else if(type ==2){
 					// type==2 的时候是拼团
+					uni.setStorageSync('ptGoodId',ids)
 					uni.navigateTo({
 						url:'/pages/shopMall/ptlist-detail?goodsId='+ids
 					})
