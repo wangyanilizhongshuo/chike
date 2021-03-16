@@ -104,10 +104,14 @@
 	 			 
 	 		   </view>
 	 			   <view class="uni-right">
-	 					   <view class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=2">
+	 					   <view v-if="sendPtUid==0" class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=2">
 	 						   <text class="upss">直接购买</text>
 	 						   <!-- <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text> -->
 	 					   </view>
+						   <view v-if="sendPtUid!=0" class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=3">
+						   	 		 <text class="upss">直接购买</text>
+						   	 						   <!-- <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text> -->
+						   </view>
 	 					   <view class="makeGroupBox styless2" @tap.stop="getjudge() ">
 	 						   <text class="upss">发起拼团</text>
 	 						   <!-- <text class="downss">¥<text>29.90</text></text> -->
@@ -220,42 +224,74 @@
 				ptGroopList:[],//拼团人数列表
 				ptUserId:'',
 				sendPtUid:0,//发起拼团的人
-				scene:0//邀请人的数据
+				scene:0,//邀请人的数据
+				withPtFlag:false//必须和人家拼团
 			}
 		},
-		
+		onShow(){
+			if(uni.getStorageSync('sendPtUid')){
+				this.sendPtUid=uni.getStorageSync('sendPtUid');
+			}
+		},
 	    components: {uniSwiperDot},
 		onShareAppMessage: function (res) {
 				let _this = this;
 				if(res.from === 'button' ){
+					return {
+					  title: "莱美牙",
+					  path: "/pages/index/index?" + _this.getShareUrlParams()
+					};
+				}else if(res.from ==='menu' ){
 					
 					return {
 					  title: "莱美牙",
-					  // path: "/pages/index/index?" + _this.getShareUrlParams()
-					};
-				}else if(res.from ==='menu' ){
-					console.log(2222)
-					return {
-					  title: "莱美牙",
-					  // path: "/pages/index/index?" + _this.getShareUrlParams()
+					  path: "/pages/index/index" + _this.getShareUrlParams()
 					};
 				}
 					
 		},
 		
 		onLoad(options){
+			let that=this;
 		   wx.showShareMenu({
 		  		withShareTicket:true,
 		  		//设置下方的Menus菜单，才能够让发送给朋友与分享到朋友圈两个按钮可以点击
 		  		menus:["shareAppMessage","shareTimeline"]
 		  	})
-			this.setData(options)
-			this.backHeight=((parseInt(this.heights)*2-46)/2+parseInt(this.marginTop))+'rpx';
-			this.getDetail();
-			this.joinCartMsg();
-			if(this.scene!=0){
-				uni.setStorageSync('scene',this.scene)
+			that.setData(options)
+			that.backHeight=((parseInt(that.heights)*2-46)/2+parseInt(that.marginTop))+'rpx';
+			that.getDetail();
+			that.joinCartMsg();
+			if(that.scene!=0){
+				uni.setStorageSync('scene',that.scene);
 			}
+			if(that.sendPtUid!=0){
+				uni.setStorageSync('sendPtUid',that.sendPtUid);
+					if(!uni.getStorageSync('token')){
+						console.log('wangyibo')
+					        uni.showModal({
+									title: '完善个人资料',
+									content:'个人中心完成授权',
+									confirmText: '去完成',
+									success(res){
+										if (res.confirm) {
+											 uni.switchTab({
+												url:'/pages/personCenter/personCenter'
+											 })
+										} 
+									},
+									fail(res){
+										
+									}
+					         })
+					}else{
+						
+					}
+				
+				
+				
+			}
+			
 		},
 		computed:{
 			heights(){
@@ -305,7 +341,7 @@
 				this.$http.post('mini/v1/goods/goodsCollec',{
 					goods_id:this.goodsId
 				},(res)=>{
-					console.log(12345)
+					
 					if(res.status==0){}
 				})
 			},
@@ -349,9 +385,7 @@
 						that.smallCarMsg.push({values:that.cartGoodMsg.rules[0].rule_values})
 						that.smallCarMsg.push({old_price:that.cartGoodMsg.rules[0].old_price})
 						that.cartRuleId=that.cartGoodMsg.rules[0].rule_id;
-						console.log(that.smallCarMsg)
-						console.log('hat.smallCarMsg')
-						console.log(12345678)
+						
 					}
 					
 				})
@@ -386,28 +420,20 @@
 			getSignalBug(){
 				let that=this;
 				let items=[];
+				console.log('come')
+				console.log(that.category)
+				console.log(that.sendPtUid)
 				if(that.category==2){//单独买
-				  if(that.sendPtUid==0){//正常购买
+				  
 					items={
 						rule_id:that.cartRuleId,
 						goods_id:that.goodsId,
 						cart_num:that.goodNum,
 						source_type:2,
-						
-					}  
-				  }else{//被分享之后进行购买
-					   items={
-						rule_id:that.cartRuleId,
-						goods_id:that.goodsId,
-						cart_num:that.goodNum,
-						source_type:2,
-						head_uid:that.sendPtUid 
-					}
-					console.log(items)
-					console.log('chuanshuguoq d shu ')
 				  }
-					
-				}else if(that.category==3){//拼团商品
+					console.log('one')
+					console.log(items)
+				}else if(that.category==3&&that.sendPtUid==0){//拼团商品
 					items={
 						rule_id:that.cartRuleId,
 						goods_id:that.goodsId,
@@ -415,6 +441,18 @@
 						source_type:3,
 						head_uid:0 
 					}
+					console.log('two')
+					console.log(items)
+				}else if(that.sendPtUid!=0&&that.category==3){
+					items={
+						rule_id:that.cartRuleId,
+						goods_id:that.goodsId,
+						cart_num:that.goodNum,
+						source_type:3,
+						head_uid:that.sendPtUid 
+					}
+					console.log('必须和人家进行拼单')
+					console.log(items)
 				}
 				that.$http.post('mini/v1/goods/addgoodscart',items,(res)=>{
 					if(res.state==0){
@@ -496,6 +534,7 @@
 					goods_id:that.goodsId
 				},(res)=>{
 					if(res.state==0){
+						
 						that.detailData=res.data.list;
 						let aas=JSON.parse(that.detailData.goods_imgs) 
 						let aas2=JSON.parse(that.detailData.description)

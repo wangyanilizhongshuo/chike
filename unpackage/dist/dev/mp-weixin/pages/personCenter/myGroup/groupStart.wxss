@@ -232,6 +232,7 @@
   background: #FF9A9E;
   color: #fff;
   font-size: 24rpx;
+  border-radius: 8rpx;
 }
 .detailBox .uni-third .leftGirl .fields.data-v-7fd8c18a {
   width: 90rpx;
@@ -250,6 +251,7 @@
   display: block;
   width: 94rpx;
   height: 94rpx;
+  border-radius: 50%;
 }
 .detailBox .uni-third .centerBox.data-v-7fd8c18a {
   height: 100rpx;

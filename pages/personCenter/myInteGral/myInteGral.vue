@@ -5,7 +5,7 @@
 			    <view class="contentFirst">
 					<view class="uni-first" @tap.stop="jumps(1)">
 						<image class="ruleImg" src="http://zxyp.hzbixin.cn/files/27811608259534206.jpg"></image>
-					    <view class="filed">提现规则</view>
+					    <view class="filed">积分规则</view>
 					</view>
 					<view class="uni-second">
 						<text class="money">{{jifen}}</text>

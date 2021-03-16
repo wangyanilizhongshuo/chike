@@ -15,11 +15,15 @@
 				<view class="uni-left">会员昵称</view>
 				<view class="uni-right">{{msgList.nickname}}</view>
 			</view>
-			<view class="list">
+			<view class="list" v-if="brokerage_type==1">
 				<view class="uni-left">服务名称</view>
 				<view class="uni-right">{{msgList.service_name}}</view>
 			</view>
-			<view class="list">
+			<view class="list" v-if="brokerage_type==2">
+				<view class="uni-left">商品名称</view>
+				<view class="uni-right">{{msgList.good_name}}</view>
+			</view>
+			<view class="list" v-if="brokerage_type==1"> 
 				<view class="uni-left">医疗机构全称</view>
 				<view class="uni-right">{{msgList.store_name}}</view>
 			</view>

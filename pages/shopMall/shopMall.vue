@@ -144,22 +144,7 @@
 				],
 				mainList:[],
 				recommondList:[],
-				shopList:[{
-				 					 url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-				 					 field:'洗牙'
-				 },
-				 {
-				 					 url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-				 					 field:'美白'
-				 },
-				 {
-				 					 url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-				 					 field:'补牙'
-				 },
-				 {
-				 					 url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-				 					 field:'种植'
-				 }],
+				shopList:[],
 				 // 拼团列表
 				 pintuanList:[],
 				 yingheList:[],//硬核补贴

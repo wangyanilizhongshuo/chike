@@ -1,46 +1,38 @@
 <template>
 	<view class="uni-myGroup">
 			<view class="contentBox">
-					<view class="contentSmallBox">
-						<image class="uni-left" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+					<view class="contentSmallBox" v-for="(item,index) in msgData.goods">
+						<image class="uni-left" :src="item.goods_img"></image>
 						<view class="uni-right">
-							<view class="first">小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g  </view>
-							<view class="second">¥<text  class="mon">85.85</text></view>
+							<view class="first">{{item.goods_name}} </view>
+							<view class="second">¥<text  class="mon">{{item.user_price}}</text></view>
 							<view class="third">
-								<view class="lefts">规格：120ml</view>
-								<view class="rights">×1</view>
+								<view class="lefts">{{item.rule_name}}：{{item.rule_values}}</view>
+								<view class="rights">×{{item.cart_num}}</view>
 							</view>
 						</view>
 					</view>
 					<!-- <view class="signalBox"><view class="details">查看拼单详情</view></view> -->
 		            <view class="detailBox">
-						<view class="uni-first"> 未在规定时间内完成，拼团失败</view>
+						<view class="uni-second">未在规定时间内完成，拼团失败！</view>
 						<view class="uni-third">
-							<view class="leftGirl">
-								<image class="imgss" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-							    <view class="field">团长</view>
+							<view class="leftGirl" >
+								<image class="imgss"  :src="msgData.user[0].headimg"></image>
+								<view class="field" >团长</view>
+							</view>
+							<view class="centerBox"  v-for="(item,index) in msgData1" :key="index">
+								<image class="imgss2"  :src="item.headimg"></image>
 							</view>
 							<view class="rightBox">
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-									<!-- <image class="imgs" src="http://zxyp.hzbixin.cn/files/83621607479563768.jpg"></image> -->
+								<view class="list" v-for="(item1,index1) in perpleCha" :key="index1">
+									<image class="imgs" src="http://zxyp.hzbixin.cn/files/25821608259248820.jpg"></image>
 								</view>
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-									<!-- <image class="imgs" src="http://zxyp.hzbixin.cn/files/83621607479563768.jpg"></image> -->
-								</view>
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-									<!-- <image class="imgs" src="http://zxyp.hzbixin.cn/files/83621607479563768.jpg"></image> -->
-								</view>
-								<view class="list">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-								</view>
+								
 								
 							</view>
 						</view>
-						<view class="uni-fourth" @tap.stop="jumps">
-							<view class="inviteBtn">返回首页</view>
+						<view class="uni-fourth">
+							<view  @tap.stop="goBack" class="inviteBtn">回到首页</view>
 						</view>
 					</view>
 			 </view>
@@ -49,19 +41,59 @@
 </template>
 
 <script>
+	import app from '../../../App.vue'
 	export default {
 		data() {
 			return {
-				
+				order_sn:'',
+				msgData:'',
+				msgData1:'',
+				peopleNumBox:'',
+				peopleNum:'',
+				perpleCha:'',
+				pvTime:1000,
+				sendMsg:false,
+				setIntervalName:''//定时器的名字
 			}
 		},
+		onLoad(options){
+			this.setData(options)
+			this.getData();
+		},
+		
 		methods: {
-			jumps(){
+			goBack(){
 				uni.switchTab({
 					url:'/pages/index/index'
 				})
-				
-			}
+			},
+			getData(){
+				let that=this;
+				that.$http.post('mini/v1/user/combDetail',{
+					order_sn:that.order_sn,
+					status:2
+				},(res)=>{
+					if(res.state==0){
+						clearInterval(that.setIntervalName);
+						// that.msgData=res.data.list[0]
+						let aa = JSON.parse(JSON.stringify(res.data.list[0]))  ;
+						that.peopleNumBox=aa.goods[0].com_total_num;
+						that.peopleNum=aa.user.length;
+						that.perpleCha=that.peopleNumBox-that.peopleNum;
+						aa.goods.map((res1)=>{
+								res1.goods_img=app.globalData.imgPrefixUrl+res1.goods_img
+						})
+						that.msgData=aa ;
+						that.msgData1=res.data.list[0].user;
+						that.msgData1.shift();//有效的任务的渲染
+						
+						
+						
+					}
+					
+				})
+			},
+			
 		}
 	}
 </script>
@@ -144,13 +176,7 @@
 	width: 750rpx;
 	background-color: #fff;
 	margin-top: 20rpx;
-	.uni-first{
-		text-align: center;
-		color: #2A2A2A;
-		font-size:28rpx;
-		
-		
-	}
+	
 	.uni-second{
 		font-size: 28rpx;
 		color: #2A2A2A;
@@ -165,7 +191,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		margin-top:70rpx;
+	    height: 100rpx;
 		.leftGirl{
 			width: 100rpx;
 			display: flex;
@@ -174,7 +200,16 @@
 			.imgss{
 				display: block;
 				height: 70rpx;
-				width: 90rpx;;
+				width: 90rpx;
+				border-radius: 50%;
+			}
+			.imgss2{
+				display: block;
+				// width: 94rpx;
+				// height: 94rpx;
+				height: 70rpx;
+				width: 90rpx;
+				border-radius: 50%;
 			}
 			.field{
 			   width: 90rpx;
@@ -184,23 +219,44 @@
 			   background: #FF9A9E;
 			   color: #fff;
                font-size: 24rpx;
+			   border-radius: 8rpx;;
+			}
+			.fields{
+			   width: 90rpx;
+			   height: 34rpx;
+			   
 			}
 		}
 		.rightBox{
-			display: flex;;
+			display: flex;
+			height: 100rpx;
 			.list{
-				margin-left: 25rpx;;
+				margin-left: 25rpx;
 				.imgs{
 					display: block;
 					width: 94rpx;
-					height: 94rpx;;
+					height: 94rpx;
+					border-radius: 50%;;
 				}
+			}
+			
+		}
+		.centerBox{
+			height: 100rpx;
+			display: flex;
+			margin-left: 25rpx;
+				.imgss2{
+					display: block;
+					width: 94rpx;
+					height: 94rpx;
+					border-radius: 50%;
+				
 			}
 			
 		}
 	}
 	.uni-fourth{
-		margin-top:50rpx;
+		margin-top:40rpx;
 		.inviteBtn{
 			width: 240rpx;
 			height: 60rpx;

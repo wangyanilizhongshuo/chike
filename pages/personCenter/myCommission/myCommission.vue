@@ -6,7 +6,7 @@
 			    <view class="contentFirst">
 					<view class="uni-first" @tap.stop="jumps(3)">
 						<image class="ruleImg" src="http://zxyp.hzbixin.cn/files/39321608257776820.jpg"></image>
-					    <view class="filed">提现规则</view>
+					    <view class="filed">佣金规则</view>
 					</view>
 					<view class="uni-second">
 						<!-- <text class="lsots">¥</text> -->

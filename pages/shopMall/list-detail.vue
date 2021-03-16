@@ -198,27 +198,7 @@
 				bannersList: [],
 				current: 0,
 				mode: 'round',
-				listData:[
-					{
-						  url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-					      title:'超声波洗牙（豪华套餐）',
-						  price:'49.00',
-						  desc:'无痛清除牙结石，利用超声波的高频震动，将牙齿表面的牙结石，牙渍，菌斑等击碎并冲刷下来以达到清洁牙齿的目的。'
-					},
-					{
-						  url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-					      title:'超声波洗牙（豪华套餐）',
-						  price:'49.00',
-						  desc:'无痛清除牙结石，利用超声波的高频震动，将牙齿表面的牙结石，牙渍，菌斑等击碎并冲刷下来以达到清洁牙齿的目的。'
-					},
-					{
-						  url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-					      title:'超声波洗牙（豪华套餐）',
-						  price:'49.00',
-						  desc:'无痛清除牙结石，利用超声波的高频震动，将牙齿表面的牙结石，牙渍，菌斑等击碎并冲刷下来以达到清洁牙齿的目的。'
-					}
-				],
-				
+				listData:[],
 				// 图文 ,商品细节的展现,切换
 				tuwordFlag:true,
 				goodsFlag:false,
@@ -328,15 +308,17 @@
 				// 用category来判断是那种 
 				// 1来自购物车
 				if(that.category==1){
-					that.getJoinCart();
+					// that.getJoinCart();
 					
 				}else if(that.category==2){
-					that.getSignalBug()
+					that.getJoinCart();
+					// that.getSignalBug()
 				}
 				else if(that.category==3){
-					uni.navigateTo({
-						url:'/pages/shopMall/confirm'
-					})
+					that.getSignalBug()
+					// uni.navigateTo({
+					// 	url:'/pages/shopMall/confirm'
+					// })
 				}
 				
 			},

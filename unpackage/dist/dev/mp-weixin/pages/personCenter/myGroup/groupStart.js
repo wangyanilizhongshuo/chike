@@ -249,12 +249,12 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../App.vue */ 5)
 //
 //
 var _default = { data: function data() {return { order_sn: '', msgData: '', msgData1: '', hours: '00', minutes: '00', mm: '00', peopleNumBox: '', peopleNum: '', perpleCha: '', pvTime: 1000, sendMsg: false, setIntervalName: '' //定时器的名字
-    };}, onLoad: function onLoad(options) {this.setData(options);this.getData();}, onShareAppMessage: function onShareAppMessage() {var _this = this;if (res.from === 'button') {// 来自页面内分享按钮
-      return { title: "智享婴品", path: "/pages/shopMall/ptlist-detail?" + _this.getSharePTdata() };}}, methods: { getData: function getData() {var that = this;that.$http.post('mini/v1/user/combDetail', { order_sn: that.order_sn, status: 0 }, function (res) {if (res.state == 0) {clearInterval(that.setIntervalName); // that.msgData=res.data.list[0]
+    };}, onLoad: function onLoad(options) {this.setData(options);this.getData();}, onShareAppMessage: function onShareAppMessage(res) {var _this = this;if (res.from === 'button') {// 来自页面内分享按钮
+      console.log(2346456); // e.getSharePTdata
+      return { title: "莱美牙", path: "/pages/shopMall/ptlist-detail?" + _this.getSharePTdata() };}}, methods: { getData: function getData() {var that = this;that.$http.post('mini/v1/user/combDetail', { order_sn: that.order_sn, status: 0 }, function (res) {if (res.state == 0) {clearInterval(that.setIntervalName); // that.msgData=res.data.list[0]
           var aa = JSON.parse(JSON.stringify(res.data.list[0]));that.peopleNumBox = aa.goods[0].com_total_num;that.peopleNum = aa.user.length;that.perpleCha = that.peopleNumBox - that.peopleNum;aa.goods.map(function (res1) {res1.goods_img = _App.default.globalData.imgPrefixUrl + res1.goods_img;});that.msgData = aa;that.msgData1 = res.data.list[0].user;that.msgData1.shift(); //有效的任务的渲染
           that.hours = '00';that.minutes = '00';that.mm = '00';uni.setStorageSync('ptLeadId', that.msgData.user[0].uid); //f分享出去，队长的id
-          if (that.sendMsg == false) {
-            that.getTime(aa.expiration_time);
+          if (that.sendMsg == false) {that.getTime(aa.expiration_time);
             // console.log(2222)
             // clearInterval(that.setIntervalName);
             // that.setIntervalName = null

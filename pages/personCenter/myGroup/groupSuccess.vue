@@ -201,7 +201,8 @@
 			.imgss{
 				display: block;
 				height: 70rpx;
-				width: 90rpx;;
+				width: 90rpx;
+				border-radius: 50%;
 			}
 			.field{
 			   width: 90rpx;
@@ -211,6 +212,7 @@
 			   background: #FF9A9E;
 			   color: #fff;
                font-size: 24rpx;
+			   border-radius: 8rpx;
 			}
 		}
 		.rightBox{
@@ -220,7 +222,8 @@
 				.imgs{
 					display: block;
 					width: 94rpx;
-					height: 94rpx;;
+					height: 94rpx;
+					border-radius: 50%;;
 				}
 			}
 			

@@ -67,11 +67,14 @@
 			downLoadPic(){
 				 uni.downloadFile({  
 				             url: this.pics,
-				             success: (res) => {  
+				             success: (res) => { 
+								 console.log('first')
 				                    var tempFilePath = res.tempFilePath; // 这里拿到后端返回的图片路径
 									uni.saveImageToPhotosAlbum({  // 然后调用这个方法
 										filePath: tempFilePath,
 										success : (res) => {
+											console.log(res)
+											console.log('second')
 											uni.hideLoading();
 											uni.showToast({title : '图片已保存'})
 										}

@@ -185,6 +185,7 @@
   display: block;
   height: 70rpx;
   width: 90rpx;
+  border-radius: 50%;
 }
 .detailBox .uni-third .leftGirl .field.data-v-6c40161c {
   width: 90rpx;
@@ -194,6 +195,7 @@
   background: #FF9A9E;
   color: #fff;
   font-size: 24rpx;
+  border-radius: 8rpx;
 }
 .detailBox .uni-third .rightBox.data-v-6c40161c {
   display: -webkit-box;
@@ -207,6 +209,7 @@
   display: block;
   width: 94rpx;
   height: 94rpx;
+  border-radius: 50%;
 }
 .detailBox .uni-fourth.data-v-6c40161c {
   margin-top: 50rpx;

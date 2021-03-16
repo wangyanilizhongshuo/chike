@@ -1,3 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -117,11 +141,6 @@
   background-color: #fff;
   margin-top: 20rpx;
 }
-.detailBox .uni-first.data-v-40401556 {
-  text-align: center;
-  color: #2A2A2A;
-  font-size: 28rpx;
-}
 .detailBox .uni-second.data-v-40401556 {
   font-size: 28rpx;
   color: #2A2A2A;
@@ -142,7 +161,7 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  margin-top: 70rpx;
+  height: 100rpx;
 }
 .detailBox .uni-third .leftGirl.data-v-40401556 {
   width: 100rpx;
@@ -161,6 +180,13 @@
   display: block;
   height: 70rpx;
   width: 90rpx;
+  border-radius: 50%;
+}
+.detailBox .uni-third .leftGirl .imgss2.data-v-40401556 {
+  display: block;
+  height: 70rpx;
+  width: 90rpx;
+  border-radius: 50%;
 }
 .detailBox .uni-third .leftGirl .field.data-v-40401556 {
   width: 90rpx;
@@ -170,11 +196,17 @@
   background: #FF9A9E;
   color: #fff;
   font-size: 24rpx;
+  border-radius: 8rpx;
+}
+.detailBox .uni-third .leftGirl .fields.data-v-40401556 {
+  width: 90rpx;
+  height: 34rpx;
 }
 .detailBox .uni-third .rightBox.data-v-40401556 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
+  height: 100rpx;
 }
 .detailBox .uni-third .rightBox .list.data-v-40401556 {
   margin-left: 25rpx;
@@ -183,9 +215,23 @@
   display: block;
   width: 94rpx;
   height: 94rpx;
+  border-radius: 50%;
+}
+.detailBox .uni-third .centerBox.data-v-40401556 {
+  height: 100rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin-left: 25rpx;
+}
+.detailBox .uni-third .centerBox .imgss2.data-v-40401556 {
+  display: block;
+  width: 94rpx;
+  height: 94rpx;
+  border-radius: 50%;
 }
 .detailBox .uni-fourth.data-v-40401556 {
-  margin-top: 50rpx;
+  margin-top: 40rpx;
 }
 .detailBox .uni-fourth .inviteBtn.data-v-40401556 {
   width: 240rpx;

@@ -1,12 +1,21 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	
-		{
-					"path": "pages/index/index",
-					"style": {
-						"navigationStyle":"custom"
-					   }
-		},
+	{
+				"path": "pages/index/index",
+				"style": {
+					"navigationStyle":"custom"
+				   }
+	},
+	{
+			"path" : "pages/index/logins",
+			"style" :                                                                                    
+			{
+			   "navigationBarTitleText": "登录",
+			   "navigationBarBackgroundColor":"#fff",
+			   "navigationBarTextStyle":"black"
+			}
+	 },
+		
 		{
 			"path" : "pages/index/login",
 			"style" :                                                                                    
@@ -16,17 +25,18 @@
 			   "navigationBarTextStyle":"black"
 			}
 		},
-		{
-				"path" : "pages/index/logins",
-				"style" :                                                                                    
-				{
-				   "navigationBarTitleText": "登录",
-				   "navigationBarBackgroundColor":"#fff",
-				   "navigationBarTextStyle":"black"
-				}
-		 },
+	
 	  
-	  
+	  {
+	  	"path" : "pages/personCenter/myGroup/groupFail",
+	  	"style" :                                                                                    
+	  	{
+	  	   "navigationBarTitleText": "我的拼团",
+	  	   "navigationBarBackgroundColor":"#fff",
+	  	   "navigationBarTextStyle":"black"
+	  	}
+	  	
+	  },
 	  
 		{
          	"path" : "pages/index/loginPsd",
@@ -156,7 +166,6 @@
 					"navigationBarTextStyle":"black"
 				}
 			 },
- 
 			 {
 				"path": "pages/shopMall/editAddress",
 				"style": {
@@ -168,7 +177,7 @@
 			 {
 				"path" : "pages/shopMall/shopMall",
 				"style" :{                                                                                    
-				  "navigationBarTitleText": "未知商城",
+				  "navigationBarTitleText": "莱美牙",
 				  "navigationBarBackgroundColor":"#fff",
 				  "navigationBarTextStyle":"black"
 				}
@@ -302,16 +311,7 @@
 				}
 				
 			},
-			{
-				"path" : "pages/personCenter/myGroup/groupFail",
-				"style" :                                                                                    
-				{
-				   "navigationBarTitleText": "我的拼团",
-				   "navigationBarBackgroundColor":"#fff",
-				   "navigationBarTextStyle":"black"
-				}
-				
-			},
+			
 				{
 					"path" : "pages/personCenter/myGroup/groupSuccess",
 					"style" :                                                                                    
@@ -557,6 +557,15 @@
 					"style" :                                                                                    
 					{
 					   "navigationBarTitleText": "设置交易密码",
+					   "navigationBarBackgroundColor":"#fff",
+					   "navigationBarTextStyle":"black"
+					}
+				},
+				{
+					"path" : "pages/personCenter/mySetting/setLoginPsd",
+					"style" :                                                                                    
+					{
+					   "navigationBarTitleText": "设置登录密码",
 					   "navigationBarBackgroundColor":"#fff",
 					   "navigationBarTextStyle":"black"
 					}

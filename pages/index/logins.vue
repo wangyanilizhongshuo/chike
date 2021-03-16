@@ -23,7 +23,7 @@
 					  登录
 	  </button>
 	  <button plain="true" class="footerBox"  lang="zh_CN"   open-type="getPhoneNumber"  @getphonenumber="goPasLogin">
-		  <view class="fields">使用账号密码登录</view>
+		  <view class="fields">* 如已分配账密，请使用账号密码登录</view>
 		  <image class="imgs" src="../../static/image/right-arrow-pink.png"></image>
 	  </button>
 	 <!-- <view class="footerBox" @tap.stop="goPasLogin">

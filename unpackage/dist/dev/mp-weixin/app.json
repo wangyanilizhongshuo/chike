@@ -1,8 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/index/login",
     "pages/index/logins",
+    "pages/index/login",
+    "pages/personCenter/myGroup/groupFail",
     "pages/index/loginPsd",
     "pages/personCenter/myOrder/orderDetail",
     "pages/personCenter/myOpinion/opinionSuccess",
@@ -33,7 +34,6 @@
     "pages/personCenter/myMsg/messageDetail",
     "pages/personCenter/myMsg/myMsg",
     "pages/personCenter/myInteGral/myInteGral",
-    "pages/personCenter/myGroup/groupFail",
     "pages/personCenter/myGroup/groupSuccess",
     "pages/personCenter/myCommission/myCommission",
     "pages/personCenter/myGroup/groupStart",
@@ -59,6 +59,7 @@
     "pages/personCenter/myBalance/balanceRule",
     "pages/personCenter/myBalance/balanceDetail",
     "pages/personCenter/mySetting/setPsd",
+    "pages/personCenter/mySetting/setLoginPsd",
     "pages/personCenter/mySetting/mySetting",
     "pages/personCenter/mySetting/aboutUs",
     "pages/personCenter/myTeam/teamDetail",

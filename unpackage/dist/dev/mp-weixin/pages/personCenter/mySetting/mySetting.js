@@ -146,6 +146,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -174,6 +178,12 @@ var _default =
 
 
       } else if (type == 2) {
+        uni.navigateTo({
+          url: '/pages/personCenter/mySetting/setLoginPsd' });
+
+
+      } else
+      if (type == 3) {
         uni.navigateTo({
           url: '/pages/personCenter/mySetting/aboutUs' });
 

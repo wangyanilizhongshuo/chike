@@ -73,12 +73,13 @@
 			this.setData(options)
 			this.getData();
 		},
-		onShareAppMessage: function () {
+		onShareAppMessage: function (res) {
 		    let _this = this;
-			if (res.from === 'button'   ) {// 来自页面内分享按钮
-			  
+			if (res.from ==='button') {// 来自页面内分享按钮
+			     console.log(2346456) 
+				// e.getSharePTdata
 			    return {
-			      title: "智享婴品",
+			      title: "莱美牙",
 			      path: "/pages/shopMall/ptlist-detail?" + _this.getSharePTdata()
 			    };
 			   }
@@ -108,7 +109,6 @@
 						that.mm='00'
 						uni.setStorageSync('ptLeadId',that.msgData.user[0].uid)//f分享出去，队长的id
 						if(that.sendMsg==false){
-							
 							that.getTime(aa.expiration_time)
 							// console.log(2222)
 							// clearInterval(that.setIntervalName);
@@ -306,6 +306,7 @@
 			   background: #FF9A9E;
 			   color: #fff;
                font-size: 24rpx;
+			   border-radius: 8rpx;;
 			}
 			.fields{
 			   width: 90rpx;
@@ -322,6 +323,7 @@
 					display: block;
 					width: 94rpx;
 					height: 94rpx;
+					border-radius: 50%;;
 				}
 			}
 			
