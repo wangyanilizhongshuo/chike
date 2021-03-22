@@ -46,19 +46,32 @@
 					</view>
 				    <view class="center-first"  >
 						   <view  class="list" @tap.stop="jumpOrder(1)" >
-							   <image class="imgs" src="../../static/image/person-good-status-1.png"></image>
+							   <view class="logoBox">
+							  	  <image class="imgs" src="../../static/image/person-good-status-1.png"></image> 
+							      <view class="dots" v-if="personData.daifukuan>0"></view>
+							   </view>
 							   <view class="fields">待付款</view>
+							   <!-- <view class="dots"></view> -->
 						   </view>
 						   <view  class="list" @tap.stop="jumpOrder(2)">
-							   <image class="imgs" src="../../static/image/person-good-status-2.png"></image>
+							   <view class="logoBox">
+								   <image class="imgs" src="../../static/image/person-good-status-2.png"></image>
+							      <view class="dots" v-if="personData.daifahuo>0"></view>
+							   </view>
 							   <view class="fields">待发货</view>
 						   </view>
 						   <view  class="list" @tap.stop="jumpOrder(3)">
-							   <image class="imgs" src="../../static/image/person-good-status-3.png"></image>
+							   <view class="logoBox">
+								   <image class="imgs" src="../../static/image/person-good-status-3.png"></image>
+							      <view class="dots" v-if="personData.daishouhuo>0"></view>
+							   </view>
 							   <view class="fields">待收货</view>
 						   </view>
 						   <view  class="list" @tap.stop="jumps(3)">
-							   <image class="imgs" src="../../static/image/person-good-status-4.png"></image>
+							   <view class="logoBox">
+								   <image class="imgs" src="../../static/image/person-good-status-4.png"></image>
+							      <view class="dots" v-if="personData.shouhou>0"></view>
+							   </view>
 							   <view class="fields">售后</view>
 						   </view>
 	            	</view>
@@ -105,8 +118,8 @@
 				   		  <view class="fields">客服系统</view>
 				   	  </view>
 					
-				   	  <!-- <view class="list"  @tap.stop="jumps(13)"> -->
-					  <view class="list"  @tap.stop="getImage()">
+				   	  <view class="list"  @tap.stop="jumps(13)">
+					  <!-- <view class="list"  @tap.stop="getImage()"> -->
 				   		  <image class="imgs" src="../../static/image/person-center3-2.png"></image>
 				   		  <view class="fields">使用指南</view>
 				   	  </view>
@@ -134,11 +147,19 @@
 		},
 		
 		onShow(){
-			// uni.showToast({
-			// 	title:'进去',
-			// 	duration:3000
-			// })
+			
 			this.getPersonMsg();
+			console.log(333)
+			//判断登录后，跳转到原本存在的详情页面 拼团发布过来的
+			if(uni.getStorageSync('token')){
+				 if(uni.getStorageSync('ptGoodId')){
+					 let ids=uni.getStorageSync('ptGoodId')
+				        uni.navigateTo({
+				 	         url:'/pages/shopMall/ptlist-detail?goodsId='+ids
+				       })
+				 }
+				 
+			}
 		},
 		onShareAppMessage: function () {
 		    let _this = this;
@@ -306,6 +327,7 @@
 				  flex-direction: column;
 				  justify-content: center;
 				  align-items: center;
+				 
 				  .imgs{
 					  display:block ;
 					  width: 60rpx;
@@ -316,6 +338,7 @@
 					  font-size: 26rpx;
 					  color: #3B3B3B;
 				  }
+				  
 			  }
 				
 	}
@@ -422,6 +445,21 @@
 				  @extend  %lists;
 				  height:172rpx;
 				  justify-content: space-between;
+				  .logoBox{
+					  position: relative;
+					  left: 0rpx;
+					  top:0rpx;
+					  .dots{
+						  position: absolute;
+						  right:-5rpx;
+						  top:-5rpx;
+						  width: 20rpx;
+						  height: 20rpx;
+						  border-radius: 50%;
+						  background-color:#ff3030 ;
+						  
+					  }
+				  }
 			  }
 			  .center-second1{
 				   @extend  %lists;

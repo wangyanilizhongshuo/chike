@@ -1,1 +1,1 @@
-<view class="uni-balanceRule data-v-60cb5bed"><view class="listbox data-v-60cb5bed"><block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="list data-v-60cb5bed">{{item}}</view></block></view></view>
+<view class="uni-balanceRule data-v-60cb5bed"><view class="listbox data-v-60cb5bed"><rich-text class="list data-v-60cb5bed" nodes="{{msgData}}"></rich-text></view></view>

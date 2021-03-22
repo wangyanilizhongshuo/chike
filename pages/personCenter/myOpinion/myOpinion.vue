@@ -114,7 +114,7 @@
 					imgs:that.upImgList
 				},(res)=>{
 					if(res.state==0){
-						uni.navigateTo({
+						uni.redirectTo({
 							url:'/pages/personCenter/myOpinion/opinionSuccess?typesName='+1
 						})
 					}

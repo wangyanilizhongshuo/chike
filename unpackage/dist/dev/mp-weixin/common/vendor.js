@@ -7979,9 +7979,11 @@ function getShareUrlParams(params) {
 
 }
 function getSharePTdata(params) {
+
   return urlEncode(Object.assign({
     scene: uni.getStorageSync('userId') || 0,
-    sendPtUid: uni.getStorageSync('ptLeadId') || 0 },
+    sendPtUid: uni.getStorageSync('ptLeadId') || 0,
+    sendPtGoodsId: uni.getStorageSync('ptGoodId') || 0 },
   params));
 
 }

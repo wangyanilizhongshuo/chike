@@ -26,7 +26,7 @@
 					<view class="filed">售后 </view>
 				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/30501608262741477.jpg"></image>
 				</view>
-				<view class="titleBox" v-if="msgDetail.status==5">
+				<view class="titleBox" v-if="msgDetail.status==10">
 					<view class="filed">已完成</view>
 				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62931608262986532.jpg"></image>
 				</view>
@@ -249,6 +249,7 @@
 				expressNameList:[],//物流公司的列表
 				expressSecKey:'',//搜索物流的关键字
 				refundGoodCode:'',
+				is_pink:''
 				}
 		},
 		onLoad(options){
@@ -326,7 +327,13 @@
 			//余额支付
 			extraPay(){
 					 let that=this;
-					 that.$http.post('mini/v1/payment/orderpay',{
+					 let url2=''
+					 if(that.is_pink==1){
+					 	 url2='mini/v1/payment/comPay'
+					 }else{
+					 	url2='mini/v1/payment/orderpay'
+					 }
+					 that.$http.post(url2,{
 						 order_sn:that.msgDetail.order_sn,
 						 pay_price:that.msgDetail.total_price,
 						 pay_type:2,
@@ -367,6 +374,7 @@
 			},
 			//微信支付
 			wxpays(){
+				let url2='';
 				 let callback = data => {
 					// 发起微信支付
 					this.wxPayment({
@@ -383,7 +391,12 @@
 						},
 					});
 				 };
-				  this.$http.post('mini/v1/payment/orderpay',{
+				 if(this.is_pink==1){
+					 url2='mini/v1/payment/comPay'
+				 }else{
+					 url2='mini/v1/payment/orderpay'
+				 }
+				  this.$http.post(url2,{
 						 order_sn:this.msgDetail.order_sn,
 						 pay_price:this.msgDetail.total_price,
 						 pay_type:1

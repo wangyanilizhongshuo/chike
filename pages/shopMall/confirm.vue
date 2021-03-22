@@ -356,17 +356,13 @@
 						    title: '提示',
 						    content: '支付密码输入错误',
 							confirmText:'重新输入',
-						    success: function (res) {
-						        if (res.confirm) {
+						    success: function (res1) {
+						        if (res1.confirm) {
 									// 重新继续支付
-									console.log(12345)
 									that.exPassword ='';
 									that.exDialogflag=true;
-									console.log(that.exPassword)
-						        } else if (res.cancel) {
-						           // uni.switchTab({
-						           // 	url:'/pages/shopCart/shopCart'
-						           // })
+						        } else if (res1.cancel) {
+									uni.navigateBack()
 						        }
 						    }
 						});

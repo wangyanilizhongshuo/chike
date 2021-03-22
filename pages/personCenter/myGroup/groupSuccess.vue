@@ -198,21 +198,29 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			position: relative;
+			left:0rpx;
+			top:0rpx;
 			.imgss{
 				display: block;
-				height: 70rpx;
-				width: 90rpx;
+				width: 94rpx;
+				height: 94rpx;
 				border-radius: 50%;
 			}
 			.field{
-			   width: 90rpx;
-			   height: 34rpx;
-			   line-height: 34rpx;
+			   width: 80rpx;
+			   height: 24rpx;
+			   line-height: 24rpx;
 			   text-align: center;
+			   // opacity: 0.5;
+			   // background-color: #fff;
 			   background: #FF9A9E;
 			   color: #fff;
-               font-size: 24rpx;
+			   font-size: 20rpx;
 			   border-radius: 8rpx;
+			   position: absolute;
+			   left:10rpx;
+			   bottom: 0rpx;;
 			}
 		}
 		.rightBox{

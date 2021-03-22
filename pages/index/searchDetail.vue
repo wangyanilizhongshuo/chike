@@ -36,7 +36,7 @@
 				   </view>
 				   <view class="uni-right">
 					   <image v-if="collectActive"   class="img" src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg" @tap.stop="getCollect"></image>
-					   <image v-if="!collectActive"   class="img" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg" @tap.stop="getCollect"></image>
+					   <image v-if="!collectActive"    class="img" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg" @tap.stop="getCollect"></image>
 				       <text class="word">收藏</text> 
 				   </view>
 				   
@@ -238,6 +238,13 @@
 						that.detailList.store_imgs.map(i=>{
 							i.img=app.globalData.imgPrefixUrl+i.img
 						})
+						if(that.detailList.is_collec==1){
+							that.collectActive=true
+						}else{
+							that.collectActive=false
+						}
+						console.log(that.collectActive)
+						console.log('that.collectActive')
 					 }
 				})
 			},

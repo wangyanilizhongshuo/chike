@@ -7,7 +7,7 @@
 					<image  class="imgBg" :src="personData.avatar"></image>
 				</view>
 			</view>
-			<view class="boxStyle"  @tap.stop="jumps(1)">
+			<view class="boxStyle"  @tap.stop="jumps(1,personData.nickname)">
 				<view class="fileds">昵称</view>
 				<view class="values">{{personData.nickname}}</view>
 			</view>
@@ -25,7 +25,7 @@
 				   <image v-if="!birthDate" class="imgsss" src="../../static/image/index-arrow-right.png"></image>
 				</picker>
 			</view>
-			<view class="boxStyle"  @tap.stop="jumps(2)">
+			<view class="boxStyle"  @tap.stop="jumps(2,personData.phone)">
 				<view class="fileds">手机号码 </view>
 				<view class="values">{{personData.phone}}</view>
 			</view>
@@ -115,10 +115,10 @@
 				}
 			},
 			// 跳转
-			jumps(type){
-				uni.navigateTo({
-					url:'/pages/personCenter/repairPersonData?types='+type
-				})
+			jumps(type,value){
+				// uni.navigateTo({
+				// 	url:'/pages/personCenter/repairPersonData?types='+type+'&names='+value
+				// })
 			},
 			getDate(type) {
 			            const date = new Date();

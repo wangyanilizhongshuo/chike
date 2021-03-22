@@ -1,1 +1,1 @@
-<view class="uni-inteGralRule data-v-471c41e0"><view class="listbox data-v-471c41e0"><block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="list data-v-471c41e0">{{item}}</view></block></view></view>
+<view class="uni-inteGralRule data-v-2f59de46"><view class="listbox data-v-2f59de46"><rich-text class="list data-v-2f59de46" nodes="{{msgData}}"></rich-text></view></view>

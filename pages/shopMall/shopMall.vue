@@ -116,8 +116,10 @@
 			   </view>
 		   </view>
 	   </view>
-	
-	   <image @tap.stop="jumpsCart" class="shopCartLogo" src="http://zxyp.hzbixin.cn/files/71811608268411464.jpg"></image>
+	   <view class="shopCartLogo">
+		   <view class="dots" v-if="shopCartLength>0"></view>
+		   <image  @tap.stop="jumpsCart" class="logos" src="../../static/image/cartLogos.png"></image>
+	   </view>
 	</view>
 		
 </template>
@@ -155,39 +157,40 @@
 				 hours:'',
 				 minutes:"",
 				 endTs:'',
-				 ptTime:''
+				 ptTime:'',
+				 shopCartLength:''
 				 
 			}
 		},
 		onLoad(options){
-		  
+		  //拼团时间
+		  this.getpinTime();
 		   // 轮播图
-		   this.getCarouselMap();
-		   // 底部所有的列表数据
-		   this.getALlList();
-		   // 推荐好物
-		   this.getRecommond();
-		   //拼团
-		   this.getPinTuan();
-		   //拼团时间
-		   this.getpinTime();
-		   // 硬核补贴
-		   this.getYingHe();
-		   // 每日低价
-		   this.getDiscount();
-		   // 发现好物
-		   this.getFindGoods()
-		   // 甄选好物
-		   this.pickGoods();
+		  this.getCarouselMap();
 		   // console.log(app.globalData.imgPrefixUrl) 
 		   // 地址图标的高度
-		   
-		    
+              
 		},
 		onShow(){
 			
-		// console.log(valueOf(12345))
+	
+		// 底部所有的列表数据
+		this.getALlList();
+		// 推荐好物
+		this.getRecommond();
+		//拼团
+		this.getPinTuan();
 		
+		// 硬核补贴
+		this.getYingHe();
+		// 每日低价
+		this.getDiscount();
+		// 发现好物
+		this.getFindGoods()
+		// 甄选好物
+		this.pickGoods();
+		// 判断购物车的小红点是否存
+		this.getShopCart()		
 		},
 		components:{
 			carousel
@@ -219,7 +222,7 @@
 				   })
 				}else if(type ==2){
 					// type==2 的时候是拼团
-					uni.setStorageSync('ptGoodId',ids)
+					// uni.setStorageSync('ptGoodId',ids)
 					uni.navigateTo({
 						url:'/pages/shopMall/ptlist-detail?goodsId='+ids
 					})
@@ -409,6 +412,15 @@
 						that.mainList.map((res)=>{
 							res.goods_img=app.globalData.imgPrefixUrl+res.goods_img
 						})
+					}
+				})
+			},
+			getShopCart(){
+				let that=this;
+				that.$http.post('mini/v1/goods/cartList',{},(res)=>{
+					if(res.state==0){
+						that.shopCartLength=res.data.list.length;
+						console.log(that.shopCartLength)
 					}
 				})
 			}
@@ -794,13 +806,28 @@
 		
 	}
 .shopCartLogo{
-	display: block;
+	
 	width: 100rpx;
 	height: 100rpx;
 	position: fixed;
 	z-index:50;
 	right:30rpx;
 	top:70%;
+	.logos{
+		display: block;
+		width: 100rpx;
+		height: 100rpx;
+	}
+	.dots{
+		position: absolute;
+		right:15rpx;
+		top:15rpx;
+		width: 20rpx;
+		height: 20rpx;
+		border-radius: 50%;
+		background-color:#ff3030 ;
+	}
+	
 }
 
 

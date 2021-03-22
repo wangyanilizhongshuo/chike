@@ -10,7 +10,7 @@
 						<image class="lefts" :src="item.img"></image>
 					    <view class="right">
 							<view class="first">{{item.name}}</view>
-							<view class="second">预约时间  {{dataList.pay_time}}</view>
+							<view class="second">预约时间  {{dataList.appointment}}</view>
 							
 							<view class="third">¥<text class="money">{{item.price}}</text></view>
 						</view>

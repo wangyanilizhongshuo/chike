@@ -101,9 +101,9 @@
 				this.getList()
 			},
 			jumps(){
-				uni.navigateTo({
-					url:'/pages/personCenter/myTeam/teamDetail'
-				})
+				// uni.navigateTo({
+				// 	url:'/pages/personCenter/myTeam/teamDetail'
+				// })
 			},
 			getList(){
 				let that=this;

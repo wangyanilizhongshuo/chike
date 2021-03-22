@@ -37,26 +37,28 @@
 		},
 		methods:{
 			jumps(index){
-				let aa=this.msgList[index]
-				uni.navigateTo({
-					 url:'/pages/personCenter/myCommission/commissionDetailList?link_type='+aa.link_type+'&link_id='+aa.link_id+'&brokerage_type='+aa.brokerage_type
-				})
+				let aa=this.msgList[index];
+				if(aa.brokerage_type!=3){
+					uni.navigateTo({
+						 url:'/pages/personCenter/myCommission/commissionDetailList?link_type='+aa.link_type+'&link_id='+aa.link_id+'&brokerage_type='+aa.brokerage_type
+					})
+				}
 			},
 			getList(){
-							 let that=this;
-							 this.$http.post('mini/v1/user/brokeragelog',{
-								 page:this.pages
-							 },(res)=>{
-								 if(res.state  ==0){
-									that.pagesV=res.data.is_request;
-									if(res.data.is_request==0){
-										let aa = res.data.list;
-										let bb = that.msgList;
-										that.msgList = bb.concat(aa)
-										console.log(that.msgList)
-									}
-								 }
-							 })
+					 let that=this;
+					 this.$http.post('mini/v1/user/brokeragelog',{
+						 page:this.pages
+					 },(res)=>{
+						 if(res.state  ==0){
+							that.pagesV=res.data.is_request;
+							if(res.data.is_request==0){
+								let aa = res.data.list;
+								let bb = that.msgList;
+								that.msgList = bb.concat(aa)
+								console.log(that.msgList)
+							}
+						 }
+					 })
 			}
 		}
 	}

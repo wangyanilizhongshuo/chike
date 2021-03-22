@@ -144,6 +144,7 @@
 			console.log(options)
 			// this.getMsg();//商品的详情信息
 			uni.removeStorageSync('goodsRedId')
+			uni.removeStorageSync('ptGoodId');
 		 },
 		 onShow(){
 			 //地址的显示
@@ -298,6 +299,7 @@
 				 	this.wxPayment({
 				 		result: data,
 				 		success: data => {
+							
 				                uni.redirectTo({
 				                	url:'/pages/personCenter/myOpinion/opinionSuccess?typesName='+15
 				                })	
@@ -329,6 +331,7 @@
 				 },(res)=>{
 					 if(res.state==0){
 						  that.exDialogflag=false;
+						 
 						  uni.redirectTo({
 						  	url:'/pages/personCenter/myOpinion/opinionSuccess?typesName='+14
 						  })
@@ -338,19 +341,22 @@
 						    title: '提示',
 						    content: '支付密码输入错误',
 							confirmText:'重新输入',
-						    success: function (res) {
-						        if (res.confirm) {
+						    success: function (res1) {
+						        if (res1.confirm) {
 									// 重新继续支付
-									console.log(12345)
 									that.exPassword ='';
 									that.exDialogflag=true;
-									console.log(that.exPassword)
-						        } else if (res.cancel) {
-						           // uni.switchTab({
-						           // 	url:'/pages/shopCart/shopCart'
-						           // })
+									console.log(111)
+						        }else if(res1.cancel) {
+									console.log(222)
+						          console.log('quxiao')
+								   uni.navigateBack()
 						        }
-						    }
+						    },
+							fail:function(res1){
+								console.log('quxiao1')
+								 uni.navigateBack()
+							}
 						});
 					}else if(res.state==1){
 						that.exPassword='';

@@ -146,7 +146,17 @@
 			 // if(this.locationFlag==false){
 				//  this.getLocation();
 			 // }
-			 // this.getLocation(0);	
+			 // this.getLocation(0);
+			 //授权完成之后，跳到分享原来的页面
+				 if(uni.getStorageSync('token')){
+				 	 if(uni.getStorageSync('ptGoodId')){
+				 		 let ids=uni.getStorageSync('ptGoodId')
+				 	        uni.navigateTo({
+				 	 	         url:'/pages/shopMall/ptlist-detail?goodsId='+ids
+				 	       })
+				 	 }
+				 	 
+				 }
 			
 		},
 		onReachBottom(){

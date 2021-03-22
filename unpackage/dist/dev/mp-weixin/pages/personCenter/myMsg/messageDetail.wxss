@@ -24,6 +24,11 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.uni-myMsg .listBox .jc.data-v-4939d152 {
+  font-weight: bold;
+  display: inline-block;
+  margin: 0rpx 10rpx;
+}
 .uni-myMsg .listBox .list.data-v-4939d152 {
   width: 750rpx;
   padding: 30rpx;
@@ -53,6 +58,7 @@
   font-size: 24rpx;
 }
 .uni-myMsg .listBox .list .uni-right .uni-second.data-v-4939d152 {
+  display: block;
   color: #222222;
   font-size: 24rpx;
   margin-top: 20rpx;

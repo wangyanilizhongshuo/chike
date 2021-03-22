@@ -8,21 +8,19 @@
 		</view>
 		<view style="width: 750rpx;height: 100rpx;;"></view>
 		<view class="uni-list" v-if="titleActiveIndex==0" >
-		<side-slip class="sideSlipBox" @remove="onRemove(index)" v-for="(item,index) in  3"  :key="index">
-			<view class="box">
+		<side-slip class="sideSlipBox" @remove="onRemove(item.goods_id,0)" v-for="(item,index) in  listData"  :key="index">
+			<view class="box" v-if="item.outdate==0">
 				<view class="img-box">
-					<image class="imgs" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
+					<image class="imgs" :src="item.goods_img"></image>
 					
 				</view>
 				<view class="uni-right">
-					<view class="uni-first"> 123</view>
-				    <view class="uni-second">¥<text class="money">发送到大师傅第三帝国</text></view>
+					<view class="uni-first"> {{item.goods_name}}</view>
+				    <view class="uni-second">¥<text class="money">{{item.user_price}}</text></view>
 				</view>
 			</view>
-		
-		</side-slip>
-		<side-slip class="sideSlipBox" @remove="onRemove(index)" v-for="(item,index) in  2"  :key="index">
-			<view class="box">
+			
+			<view class="box" v-if="item.outdate==1">
 				<view class="img-box">
 					<image class="imgs" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
 					<view class="uselessImg">已失效</view>
@@ -34,46 +32,28 @@
 			</view>
 		
 		</side-slip>
-			<!-- <side-slip class="sideSlipBox" @remove="onRemove(index)" v-for="(item,index) in  listData"  :key="index">
-				<view class="box">
-					<image class="imgs" :src="item.url"></image>
-					<view class="uni-right">
-						<view class="uni-first"> {{item.title}} </view>
-					    <view class="uni-second">¥<text class="money">{{item.price}}</text></view>
-					</view>
-				</view>
+		
 			
-			</side-slip> -->
 		</view>
 		<view class="uni-list" v-if="titleActiveIndex==1" >
+			
 			<side-slip class="sideSlipBox" @remove="onRemove(item.store_id,1)" v-for="(item,index) in  listData1"  :key="index">
 				<view class="box">
-					<image class="imgs" :src="item.store_img"></image>
+					<view class="img-box">
+						<image class="imgs" :src="item.store_img"></image>
+						
+					</view>
 					<view class="uni-right">
 						<view class="uni-first"> {{item.store_name}} </view>
-					    <view class="uni-third">{{item.address}} </view>
+						<view class="uni-third">{{item.address}} </view>
 						<view class="uni-third">{{item.info}}</view>
-						<!-- <view class="uni-second">¥<text class="money">{{item.price}}</text></view> -->
 					</view>
 				</view>
 			
 			</side-slip>
 		</view>
 		<!-- 服务 -->
-		<view class="uni-list" v-if="titleActiveIndex==2" >
-			<side-slip class="sideSlipBox" @remove="onRemove(item.store_id,1)" v-for="(item,index) in  listData1"  :key="index">
-				<view class="box">
-					<image class="imgs" :src="item.store_img"></image>
-					<view class="uni-right">
-						<view class="uni-first"> {{item.store_name}} </view>
-					    <view class="uni-third">{{item.address}} </view>
-						<view class="uni-third">{{item.info}}</view>
-						<!-- <view class="uni-second">¥<text class="money">{{item.price}}</text></view> -->
-					</view>
-				</view>
-			
-			</side-slip>
-		</view>
+	
 		<view class="showtips" v-if="tipflag">{{tipMsg}}</view>
 	</view>
 </template>
@@ -87,33 +67,18 @@
 				tipflag:false,
 				tipMsg:'',
 				titleActiveIndex:0,
-				titleList:['商品','店铺','服务'],
-				listData:[
-					{
-						url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-						title:'小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g',
-						price:23.99
-					},
-					{
-						url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-						title:'小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g',
-						price:23.99
-					},
-					{
-						url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-						title:'小巨蛋野樱莓雪齿亮白清新口气去渍去黄牙膏 氨基酸健齿炫齿按压泵头式液体牙160g',
-						price:23.99
-					}
-				],
-				listData1:[],
-				listData:[],
+				titleList:['商品','店铺'],
+				
+				listData:[],//商品
+				listData1:[],//店铺列表
 				pages:1,
-				pageV:1
+				pageV:1,
+				types:1,//商品1  店铺2
 				
 			}
 		},
 		onLoad(){
-			this.getData1()
+			this.getData()
 		},
 		components: {
 			'side-slip': SideSlip
@@ -134,8 +99,32 @@
 			
 		},
 		methods: {
+			//商品
+			getData(){
+			   
+				let that=this;
+				that.$http.post('mini/v1/user/mycollections',{
+					typeid:1,
+					page:that.pages
+				},(res)=>{
+					if(res.state==0){
+						that.pagesV=res.data.is_request;
+						if(res.data.is_request==0){
+							let aa = res.data.list;
+							aa.map((res2)=>{
+									res2.goods_img=app.globalData.imgPrefixUrl+res2.goods_img
+							})
+							console.log(aa)
+							let bb = that.listData;
+							that.listData = bb.concat(aa);
+							console.log(that.listData)
+						}
+					}
+					
+				})
+			},
+			 // 门店收藏
 			getData1(){
-			    // 门店收藏
 				let that=this;
 				that.$http.post('mini/v1/user/mycollections',{
 					typeid:2,
@@ -145,42 +134,51 @@
 						that.pagesV=res.data.is_request;
 						if(res.data.is_request==0){
 							let aa = res.data.list;
+							console.log(aa)
 							aa.map((res2)=>{
 									res2.store_img=app.globalData.imgPrefixUrl+res2.store_img
 							})
-							console.log(aa)
+						
 							let bb = that.listData1;
 							that.listData1 = bb.concat(aa);
 							console.log(that.listData1)
+							console.log(22222)
+							
 						}
 					}
 					
 				})
 			},
-			// 商品
-			getData(){
-				
-			},
 			onRemove(id,types) {
 				// 收藏
-					let that=this;				
-					that.$http.post('mini/v1/store/collec',{
-						store_id:id
-					},(res)=>{
+					let that=this;
+					let url='';
+					let items={}
+					if(types==0){
+						url='mini/v1/goods/goodsCollec';
+						items={goods_id:id};
+					}else{
+						url='mini/v1/store/collec';
+						items={store_id:id};
+					}
+					that.$http.post(url,items,(res)=>{
 						if(res.state==0){
 								 that.tipflag=true ;
 								 that.tipMsg='取消收藏成功';
 								 setTimeout(()=>{
 										that.tipflag=false
 						    },3000)
-							if(types==1){
-								that.pages=1;
-								that.pageV=1;
+							that.pages=1;
+							that.pageV=1;
+							if(types==0){
+								
+								that.listData=[]
+								// 店铺收藏取消
+								that.getData();
+							}else if(types==1){
 								that.listData1=[]
 								// 店铺收藏取消
 								that.getData1();
-							}else if(types==0){
-								
 							}
 							
 						}
@@ -193,9 +191,13 @@
 				this.titleActiveIndex=index;
 				if (this.titleActiveIndex==0){
 					   this.listData=[];
+					   this.pages=1;
 					   this.getData();
+					   console.log(111)
 				}
 				else if (this.titleActiveIndex==1){
+					
+					this.pages=1;
 					this.listData1=[];
 					this.getData1();
 				}
@@ -255,12 +257,13 @@
 				flex-direction: column;
 				justify-content: space-between;
 				.uni-first{
-					@include ellipsis(2);
+					@include ellipsis(1);
 					font-weight: bold;
 					color: #000;
 					font-size: 26rpx;;
 				}
 				.uni-firsts{
+					@include ellipsis(1);
 					display: flex;
 					justify-content: space-between;
 					.lefts{
@@ -276,6 +279,7 @@
 				.uni-third{
 					color: #555555;
 					font-size: 24rpx;
+					@include ellipsis(2);
 					.normal{
 						color: #555555;
 						font-size: 24rpx;
@@ -293,6 +297,7 @@
 					}
 				}
 				.uni-second{
+					@include ellipsis(1);
 					color: #FF0000;
 					font-size: 24rpx;;
 					.money{

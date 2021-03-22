@@ -25,6 +25,16 @@
 			   "navigationBarTextStyle":"black"
 			}
 		},
+		{
+			"path" : "pages/personCenter/myExtension/extensionRuls",
+			"style" :                                                                                    
+			{
+			   "navigationBarTitleText": "邀请规则",
+			   "navigationBarBackgroundColor":"#fff",
+			   "navigationBarTextStyle":"black"
+			}
+		},
+			
 	
 	  
 	  {

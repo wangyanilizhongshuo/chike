@@ -175,11 +175,14 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
+  position: relative;
+  left: 0rpx;
+  top: 0rpx;
 }
 .detailBox .uni-third .leftGirl .imgss.data-v-40401556 {
   display: block;
-  height: 70rpx;
-  width: 90rpx;
+  width: 94rpx;
+  height: 94rpx;
   border-radius: 50%;
 }
 .detailBox .uni-third .leftGirl .imgss2.data-v-40401556 {
@@ -189,14 +192,17 @@
   border-radius: 50%;
 }
 .detailBox .uni-third .leftGirl .field.data-v-40401556 {
-  width: 90rpx;
-  height: 34rpx;
-  line-height: 34rpx;
+  width: 80rpx;
+  height: 24rpx;
+  line-height: 24rpx;
   text-align: center;
   background: #FF9A9E;
   color: #fff;
-  font-size: 24rpx;
+  font-size: 20rpx;
   border-radius: 8rpx;
+  position: absolute;
+  left: 10rpx;
+  bottom: 0rpx;
 }
 .detailBox .uni-third .leftGirl .fields.data-v-40401556 {
   width: 90rpx;

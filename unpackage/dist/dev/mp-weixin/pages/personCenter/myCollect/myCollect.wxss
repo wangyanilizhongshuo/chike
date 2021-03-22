@@ -109,14 +109,18 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   font-weight: bold;
   color: #000;
   font-size: 26rpx;
 }
 .uni-collect .uni-list .box .uni-right .uni-firsts.data-v-a4ed783e {
+  overflow: hidden;
+  text-overflow: ellipsis;
   display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   display: -webkit-flex;
   display: flex;
   -webkit-box-pack: justify;
@@ -135,6 +139,11 @@
 .uni-collect .uni-list .box .uni-right .uni-third.data-v-a4ed783e {
   color: #555555;
   font-size: 24rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .uni-collect .uni-list .box .uni-right .uni-third .normal.data-v-a4ed783e {
   color: #555555;
@@ -152,6 +161,11 @@
   font-size: 42rpx;
 }
 .uni-collect .uni-list .box .uni-right .uni-second.data-v-a4ed783e {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   color: #FF0000;
   font-size: 24rpx;
 }

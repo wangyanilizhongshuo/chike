@@ -1,1 +1,1 @@
-<view class="uni-serverTicket data-v-10c837c0"><view class="uni-regularBox data-v-10c837c0"><view class="list data-v-10c837c0">本券不限使用张数，消费每满200元可减免20元，以此类推；</view><view class="list data-v-10c837c0">有效期为领取后的15天，请在有效期内使用；</view><view class="list data-v-10c837c0">可以分享转赠亲朋好友；</view><view class="list data-v-10c837c0">不兑换现金、不找零；</view><view class="list data-v-10c837c0">不与其他优惠共享；</view></view></view>
+<view class="uni-balanceRule data-v-10c837c0"><view class="listbox data-v-10c837c0"><rich-text class="list data-v-10c837c0" nodes="{{msgData}}"></rich-text></view></view>

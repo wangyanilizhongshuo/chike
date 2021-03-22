@@ -101,9 +101,19 @@
 									 encryptedData:e.detail.encryptedData
 								  },(res)=>{
 											if(res.state==0){
-												uni.switchTab({
-													url:'/pages/index/index'
-												 })
+												 if(uni.getStorageSync('ptGoodId')){
+													 let ids=uni.getStorageSync('ptGoodId')
+														uni.navigateTo({
+															 url:'/pages/shopMall/ptlist-detail?goodsId='+ids
+													   })
+												 }
+												 else{
+													 uni.switchTab({
+													 	url:'/pages/index/index'
+													  })
+												 }
+												 
+												 
 											}else{
 												that.tipflag=true ;
 												that.tipMsg=res.msg;

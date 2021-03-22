@@ -1,54 +1,50 @@
 <template>
-	<view class="uni-serverTicket" >
-		
-		<view class="uni-regularBox"  >
-			<view class="list">本券不限使用张数，消费每满200元可减免20元，以此类推；</view>
-			<view class="list">有效期为领取后的15天，请在有效期内使用；</view>
-			<view class="list">可以分享转赠亲朋好友；</view>
-			<view class="list">不兑换现金、不找零；</view>
-			<view class="list">不与其他优惠共享；</view>
+	<view class="uni-balanceRule">
+		<view class="listbox">
+			<rich-text class="list" :nodes="msgData"></rich-text>
 		</view>
-		
 	</view>
 </template>
+
 <script>
 	export default {
-		 data () {
+		data() {
 			return {
-				// 优惠券
-				occurFlag:true,
-				regularFlag:true,
-				
-				
+				msgData:[
+					
+				   ]
 			}
-			},
-		 onLoad(){
-			 this.getList();
-			 // if (this.labelList[index].active == 0) {
-			 // 					   const item = {
-			 // 						 ...this.labelList[index],
-			 // 						 active:1
-			 // 					   };
-			 //       this.$set(this.labelList, index, item);
-		 },
-		 methods:{
-			 getList(){
-				 
-			 }
+		},
+		onLoad(){
 			
-		 }
+			this.getData();
+		},
+		methods:{
+		    getData(){
+			   let that=this;
+			   that.$http.post('mini/v1/user/aboutUs',{
+				   status:2
+			   },(res)=>{
+				   if(res.state==0){
+					   that.msgData=res.data.list.content;
+				   }
+			   })
+			}
+		}
 	}
 </script>
-
 <style scoped lang="scss">
-	
-	.uni-regularBox{
-		width: 750rpx;;
-		padding:30rpx;
+	@import "../../../static/scss/common.scss";
+	.uni-balanceRule{
+		width: 750rpx;
+		padding:40rpx;
 		box-sizing: border-box;
-		.list{
-			color: #888;
-			margin:20rpx 0rpx;;
+		.listbox{
+			.list{
+				color: #888888;
+				font-size: 28rpx;
+				line-height: 50rpx;;
+			}
 		}
 	}
 </style>

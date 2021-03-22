@@ -66,9 +66,22 @@
 								uni.setStorageSync('token',res.data.token);
 								uni.setStorageSync('openId',res.data.openid);
 								if(res.data.is_bind_mobile==1){
-									uni.switchTab({
-									   url:'/pages/index/index'
-								   })
+									
+								     
+									 if(uni.getStorageSync('ptGoodId')){
+										 let ids=uni.getStorageSync('ptGoodId')
+											uni.navigateTo({
+												 url:'/pages/shopMall/ptlist-detail?goodsId='+ids
+										   })
+									 }
+								     else{
+										 uni.switchTab({
+										 	 url:'/pages/index/index'
+										 })
+									 }
+								   
+								   
+								   
 								}else if(res.data.is_bind_mobile==0){
 									uni.redirectTo({
 										url:'/pages/index/logins'

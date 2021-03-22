@@ -27,12 +27,17 @@
 			return {
 				types:1,
 				name:'王亚妮',
-				phone:'15255132034'
+				phone:'15255132034',
+				names:''
 			}
 		  },
 		  onLoad(options){
 			  this.setData(options);
-			 console
+			 if(this.types==1){
+				 this.name=this.names;
+			 }else if(this.types==2){
+				 this.phone=this.names;
+			 }
 		  },
 		  methods:{
 			  

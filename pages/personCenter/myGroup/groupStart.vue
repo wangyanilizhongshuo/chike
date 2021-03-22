@@ -14,14 +14,14 @@
 					</view>
 					<!-- <view class="signalBox"><view class="details">查看拼单详情</view></view> -->
 		            <view class="detailBox">
-						<view class="uni-first">
+						<view class="uni-first"v-if="timesflag1" >
 							<view class="fileds">剩余</view>
 							<view class="timeBox">
-								<view class="list">{{hours}}</view>
+								<view class="list" >{{hours}}</view>
 								<view class="lists">:</view>
-								<view class="list">{{minutes}}</view>
+								<view class="list" >{{minutes}}</view>
 								<view class="lists">:</view>
-								<view class="list">{{mm}}</view>
+								<view class="list" >{{mm}}</view>
 							</view>
 						</view>
 						<view class="uni-second">还差<text class="num">{{msgData.cha}}</text> 人成团，赶快邀请好友加入吧！</view>
@@ -66,17 +66,20 @@
 				perpleCha:'',
 				pvTime:1000,
 				sendMsg:false,
-				setIntervalName:''//定时器的名字
+				setIntervalName:'',//定时器的名字,
+				timesflag1:true,//倒计时的显示
 			}
 		},
 		onLoad(options){
 			this.setData(options)
 			this.getData();
+			
 		},
 		onShareAppMessage: function (res) {
 		    let _this = this;
 			if (res.from ==='button') {// 来自页面内分享按钮
-			     console.log(2346456) 
+			    uni.setStorageSync('ptGoodId',_this.msgData.goods[0].goods_id)
+			    uni.setStorageSync('ptLeadId',_this.msgData.user[0].uid)
 				// e.getSharePTdata
 			    return {
 			      title: "莱美牙",
@@ -106,13 +109,11 @@
 						that.msgData1.shift();//有效的任务的渲染
 						that.hours='00';
 						that.minutes='00'
-						that.mm='00'
-						uni.setStorageSync('ptLeadId',that.msgData.user[0].uid)//f分享出去，队长的id
+						that.mm='00';
+						
 						if(that.sendMsg==false){
 							that.getTime(aa.expiration_time)
-							// console.log(2222)
-							// clearInterval(that.setIntervalName);
-							// that.setIntervalName = null
+							
 						}
 						
 					}
@@ -122,7 +123,7 @@
 			getTime(value){
 				let that=this;
 				let nowtime=Math.round(new Date().getTime()/1000).toString();//获取当前时间
-				let times= value;
+				let times= value-nowtime;
 				if( times<=0){
 					 that.sendMsg=true;
 					 clearInterval(that.setIntervalName);
@@ -137,21 +138,20 @@
 				that.setIntervalName=setInterval(()=>{
 					 let nowtime=Math.round(new Date().getTime()/1000).toString();//获取当前时间
 					 let times= value-nowtime;
-					 console.log(value)
-					 console.log(nowtime,'noetime',times)
+					 
 					 if( times<=0){
 					 	 that.sendMsg=true;
 					 	 clearInterval(that.setIntervalName);
 					 	 that.hours='00';
-					 	 that.minutes='00'
-					 	 that.mm='00'
+					 	 that.minutes='00';
+					 	 that.mm='00';
 					 	 that.getData();
 					 }
 					 that.hours= parseInt(times/60/60%24, 10).toString().padStart(2,'0');//计算剩余的小时数
 					 that.minutes =parseInt(times/60%60, 10).toString().padStart(2,'0');//计算剩余的分钟数;//计算剩余的分钟数
 					 that.mm = parseInt(times%60,10).toString().padStart(2,'0');//计算剩余的秒数
 					
-				},2000)
+				},1000)
 				
 			}
 		}
@@ -284,10 +284,13 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			position: relative;
+			left:0rpx;
+			top:0rpx;
 			.imgss{
 				display: block;
-				height: 70rpx;
-				width: 90rpx;
+				width: 94rpx;
+				height: 94rpx;
 				border-radius: 50%;
 			}
 			.imgss2{
@@ -299,14 +302,19 @@
 				border-radius: 50%;
 			}
 			.field{
-			   width: 90rpx;
-			   height: 34rpx;
-			   line-height: 34rpx;
+			   width: 80rpx;
+			   height: 24rpx;
+			   line-height: 24rpx;
 			   text-align: center;
+			   // opacity: 0.5;
+			   // background-color: #fff;
 			   background: #FF9A9E;
 			   color: #fff;
-               font-size: 24rpx;
-			   border-radius: 8rpx;;
+               font-size: 20rpx;
+			   border-radius: 8rpx;
+			   position: absolute;
+			   left:10rpx;
+			   bottom: 0rpx;;
 			}
 			.fields{
 			   width: 90rpx;

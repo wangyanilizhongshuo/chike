@@ -180,6 +180,20 @@
   -webkit-justify-content: space-between;
           justify-content: space-between;
 }
+.uni-person .uni-content .uni-center .center-first .logoBox.data-v-502c7846 {
+  position: relative;
+  left: 0rpx;
+  top: 0rpx;
+}
+.uni-person .uni-content .uni-center .center-first .logoBox .dots.data-v-502c7846 {
+  position: absolute;
+  right: -5rpx;
+  top: -5rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: #ff3030;
+}
 .uni-person .uni-content .uni-center .center-second1.data-v-502c7846 {
   -webkit-flex-wrap: wrap;
           flex-wrap: wrap;

@@ -2,7 +2,7 @@
 	<view class="uni-transfer">
 	    <view class="contentBox">
 			<view class="styless">
-				<input class="inputBox" v-model="moneyValue"  placeholder-style="color:#888;font-size:28rpx;" placeholder="请输入转赠金额" />
+				<input class="inputBox" type="number" @input="getInput" v-model="moneyValue"  placeholder-style="color:#888;font-size:28rpx;" placeholder="请输入转赠金额" />
 			</view>
 			<view class="box">
 				<view class="first">
@@ -12,7 +12,7 @@
 				<view class="second">提示：此处自行编辑此处自行编辑此处自行编辑 </view>
 			</view>	
 			<view class="styless">
-				<input class="inputBox" v-model="id"  placeholder-style="color:#888;font-size:28rpx;" placeholder="请输入转赠账号" />
+				<input class="inputBox" @input="getInput" type="number" v-model="id"  placeholder-style="color:#888;font-size:28rpx;" placeholder="请输入转赠账号" />
 			</view>
 			<view class="footer" @tap.stop="getPayPsd">确认</view>
 		</view>
@@ -67,6 +67,9 @@
 			getOpenDialog(){
 				this.maskFlag=true;
 				
+			},
+			getInput(){
+				this.exPassword=''
 			},
 			//获取交易密码
 			getPayPsd(){

@@ -452,13 +452,26 @@
   font-size: 18rpx;
 }
 .shopCartLogo.data-v-2eaff474 {
-  display: block;
   width: 100rpx;
   height: 100rpx;
   position: fixed;
   z-index: 50;
   right: 30rpx;
   top: 70%;
+}
+.shopCartLogo .logos.data-v-2eaff474 {
+  display: block;
+  width: 100rpx;
+  height: 100rpx;
+}
+.shopCartLogo .dots.data-v-2eaff474 {
+  position: absolute;
+  right: 15rpx;
+  top: 15rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: #ff3030;
 }
 .scroll-view_H.data-v-2eaff474 {
   white-space: nowrap;

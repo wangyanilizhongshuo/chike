@@ -1,25 +1,26 @@
 <template>
 	<view class="uni-extension">
 		<image class="uni-bg" src="http://zxyp.hzbixin.cn/files/s_84281611907591690.jpg"></image>
-		<view class="uni-title">
-			<view class="uni-firstLine">
-				<image  class="imgs" src="http://zxyp.hzbixin.cn/files/95881611798332049.jpg"></image>
-				<text class="word"> 邀请规则</text>
+		<view class="uni-title" >
+			<view class="uni-firstLine"  @tap.stop="goRules" >
+				<image  class="imgs"  src="http://zxyp.hzbixin.cn/files/95881611798332049.jpg"></image>
+				<text class="word" >  邀请规则</text>
 			</view>
-			<view class="uni-secondLine">牙齿健康   幸福人生</view>
+			<view class="uni-secondLine" >牙齿健康   幸福人生</view>
 			<view class="uni-thirdLine">邀请好友 享收益</view>
 		</view>
 	    <view class="contentBox">
 			<image class="bgCenter" src="http://zxyp.hzbixin.cn/files/5691608258300321.jpg"></image>
 		    <view class="conboxs">
 				 <view class="inviteBox">邀请码</view>
-				 <image class="ewCodeImg" :src="pics"></image>
+				 <image class="ewCodeImg" :src="pics"  ></image>
 			     <view class="downBox">
 					 <button class="buttons" open-type="share">
 						 <image class="wxImg smallImg" src="http://zxyp.hzbixin.cn/files/7981608258434295.jpg"></image>
 					 </button>
-					    <!-- <image class="pxqImg smallImg" src="http://zxyp.hzbixin.cn/files/11211608258466418.jpg"></image> -->
-					    <image @tap.stop="downLoadPic" class="dlImg smallImg" src="http://zxyp.hzbixin.cn/files/74311608258695795.jpg"></image>
+					 <view class="downImgBox"  @tap.stop="downLoadPic">
+						 <image  class=" smallImg " src="http://zxyp.hzbixin.cn/files/74311608258695795.jpg"></image>
+					 </view>
 				 </view>
 			</view>
 		</view>
@@ -31,7 +32,8 @@
 	export default {
 		data() {
 			return {
-				pics:''
+				pics:'',
+				// errrorFla:'333'
 			}
 		},
 		onLoad(){
@@ -56,31 +58,76 @@
 		methods: {
 			getCode(){
 				this.$http.post('mini/v1/user/myqrcode',{
-					
 				},(res)=>{
 					if(res.state==0){
 						this.pics=app.globalData.imgPrefixUrl+res.data.qrcode;
-						console.log(this.pics)
 					}
 				})
 			},
+			goRules(){
+				console.log(1111)
+				uni.navigateTo({
+					url:'/pages/personCenter/myExtension/extensionRuls'
+				})
+			},
+			
 			downLoadPic(){
+				let that=this;
 				 uni.downloadFile({  
-				             url: this.pics,
+				             url: that.pics,
 				             success: (res) => { 
-								 console.log('first')
 				                    var tempFilePath = res.tempFilePath; // 这里拿到后端返回的图片路径
-									uni.saveImageToPhotosAlbum({  // 然后调用这个方法
-										filePath: tempFilePath,
-										success : (res) => {
-											console.log(res)
-											console.log('second')
-											uni.hideLoading();
-											uni.showToast({title : '图片已保存'})
-										}
-									})
-				             }  
-				         });
+									 uni.saveImageToPhotosAlbum({
+									          filePath: tempFilePath,
+									          success: function (data) {
+									          },
+									          fail: function (err) {
+									            if (err.errMsg === "saveImageToPhotosAlbum:fail:auth denied" || err.errMsg === "saveImageToPhotosAlbum:fail auth deny" || err.errMsg === "saveImageToPhotosAlbum:fail authorize no response") {
+									              // 这边微信做过调整，必须要在按钮中触发，因此需要在弹框回调中进行调用
+									              uni.showModal({
+									                title: '提示',
+									                content: '需要您授权保存相册',
+									                showCancel: false,
+									                success: modalSuccess => {
+														  uni.openSetting({
+																	success(settingdata) {
+																			  if (settingdata.authSetting['scope.writePhotosAlbum']) {
+																				uni.showModal({
+																				  title: '提示',
+																				  content: '获取权限成功,再次点击图片即可保存',
+																				  showCancel: false,
+																				})
+																			  } else {
+																				uni.showModal({
+																				  title: '提示',
+																				  content: '获取权限失败，将无法保存到相册哦~',
+																				  showCancel: false,
+																				})
+																			  }
+																	},
+																	fail(failData) {
+																	  console.log("failData", failData)
+																	},
+																	complete(finishData) {
+																	  console.log("finishData", finishData)
+																	}
+														  })
+									                }
+									              })
+									            }
+									          },
+									          complete(res) {
+									            // wx.hideLoading()
+									          }
+									        })
+				             } ,
+							  fail: (res) => { 
+								
+								that.errrorFla=res.errMsg
+								
+							 }
+				 });
+					
 			}
 		}
 	}
@@ -139,6 +186,7 @@
 					display: flex;
 					height: 110rpx;
 					width: 482rpx;
+					
 					align-items: center;
 					justify-content: space-around;
 				}
@@ -146,6 +194,15 @@
 					display: block;
 					width: 62rpx;
 					height: 62rpx;
+					
+				}
+				.downImgBox{
+					
+					height: 110rpx;
+					width:  110rpx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
 				}
 			}
 		}
@@ -165,7 +222,7 @@
 	   position: absolute;
 	   left:0rpx;
 	   top:0rpx;
-	   z-index: 10;;
+	   z-index: 30;;
 	   .uni-firstLine{
 		   display: flex;
 		   justify-content: flex-end;

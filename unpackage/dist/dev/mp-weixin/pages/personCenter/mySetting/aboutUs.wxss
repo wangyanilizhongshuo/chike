@@ -24,12 +24,14 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.conx.data-v-5abfb574 {
+.uni-balanceRule.data-v-5abfb574 {
+  width: 750rpx;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+.uni-balanceRule .listbox .list.data-v-5abfb574 {
   color: #888888;
   font-size: 28rpx;
-  padding: 30rpx;
-  width: 750rpx;
-  box-sizing: border-box;
   line-height: 50rpx;
 }
 

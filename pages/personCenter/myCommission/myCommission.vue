@@ -22,7 +22,7 @@
 				</view>
 			</view>
 			<view class="contentss">
-				<view class="first">余额记录</view>
+				<view class="first">佣金记录</view>
 			    <view class="listBox">
 					<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(index)">
 						<view class="uni-left">
@@ -51,7 +51,7 @@
 		},
 		onLoad(options) {
 			this.setData(options);
-			this.getList();
+			
 		},
 		// onReachBottom(){
 		// 	console.log(111111)
@@ -61,6 +61,9 @@
 		// 	}
 			
 		// },
+		onShow(){
+			this.getList();
+		},
 		methods: {
 			 jumps(type){
 				 if(type ==1){
@@ -93,10 +96,13 @@
 				 }
 			 },
 			 jumpDetail(index){
-				  let aa=this.msgList[index]
-				  uni.navigateTo({
-					 url:'/pages/personCenter/myCommission/commissionDetailList?link_type='+aa.link_type+'&link_id='+aa.link_id+'&brokerage_type='+aa.brokerage_type
-				  })
+				  let aa=this.msgList[index] ;
+				  if(aa.brokerage_type!=3){
+					   uni.navigateTo({
+					      url:'/pages/personCenter/myCommission/commissionDetailList?link_type='+aa.link_type+'&link_id='+aa.link_id+'&brokerage_type='+aa.brokerage_type
+				       })
+				  }
+				 
 			 },
 			 getList(){
 				 let that=this;
@@ -105,13 +111,6 @@
 				 },(res)=>{
 					 if(res.state  ==0){
 						 that.msgList=res.data.list
-						// that.pagesV=res.data.is_request;
-						// if(res.data.is_request==0){
-						// 	let aa = res.data.list;
-						// 	let bb = that.msgList;
-						// 	that.msgList = bb.concat(aa)
-						// 	console.log(that.msgList)
-						// }
 					 }
 				 })
 			 }

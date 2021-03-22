@@ -86,38 +86,33 @@
 	   </view>
 	 <view class="footers" >
 	 		   <view class="uni-left" >
-	 				  <view class="bigbox">
-						   <button class="serverBox bigbox" plain="true" sessionFrom="weapp"  open-type="contact" style="border:none;border-radius: 0rpx;padding:0rpx;">
-								 <image class="imgStart"   src="http://zxyp.hzbixin.cn/files/81491615275583100.jpg"></image>
-						   </button>
-						   <text class="field">客服</text>
-	 				  </view>
-	 				   <view class="collectBox bigbox" @tap.stop="getCollect">
-	 				   		<image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
-	 				        <image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
-	 				         <text class="field">收藏</text>
-	 				   </view>
-	 				  <!-- <view class="collectBox bigbox" @tap.stop="jumps">
-	 				   		<image class="imgStart"   src="http://zxyp.hzbixin.cn/files/69161615275540069.jpg"></image>
-	 				         <text class="field">购物车</text>
-	 				   </view> -->
-	 			 
+				  <view class="bigbox">
+					   <button class="serverBox bigbox" plain="true" sessionFrom="weapp"  open-type="contact" style="border:none;border-radius: 0rpx;padding:0rpx;">
+							 <image class="imgStart"   src="http://zxyp.hzbixin.cn/files/81491615275583100.jpg"></image>
+					   </button>
+					   <text class="field">客服</text>
+				  </view>
+				   <view class="collectBox bigbox" @tap.stop="getCollect">
+						<image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
+						<image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
+						 <text class="field">收藏</text>
+				   </view>
 	 		   </view>
-	 			   <view class="uni-right">
-	 					   <view v-if="sendPtUid==0" class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=2">
-	 						   <text class="upss">直接购买</text>
-	 						   <!-- <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text> -->
-	 					   </view>
-						   <view v-if="sendPtUid!=0" class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=3">
-						   	 		 <text class="upss">直接购买</text>
-						   	 						   <!-- <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text> -->
-						   </view>
-	 					   <view class="makeGroupBox styless2" @tap.stop="getjudge() ">
-	 						   <text class="upss">发起拼团</text>
-	 						   <!-- <text class="downss">¥<text>29.90</text></text> -->
-	 					   </view>
-	 		
-	 </view>
+			   <view class="uni-right">
+					   <view v-if="sendPtUid==0" class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=2">
+						   <text class="upss">直接购买</text>
+						   <!-- <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text> -->
+					   </view>
+					   <view v-if="sendPtUid!=0" class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=3">
+								 <text class="upss">直接购买</text>
+												   <!-- <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text> -->
+					   </view>
+					   <view class="makeGroupBox styless2" @tap.stop="getjudge() ">
+						   <text class="upss">发起拼团</text>
+						   <!-- <text class="downss">¥<text>29.90</text></text> -->
+					   </view>
+		
+				</view>
 	   
 	   <!-- 购物车固定的logo -->
 	  <!-- 加入购物车 -->
@@ -178,24 +173,7 @@
 				current: 0,
 				mode: 'round',
 				listData:[
-					{
-						  url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-					      title:'超声波洗牙（豪华套餐）',
-						  price:'49.00',
-						  desc:'无痛清除牙结石，利用超声波的高频震动，将牙齿表面的牙结石，牙渍，菌斑等击碎并冲刷下来以达到清洁牙齿的目的。'
-					},
-					{
-						  url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-					      title:'超声波洗牙（豪华套餐）',
-						  price:'49.00',
-						  desc:'无痛清除牙结石，利用超声波的高频震动，将牙齿表面的牙结石，牙渍，菌斑等击碎并冲刷下来以达到清洁牙齿的目的。'
-					},
-					{
-						  url:'https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg',
-					      title:'超声波洗牙（豪华套餐）',
-						  price:'49.00',
-						  desc:'无痛清除牙结石，利用超声波的高频震动，将牙齿表面的牙结石，牙渍，菌斑等击碎并冲刷下来以达到清洁牙齿的目的。'
-					}
+					
 				],
 				
 				// 图文 ,商品细节的展现,切换
@@ -224,14 +202,20 @@
 				ptGroopList:[],//拼团人数列表
 				ptUserId:'',
 				sendPtUid:0,//发起拼团的人
+				sendPtGoodsId:0,//拼团商品id
 				scene:0,//邀请人的数据
-				withPtFlag:false//必须和人家拼团
+				withPtFlag:false,//必须和人家拼团
+				getDetailFlag:false
 			}
 		},
 		onShow(){
 			if(uni.getStorageSync('sendPtUid')){
 				this.sendPtUid=uni.getStorageSync('sendPtUid');
 			}
+			//判断登录成功了以后，拼团分享带过来的分享到详情页面的标识把他删除
+			if(this.detailData){
+				  uni.removeStorageSync('ptGoodId');
+			 }
 		},
 	    components: {uniSwiperDot},
 		onShareAppMessage: function (res) {
@@ -250,9 +234,9 @@
 				}
 					
 		},
-		
 		onLoad(options){
 			let that=this;
+			
 		   wx.showShareMenu({
 		  		withShareTicket:true,
 		  		//设置下方的Menus菜单，才能够让发送给朋友与分享到朋友圈两个按钮可以点击
@@ -265,33 +249,29 @@
 			if(that.scene!=0){
 				uni.setStorageSync('scene',that.scene);
 			}
-			if(that.sendPtUid!=0){
-				uni.setStorageSync('sendPtUid',that.sendPtUid);
-					if(!uni.getStorageSync('token')){
-						console.log('wangyibo')
-					        uni.showModal({
-									title: '完善个人资料',
-									content:'个人中心完成授权',
-									confirmText: '去完成',
-									success(res){
-										if (res.confirm) {
-											 uni.switchTab({
-												url:'/pages/personCenter/personCenter'
-											 })
-										} 
-									},
-									fail(res){
-										
-									}
-					         })
-					}else{
-						
-					}
+		    
+			// if(that.sendPtUid!=0){//确定是拼团分享过来 的数据
+			// 	uni.setStorageSync('sendPtUid',that.sendPtUid); //对分享人的id 和商品id  进行存储
+			// 	uni.setStorageSync('ptGoodId',that.sendPtGoodsId);
+			// 	if(that.detailData==''){
+			// 		uni.showModal({
+			// 			title: '完善个人资料',
+			// 			content:'个人中心完成授权',
+			// 			confirmText: '去完成',
+			// 			success(res){
+			// 				if (res.confirm) {
+			// 					 uni.switchTab({
+			// 						url:'/pages/personCenter/personCenter'
+			// 					 })
+			// 				} 
+			// 			},
+			// 			fail(res){
+			// 				console.log('fail')
+			// 			}
+			// 		 })
+			// 	}
 				
-				
-				
-			}
-			
+			// }		
 		},
 		computed:{
 			heights(){
@@ -309,7 +289,6 @@
 				if (platform.toLowerCase() == "android" ){
 					height +=4;
 				}
-				
 				return height + "rpx"				
 			}
 		},
@@ -318,7 +297,36 @@
 			backs(){
 				uni.navigateBack()
 			},
-		
+		    gettankuang(){
+				console.log('come 777777')
+				let that=this;
+				console.log(that.sendPtUid)
+				if(that.sendPtUid!=0){//确定是拼团分享过来 的数据
+					uni.setStorageSync('sendPtUid',that.sendPtUid); //对分享人的id 和商品id  进行存储
+					uni.setStorageSync('ptGoodId',that.sendPtGoodsId);
+					console.log('come999')
+					console.log(that.detailData)
+					if(!(that.detailData)){
+						console.log('111100dsf')
+						uni.showModal({
+							title: '完善个人资料',
+							content:'个人中心完成授权',
+							confirmText: '去完成',
+							success(res){
+								if (res.confirm) {
+									 uni.switchTab({
+										url:'/pages/personCenter/personCenter'
+									 })
+								} 
+							},
+							fail(res){
+								console.log('fail')
+							}
+						 })
+					}
+					
+				}		
+			},
 		    change(e) {
 		           this.current = e.detail.current;
 		         },
@@ -328,13 +336,6 @@
 				     phoneNumber: '114' //仅为示例
 				 });
 			},
-			 // 预约跳转 1 	  
-		 //    jumps(){
-			// 	uni.navigateTo({
-			// 	  url:'/pages/shopMall/shopMallCart'
-			// 	})
-			// },
-			
 			// 收藏
 			getCollect(){
 				this.collectFlag=(!this.collectFlag);
@@ -378,7 +379,6 @@
 				},(res)=>{
 					if(res.state==0){
 						that.cartGoodMsg=res.data.list[0];
-						console.log(that.cartGoodMsg)
 						that.cartGoodMsg.goods_img=app.globalData.imgPrefixUrl+that.cartGoodMsg.goods_img;
 						that.smallCarMsg.push({com_price:that.cartGoodMsg.rules[0].user_price})
 						that.smallCarMsg.push({price_0:that.cartGoodMsg.rules[0].price_0}),
@@ -393,7 +393,6 @@
 			// 拼团购买
 			getPtBug(){
 				let that =this;
-				console.log(that.ptUserId)
 				let items={
 					rule_id:that.cartRuleId,
 					goods_id:that.goodsId,
@@ -420,19 +419,13 @@
 			getSignalBug(){
 				let that=this;
 				let items=[];
-				console.log('come')
-				console.log(that.category)
-				console.log(that.sendPtUid)
 				if(that.category==2){//单独买
-				  
 					items={
 						rule_id:that.cartRuleId,
 						goods_id:that.goodsId,
 						cart_num:that.goodNum,
 						source_type:2,
 				  }
-					console.log('one')
-					console.log(items)
 				}else if(that.category==3&&that.sendPtUid==0){//拼团商品
 					items={
 						rule_id:that.cartRuleId,
@@ -441,8 +434,6 @@
 						source_type:3,
 						head_uid:0 
 					}
-					console.log('two')
-					console.log(items)
 				}else if(that.sendPtUid!=0&&that.category==3){
 					items={
 						rule_id:that.cartRuleId,
@@ -451,8 +442,6 @@
 						source_type:3,
 						head_uid:that.sendPtUid 
 					}
-					console.log('必须和人家进行拼单')
-					console.log(items)
 				}
 				that.$http.post('mini/v1/goods/addgoodscart',items,(res)=>{
 					if(res.state==0){
@@ -484,16 +473,13 @@
 			},
 			// 购物车添加选择规格
 			getChoiceSpec(index){
-				console.log(index)
 				this.choiceSpecificeIndex=index;
-				console.log(this.cartGoodMsg)
 				this.smallCarMsg[0].com_price= this.cartGoodMsg.rules[index].user_price;
 				this.smallCarMsg[1].price_0=this.cartGoodMsg.rules[index].price_0;
 				this.smallCarMsg[2].values=this.cartGoodMsg.rules[index].rule_values;
 				this.smallCarMsg[3].old_price=this.cartGoodMsg.rules[index].old_price;
 				// that.smallCarMsg.push({old_price:that.cartGoodMsg.rules[0].old_price})
 				this.cartRuleId=this.cartGoodMsg.rules[index].rule_id;
-				console.log(this.smallCarMsg)
 				
 			},
 			// 商品数量的加减
@@ -530,16 +516,30 @@
 			},
 			getDetail(){
 				let that=this;
+				if(that.sendPtGoodsId){
+					that.goodsId=that.sendPtGoodsId;
+					console.log('googsd')
+					console.log(that.goodsId)
+				}
+				console.log('come detail1')
+				console.log(that.goodsId)
 				that.$http.post('mini/v1/goods/comGoods',{
 					goods_id:that.goodsId
 				},(res)=>{
+					console.log('come detail1111')
+					console.log(res)
+					console.log('come detail1111')
 					if(res.state==0){
 						
 						that.detailData=res.data.list;
+						console.log('come 1001001010100')
+						console.log(that.detailData)
+						that.gettankuang();
+						console.log('come 100100')
 						let aas=JSON.parse(that.detailData.goods_imgs) 
 						let aas2=JSON.parse(that.detailData.description)
-						aas.map(res=>{
-							res.url=app.globalData.imgPrefixUrl+res.img
+						aas.map(res2=>{
+							res2.url=app.globalData.imgPrefixUrl+res2.img
 						})
 						that.detailData.label_str=that.detailData.label_str.split(',')
 						aas2.map(res1=>{
@@ -548,17 +548,22 @@
 						that.bannersList=aas;
 						that.tuDetailList=aas2
 						that.ptGroopList=that.detailData.user;
-					that.detailData.is_collect
-					if(that.detailData.is_collect==1){
-						that.collectFlag=true
-					}else{
-						that.collectFlag=false
-					}
+						if(that.detailData.is_collect==1){
+							that.collectFlag=true
+						}else{
+							that.collectFlag=false
+						}
 						that.ptGroopList.map((item,index,array)=>{
 							// res.expiration
 							 that.getNowTime(index,item.expiration)
 							//截止
 						})
+						console.log('come detail3333')
+						
+					}else{
+						console.log(res)
+						console.log('come detail222')
+						that.gettankuang();
 					}
 				})
 			},

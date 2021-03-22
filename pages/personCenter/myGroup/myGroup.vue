@@ -31,7 +31,7 @@
 				<view class="lists" v-for="(item,index) in mainList" :key="index" @tap.stop="jump(2,item.order_sn)">
 					<view class="contentTitle">
 						<view class="field">{{item.create_time}}</view>
-						<view class="uni-right">拼团中，还差 <text class="red">{{item.cha}}</text>人</view>          
+						<view class="uni-right">拼团成功</view>          
 					</view>
 					<view class="contentSmallBox" v-for="(item1,index1) in item.goods" :key="index1">
 						<image class="uni-left" :src="item1.goods_img"></image>
@@ -51,7 +51,7 @@
 				<view class="lists" v-for="(item,index) in mainList" :key="index" @tap.stop="jump(3,item.order_sn)">
 					<view class="contentTitle">
 						<view class="field">{{item.create_time}}</view>
-						<view class="uni-right">拼团中，还差 <text class="red">{{item.cha}}</text>人</view>          
+						<view class="uni-right">拼团失败，还差 <text class="red">{{item.cha}}</text>人</view>          
 					</view>
 					<view class="contentSmallBox" v-for="(item1,index1) in item.goods" :key="index1">
 						<image class="uni-left" :src="item1.goods_img"></image>
@@ -93,7 +93,10 @@
 				this.pages+=1;				
 				this.getListData();
 			}
-			
+		},
+		onShow(){
+			uni.removeStorageSync('ptGoodId');
+			uni.removeStorageSync('ptLeadId');
 		},
 		methods: {
 			// 头部点亮

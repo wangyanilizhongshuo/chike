@@ -2,12 +2,17 @@
 	<view  class="uni-myMsg">
 		<view class="listBox">
 			<view class="list" v-for="(item,index) in msgList"  :key="index">
-				<view class="uni-right">
+				<view class="uni-right" @tap.stop="getCode(item.expression_sn)">
 				     <view class="uni-first">
 						 <view class="lefts">{{item.title}} </view>
 						 <view class="rights">{{item.send_time}} </view>
 					 </view>
-					 <view class="uni-second">{{item.content}}</view>
+					 <text class="uni-second"  >
+					     {{item.content}}  
+					     <text class="jc" v-if="item.goods_name" >{{item.goods_name}}</text>
+					     <text v-if="item.package">{{item.package}}</text>
+					     <text  style="text-decoration:underline"  class="jc" v-if="item.expression_sn">{{item.expression_sn}}</text>
+					 </text>
 				</view>
 			</view>
 		</view>
@@ -29,7 +34,7 @@
 			if(this.types==1){
 				this.titleName='系统消息'
 			}else if (this.types==2){
-				this.titleName='商品消息'
+				this.titleName='订单消息'
 			}
 			else if (this.types==3){
 				this.titleName='服务消息'
@@ -63,6 +68,28 @@
 						
 					}
 				})
+			},
+			getCode(values){
+				console.log(values)
+				if(!values){
+					return false
+				}
+			  //提示模板
+			  uni.showModal({
+			    content:values,//模板中提示的内容
+			    confirmText:"复制内容",
+			    success:()=>{//点击复制内容的后调函数
+			      //uni.setClipboardData方法就是讲内容复制到粘贴板
+			      uni.setClipboardData({
+			        data:values,//要被复制的内容
+			        success:()=>{//复制成功的回调函数
+			          uni.showToast({//提示
+			            title:"复制成功"
+			          })
+			        }
+			      });
+			    }
+			  });
 			}
 			
 		}
@@ -73,13 +100,15 @@
 	@import "../../../static/scss/common.scss";
 	.uni-myMsg{
 		.listBox{
+			.jc{
+				font-weight: bold;
+				display: inline-block;
+				margin: 0rpx 10rpx ;
+			}
 			.list{
 				width: 750rpx;
 				padding:30rpx;
 				box-sizing: border-box;
-				// display: flex;
-				// justify-content: space-between;
-				// align-items: center;
 				border-top:2rpx solid #f2f2f2;
 				.imgs{
 					display: block;
@@ -88,9 +117,6 @@
 					margin-right:30rpx;;
 				}
 				.uni-right{
-					
-					
-					
 					.uni-first{
 						display: flex;
 						justify-content: space-between;
@@ -105,10 +131,10 @@
 						}
 					}
 					.uni-second{
+						display: block;
 						color: #222222;
 						font-size: 24rpx;
 						margin-top:20rpx;
-						// @include ellipsis(1);
 					}
 				}
 			}

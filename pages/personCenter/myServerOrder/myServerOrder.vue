@@ -148,6 +148,9 @@
 		},
 		onLoad(){
 			// 代付款订单
+			
+		},
+		onShow(){
 			this.getwillPay()
 		},
 		onReachBottom(){

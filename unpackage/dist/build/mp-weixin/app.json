@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/index/logins",
     "pages/index/login",
+    "pages/personCenter/myExtension/extensionRuls",
     "pages/personCenter/myGroup/groupFail",
     "pages/index/loginPsd",
     "pages/personCenter/myOrder/orderDetail",

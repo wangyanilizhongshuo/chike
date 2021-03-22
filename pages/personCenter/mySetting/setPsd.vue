@@ -92,7 +92,7 @@
 					new_password2:this.psd2
 				},(res)=>{
 					if(res.state==0){
-						uni.navigateTo({
+						uni.redirectTo({
 							url:'/pages/personCenter/myOpinion/opinionSuccess?typesName='+2
 						})
 					}

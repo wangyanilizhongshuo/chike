@@ -46,10 +46,18 @@
 					
 					
 				}else if (type ==2){
-					uni.navigateTo({
-						url:'/pages/personCenter/mySetting/setLoginPsd'
-					})
 					
+					this.$http.post('mini/v1/overt/sendsmscode',{
+						mobile:this.phone,
+						codetype:2
+					},(res)=>{
+						if(res.state==0){
+							uni.navigateTo({
+								url:'/pages/personCenter/mySetting/setLoginPsd?phone='+this.phone
+							})
+						}
+					})
+	
 				}
 				else if (type ==3){
 					uni.navigateTo({

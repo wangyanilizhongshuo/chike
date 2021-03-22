@@ -11,7 +11,7 @@
 		<!-- 全部 -->
 		<view  v-if="titleActiveIndex==0" class="bigBox">
 			<view class="listBox">
-				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn)">
+				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn,item.is_pink)">
 					<view class="uni-titles">
 						<view class="left">订单编号  {{item.order_sn}}</view>
 						<view class="right" v-if="item.status==1">待付款</view>
@@ -21,6 +21,7 @@
 						<view class="right" v-if="item.status==5">售后中</view>
 						<view class="right" v-if="item.status==6">售后成功</view>
 						<view class="right" v-if="item.status==7">售后失败</view>
+						<view class="right" v-if="item.status==10">已完成</view>
 					</view>
 					<view class="uni-content" v-for="(item1,index1) in item.goods" :key="index1">
 						<image class="uni-left" :src="item1.goods_img"></image>
@@ -56,7 +57,7 @@
 		<!-- 待付款 -->
 		<view  v-if="titleActiveIndex==1" class="bigBox"  >
 			<view class="listBox">
-				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn)">
+				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn,item.is_pink)">
 					<view class="uni-titles">
 						<view class="left">订单编号  {{item.order_sn}}</view>
 					    <view class="right">待付款</view>
@@ -86,7 +87,7 @@
 		<!-- 待发货 -->
 		<view  v-if="titleActiveIndex==2" class="bigBox" >
 			<view class="listBox">
-				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn)">
+				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn,item.is_pink)">
 					<view class="uni-titles">
 						<view class="left">订单编号  {{item.order_sn}}</view>
 					    <view class="right">待发货</view>
@@ -115,7 +116,7 @@
 		<!-- 待收货 -->
 		<view  v-if="titleActiveIndex==3" class="bigBox">
 			<view class="listBox">
-				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn)">
+				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn,item.is_pink)">
 					<view class="uni-titles">
 						<view class="left">订单编号  {{item.order_sn}}</view>
 					    <view class="right">待收货</view>
@@ -145,7 +146,7 @@
 		<!--已经完成 -->
 		<view  v-if="titleActiveIndex==4" class="bigBox">
 			<view class="listBox">
-				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn)">
+				<view class="list" v-for="(item,index) in msgList" :key="index" @tap.stop="jumpDetail(item.order_sn,item.is_pink)">
 					<view class="uni-titles">
 						<view class="left">订单编号  {{item.order_sn}}</view>
 					    <view class="right">已完成</view>
@@ -234,7 +235,7 @@
 			getTitleActive(index){
 				this.titleActiveIndex=index;
 				if(index==4){
-					this.types=5
+					this.types=10
 				}else{
 					this.types=index;
 				}
@@ -242,9 +243,9 @@
 				this.pages=1;
 				this.getOrderList()				
 			},
-			jumpDetail(values){
+			jumpDetail(values,values2){
 				uni.navigateTo({
-					url:'/pages/personCenter/myOrder/orderDetail?transactionNum='+this.titleActiveIndex+'&order_sn='+values
+					url:'/pages/personCenter/myOrder/orderDetail?transactionNum='+this.titleActiveIndex+'&order_sn='+values+'&is_pink='+values2
 				})
 			},
 			getOrderList(){
