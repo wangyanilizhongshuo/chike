@@ -24,7 +24,26 @@
 				    <!-- <view class="wordDown word">新用户注册完！</view> -->
 				</view>
 			</view>
-			<view class="content-third">
+			<view class="content-third" v-if="jxFlag==false">
+				<view class="titles">
+					<view class="fields">附近好店</view>
+					<view class="getMore" @tap.stop="jumps(2)">查看更多</view>
+				</view>
+				<view  class="listss" v-for="(item,index) in mainList" :key="index"   @tap.stop="listClick(item.store_id)">
+					<image class="imgs left"  :src="item.store_img"></image>
+					<view class="right">
+						<view class="first">{{item.store_name}}</view>
+						<view class="secondsss">
+							<view class="left">
+								{{item.address}}
+							</view>
+							<view class="rightss">{{item.juli}}km</view>
+						</view>
+						<view class="thirds">{{item.info}}</view>
+					</view>
+				</view>
+			</view>
+			<view class="content-third" v-if="jxFlag">
 				<view class="titles">
 					<view class="fields">精选好店</view>
 					<view class="getMore" @tap.stop="jumps(2)">查看更多</view>
@@ -110,7 +129,9 @@
 			    noticeList:[],
 				dwDownH:'',
 				dwDownHs:'',
-				// locationFlag:false		 
+				jxFlag:false,
+				bottomItem:{}
+				
 		   }
 	},
 		components:{
@@ -377,14 +398,26 @@
 				// 首页底部的数据
 				getALlList(){
 					let that=this;
-					that.$http.post('mini/v1/service/storelist',{
-						page:that.pages,
-						is_index:1,
-						user_lng:that.longitudeValue,
-						user_lat:that.latitudeValue,
-						user_city_id:that.searchDistrictid
-					},(res)=>{
+					
+					if(that.jxFlag==false){
+						that.bottomItem={
+							page:that.pages,
+							user_lng:that.longitudeValue,
+							user_lat:that.latitudeValue,
+							user_city_id:that.searchDistrictid
+					     };
+					}else{
+						that.bottomItem={
+							page:that.pages,
+							is_index:1,
+							user_lng:that.longitudeValue,
+							user_lat:that.latitudeValue,
+							user_city_id:that.searchDistrictid
+						};
+					}
+					that.$http.post('mini/v1/service/storelist',that.bottomItem,(res)=>{
 						if(res.state ==0){
+							
 							that.pagesV=res.data.is_request;
 							if(res.data.is_request==0){
 								let aa = res.data.list;
@@ -394,8 +427,16 @@
 								let bb = that.mainList;
 								that.mainList = bb.concat(aa);
 							}else{
-								
-								
+								console.log('come')
+								console.log(that.mainList.length)
+								// 访问数据是否是空的,还是第一次访问就是空,如果第一次空,就去掉is_index
+							    if(that.mainList.length==0){
+									console.log(123)
+									
+									that.jxFlag=true;
+									
+									that.getALlList();
+								}	
 							}
 						}
 					})

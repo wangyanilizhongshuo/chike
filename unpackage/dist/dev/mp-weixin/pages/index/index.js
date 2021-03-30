@@ -326,7 +326,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var carousel = function carousel() {__webpack_require__.e(/*! require.ensure | components/vear-carousel/vear-carousel */ "components/vear-carousel/vear-carousel").then((function () {return resolve(__webpack_require__(/*! @/components/vear-carousel/vear-carousel */ 673));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var carousel = function carousel() {__webpack_require__.e(/*! require.ensure | components/vear-carousel/vear-carousel */ "components/vear-carousel/vear-carousel").then((function () {return resolve(__webpack_require__(/*! @/components/vear-carousel/vear-carousel */ 681));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
     return {
@@ -367,9 +386,11 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
       // 公告列表
       noticeList: [],
       dwDownH: '',
-      dwDownHs: ''
-      // locationFlag:false		 
-    };
+      dwDownHs: '',
+      jxFlag: false,
+      bottomItem: {} };
+
+
   },
   components: {
     carousel: carousel },
@@ -635,14 +656,26 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
     // 首页底部的数据
     getALlList: function getALlList() {
       var that = this;
-      that.$http.post('mini/v1/service/storelist', {
-        page: that.pages,
-        is_index: 1,
-        user_lng: that.longitudeValue,
-        user_lat: that.latitudeValue,
-        user_city_id: that.searchDistrictid },
-      function (res) {
+
+      if (that.jxFlag == false) {
+        that.bottomItem = {
+          page: that.pages,
+          user_lng: that.longitudeValue,
+          user_lat: that.latitudeValue,
+          user_city_id: that.searchDistrictid };
+
+      } else {
+        that.bottomItem = {
+          page: that.pages,
+          is_index: 1,
+          user_lng: that.longitudeValue,
+          user_lat: that.latitudeValue,
+          user_city_id: that.searchDistrictid };
+
+      }
+      that.$http.post('mini/v1/service/storelist', that.bottomItem, function (res) {
         if (res.state == 0) {
+
           that.pagesV = res.data.is_request;
           if (res.data.is_request == 0) {
             var aa = res.data.list;
@@ -652,8 +685,16 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
             var bb = that.mainList;
             that.mainList = bb.concat(aa);
           } else {
+            console.log('come');
+            console.log(that.mainList.length);
+            // 访问数据是否是空的,还是第一次访问就是空,如果第一次空,就去掉is_index
+            if (that.mainList.length == 0) {
+              console.log(123);
 
+              that.jxFlag = true;
 
+              that.getALlList();
+            }
           }
         }
       });

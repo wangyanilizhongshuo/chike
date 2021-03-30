@@ -250,28 +250,7 @@
 				uni.setStorageSync('scene',that.scene);
 			}
 		    
-			// if(that.sendPtUid!=0){//确定是拼团分享过来 的数据
-			// 	uni.setStorageSync('sendPtUid',that.sendPtUid); //对分享人的id 和商品id  进行存储
-			// 	uni.setStorageSync('ptGoodId',that.sendPtGoodsId);
-			// 	if(that.detailData==''){
-			// 		uni.showModal({
-			// 			title: '完善个人资料',
-			// 			content:'个人中心完成授权',
-			// 			confirmText: '去完成',
-			// 			success(res){
-			// 				if (res.confirm) {
-			// 					 uni.switchTab({
-			// 						url:'/pages/personCenter/personCenter'
-			// 					 })
-			// 				} 
-			// 			},
-			// 			fail(res){
-			// 				console.log('fail')
-			// 			}
-			// 		 })
-			// 	}
 				
-			// }		
 		},
 		computed:{
 			heights(){
@@ -297,8 +276,58 @@
 			backs(){
 				uni.navigateBack()
 			},
+			getPtJiaData(){
+				let that=this;
+				console.log('come. getPt jia Data')
+				that.$http.post('/mini/v1/goods/fakeGoods',{
+					goods_id:that.sendPtGoodsId
+				},(res)=>{
+					console.log('success')
+					console.log(res)
+					console.log(that.sendPtGoodsId)
+					console.log('success')
+					if(res.state ==0){
+						
+						that.detailData=res.data.list;
+						let aas=JSON.parse(that.detailData.goods_imgs) 
+						let aas2=JSON.parse(that.detailData.description)
+						aas.map(res2=>{
+							res2.url=app.globalData.imgPrefixUrl+res2.img
+						})
+						that.detailData.label_str=that.detailData.label_str.split(',')
+						aas2.map(res1=>{
+							res1.pic=app.globalData.imgPrefixUrl+res1.pic;
+						})
+						that.bannersList=aas;
+						that.tuDetailList=aas2
+						that.ptGroopList=that.detailData.user;
+						if(that.detailData.is_collect==1){
+							that.collectFlag=true
+						}else{
+							that.collectFlag=false
+						}
+						
+							uni.showModal({
+								title: '您暂未授权登陆',
+								content:'请去个人中心点击头像点击登录',
+								confirmText: '去登录',
+								success(res){
+									if (res.confirm) {
+										 uni.switchTab({
+											url:'/pages/personCenter/personCenter'
+										 })
+									} 
+								},
+								fail(res){
+									console.log('fail')
+								}
+							 })
+						}
+						
+					
+				})
+			},
 		    gettankuang(){
-				console.log('come 777777')
 				let that=this;
 				console.log(that.sendPtUid)
 				if(that.sendPtUid!=0){//确定是拼团分享过来 的数据
@@ -307,22 +336,23 @@
 					console.log('come999')
 					console.log(that.detailData)
 					if(!(that.detailData)){
-						console.log('111100dsf')
-						uni.showModal({
-							title: '完善个人资料',
-							content:'个人中心完成授权',
-							confirmText: '去完成',
-							success(res){
-								if (res.confirm) {
-									 uni.switchTab({
-										url:'/pages/personCenter/personCenter'
-									 })
-								} 
-							},
-							fail(res){
-								console.log('fail')
-							}
-						 })
+						that.getPtJiaData();
+						// console.log('111100dsf')
+						// uni.showModal({
+						// 	title: '您暂未授权登陆',
+						// 	content:'请去个人中心点击头像点击登录',
+						// 	confirmText: '去登录',
+						// 	success(res){
+						// 		if (res.confirm) {
+						// 			 uni.switchTab({
+						// 				url:'/pages/personCenter/personCenter'
+						// 			 })
+						// 		} 
+						// 	},
+						// 	fail(res){
+						// 		console.log('fail')
+						// 	}
+						//  })
 					}
 					
 				}		

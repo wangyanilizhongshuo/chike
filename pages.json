@@ -7,6 +7,17 @@
 				   }
 	},
 	{
+	    "path" : "pages/personCenter/myAssets/myAssets",
+	    "style" :                                                                                    
+	    {
+	        "navigationBarTitleText": "我的资产",
+	        "navigationBarBackgroundColor":"#fff",
+	        "navigationBarTextStyle":"black"
+	    }
+	    
+	},
+	
+	{
 			"path" : "pages/index/logins",
 			"style" :                                                                                    
 			{
@@ -784,6 +795,7 @@
 		    }
 		    
 		}
+        
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

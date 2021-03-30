@@ -9,10 +9,10 @@
 					 <view class="fields">设置登录密码</view>
 					 <image class="imgs" src="../../../static/image/index-arrow-right.png"></image>
 			 </view>
-			 <view class="list"  @tap="jumps(3)">
+			 <!-- <view class="list"  @tap="jumps(3)">
 				 <view class="fields">关于我们</view>
 				 <image class="imgs" src="../../../static/image/index-arrow-right.png"></image>
-			 </view>
+			 </view> -->
 		 </view> 
 		 <view class="footer" @tap.stop="edits">退出登录</view>
 	</view>
@@ -59,12 +59,12 @@
 					})
 	
 				}
-				else if (type ==3){
-					uni.navigateTo({
-						url:'/pages/personCenter/mySetting/aboutUs'
-					})
+				// else if (type ==3){
+				// 	uni.navigateTo({
+				// 		url:'/pages/personCenter/mySetting/aboutUs'
+				// 	})
 					
-				}
+				// }
 			},
 			edits(){
 				uni.redirectTo({

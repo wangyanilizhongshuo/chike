@@ -24,7 +24,7 @@
 							  <view class="left">¥{{items.price}}</view>
 							  <view class="right">
 									  <view class="zuo" @tap.stop="getGoodsNum(1,index,indexs,items.cart_id,items.num)">-</view>
-									  <input class="zhong"  type="number" v-model="items.num" :maxlength="2" @blur="getGoodNumsInput($event,index,indexs,items.cart_id,items.num)"></input>
+									  <input class="zhong"  type="number" v-model="items.num" :maxlength="6" @blur="getGoodNumsInput($event,index,indexs,items.cart_id,items.num)"></input>
 									  <view class="you"  @tap.stop="getGoodsNum(2,index,indexs,items.cart_id,items.num)">+</view>
 							  </view>
 						  </view>
@@ -177,7 +177,7 @@
 				   }
 				   this.$set(this.cartList[index].infos,indexs,items)
 				}
-				else if (style ==2 && numbers<99){
+				else if (style ==2 && numbers<1000000){
                      const  items={
 						   ...this.cartList[index].infos[indexs],
 						   num:numbers+=1,
@@ -185,7 +185,7 @@
                      this.$set(this.cartList[index].infos,indexs,items)				
 				}
 				// 对数量 进行修改
-				if(numbers>=1  && numbers<99){
+				if(numbers>=1  && numbers<1000000){
 					this.$http.post('mini/v1/service/cartchange',{
 							cart_id:ids,
 							cart_num:numbers

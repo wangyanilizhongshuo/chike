@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/personCenter/myAssets/myAssets",
     "pages/index/logins",
     "pages/index/login",
     "pages/personCenter/myExtension/extensionRuls",

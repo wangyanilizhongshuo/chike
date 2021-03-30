@@ -100,7 +100,7 @@
 					this.searchList.push(b)
 					uni.setStorageSync('searchs',this.searchList);
 					uni.redirectTo({
-						url:'/pages/index/searchList?searchKey='+this.searchValue+'&longitude='+this.longitude+'&latitude='+this.latitude
+						url:'/pages/index/searchList?searchKey='+this.searchValue+'&longitude='+this.longitude+'&latitude='+this.latitude+'&searchDistrictid='+this.searchDistrictid
 						
 					})
 				}

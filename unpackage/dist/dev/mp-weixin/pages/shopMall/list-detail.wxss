@@ -68,7 +68,7 @@
   color: #8F8F8F;
 }
 .joincartBox .third .right .zuo.data-v-b99ceb18 {
-  width: 45rpx;
+  width: 90rpx;
   height: 49rpx;
   line-height: 45rpx;
   box-sizing: border-box;
@@ -78,7 +78,7 @@
   border-radius: 45rpx 0rpx 0rpx 45rpx;
 }
 .joincartBox .third .right .zhong.data-v-b99ceb18 {
-  width: 70rpx;
+  width: 200rpx;
   height: 49rpx;
   text-align: center;
   line-height: 45rpx;
@@ -87,7 +87,7 @@
   border: 2rpx solid #C5C5C5;
 }
 .joincartBox .third .right .you.data-v-b99ceb18 {
-  width: 45rpx;
+  width: 90rpx;
   height: 49rpx;
   line-height: 45rpx;
   box-sizing: border-box;

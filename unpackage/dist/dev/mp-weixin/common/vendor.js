@@ -7979,7 +7979,7 @@ function getShareUrlParams(params) {
 
 }
 function getSharePTdata(params) {
-
+  console.log(uni.getStorageSync('ptGoodId'));
   return urlEncode(Object.assign({
     scene: uni.getStorageSync('userId') || 0,
     sendPtUid: uni.getStorageSync('ptLeadId') || 0,

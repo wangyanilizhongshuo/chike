@@ -17,7 +17,7 @@
 							  <view class="left">¥{{item.user_price}}</view>
 							  <view class="right">
 									  <view class="zuo" @tap.stop="getGoodsNum(1,index,item.cart_id,item.cart_num)">-</view>
-									  <input class="zhong"  type="number" v-model="item.cart_num" :maxlength="2" @blur="getGoodNumsInput($event,index,item.cart_id)"></input>
+									  <input class="zhong"  type="number" v-model="item.cart_num" :maxlength="6" @blur="getGoodNumsInput($event,index,item.cart_id)"></input>
 									  <view class="you"  @tap.stop="getGoodsNum(2,index,item.cart_id,item.cart_num)">+</view>
 							  </view>
 						  </view>
@@ -139,12 +139,12 @@
 				if(style ==1 && numbers>1){
 				   this.$set(this.cartList[index],'cart_num',numbers-=1)
 				}
-				else if (style ==2 && numbers<99){
+				else if (style ==2 && numbers<1000000){
 		           this.$set(this.cartList[index],'cart_num',numbers+=1)
                      // this.$set(this.cartList,index,items)				
 				}
 				// 对数量 进行修改
-				if(numbers>=1  && numbers<99){
+				if(numbers>=1  && numbers<1000000){
 					this.$http.post('mini/v1/goods/changenum',{
 							cart_id:ids,
 							cart_num:numbers
@@ -161,7 +161,7 @@
 			// 购物车中间的输入
 			getGoodNumsInput(e,index,ids){
 				let numbers=Number(e.detail.value);
-				 if(numbers<100 && numbers>1){
+				 if(numbers<1000000 && numbers>1){
 					 this.$set(this.cartList[index],'cart_num',numbers);
 					 // 对数量 进行修改
 					 	this.$http.post('mini/v1/goods/changenum',{

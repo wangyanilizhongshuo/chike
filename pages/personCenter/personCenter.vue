@@ -21,7 +21,7 @@
 					</view>
 				</view>
 				<view class="person-detail">
-					 <view class="first-1 style-detail" @tap.stop="jumpTop(1)">
+					<!-- <view class="first-1 style-detail" @tap.stop="jumpTop(1)">
 						 <view class="values">{{personData.now_money || 0.00}}</view>
 						 <view class="field">我的余额</view>
 					 </view>
@@ -36,7 +36,7 @@
 					 <view class="first-4 style-detail" @tap.stop="jumpTop(4)">
 						 <view class="values">{{personData.integral || 0}}</view>
 						 <view class="field">我的积分</view>
-					 </view>
+					 </view> -->
 				</view>
 			</view>
 			<view class="uni-center" >
@@ -76,6 +76,10 @@
 						   </view>
 	            	</view>
 				    <view class="center-second1"  >
+						<view  class="list"  @tap.stop="jumps(15)">
+							  <image class="imgs" src="../../static/image/person-center2-9.png"></image>
+							  <view class="fields">我的资产</view>
+						</view>
 						  <view  class="list"  @tap.stop="jumps(4)">
 							  <image class="imgs" src="../../static/image/person-center2-1.png"></image>
 							  <view class="fields">我的拼团</view>
@@ -104,16 +108,16 @@
 								  <image class="imgs" src="../../static/image/person-center2-7.png"></image>
 								  <view class="fields">我的推广</view>
 						  </view>
-						  <view class="list" @tap.stop="jumps(11)">
+						 <view class="list" @tap.stop="jumps(11)">
 								  <image class="imgs" src="../../static/image/person-center2-8.png"></image>
 								  <view class="fields">设置</view>
-						  </view> 
+						  </view>
 				    </view>
 					<view class="center-third">
 				 
 				  	<view class="list">
 						 <button plain="true"  style="border:none;border-radius: 0rpx;padding:0rpx;" hover-class="none"   sessionFrom="weapp"  open-type="contact">
-				   		    <image style="display: block;width: 60rpx;height: 60rpx;margin-bottom: 10rpx;" src="../../static/image/person-center3-1.png"></image>
+				   		    <image style="display: block;width: 60rpx;height: 60rpx;margin-bottom: 10rpx;" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210329/8bb575f939fc0bbfc1ed42a5ce8466a4.png"></image>
 						  </button>
 				   		  <view class="fields">客服系统</view>
 				   	  </view>
@@ -124,8 +128,12 @@
 				   		  <view class="fields">使用指南</view>
 				   	  </view>
 					  <view class="list" @tap.stop="jumps(14)">
-						  <image class="imgs" src="../../static/image/person-center3-3.png"></image>
+						  <image class="imgs" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210329/9419c177c286c2fee0cba1e6d627c16d.png"></image>
 						  <view class="fields">意见反馈</view>
+					  </view>
+					  <view class="list" @tap.stop="jumps(16)">
+						  <image class="imgs" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210329/fa7d760d2637e1019b982a89b269c7ce.png"></image>
+						  <view class="fields">关于我们</view>
 					  </view>
 				   </view>
 			</view>
@@ -188,26 +196,26 @@
 					  }
 				})
 			},
-			jumpTop(types){
-				 if (types ==1){
-					uni.navigateTo({
-						url:'/pages/personCenter/myBalance/myBalance?now_money='+this.personData.now_money
-					})
-				}else if(types==2){
-					uni.navigateTo({
-						url:'/pages/personCenter/myCommission/myCommission?brokerage_price='+this.personData.brokerage_price+'&now_money='+this.personData.now_money
-					})
-				}else if(types==3){
-					uni.navigateTo({
-						url:'/pages/personCenter/myTicket/myTicket'
-					})
-				}
-				else if(types==4){
-					uni.navigateTo({
-						url:'/pages/personCenter/myInteGral/myInteGral?jifen='+this.personData.integral+'&willjf='+this.personData.integral_active
-					})
-				}
-			},
+			// jumpTop(types){
+			// 	 if (types ==1){
+			// 		uni.navigateTo({
+			// 			url:'/pages/personCenter/myBalance/myBalance?now_money='+this.personData.now_money
+			// 		})
+			// 	}else if(types==2){
+			// 		uni.navigateTo({
+			// 			url:'/pages/personCenter/myCommission/myCommission?brokerage_price='+this.personData.brokerage_price+'&now_money='+this.personData.now_money
+			// 		})
+			// 	}else if(types==3){
+			// 		uni.navigateTo({
+			// 			url:'/pages/personCenter/myTicket/myTicket'
+			// 		})
+			// 	}
+			// 	else if(types==4){
+			// 		uni.navigateTo({
+			// 			url:'/pages/personCenter/myInteGral/myInteGral?jifen='+this.personData.integral+'&willjf='+this.personData.integral_active
+			// 		})
+			// 	}
+			// },
 			jumpOrder(type){
 					uni.navigateTo({
 						url:'/pages/personCenter/myOrder/myOrder?titleActiveIndex='+type+'&types='+type
@@ -274,8 +282,15 @@
 						url:'/pages/personCenter/myOpinion/myOpinion'
 					})
 				}
-				
-				
+				else if (type ==15){
+					uni.navigateTo({
+						url:'/pages/personCenter/myAssets/myAssets?now_money='+this.personData.now_money+'&brokerage_price='+this.personData.brokerage_price+'&service_coupon_num='+this.personData.service_coupon_num+'&integral='+this.personData.integral
+					})
+				}else if(type ==16){
+					uni.navigateTo({
+						url:'/pages/personCenter/mySetting/aboutUs'
+					})
+				}
 			},
 			
 			getImage(){

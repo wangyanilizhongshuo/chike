@@ -78,7 +78,8 @@
 		onShareAppMessage: function (res) {
 		    let _this = this;
 			if (res.from ==='button') {// 来自页面内分享按钮
-			    uni.setStorageSync('ptGoodId',_this.msgData.goods[0].goods_id)
+			    uni.setStorageSync('ptGoodId',_this.msgData.goods[0].goods_id);
+				
 			    uni.setStorageSync('ptLeadId',_this.msgData.user[0].uid)
 				// e.getSharePTdata
 			    return {
