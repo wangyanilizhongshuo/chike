@@ -67,13 +67,13 @@
 	   <view class="pickerMask" v-if="visible"></view>
 	   <picker-view class="picker-box" v-if="visible" :indicator-style="indicatorStyle" :value="value"  @change="bindChange">
 		   <picker-view-column>
-			   <view class="item " :style="{'line-height':stystemDeviceH}"  v-for="(item,index) in province" :key="index">{{item.name}}</view>
+			   <view class="item" :style="{'line-height':stystemDeviceH}"  v-for="(item,index) in province" :key="index">{{item.name}}</view>
 		   </picker-view-column>
 		   <picker-view-column >
-			   <view class="item " :style="{'line-height':stystemDeviceH}"   v-for="(item,index) in city" :key="index">{{item.name}}</view>
+			   <view class="item" :style="{'line-height':stystemDeviceH}"   v-for="(item,index) in city" :key="index">{{item.name}}</view>
 		   </picker-view-column>
 		   <picker-view-column>
-			   <view class="item " :style="{'line-height':stystemDeviceH}"   v-for="(item,index) in county" :key="index">{{item.name}}</view>
+			   <view class="item" :style="{'line-height':stystemDeviceH}"   v-for="(item,index) in county" :key="index">{{item.name}}</view>
 		   </picker-view-column>
 	   </picker-view>
 	  <button class="kefuLogo" plain="true"  style="border:none;border-radius: 0rpx;margin: 0rpx;padding:0rpx;" :style="{top:dwDownHs}" hover-class="none"   sessionFrom="weapp"  open-type="contact">

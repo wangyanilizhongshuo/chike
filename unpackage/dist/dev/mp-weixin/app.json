@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/personCenter/personCenter",
     "pages/index/index",
     "pages/personCenter/myAssets/myAssets",
     "pages/index/logins",
@@ -15,7 +16,6 @@
     "pages/personCenter/myOpinion/myOpinion",
     "pages/index/noticeList",
     "pages/index/searchDetail",
-    "pages/personCenter/personCenter",
     "pages/personCenter/myServerOrder/serverDetail",
     "pages/shopCart/submitOrder",
     "pages/shopMall/addressList",
@@ -37,6 +37,7 @@
     "pages/personCenter/myMsg/myMsg",
     "pages/personCenter/myInteGral/myInteGral",
     "pages/personCenter/myGroup/groupSuccess",
+    "pages/personCenter/myIncome/myIncome",
     "pages/personCenter/myCommission/myCommission",
     "pages/personCenter/myGroup/groupStart",
     "pages/personCenter/myExtension/myExtension",

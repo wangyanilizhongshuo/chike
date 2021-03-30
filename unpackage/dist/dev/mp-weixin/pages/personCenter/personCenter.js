@@ -270,9 +270,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 var _default =
 {
   data: function data() {
@@ -289,6 +286,7 @@ var _default =
   onShow: function onShow() {
 
     this.getPersonMsg();
+    this.getTopData();
     console.log(333);
     //判断登录后，跳转到原本存在的详情页面 拼团发布过来的
     if (uni.getStorageSync('token')) {
@@ -328,26 +326,19 @@ var _default =
         }
       });
     },
-    // jumpTop(types){
-    // 	 if (types ==1){
-    // 		uni.navigateTo({
-    // 			url:'/pages/personCenter/myBalance/myBalance?now_money='+this.personData.now_money
-    // 		})
-    // 	}else if(types==2){
-    // 		uni.navigateTo({
-    // 			url:'/pages/personCenter/myCommission/myCommission?brokerage_price='+this.personData.brokerage_price+'&now_money='+this.personData.now_money
-    // 		})
-    // 	}else if(types==3){
-    // 		uni.navigateTo({
-    // 			url:'/pages/personCenter/myTicket/myTicket'
-    // 		})
-    // 	}
-    // 	else if(types==4){
-    // 		uni.navigateTo({
-    // 			url:'/pages/personCenter/myInteGral/myInteGral?jifen='+this.personData.integral+'&willjf='+this.personData.integral_active
-    // 		})
-    // 	}
-    // },
+    jumpTop: function jumpTop(types) {
+      uni.navigateTo({
+        url: '/pages/personCenter/myIncome/myIncome?status=' + types });
+
+    },
+    getTopData: function getTopData() {
+      var that = this;
+      that.$http.post('/mini/v1/user/earnMoney', {}, function (res) {
+        if (res.state == 0) {
+          c;
+        }
+      });
+    },
     jumpOrder: function jumpOrder(type) {
       uni.navigateTo({
         url: '/pages/personCenter/myOrder/myOrder?titleActiveIndex=' + type + '&types=' + type });

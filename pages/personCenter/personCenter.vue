@@ -21,22 +21,19 @@
 					</view>
 				</view>
 				<view class="person-detail">
-					<!-- <view class="first-1 style-detail" @tap.stop="jumpTop(1)">
-						 <view class="values">{{personData.now_money || 0.00}}</view>
-						 <view class="field">我的余额</view>
+					<view class="first-1 style-detail" @tap.stop="jumpTop(0)">
+						 <view class="values">{{personData.total_day || 0.00}}</view>
+						 <view class="field">今日收入</view>
 					 </view>
-					 <view v-if="personData.user_type!=0" class="first-2 style-detail" @tap.stop="jumpTop(2)">
-						 <view class="values">{{personData.brokerage_price ||0.00}}</view>
-						 <view class="field">我的佣金</view>
+					 <view v-if="personData.user_type!=0" class="first-2 style-detail" @tap.stop="jumpTop(1)">
+						 <view class="values">{{personData.month ||0.00}}</view>
+						 <view class="field">本月收入</view>
 					 </view>
-					 <view class="first-3 style-detail" @tap.stop="jumpTop(3)">
-						 <view class="values">{{personData.service_coupon_num || 0}}</view>
-						 <view class="field">优惠券</view>
+					 <view class="first-3 style-detail" @tap.stop="jumpTop(2)">
+						 <view class="values">{{personData.total_money || 0}}</view>
+						 <view class="field">累计收入</view>
 					 </view>
-					 <view class="first-4 style-detail" @tap.stop="jumpTop(4)">
-						 <view class="values">{{personData.integral || 0}}</view>
-						 <view class="field">我的积分</view>
-					 </view> -->
+					 
 				</view>
 			</view>
 			<view class="uni-center" >
@@ -157,6 +154,7 @@
 		onShow(){
 			
 			this.getPersonMsg();
+			this.getTopData();
 			console.log(333)
 			//判断登录后，跳转到原本存在的详情页面 拼团发布过来的
 			if(uni.getStorageSync('token')){
@@ -196,26 +194,19 @@
 					  }
 				})
 			},
-			// jumpTop(types){
-			// 	 if (types ==1){
-			// 		uni.navigateTo({
-			// 			url:'/pages/personCenter/myBalance/myBalance?now_money='+this.personData.now_money
-			// 		})
-			// 	}else if(types==2){
-			// 		uni.navigateTo({
-			// 			url:'/pages/personCenter/myCommission/myCommission?brokerage_price='+this.personData.brokerage_price+'&now_money='+this.personData.now_money
-			// 		})
-			// 	}else if(types==3){
-			// 		uni.navigateTo({
-			// 			url:'/pages/personCenter/myTicket/myTicket'
-			// 		})
-			// 	}
-			// 	else if(types==4){
-			// 		uni.navigateTo({
-			// 			url:'/pages/personCenter/myInteGral/myInteGral?jifen='+this.personData.integral+'&willjf='+this.personData.integral_active
-			// 		})
-			// 	}
-			// },
+			jumpTop(types){
+				 uni.navigateTo({
+				 	url:'/pages/personCenter/myIncome/myIncome?status='+types
+				 })
+			},
+			getTopData(){
+				let that=this;
+				that.$http.post('/mini/v1/user/earnMoney',{},(res)=>{
+					if(res.state==0){
+						c
+					}
+				})
+			},
 			jumpOrder(type){
 					uni.navigateTo({
 						url:'/pages/personCenter/myOrder/myOrder?titleActiveIndex='+type+'&types='+type
@@ -420,12 +411,12 @@
 				  }
 			  }
 			  .person-detail{
-				  width: 690rpx;
+				  width: 630rpx;
 				  height: 70rpx;
 				  display: flex;
 				  box-sizing: border-box;
 				  justify-content: space-between;
-				  margin:60rpx 30rpx 30rpx 30rpx;
+				  margin:60rpx 60rpx 30rpx;
 				  .style-detail{
 					 
 					  text-align: center;

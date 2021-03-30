@@ -137,7 +137,7 @@
   font-size: 26rpx;
 }
 .uni-person .uni-content .uni-head .person-detail.data-v-502c7846 {
-  width: 690rpx;
+  width: 630rpx;
   height: 70rpx;
   display: -webkit-box;
   display: -webkit-flex;
@@ -146,7 +146,7 @@
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
-  margin: 60rpx 30rpx 30rpx 30rpx;
+  margin: 60rpx 60rpx 30rpx;
 }
 .uni-person .uni-content .uni-head .person-detail .style-detail.data-v-502c7846 {
   text-align: center;

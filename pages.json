@@ -1,6 +1,13 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 	{
+				"path" : "pages/personCenter/personCenter",
+				"style" :                                                                                    
+				{
+				   "navigationStyle":"custom"
+				}      
+	},
+	{
 				"path": "pages/index/index",
 				"style": {
 					"navigationStyle":"custom"
@@ -14,9 +21,7 @@
 	        "navigationBarBackgroundColor":"#fff",
 	        "navigationBarTextStyle":"black"
 	    }
-	    
 	},
-	
 	{
 			"path" : "pages/index/logins",
 			"style" :                                                                                    
@@ -143,13 +148,7 @@
 				}
 		},
 			
-			   {
-					"path" : "pages/personCenter/personCenter",
-					"style" :                                                                                    
-					{
-					   "navigationStyle":"custom"
-					}      
-			   },
+			   
 			 {
 					"path" : "pages/personCenter/myServerOrder/serverDetail",
 					"style" :                                                                                    
@@ -338,6 +337,16 @@
 					"style" :                                                                                    
 					{
 					   "navigationBarTitleText": "我的拼团",
+					   "navigationBarBackgroundColor":"#fff",
+					   "navigationBarTextStyle":"black"
+					}
+					
+				},
+				{
+					"path" : "pages/personCenter/myIncome/myIncome",
+					"style" :                                                                                    
+					{
+					   "navigationBarTitleText": "收入明细",
 					   "navigationBarBackgroundColor":"#fff",
 					   "navigationBarTextStyle":"black"
 					}
