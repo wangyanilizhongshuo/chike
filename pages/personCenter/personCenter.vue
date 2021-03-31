@@ -25,7 +25,7 @@
 						 <view class="values">{{personData.total_day || 0.00}}</view>
 						 <view class="field">今日收入</view>
 					 </view>
-					 <view v-if="personData.user_type!=0" class="first-2 style-detail" @tap.stop="jumpTop(1)">
+					 <view  class="first-2 style-detail" @tap.stop="jumpTop(1)">
 						 <view class="values">{{personData.month ||0.00}}</view>
 						 <view class="field">本月收入</view>
 					 </view>
@@ -154,8 +154,6 @@
 		onShow(){
 			
 			this.getPersonMsg();
-			this.getTopData();
-			console.log(333)
 			//判断登录后，跳转到原本存在的详情页面 拼团发布过来的
 			if(uni.getStorageSync('token')){
 				 if(uni.getStorageSync('ptGoodId')){
@@ -199,14 +197,14 @@
 				 	url:'/pages/personCenter/myIncome/myIncome?status='+types
 				 })
 			},
-			getTopData(){
-				let that=this;
-				that.$http.post('/mini/v1/user/earnMoney',{},(res)=>{
-					if(res.state==0){
-						c
-					}
-				})
-			},
+			// getTopData(){
+			// 	let that=this;
+			// 	that.$http.post('/mini/v1/user/earnMoney',{},(res)=>{
+			// 		if(res.state==0){
+						
+			// 		}
+			// 	})
+			// },
 			jumpOrder(type){
 					uni.navigateTo({
 						url:'/pages/personCenter/myOrder/myOrder?titleActiveIndex='+type+'&types='+type

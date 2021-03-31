@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/personCenter/personCenter",
     "pages/index/index",
+    "pages/personCenter/personCenter",
     "pages/personCenter/myAssets/myAssets",
     "pages/index/logins",
     "pages/index/login",

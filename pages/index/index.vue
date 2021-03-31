@@ -130,6 +130,7 @@
 				dwDownH:'',
 				dwDownHs:'',
 				jxFlag:false,
+				jxNum:1,//精选访问次数
 				bottomItem:{}
 				
 		   }
@@ -277,6 +278,8 @@
 				 that.cityName=that.province[val[0]].name;
 				
 				 that.getAddress(val);  
+				 that.jxFlag=false;//附近好店开始重新选择
+				 that.jxNum=1;
 			   },
 			   // 页面跳转
 			   jumps(type){
@@ -406,13 +409,13 @@
 							user_lat:that.latitudeValue,
 							user_city_id:that.searchDistrictid
 					     };
-					}else{
+					}else if(that.jxFlag==true ){
 						that.bottomItem={
 							page:that.pages,
 							is_index:1,
 							user_lng:that.longitudeValue,
-							user_lat:that.latitudeValue,
-							user_city_id:that.searchDistrictid
+							user_lat:that.latitudeValue
+							// user_city_id:that.searchDistrictid
 						};
 					}
 					that.$http.post('mini/v1/service/storelist',that.bottomItem,(res)=>{
@@ -421,6 +424,7 @@
 							that.pagesV=res.data.is_request;
 							if(res.data.is_request==0){
 								let aa = res.data.list;
+								// that.jxFlag=1;
 								aa.map((res)=>{
 									res.store_img='https://chikehometest.hzbixin.cn'+res.store_img
 								})
@@ -432,10 +436,12 @@
 								// 访问数据是否是空的,还是第一次访问就是空,如果第一次空,就去掉is_index
 							    if(that.mainList.length==0){
 									console.log(123)
-									
+									that.jxNum+=1;
 									that.jxFlag=true;
-									
-									that.getALlList();
+									console.log(that.jxFlag)
+									if(that.jxNum<=2){
+										that.getALlList();
+									}
 								}	
 							}
 						}
