@@ -3,7 +3,7 @@
 	    <view class="msgBox">
 			<view class="headPortrait boxStyle"  >
 				<view class="fileds">头像</view>
-				<view class="values imgBoxdis">
+				<view class="values imgBoxdis" @tap.stop="getImage">
 					<image  class="imgBg" :src="personData.avatar"></image>
 				</view>
 			</view>
@@ -135,6 +135,42 @@
 			            day = day > 9 ? day : '0' + day;
 			            return `${year}-${month}-${day}`;
 			        },
+			getImage(){
+				let _that = this;
+				uni.chooseImage({
+					count: 1, //上传图片的数量，默认是9
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					sourceType: ['album', 'camera'], //从相册选择
+					success: function(res) {
+						const tempFilePaths = res.tempFilePaths; //拿到选择的图片，是一个数组
+						tempFilePaths.map(sos => {
+							uni.uploadFile({
+								url: 'https://chikehometest.hzbixin.cn/mini/v1/overt/uploadimg',
+								filePath: sos,
+								name: 'file',
+								formData: {
+									'filetype':'feedback'
+								},
+								success: function(datas) {
+									let results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
+									let aa = results.data.imgpath;
+									 _that.$http.post('/mini/v1/user/changeAva',{
+										 photo   :'https://chikehometest.hzbixin.cn/'+aa
+									 },(res)=>{
+										 if(res.state ==0){
+											 _that.getPersonMsg();
+										 }
+									 })
+								},
+								fail: function(datas) {
+									console.log(3333)
+								}
+							})
+					 })
+					},
+					
+				})
+			}
 		
 			
 			

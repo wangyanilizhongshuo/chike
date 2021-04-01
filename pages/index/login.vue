@@ -44,7 +44,8 @@
 			// },
 			//刚进去,就开始微信登录,后面绑定手机号
 			authorLogin: function (e) {
-				
+				console.log(e)
+				console.log(12345)
 				let that=this;
 			    // if (e.detail.errMsg !== 'getPhoneNumber:ok') {
 				if (e.detail.errMsg !== 'getUserInfo:ok') {

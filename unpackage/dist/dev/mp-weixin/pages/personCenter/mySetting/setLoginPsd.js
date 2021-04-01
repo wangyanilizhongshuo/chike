@@ -159,7 +159,7 @@ var _default =
 {
   data: function data() {
     return {
-      timeFlag: true,
+      timeFlag: false,
       alltime: '',
       boxflag: true,
       phone: '',
@@ -176,7 +176,7 @@ var _default =
     this.phones = this.phones.split('');
     this.phones.splice(3, 4, '****');
     this.phones = this.phones.join('');
-    this.getTime();
+    // this.getTime();
 
   },
   methods: {
@@ -195,12 +195,30 @@ var _default =
 
     // 验证码提交
     yzmSubmit: function yzmSubmit() {var _this = this;
-      this.$http.post('mini/v1/overt/smscodevalid', {
+      var that = this;
+      that.$http.post('mini/v1/overt/smscodevalid', {
         phone: this.phone,
         smscode: this.code },
       function (res) {
         if (res.state == 0) {
           _this.boxflag = false;
+        }
+      });
+    },
+    sendCode: function sendCode() {
+      this.$http.post('mini/v1/overt/sendsmscode', {
+        mobile: this.phone,
+        codetype: 2 },
+      function (res) {
+        if (res.state == 0) {
+          that.timeFlag = true;
+          that.alltime = 59;
+          setInterval(function (res) {
+            that.alltime = that.alltime - 1;
+            if (that.alltime <= 1) {
+              that.timeFlag = false;
+            }
+          }, 1000);
         }
       });
     },

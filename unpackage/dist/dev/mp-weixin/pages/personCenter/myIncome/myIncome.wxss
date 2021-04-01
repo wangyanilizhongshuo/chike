@@ -76,4 +76,10 @@
   color: #2E2E2E;
   font-size: 42rpx;
 }
+.noData.data-v-121e187a {
+  display: block;
+  width: 210rpx;
+  height: 248rpx;
+  margin: 250rpx auto 0rpx;
+}
 

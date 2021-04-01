@@ -1,11 +1,11 @@
 <template>
 	<view class="uni-settings">
 		 <view class="listBox">
-			 <view class="list" @tap="jumps(1)">
+			 <view class="list" @tap.stop="jumps(1)">
 				 <view class="fields">设置交易密码</view>
 				 <image class="imgs" src="../../../static/image/index-arrow-right.png"></image>
 			 </view>
-			 <view class="list" @tap="jumps(2)">
+			 <view class="list" @tap.stop="jumps(2)">
 					 <view class="fields">设置登录密码</view>
 					 <image class="imgs" src="../../../static/image/index-arrow-right.png"></image>
 			 </view>
@@ -33,30 +33,30 @@
 		methods: {
 			jumps(type){
 				if(type ==1){
-					this.$http.post('mini/v1/overt/sendsmscode',{
-						mobile:this.phone,
-						codetype:1
-					},(res)=>{
-						if(res.state==0){
+					// this.$http.post('mini/v1/overt/sendsmscode',{
+					// 	mobile:this.phone,
+					// 	codetype:1
+					// },(res)=>{
+					// 	if(res.state==0){
 							uni.navigateTo({
 						         url:'/pages/personCenter/mySetting/setPsd?phone='+this.phone
 					        })
-						}
-					})
+					// 	}
+					// })
 					
 					
 				}else if (type ==2){
 					
-					this.$http.post('mini/v1/overt/sendsmscode',{
-						mobile:this.phone,
-						codetype:2
-					},(res)=>{
-						if(res.state==0){
+					// this.$http.post('mini/v1/overt/sendsmscode',{
+					// 	mobile:this.phone,
+					// 	codetype:2
+					// },(res)=>{
+					// 	if(res.state==0){
 							uni.navigateTo({
 								url:'/pages/personCenter/mySetting/setLoginPsd?phone='+this.phone
 							})
-						}
-					})
+					// 	}
+					// })
 	
 				}
 				// else if (type ==3){

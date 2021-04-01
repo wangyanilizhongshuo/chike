@@ -55,6 +55,12 @@
 .uni-setPsd .timeBox.data-v-4db468fa {
   font-size: 28rpx;
   color: #FF9A9E;
+  width: 190rpx;
+  height: 60rpx;
+  border: 2rpx solid #FF9A9E;
+  border-radius: 30rpx;
+  text-align: center;
+  line-height: 60rpx;
 }
 .setPsdBox .uni-titles.data-v-4db468fa {
   font-size: 28rpx;

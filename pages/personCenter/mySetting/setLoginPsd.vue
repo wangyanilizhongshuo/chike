@@ -6,7 +6,7 @@
 	        <view class="checkBox">
 				<input class="inBox" v-model="code" type="number" placeholder="请输入验证码" placeholder-style="color:#888;font-size:28rpx;" />
 		        <view  v-if="timeFlag"  class="timeBox">{{alltime}}s</view> 	
-				<view  v-if="!timeFlag" @tap.stop="getTime()"   class="timeBox">发送验证码</view>
+				<view  v-if="!timeFlag" @tap.stop="sendCode()"   class="timeBox">发送验证码</view>
 			</view>
 			<view class="btnSure" @tap.stop="yzmSubmit">确定</view>
 		</view>
@@ -27,7 +27,7 @@
 	export default {
 		data() {
 			return {
-				timeFlag:true,
+				timeFlag:false,
 				alltime:'',
 				boxflag:true,
 				phone:'',
@@ -44,7 +44,7 @@
 			this.phones=this.phones.split('')
 			this.phones.splice(3,4,'****')
 			this.phones= this.phones.join('')
-			this.getTime();
+			// this.getTime();
 		
 		},
 		methods: {
@@ -63,12 +63,30 @@
 			
 			// 验证码提交
 			yzmSubmit(){
-				this.$http.post('mini/v1/overt/smscodevalid',{
+				let that=this;
+				that.$http.post('mini/v1/overt/smscodevalid',{
 					phone:this.phone,
 					smscode:this.code
 				},(res)=>{
 					if(res.state==0){
 						this.boxflag=false;
+					}
+				})
+			},
+			sendCode(){
+				this.$http.post('mini/v1/overt/sendsmscode',{
+					mobile:this.phone,
+					codetype:2
+				},(res)=>{
+					if(res.state==0){
+						that.timeFlag=true;
+						that.alltime=59;
+						setInterval((res)=>{
+							that.alltime=that.alltime-1;
+							 if(that.alltime<=1){
+								 that.timeFlag=false
+							 }
+						},1000)
 					}
 				})
 			},
@@ -131,6 +149,12 @@
 	 .timeBox{
 		 font-size: 28rpx;;
 		 color: #FF9A9E;
+		 width: 190rpx;
+		 height: 60rpx;
+		 border: 2rpx solid #FF9A9E;
+		 border-radius: 30rpx;
+		 text-align: center;
+		 line-height: 60rpx;
 	 }
   }
 

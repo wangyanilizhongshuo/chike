@@ -163,32 +163,32 @@ var _default =
     console.log(this.msg);
   },
   methods: {
-    jumps: function jumps(type) {var _this = this;
+    jumps: function jumps(type) {
       if (type == 1) {
-        this.$http.post('mini/v1/overt/sendsmscode', {
-          mobile: this.phone,
-          codetype: 1 },
-        function (res) {
-          if (res.state == 0) {
-            uni.navigateTo({
-              url: '/pages/personCenter/mySetting/setPsd?phone=' + _this.phone });
+        // this.$http.post('mini/v1/overt/sendsmscode',{
+        // 	mobile:this.phone,
+        // 	codetype:1
+        // },(res)=>{
+        // 	if(res.state==0){
+        uni.navigateTo({
+          url: '/pages/personCenter/mySetting/setPsd?phone=' + this.phone });
 
-          }
-        });
+        // 	}
+        // })
 
 
       } else if (type == 2) {
 
-        this.$http.post('mini/v1/overt/sendsmscode', {
-          mobile: this.phone,
-          codetype: 2 },
-        function (res) {
-          if (res.state == 0) {
-            uni.navigateTo({
-              url: '/pages/personCenter/mySetting/setLoginPsd?phone=' + _this.phone });
+        // this.$http.post('mini/v1/overt/sendsmscode',{
+        // 	mobile:this.phone,
+        // 	codetype:2
+        // },(res)=>{
+        // 	if(res.state==0){
+        uni.navigateTo({
+          url: '/pages/personCenter/mySetting/setLoginPsd?phone=' + this.phone });
 
-          }
-        });
+        // 	}
+        // })
 
       }
       // else if (type ==3){

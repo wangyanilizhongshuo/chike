@@ -146,11 +146,13 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
     return {
       status: '',
+      noDataFlag: false,
       msgList: [] };
 
   },
@@ -178,7 +180,11 @@ var _default =
             var aa = res.data.list;
             var bb = that.msgList;
             that.msgList = bb.concat(aa);
-            console.log(that.msgList);
+            if (that.msgList.length == 0) {
+              that.noDataFlag = true;
+            } else {
+              that.noDataFlag = false;
+            }
           }
         }
       });

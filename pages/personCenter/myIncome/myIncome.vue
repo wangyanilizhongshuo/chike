@@ -11,6 +11,7 @@
 					</view>
 			</view>
 		</view>
+		<image class="noData" v-if="noDataFlag" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210331/bf2d59558fd4b343ddac986b83062a9f.png"></image>
 	</view>
 </template>
 
@@ -19,6 +20,7 @@
 		data() {
 			return {
 				status:'',
+				noDataFlag:false,
 				msgList:[]
 			}
 		},
@@ -46,7 +48,11 @@
 							let aa = res.data.list;
 							let bb = that.msgList;
 							that.msgList = bb.concat(aa)
-							console.log(that.msgList)
+							if(that.msgList.length==0){
+								that.noDataFlag=true;
+							}else{
+								that.noDataFlag=false;
+							}
 						}
 					 }
 				 })
@@ -94,6 +100,12 @@
 			
 		}
 		
+	}
+	.noData{
+		display: block;
+		width: 210rpx;
+		height: 248rpx;
+		margin:250rpx auto 0rpx;
 	}
 </style>
 

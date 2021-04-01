@@ -159,7 +159,7 @@ var _default =
 {
   data: function data() {
     return {
-      timeFlag: true,
+      timeFlag: false,
       alltime: '',
       boxflag: true,
       phone: '',
@@ -176,7 +176,7 @@ var _default =
     this.phones = this.phones.split('');
     this.phones.splice(3, 4, '****');
     this.phones = this.phones.join('');
-    this.getTime();
+    // this.getTime();
 
   },
   methods: {
@@ -191,6 +191,25 @@ var _default =
           that.timeFlag = false;
         }
       }, 1000);
+    },
+    sendCode: function sendCode() {
+      var that = this;
+      that.$http.post('mini/v1/overt/sendsmscode', {
+        mobile: this.phone,
+        codetype: 1 },
+      function (res) {
+        if (res.state == 0) {
+          console.log(123445);
+          that.timeFlag = true;
+          that.alltime = 59;
+          setInterval(function (res) {
+            that.alltime = that.alltime - 1;
+            if (that.alltime <= 1) {
+              that.timeFlag = false;
+            }
+          }, 1000);
+        }
+      });
     },
 
     // 验证码提交

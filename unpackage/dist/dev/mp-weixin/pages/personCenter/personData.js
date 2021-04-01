@@ -266,6 +266,42 @@ var _default =
       month = month > 9 ? month : '0' + month;;
       day = day > 9 ? day : '0' + day;
       return "".concat(year, "-").concat(month, "-").concat(day);
+    },
+    getImage: function getImage() {
+      var _that = this;
+      uni.chooseImage({
+        count: 1, //上传图片的数量，默认是9
+        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], //从相册选择
+        success: function success(res) {
+          var tempFilePaths = res.tempFilePaths; //拿到选择的图片，是一个数组
+          tempFilePaths.map(function (sos) {
+            uni.uploadFile({
+              url: 'https://chikehometest.hzbixin.cn/mini/v1/overt/uploadimg',
+              filePath: sos,
+              name: 'file',
+              formData: {
+                'filetype': 'feedback' },
+
+              success: function success(datas) {
+                var results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
+                var aa = results.data.imgpath;
+                _that.$http.post('/mini/v1/user/changeAva', {
+                  photo: 'https://chikehometest.hzbixin.cn/' + aa },
+                function (res) {
+                  if (res.state == 0) {
+                    _that.getPersonMsg();
+                  }
+                });
+              },
+              fail: function fail(datas) {
+                console.log(3333);
+              } });
+
+          });
+        } });
+
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
