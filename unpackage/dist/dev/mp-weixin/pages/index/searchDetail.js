@@ -114,6 +114,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      $event.stopPropagation()
+      _vm.tkBox = !_vm.tkBox
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -236,10 +242,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSwiperDot = function uniSwiperDot() {__webpack_require__.e(/*! require.ensure | components/uni-swiper-dot/uni-swiper-dot */ "components/uni-swiper-dot/uni-swiper-dot").then((function () {return resolve(__webpack_require__(/*! @/components/uni-swiper-dot/uni-swiper-dot.vue */ 715));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
     return {
+      tkBox: false,
       tipflag: false,
       tipMsg: '',
 

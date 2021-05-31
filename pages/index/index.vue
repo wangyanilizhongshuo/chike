@@ -80,7 +80,7 @@
 		   <image  class="kefuImg" @tap.stop="getKefu" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/3341c77aaa65d4def96b61254090aced.png"></image>
 	   </button>
 
-	   </image> -->
+	   </image> 
        <image :style="{top:dwDownH}" class="backTopLogo" @tap.stop="backTop" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/c81f56dedc0d74dc3198ee4988a23fdc.png"></image>
 	</view>
 </template>

@@ -2,14 +2,14 @@
 	<view class="uni-list-InList">
 		<view  :style="{height:marginTop}" style="width:750rpx;background-color: #fff;position: fixed;left:0rpx;top:0rpx;z-index: 10;"></view>
 		<view class="uni-search-box" style="width:750rpx;background-color: #fff;position: fixed;z-index:10;left:0rpx;" :style="{height:heights,top:marginTop}">
+    <!-- <view class="uni-search-box" style="width:750rpx;background-color: #fff;position: fixed;z-index:10;left:0rpx;" :style="{top:marginTop}"> -->
 					<view class="left" @tap.stop="backs">
 						<image  class="images" src="../../static/image/pink-back.png"></image>
 					</view>
 					<view class="right"  >
 						<image class="images"  src="../../static/image/index-search-search.png"></image>
-						<input class="inputs" @focus="getInput" @blur="setInput" v-model="searchValue"  placeholder-style="font-size:26rpx;color:#A8A8A8" placeholder="搜索"/>
-					</view>
-					
+						<input class="inputs" type="text" confirm-type="search" @confirm="getInput"  v-model="searchValue"  placeholder-style="font-size:26rpx;color:#A8A8A8" placeholder="搜索"/>
+					</view>		
 		</view>	
 		<view class="uni-title"  :style='{"margin-top":heights,"padding-top":marginTop}'>
 			   <view class="titleBox">
@@ -30,7 +30,7 @@
 					 <view class="box" :style="leftScrollIndex==index?'background-color:#fff;':'background-color:#f8f8f8'" v-for="(item,index) in leftList" :key='index' @tap.stop="getLeftScroll(item.cate_id,index,0)">{{item.name}}</view>
 				 </scroll-view>
 			</view>
-			<view class="uni-rightBox">
+			<view class="uni-rightBox"  >
 				<view class="bottomBox" :style="{height:boxHeight}" >
 					<view class="listBox" v-for="(item,index) in  rightList" :key="index">
 						<image class="imgs" :src="item.img"></image>
@@ -82,7 +82,8 @@
 				pageV:1,
 				erGoodId:1,
 				rightList:[],
-				cartListFlag:false
+				cartListFlag:false,
+        searchValue:''
 			}
 		},
 		onLoad(options){
@@ -158,8 +159,6 @@
 					that.pageV=1;
 					that.rightList=[]
 				}
-			
-				
 				that.erGoodId=values;
 				that.$http.post('mini/v1/store/servicelist',{
 					store_id:that.storeId,
@@ -243,7 +242,24 @@
 				uni.switchTab({
 					url:'/pages/shopCart/shopCart'
 				})
-			}
+			},
+      getInput(){
+        console.log(235)
+         this.rightList=[];
+         this.$http.post('mini/v1/service/serviceSearch',{
+           store_id:this.storeId,
+             name:this.searchValue,
+             category_id:this.cate_id
+         },(res)=>{
+           if(res.state==0){
+             let aa = res.data.xiangmu;
+             aa.map((res1)=>{
+             	res1.img=app.globalData.imgPrefixUrl+res1.img
+             })
+               this.rightList=aa;
+           }
+         })
+      }
 		}
 	}
 </script>

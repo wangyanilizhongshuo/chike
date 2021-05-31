@@ -260,11 +260,12 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
 //
 //
 //
-var _default = { data: function data() {return { leftList: [{ title: '二级标题' }, { title: '一级标题' }, { title: '一级标题' }, { title: '四级标题' }, { title: '三级标题' }, { title: '刘级标题' }, { title: '四级标题' }, { title: '三级标题' }, { title: '三级标题' }, { title: '刘级标题' }, { title: '三级标题' }, { title: '刘级标题' }, { title: '三级标题' }, { title: '刘级标题' }, { title: '三级标题' }, { title: '刘级标题' }], boxHeight: '', boxHeights: '', boxHeightSmall: '', dingweiHeight: '', leftScrollIndex: 0, rightScrollIndex: 0, cartSucFlag: false, store_id: '', cate_id: '', storeId: 0, cateTopList: [], pages: 1, pageV: 1, erGoodId: 1, rightList: [], cartListFlag: false };}, onLoad: function onLoad(options) {var that = this;that.setData(options);uni.getSystemInfo({ success: function success(res) {that.boxHeightSmall = res.screenHeight;} });that.dingweiHeight = parseInt(that.marginTop) + parseInt(that.heights) + 67 + 'px';that.dingweiHeights = parseInt(that.marginTop) + parseInt(that.heights) + 67 + 'px';that.boxHeight = that.boxHeightSmall - parseInt(that.marginTop) - parseInt(that.heights) - 67 + 'px';that.boxHeights = that.boxHeightSmall - parseInt(that.marginTop) - parseInt(that.heights) - 67 + 'px';that.getTopList();that.getLeftList(); // that.getLeftScroll(that.erGoodId,0)
+var _default = { data: function data() {return { leftList: [{ title: '二级标题' }, { title: '一级标题' }, { title: '一级标题' }, { title: '四级标题' }, { title: '三级标题' }, { title: '刘级标题' }, { title: '四级标题' }, { title: '三级标题' }, { title: '三级标题' }, { title: '刘级标题' }, { title: '三级标题' }, { title: '刘级标题' }, { title: '三级标题' }, { title: '刘级标题' }, { title: '三级标题' }, { title: '刘级标题' }], boxHeight: '', boxHeights: '', boxHeightSmall: '', dingweiHeight: '', leftScrollIndex: 0, rightScrollIndex: 0, cartSucFlag: false, store_id: '', cate_id: '', storeId: 0, cateTopList: [], pages: 1, pageV: 1, erGoodId: 1, rightList: [], cartListFlag: false, searchValue: '' };}, onLoad: function onLoad(options) {var that = this;that.setData(options);uni.getSystemInfo({ success: function success(res) {that.boxHeightSmall = res.screenHeight;} });that.dingweiHeight = parseInt(that.marginTop) + parseInt(that.heights) + 67 + 'px';that.dingweiHeights = parseInt(that.marginTop) + parseInt(that.heights) + 67 + 'px';that.boxHeight = that.boxHeightSmall - parseInt(that.marginTop) - parseInt(that.heights) - 67 + 'px';that.boxHeights = that.boxHeightSmall - parseInt(that.marginTop) - parseInt(that.heights) - 67 + 'px';that.getTopList();that.getLeftList(); // that.getLeftScroll(that.erGoodId,0)
   }, computed: { heights: function heights() {var _uni$getSystemInfoSyn = uni.getSystemInfoSync(),platform = _uni$getSystemInfoSyn.platform,statusBarHeight = _uni$getSystemInfoSyn.statusBarHeight;var height = statusBarHeight + 4; //ios 24px
       console.log(statusBarHeight);console.log(1111);if (platform.toLowerCase() == "android") {height += 4; //android 28px
       } // 胶囊高度 32px 下边框6px height 状态栏高度
-      return height + 38 + "px";}, marginTop: function marginTop() {var _uni$getSystemInfoSyn2 = uni.getSystemInfoSync(),platform = _uni$getSystemInfoSyn2.platform,statusBarHeight = _uni$getSystemInfoSyn2.statusBarHeight;var height = statusBarHeight + 8;console.log(statusBarHeight);
+      return height + 38 + "px";}, marginTop: function marginTop() {var _uni$getSystemInfoSyn2 = uni.getSystemInfoSync(),platform = _uni$getSystemInfoSyn2.platform,statusBarHeight = _uni$getSystemInfoSyn2.statusBarHeight;var height = statusBarHeight + 8;
+      console.log(statusBarHeight);
       console.log(uni.getSystemInfoSync());
       console.log(platform);
       console.log(222);
@@ -303,8 +304,6 @@ var _default = { data: function data() {return { leftList: [{ title: '二级标�
         that.pageV = 1;
         that.rightList = [];
       }
-
-
       that.erGoodId = values;
       that.$http.post('mini/v1/store/servicelist', {
         store_id: that.storeId,
@@ -388,6 +387,23 @@ var _default = { data: function data() {return { leftList: [{ title: '二级标�
       uni.switchTab({
         url: '/pages/shopCart/shopCart' });
 
+    },
+    getInput: function getInput() {var _this = this;
+      console.log(235);
+      this.rightList = [];
+      this.$http.post('mini/v1/service/serviceSearch', {
+        store_id: this.storeId,
+        name: this.searchValue,
+        category_id: this.cate_id },
+      function (res) {
+        if (res.state == 0) {
+          var aa = res.data.xiangmu;
+          aa.map(function (res1) {
+            res1.img = _App.default.globalData.imgPrefixUrl + res1.img;
+          });
+          _this.rightList = aa;
+        }
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

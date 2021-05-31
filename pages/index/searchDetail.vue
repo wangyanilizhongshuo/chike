@@ -25,7 +25,11 @@
 				   <view class="uni-left">
 					   <view class="first">{{detailList.store_name}}</view>
 					   <view class="second">
-						   <text class="hospitalName">{{detailList.info}}  </text>
+						   <view class="hospitalNameBox">
+                 <text class="hospitalName">{{detailList.info}}</text>
+                 <image class="arrow1" src="../../static/image/down-arrow.png" @tap.stop="tkBox=!tkBox"></image>
+                 <view v-if="tkBox" class="tkBoxs">{{detailList.info}}</view>
+               </view>
 						   <!-- <text class="hospitalAdd">{{detailList.store_name}}</text> -->
 					   </view>
 					   <view class="third">
@@ -91,6 +95,7 @@
 	export default {
 		 data () {
 			return { 
+        tkBox:false,
 				tipflag:false,
 				tipMsg:'',
 				
@@ -343,10 +348,33 @@
 				 .second{
 					 color: #888888;
 					 font-size: 24rpx;
-					 margin-bottom: 15rpx;;
+					 margin-bottom: 15rpx;
+           .hospitalNameBox{
+             width:600rpx;
+             display: flex;
+             align-items: center;
+             justify-content: space-between;
+             position: relative;
+             top:0rpx;
+             left: 0rpx;;
+           }
 					 .hospitalName{
+             width: 550rpx;
 						 @include ellipsis(1)
 					 }
+           .tkBoxs{
+             position: absolute;
+             width: 550rpx;
+             top:0rpx;
+             left:0rpx;
+             z-index: 10;
+             background-color: #fff;
+           }
+           .arrow1{
+             display:block;
+             width:20rpx;
+             height: 20rpx;
+           }
 					 .hospitalAdd{
 						 margin-left:10rpx;
 					 }

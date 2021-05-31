@@ -125,12 +125,41 @@
   font-size: 24rpx;
   margin-bottom: 15rpx;
 }
+.uni-content .contentTopDetail .content-top .uni-left .second .hospitalNameBox.data-v-98c81122 {
+  width: 600rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  position: relative;
+  top: 0rpx;
+  left: 0rpx;
+}
 .uni-content .contentTopDetail .content-top .uni-left .second .hospitalName.data-v-98c81122 {
+  width: 550rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+}
+.uni-content .contentTopDetail .content-top .uni-left .second .tkBoxs.data-v-98c81122 {
+  position: absolute;
+  width: 550rpx;
+  top: 0rpx;
+  left: 0rpx;
+  z-index: 10;
+  background-color: #fff;
+}
+.uni-content .contentTopDetail .content-top .uni-left .second .arrow1.data-v-98c81122 {
+  display: block;
+  width: 20rpx;
+  height: 20rpx;
 }
 .uni-content .contentTopDetail .content-top .uni-left .second .hospitalAdd.data-v-98c81122 {
   margin-left: 10rpx;
