@@ -344,8 +344,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var carousel = function carousel() {__webpack_require__.e(/*! require.ensure | components/vear-carousel/vear-carousel */ "components/vear-carousel/vear-carousel").then((function () {return resolve(__webpack_require__(/*! @/components/vear-carousel/vear-carousel */ 689));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var carousel = function carousel() {__webpack_require__.e(/*! require.ensure | components/vear-carousel/vear-carousel */ "components/vear-carousel/vear-carousel").then((function () {return resolve(__webpack_require__(/*! @/components/vear-carousel/vear-carousel */ 687));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
     return {
@@ -398,8 +397,8 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../App.vue */ 5));f
 
   onLoad: function onLoad(options) {
     this.setData(options);
-    console.log(options);
-    console.log('options');
+    console.log(options, 2222);
+
     // 对邀请人进行判断
     if (this.scene != 0) {
       uni.setStorageSync('scene', this.scene);

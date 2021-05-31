@@ -16,8 +16,8 @@
 				   </view>
 			   </scroll-view>
 	       </view>	
-		   <view class="content-second">
-			   <image  class="bg" src="http://zxyp.hzbixin.cn/files/90061607417129466.jpg"></image>
+		   <view class="content-second"  v-if="recommondList.length!=0">
+			   <image  class="bg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/511a4f527381f82a7ac160aef7f4f299.png"></image>
 			   <view class="titless"  @tap.stop="jumpss(1)" >
 				   <view class="field">推荐好物</view>
 				   <view class="more">查看更多</view>
@@ -31,7 +31,7 @@
 				   </view>
 			   </view>
 		   </view>
-		   <view class="content-third">
+		   <view class="content-third" v-if="pintuanList.length>0">
 			   <view class="titles" @tap.stop="getTeam">
 				   <view class="left">
 					   <view class="filed">组队拼团</view>
@@ -600,7 +600,7 @@
 		width: 690rpx;
 		height: 60rpx;
 		margin-left:30rpx;
-		background-image: url(http://zxyp.hzbixin.cn/files/56071607417535669.jpg);
+		background-image: url(https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/5d700641fa66161d7009055fb4439ad1.png);
 		background-repeat: no-repeat;
 		background-size:  690rpx 60rpx;
 		display: flex;

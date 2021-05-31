@@ -1,25 +1,4 @@
-<template>
-	<view>
-		
-	</view>
-</template>
 
-<script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			
-		}
-	}
-</script>
-
-<style>
-
-</style>
 <template>
 	<view class="uni-serverTicket" >
 		
@@ -27,7 +6,7 @@
 		<view class="ticketList" @tap.stop="getChoice(index)">
 			<view class="uni-tops">
 				<view class="uni-lefts">
-					 <image class="left1" src="http://zxyp.hzbixin.cn/files/87031613961971298.jpg" mode=""></image>
+					 <image class="left1" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/397835dff3fd2e2f36d475abcff0eab4.png" mode=""></image>
 					 <view class="right1">
 						 <view class="top1" v-if="item.cate_id==2">服务券</view>
 						 <view class="top1" v-if="item.cate_id==1">商品券</view>
@@ -50,7 +29,7 @@
 			<view class="uni-downs">
 				{{item.info}}
 			</view>
-			<image class="clickImg" v-if="item.is_check==1" src="http://zxyp.hzbixin.cn/files/21341608268240828.jpg"></image>
+			<image class="clickImg" v-if="item.is_check==1" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/b5a92fa43a5af6af9e6cad4063865e4d.png"></image>
 		</view>
 	</view>
 	<view class="bottom-tips">

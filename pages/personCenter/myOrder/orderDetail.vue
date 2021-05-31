@@ -2,45 +2,43 @@
 	<view class="uni-orderDetail">
 		<view class="contentBox">
 			<view class="uni-title">
-				<image  class="imgBgRed" src="http://zxyp.hzbixin.cn/files/30071608262696986.jpg"></image>
+				<image  class="imgBgRed" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/85748b9b594432e3ed487aed65e70273.png"></image>
 			   <!-- <view class="titleBox" v-if="transactionNum==0">
-					<view class="filed">交易成功</view>
-				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/30481608263126400.jpg"></image>
+
 				</view> -->
 				<view class="titleBox" v-if="msgDetail.status==1">
 					<view class="filed">
 						<view>待付款</view>
-						
 					</view>
-				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62861607417704590.jpg"></image>
+				    <image class="signalLogo" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/62d7ab7f2d760d7736c80b934ba405a8.png"></image>
 				</view>
 				<view class="titleBox" v-if="msgDetail.status==2">
 					<view class="filed">待发货</view>
-				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62931608262986532.jpg"></image>
+				    <image class="signalLogo" src="https://chikehometest.hzbixin.cn//upload/images/feedback/20210428/1f91aa43123576154e3bca91fcfb1935.png"></image>
 				</view>
 				<view class="titleBox" v-if="msgDetail.status==3">
 					<view class="filed">待收货</view>
-				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/36921608262907029.jpg"></image>
+				    <image class="signalLogo" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/514101feef98d4ac2f417da8eae47b95.png"></image>
 				</view>
 				<view class="titleBox" v-if="msgDetail.status==4">
 					<view class="filed">售后 </view>
-				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/30501608262741477.jpg"></image>
+				    <image class="signalLogo" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/514101feef98d4ac2f417da8eae47b95.png"></image>
 				</view>
 				<view class="titleBox" v-if="msgDetail.status==10">
 					<view class="filed">已完成</view>
-				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62931608262986532.jpg"></image>
+				    <image class="signalLogo" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/514101feef98d4ac2f417da8eae47b95.png"></image>
 				</view>
 				<view class="titleBox" v-if="msgDetail.status==6">
 					<view class="filed">售后成功</view>
-				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62931608262986532.jpg"></image>
+				    <image class="signalLogo" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/514101feef98d4ac2f417da8eae47b95.png"></image>
 				</view>
 				<view class="titleBox" v-if="msgDetail.status==7">
 					<view class="filed">售后失败</view>
-				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62931608262986532.jpg"></image>
+				    <image class="signalLogo" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/514101feef98d4ac2f417da8eae47b95.png"></image>
 				</view>
 				<view class="titleBox" v-if="msgDetail.status==8">
 					<view class="filed">售后中</view>
-				    <image class="signalLogo" src="http://zxyp.hzbixin.cn/files/62931608262986532.jpg"></image>
+				    <image class="signalLogo" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/514101feef98d4ac2f417da8eae47b95.png"></image>
 				</view>
 			</view>
 			<view class="addressBox">
@@ -106,22 +104,7 @@
 						<view class="remarks">{{msgDetail.goods_remark }}</view>
 					</view>
 				</view>
-				<!-- <view  style="width: 750rpx;background-color: #f2f2f2;height: 50rpx;;"></view> -->
-				<!-- <view class="uni-bottoms" v-if="msgDetail.status==1">
-					<view class="cancel style1"  @tap.stop="cancelOrder(msgDetail.order_sn)">取消订单</view>
-					<view class="toPay style1" @tap.stop="payFlag=true">去支付</view>
-				</view>
-				<view class="uni-bottoms" v-if="msgDetail.status==3">
-					
-					<view class="toPay style1" @tap.stop="receiveGoods(msgDetail.order_sn)">确认收货</view>
-				</view>
-				<view class="uni-bottoms" v-if="msgDetail.status==5">
-					
-					<view class="toPay style1" @tap.stop="refundGoodMoney(msgDetail.order_sn)">退货退款</view>
-				</view>
-				<view class="uni-bottoms" style="height: 70rpx;margin:25rpx 0rpx;"  v-if="msgDetail.status==2">
-					<view class="cancel style1" @tap.stop="refundMoney(msgDetail.order_sn)">退款</view>
-				</view> -->
+			
 				<view class="uni-bottoms" v-if="msgDetail.status==1">
 					<view class="cancel style1"  @tap.stop="cancelOrder(msgDetail.order_sn)">取消订单</view>
 					<view class="toPay style1" @tap.stop="payFlag=true">去支付</view>
@@ -130,10 +113,7 @@
 					<view class="cancel style1" @tap.stop="refundGoodMoney(msgDetail.order_sn)">退货退款</view>
 					<view class="toPay style1" @tap.stop="receiveGoods(msgDetail.order_sn)">确认收货</view>
 				</view>
-				<!-- <view class="uni-bottoms" v-if="msgDetail.status==5">
-					
-					<view class="toPay style1" @tap.stop="refundGoodMoney(msgDetail.order_sn)">退货退款</view>
-				</view> -->
+			
 				<view class="uni-bottoms"  v-if="msgDetail.status==2" style="height: 70rpx;margin:25rpx 0rpx;">
 					<view class="cancel style1" @tap.stop="refundMoney(msgDetail.order_sn)">退款</view>
 				</view>

@@ -31,7 +31,7 @@
 		  <view class="fields">使用账号密码登录</view>
 		  <image class="imgs" src="../../static/image/right-arrow-pink.png"></image>
 	  </view> -->
-	  <image class="botttomBg" src="http://zxyp.hzbixin.cn/files/73781608195989134.jpg"></image>
+	  <image class="botttomBg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/952991ca48e538f011cdfe7e02b77310.png"></image>
 	  <view class="showtips" v-if="tipflag">{{tipMsg}}</view>
 	</view>
 </template>
@@ -78,7 +78,7 @@
 			    //   title: "正在授权",
 			    //   mask: true
 			    // });
-				
+				console.log(e)
 				let that=this;
 				that.timeValue=60;
 				uni.login({
@@ -118,7 +118,7 @@
 												that.tipflag=true ;
 												that.tipMsg=res.msg;
 												setTimeout(()=>{
-														that.tipflag=false
+														that.tipflag=false;
 												},3000)
 											}
 								  })

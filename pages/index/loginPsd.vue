@@ -22,7 +22,7 @@
 					  登录
 	     </button>
 	  
-	  <image class="botttomBg" src="http://zxyp.hzbixin.cn/files/73781608195989134.jpg"></image>
+	  <image class="botttomBg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/952991ca48e538f011cdfe7e02b77310.png"></image>
 	  <view class="showtips" v-if="tipflag">{{tipMsg}}</view>
 	</view>
 </template>

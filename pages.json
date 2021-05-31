@@ -1,12 +1,40 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	
-	{
+{
 				"path": "pages/index/index",
 				"style": {
 					"navigationStyle":"custom"
 				   }
-	},
+	},	
+		{
+			"path" : "pages/index/login",
+			"style" :                                                                                    
+			{
+			   "navigationBarTitleText": "登录",
+			   "navigationBarBackgroundColor":"#fff",
+			   "navigationBarTextStyle":"black"
+			}
+		},
+{
+         	"path" : "pages/index/loginPsd",
+         	"style" :                                                                                    
+         	{
+         	   "navigationBarTitleText": "密码登录",
+         	   "navigationBarBackgroundColor":"#fff",
+         	   "navigationBarTextStyle":"black"
+         	}
+         },
+
+  {
+			"path" : "pages/index/logins",
+			"style" :                                                                                    
+			{
+			   "navigationBarTitleText": "登录",
+			   "navigationBarBackgroundColor":"#fff",
+			   "navigationBarTextStyle":"black"
+			}
+	 },
+	
 	{
 				"path" : "pages/personCenter/personCenter",
 				"style" :                                                                                    
@@ -23,25 +51,8 @@
 	        "navigationBarTextStyle":"black"
 	    }
 	},
-	{
-			"path" : "pages/index/logins",
-			"style" :                                                                                    
-			{
-			   "navigationBarTitleText": "登录",
-			   "navigationBarBackgroundColor":"#fff",
-			   "navigationBarTextStyle":"black"
-			}
-	 },
+	
 		
-		{
-			"path" : "pages/index/login",
-			"style" :                                                                                    
-			{
-			   "navigationBarTitleText": "登录",
-			   "navigationBarBackgroundColor":"#fff",
-			   "navigationBarTextStyle":"black"
-			}
-		},
 		{
 			"path" : "pages/personCenter/myExtension/extensionRuls",
 			"style" :                                                                                    
@@ -65,15 +76,7 @@
 	  	
 	  },
 	  
-		{
-         	"path" : "pages/index/loginPsd",
-         	"style" :                                                                                    
-         	{
-         	   "navigationBarTitleText": "密码登录",
-         	   "navigationBarBackgroundColor":"#fff",
-         	   "navigationBarTextStyle":"black"
-         	}
-         },
+		
 		
 			 {
 			 	"path" : "pages/personCenter/myOrder/orderDetail",

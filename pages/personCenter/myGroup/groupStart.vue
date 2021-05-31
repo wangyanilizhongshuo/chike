@@ -35,7 +35,7 @@
 							</view>
 							<view class="rightBox">
 								<view class="list" v-for="(item1,index1) in perpleCha" :key="index1">
-									<image class="imgs" src="http://zxyp.hzbixin.cn/files/25821608259248820.jpg"></image>
+									<image class="imgs" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/5f86ec3635fc188de9fcf3a49159adbf.png"></image>
 								</view>
 								
 								

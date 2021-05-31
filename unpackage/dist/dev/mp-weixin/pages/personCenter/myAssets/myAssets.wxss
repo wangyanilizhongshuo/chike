@@ -54,9 +54,10 @@
 }
 .uni-assets .uni-first.data-v-2759c903 {
   background-image: url("https://chikehometest.hzbixin.cn/upload/images/feedback/20210329/563a510cfbf4de4875dec2a7d7d75aa7.png");
+  margin-bottom: 30rpx;
 }
 .uni-assets .uni-second.data-v-2759c903 {
-  margin: 30rpx 0rpx;
+  margin-bottom: 30rpx;
   background-image: url("https://chikehometest.hzbixin.cn/upload/images/feedback/20210329/05d1ea5dd5d7a804ab82b8b710148a3a.png");
 }
 .uni-assets .uni-third.data-v-2759c903 {

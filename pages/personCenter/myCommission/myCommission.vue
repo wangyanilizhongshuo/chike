@@ -5,7 +5,7 @@
 				<image class="bgImg" src="../../../static/image/extra-bg.png"></image>
 			    <view class="contentFirst">
 					<view class="uni-first" @tap.stop="jumps(3)">
-						<image class="ruleImg" src="http://zxyp.hzbixin.cn/files/39321608257776820.jpg"></image>
+						<image class="ruleImg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/89c126f3905d5e1881c7fd0b2ecad22e.png"></image>
 					    <view class="filed">佣金规则</view>
 					</view>
 					<view class="uni-second">

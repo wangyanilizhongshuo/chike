@@ -11,7 +11,7 @@
 			</view>
 			<view class="right"  >
 				<image class="images" @tap.stop="setInput"  src="../../static/image/index-search-search.png"></image>
-				<input class="inputs" confirm-type="search" @focus="getInput" @confirm="setInput" v-model="searchValue"  placeholder-style="font-size:26rpx;color:#A8A8A8" placeholder="搜索"/>
+				<input class="inputs" type="text" confirm-type="search" @focus="getInput" @confirm="setInput" v-model="searchValue"  placeholder-style="font-size:26rpx;color:#A8A8A8" placeholder="搜索"/>
 			</view>
 			<!-- <view class="cancel" @tap.stop="searchValue=''">取消</view> -->
 	   </view>	
@@ -181,7 +181,7 @@
 			  width: 420rpx;
 			  align-items: center;
 			  height: 60rpx;
-			  background-image: url(http://zxyp.hzbixin.cn/files/6731607417392135.jpg);
+			  background-image: url(https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/5d700641fa66161d7009055fb4439ad1.png);
 			  background-size: 420rpx  60rpx;
 			  background-repeat: no-repeat;
 			  margin-left:30rpx;

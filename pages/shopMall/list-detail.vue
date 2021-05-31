@@ -1,6 +1,6 @@
 <template>
 	<view class="uni-searchDetail" :style="(joinCartBoxflag==true || shareBoxFlag==true)?'position:fixed;':'position:relative'" >
-			<image @tap.stop="backs" :style="{top:backHeight}" class="imagesBack" src="http://zxyp.hzbixin.cn/files/28581608270818456.jpg"></image>
+			<image @tap.stop="backs" :style="{top:backHeight}" class="imagesBack" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/792fd8aa82d5e83a04f0bb87ff6c257f.png"></image>
 	   <!-- <view class="uni-content"  :style='{"margin-top":heights,"padding-top":marginTop}'> -->
 		   <view class="uni-content">
 		   <uni-swiper-dot class="swiper-dot" :info="info" mode="round "  :current="current" field="content" :mode="mode">
@@ -41,22 +41,7 @@
 						</button>
 					 </view>
 			   </view>
-			  <!-- <view class="boxSecond" v-for="(item,index) in 2" :key="index">
-			   		 <view class="sFirst">1人正在拼单，可直接参与</view>
-				     <view class="sSecond">
-						 <view class="sLeft">
-							 <image  class="imgs"  src="http://zxyp.hzbixin.cn/files/16031607417221838.jpg"></image>
-						     <text class="field">无敌元气妹</text> 
-						 </view>
-						 <view class="sRight"> 
-						   <view  class="leftss">
-							  <view  class="ups"> 还差1人拼成 </view>
-							  <view class="downs">剩余11:14:25</view>
-						   </view>
-						   <view class="rightss" @tap.stop="joinCartBoxflag=true,category=3">去拼单</view>
-						 </view>
-					 </view>
-			   </view> -->
+			  
 		   </view>
 		   <view class="box-introduce">
 			   <view class="titles">
@@ -82,45 +67,23 @@
 			   </view>
 		   </view>
 	   </view>
-	  <!-- <view class="footer">
-		   <view class="uni-left" @tap.stop="collectFlag=(!collectFlag)">
-			   <image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
-			   <image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
-		       <text class="field">收藏</text>
-		   </view>
-		   <view class="uni-center" @tap.stop="joinCartBoxflag=true,category=1">
-			   加入购物车
-		   </view>
-		   <view class="uni-right">
-			   <view class="buyBox styless2" @tap.stop="joinCartBoxflag=true,category=2">
-				   <text class="upss">单独购买</text>
-				   <text class="downss">¥<text>{{smallCarMsg[0].price}}</text></text>
-			   </view>
-			   <view class="makeGroupBox styless2" @tap.stop="joinCartBoxflag=true,category=3">
-				   <text class="upss">发起拼团</text>
-				   <text class="downss">¥<text>29.90</text></text>
-			   </view>
-		   </view>
-	   </view> -->
+	 
 	   <view class="footers" >
 	   		   <view class="uni-left" >
 				   <view class="bigbox">
 					   <button class="serverBox bigbox" plain="true" sessionFrom="weapp"  open-type="contact" style="border:none;border-radius: 0rpx;padding:0rpx;">
-					   					     <image class="imgStart"   src="http://zxyp.hzbixin.cn/files/81491615275583100.jpg"></image>
+					   					     <image class="imgStart"   src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/43f25fa784bb867a1725629c87f58b37.png"></image>
 					   </button>
 					   <text class="field">客服</text>
 				   </view>
-				 <!--  <button class="serverBox bigbox" plain="true" sessionFrom="weapp"  open-type="contact" style="border:none;border-radius: 0rpx;padding:0rpx;">
-					     <image class="imgStart"   src="http://zxyp.hzbixin.cn/files/81491615275583100.jpg"></image>
-	   		              <text class="field">客服</text>
-				   </button> -->
+				 
 				   <view class="collectBox bigbox" @tap.stop="getCollect">
-				   		<image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
-				        <image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
+				   		<image class="imgStart" v-if="collectFlag"  src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/47f9255cd0bc41d024318e36fb521176.png"></image>
+				        <image class="imgStart"  v-if="!collectFlag" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/3544cfd00b6213277136e828db08cd9f.png"></image>
 				         <text class="field">收藏</text>
 				   </view>
 				   <view class="collectBox bigbox" @tap.stop="jumps">
-				   		<image class="imgStart"   src="http://zxyp.hzbixin.cn/files/69161615275540069.jpg"></image>
+				   		<image class="imgStart"   src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/3603126117ce0f4640528edbed8f9bb7.png"></image>
 				         <text class="field">购物车</text>
 				   </view>
 	   			 
@@ -134,15 +97,10 @@
 						   <text class="upss">立即购买</text>
 						   <!-- <text class="downss">¥<text>29.90</text></text> -->
 					   </view>
-	   		 <!--  <view class="uni-center" @tap.stop="joinCartBoxflag=true,category=1">
-	   			   加入购物车
-	   		   </view>
-	   		  
-	   		   </view> -->
+	   	
 	   </view>
 	   
 	   <!-- 购物车固定的logo -->
-	  <!-- <image v-if="!shareBoxFlag" @tap.stop="jumps" class="shopCartLogo" src="http://zxyp.hzbixin.cn/files/98501608270933265.jpg"></image> -->
 	  <!-- 加入购物车 -->
 	  <view class="joincartBoxMask" @tap.stop="joinCartBoxflag=false" v-if="joinCartBoxflag"></view>
 	  <view class="joincartBox"  v-if="joinCartBoxflag">

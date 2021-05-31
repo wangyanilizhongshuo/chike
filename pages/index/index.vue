@@ -18,7 +18,7 @@
 			<carousel style="height: 560rpx;"  :img-list="imgList" @selected="selectedBanner" url-key="banner" ></carousel>
 	     
 			<view class="content-second" @tap="jumpNotice">
-				<image class="left" src="http://zxyp.hzbixin.cn/files/42731612248746998.jpg"></image>
+				<image class="left" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/ffad8f9fc865183ce11839c4e7591a75.png"></image>
 			    <view class="right">
 					<view class="wordUp word">{{noticeList.notice}}</view>
 				    <!-- <view class="wordDown word">新用户注册完！</view> -->
@@ -77,12 +77,11 @@
 		   </picker-view-column>
 	   </picker-view>
 	  <button class="kefuLogo" plain="true"  style="border:none;border-radius: 0rpx;margin: 0rpx;padding:0rpx;" :style="{top:dwDownHs}" hover-class="none"   sessionFrom="weapp"  open-type="contact">
-		   <image  class="kefuImg" @tap.stop="getKefu" src="http://zxyp.hzbixin.cn/files/51201613699863023.jpg"></image>
+		   <image  class="kefuImg" @tap.stop="getKefu" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/3341c77aaa65d4def96b61254090aced.png"></image>
 	   </button>
-	  <!-- <image  class="kefuImg" :style="{top:dwDownHs}" @tap.stop="getKefu" src="http://zxyp.hzbixin.cn/files/51201613699863023.jpg">
-		   <button   open-type="contact"></button>
+
 	   </image> -->
-       <image :style="{top:dwDownH}" class="backTopLogo" @tap.stop="backTop" src="http://zxyp.hzbixin.cn/files/53311608200388887.jpg"></image>
+       <image :style="{top:dwDownH}" class="backTopLogo" @tap.stop="backTop" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/c81f56dedc0d74dc3198ee4988a23fdc.png"></image>
 	</view>
 </template>
 <script>
@@ -140,8 +139,8 @@
 		},
 		onLoad(options) {
 			this.setData(options)
-			console.log(options)
-			console.log('options')
+			console.log(options,2222);
+			
 			 // 对邀请人进行判断
 			 if(this.scene!=0){
 				 uni.setStorageSync('scene',this.scene)
@@ -515,7 +514,7 @@
 				   height: 60rpx;
 				   text-align: center;
 				   border-radius: 20rpx;
-				   background-image: url(http://zxyp.hzbixin.cn/files/6731607417392135.jpg);
+				   background-image: url(https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/5d700641fa66161d7009055fb4439ad1.png);
 			       background-size: 360rpx  60rpx;
 				   background-repeat: no-repeat;
 			   }

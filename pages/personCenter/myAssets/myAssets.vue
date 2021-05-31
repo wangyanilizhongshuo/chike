@@ -4,7 +4,7 @@
 			  <view  class="field">我的余额</view>
 			  <view class="values">{{now_money}}</view>
 		  </view>
-	      <view class="uni-second style1"  @tap.stop="jumpTop(2)">
+	      <view class="uni-second style1" v-if="userType!=0"  @tap.stop="jumpTop(2)">
 			  <view  class="field">我的佣金</view>
 			  <view class="values">{{brokerage_price}}</view>
 		  </view>
@@ -26,7 +26,8 @@
 				now_money:'',
 				brokerage_price:'',
 				service_coupon_num:'',
-				integral:''
+				integral:'',
+				userType:''
 			}
 		},
 		onLoad(options){
@@ -92,14 +93,15 @@
 		.uni-first{
 			@extend  %maskBox;
 			background-image: url('https://chikehometest.hzbixin.cn/upload/images/feedback/20210329/563a510cfbf4de4875dec2a7d7d75aa7.png');
-		    
+		    margin-bottom: 30rpx ;
 		}
 		.uni-second{
 			@extend  %maskBox;
-			margin: 30rpx 0rpx;
+			margin-bottom:30rpx;
 			background-image: url('https://chikehometest.hzbixin.cn/upload/images/feedback/20210329/05d1ea5dd5d7a804ab82b8b710148a3a.png');
 		}
 		.uni-third{
+			
 			@extend  %maskBox;
 			background-image: url('https://chikehometest.hzbixin.cn/upload/images/feedback/20210329/a7f649554c4f0c683b55400a7f324cd8.png');
 		}

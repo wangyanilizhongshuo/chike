@@ -23,7 +23,6 @@
 							<view class="rightBox" >
 								<view class="list" v-for="(item1,index1) in msgData1" :key="index1">
 									<image class="imgs" :src="item1.headimg"></image>
-									<!-- <image class="imgs" src="http://zxyp.hzbixin.cn/files/83621607479563768.jpg"></image> -->
 								</view>
 								<!--  -->
 								

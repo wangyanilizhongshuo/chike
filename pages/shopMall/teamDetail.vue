@@ -1,6 +1,6 @@
 <template>
 	<view class="uni-searchDetail" >
-		<image @tap.stop="backs" :style="{top:backHeight}" class="imagesBack" src="http://zxyp.hzbixin.cn/files/51331608087338298.jpg"></image>
+		<image @tap.stop="backs" :style="{top:backHeight}" class="imagesBack" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/792fd8aa82d5e83a04f0bb87ff6c257f.png"></image>
 		
 	   <view class="uni-content">
 	   <!-- <view class="uni-content"  :style='{"margin-top":heights,"padding-top":marginTop}'> -->
@@ -102,8 +102,8 @@
 	   </view>
 	   <view class="footer">
 		   <view class="uni-left" @tap.stop="collectFlag=(!collectFlag)">
-			   <image class="imgStart" v-if="collectFlag"  src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg"></image>
-			   <image class="imgStart"  v-if="!collectFlag" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg"></image>
+			   <image class="imgStart" v-if="collectFlag"  src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/47f9255cd0bc41d024318e36fb521176.png"></image>
+			   <image class="imgStart"  v-if="!collectFlag" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/3544cfd00b6213277136e828db08cd9f.png"></image>
 		       <text class="field">收藏</text>
 		   </view>
 		   <view class="uni-center" @tap.stop="joinCartBoxflag=true,category=1">

@@ -34,13 +34,12 @@
 				<view class="bottomBox" :style="{height:boxHeight}" >
 					<view class="listBox" v-for="(item,index) in  rightList" :key="index">
 						<image class="imgs" :src="item.img"></image>
-						<!-- <image class="imgs" src="http://zxyp.hzbixin.cn/files/71811608268411464.jpg"></image> -->
 					    <view class="uni-right">
 							<view class="uni-first">{{item.name}}</view>
 							<view  class="uni-second">{{item.remark}}</view>
 							<view class="uni-third">
 								<view class="left">¥<text class="money">{{item.price}}</text></view>
-								<image @tap.stop="getAddcart(item.id)" class="addLogo" src="http://zxyp.hzbixin.cn/files/32581608199923056.jpg"></image>
+								<image @tap.stop="getAddcart(item.id)" class="addLogo" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/9ebb4f8cbead54e2a279c553e5061181.png"></image>
 							</view>
 						</view>
 					</view>
@@ -53,7 +52,7 @@
 				  <view class="tips">加入成功，在购物车等您~</view>
 				  
 		</view>
-		<image @tap.stop="jumpCart"  class="addCartLogo" src="http://zxyp.hzbixin.cn/files/71811608268411464.jpg"></image>
+		<image @tap.stop="jumpCart"  class="addCartLogo" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/11af9533569a7cb0bdf7758686f733a4.png"></image>
 	</view>
 </template>
 
@@ -279,7 +278,7 @@
 				  width: 410rpx;
 				  align-items: center;
 				  height: 60rpx;
-				  background-image: url(http://zxyp.hzbixin.cn/files/6731607417392135.jpg);
+				  background-image: url(https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/5d700641fa66161d7009055fb4439ad1.png);
 				  background-size: 410rpx  60rpx;
 				  background-repeat: no-repeat;
 				   .images{

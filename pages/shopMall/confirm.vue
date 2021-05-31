@@ -2,7 +2,7 @@
 	<view class="uni-MallConfirm">
 		<view class="addressBox" @tap.stop="getAddress" v-if="!getAddFlag">
 			<view class="fields">您还没有添加收货地址  点击这里添加</view>
-			<image  class="addBg" src="http://zxyp.hzbixin.cn/files/43691608270274871.jpg"></image>
+			<image  class="addBg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/86aea932b6615f409a145e70f1dbc7be.png"></image>
 		</view>
 		<view class="addressBox" @tap.stop="getAddress" v-if="getAddFlag">
 			<view class="fields-box">
@@ -10,8 +10,6 @@
 					 <view class="uni-top">
 					 	<view class="left">{{addlistMsg.real_name}}</view>
 					 	<view class="center">{{addlistMsg.phone}}</view>
-						
-
 					 	<view @tap.stop="defaultAddFlag=(!defaultAddFlag)" :class="defaultAddFlag==true?'active':'wuse'" class="right" :style="addlistMsg.is_default==1?'color: #FF666C;border: 2rpx solid #FF666C;background-color: #FFE2E3;':''">默认</view>
 					 </view>
 					 <view class="uni-bottom">
@@ -21,7 +19,7 @@
 				<image class="uni-right" src="../../static/image/index-arrow-right.png"></image>
 				
 			</view>
-			<image  class="addBg" src="http://zxyp.hzbixin.cn/files/56061614057405469.jpg"></image>
+			<image  class="addBg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/203e4dfc49b3e3a7aabdff009c991f4f.png"></image>
 		</view>
 		<view class="goodBox" v-for="(item,index) in detailList.list" :key='index'>
 			<image class="lefts" :src="item.goods_img"></image>

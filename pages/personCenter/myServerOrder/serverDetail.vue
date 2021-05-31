@@ -19,7 +19,6 @@
 				<view class="ermBox" v-if="sType!=1">
 					<view class="valuesCodes2">{{dataList.verify_code}}</view>
 					<view class="field2">核销码</view>
-					<!-- <image class="imgs" src="http://zxyp.hzbixin.cn/files/89621607595034087.jpg"></image> -->
 				</view>
 				<view class="listBoxss">
 					<view class="lists">

@@ -194,29 +194,7 @@ var _default =
 
 
 
-      // uni.chooseImage({
-      // 	count:1, //上传图片的数量，默认是9
-      // 	sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-      // 	sourceType: ['album', 'camera'], //从相册选择
-      // 	success: function(res) {
-      // 		const tempFilePaths = res.tempFilePaths; //拿到选择的图片，是一个数组
 
-      // 		tempFilePaths.map(sos => {
-      // 			uni.uploadFile({
-      // 				url: 'http://zxyptest.hzbixin.cn/file/upload',
-      // 				filePath: sos,
-      // 				name: 'file',
-      // 				success: function(datas) {
-      // 					let results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
-      // 					let aa = results.result;
-      // 					console.log(aa)
-
-      // 				},
-      // 				fail: function(datas) {}
-      // 			})
-      // 		})
-      // 	}
-      // });
     },
     // 照片删除
     delPhoto: function delPhoto(index) {

@@ -2,7 +2,7 @@
 	<view  class="uni-myMsg">
 		<view class="listBox">
 			<view class="list" @tap.stop="jumps(1)">
-				<image class="imgs uni-left" src="http://zxyp.hzbixin.cn/files/31601608261024958.jpg"></image>
+				<image class="imgs uni-left" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/1d3a27f692cdf55e77be03db7e689b95.png"></image>
 				<view class="uni-right">
 				     <view class="uni-first">
 						 <view class="lefts">系统消息 </view>
@@ -12,7 +12,7 @@
 				</view>
 			</view>
 			<view class="list" @tap.stop="jumps(2)">
-				<image class="imgs uni-left" src="http://zxyp.hzbixin.cn/files/82551608261149632.jpg"></image>
+				<image class="imgs uni-left" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/ffa2ff9f0a25aec16dee591ffed09d42.png"></image>
 				<view class="uni-right">
 				     <view class="uni-first">
 						 <view class="lefts">订单消息</view>
@@ -22,7 +22,7 @@
 				</view>
 			</view>
 			<view class="list" @tap.stop="jumps(3)">
-				<image class="imgs uni-left" src="http://zxyp.hzbixin.cn/files/34991608261165149.jpg"></image>
+				<image class="imgs uni-left" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/db08596befc5cea1b762d4fe4e89277f.png"></image>
 				<view class="uni-right">
 				     <view class="uni-first">
 						 <view class="lefts">服务消息 </view>

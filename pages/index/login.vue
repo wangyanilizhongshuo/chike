@@ -5,12 +5,14 @@
 	     
 	  </view>
 	<view class="tips">请完成微信授权以继续使用</view>
-	<!-- <button class="btnSubmit" lang="zh_CN"   open-type="getPhoneNumber"  @getphonenumber="getPhoneNumber"> -->
-		<button class="btnSubmit"  open-type="getUserInfo" lang="zh_CN" @getuserinfo="authorLogin">
+	<!-- <button class="btnSubmit" lang="zh_CN"   open-type="getPhoneNumber"  @getphonenumber="authorLogin"> -->
+		<!-- <button class="btnSubmit"  open-type="getUserInfo" lang="zh_CN"  @getuserinfo="getuserinfo"> -->
+    <button  class="btnSubmit" @tap.stop="getuserinfo">
 					 微信授权用户信息
 	</button>
-	  <image class="botttomBg" src="http://zxyp.hzbixin.cn/files/73781608195989134.jpg"></image>
-	</view>
+	  <image class="botttomBg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/952991ca48e538f011cdfe7e02b77310.png"></image>
+   	
+  </view>
 </template>
 <script>
 	export default {
@@ -25,16 +27,12 @@
 			}
 		},
 		onLoad(){
-			let that=this;
-			uni.login({
-				provider: 'weixin',
-				success: function(res) {
-					that.code = res.code;
-				}
-			});
+			
+		
 			
 		},
 		methods:{
+     
 			// getPhoneNumber(e){
 			// 	if (e.detail.errMsg !== 'getPhoneNumber:ok') {
 			// 	  return false;
@@ -43,54 +41,74 @@
 			// 	console.log(18828)
 			// },
 			//刚进去,就开始微信登录,后面绑定手机号
-			authorLogin: function (e) {
-				console.log(e)
-				console.log(12345)
-				let that=this;
-			    // if (e.detail.errMsg !== 'getPhoneNumber:ok') {
-				if (e.detail.errMsg !== 'getUserInfo:ok') {
-				  return false;
-			    }
-				if(uni.getStorageSync('scene')){
-				     that.scenes=uni.getStorageSync('scene')
-				}
+     
+			getuserinfo(e) {
+			  console.log(1111)
+          let that=this;
+          let iv='';
+          let encryptedData='';
+          if(uni.getStorageSync('scene')){
+               that.scenes=uni.getStorageSync('scene')
+          }
+          uni.login({
+            provider: 'weixin',
+            success: function(res) {
+              that.code = res.code;
+              console.log(that.code,'code')
+            }
+         });
+         uni.getUserProfile({
+           desc:'登录',
+           success:(res3)=>{
+             encryptedData=res3.encryptedData;
+             iv=res3.iv;
+             console.log(encryptedData)
+             console.log(iv)
+             that.$http.post('mini/v1/wechat/wxlogin',{
+             		  code:that.code,
+             		  encryptedData:encryptedData,
+             		  iv:iv,
+             		  spreaduid:that.scenes
+             	  },function(res6){
+             	    	if(res6.state ==0){
+             				uni.setStorageSync('token',res6.data.token);
+             				uni.setStorageSync('openId',res6.data.openid);
+             				if(res6.data.is_bind_mobile==1){
+             					 if(uni.getStorageSync('ptGoodId')){
+             						 let ids=uni.getStorageSync('ptGoodId')
+             							uni.navigateTo({
+             								 url:'/pages/shopMall/ptlist-detail?goodsId='+ids
+             						   })
+             					 }
+             				   else{
+             						 uni.switchTab({
+             						 	 url:'/pages/index/index'
+             						 })
+             					 }
+             				   
+             				   
+             				   
+             				}else if(res6.data.is_bind_mobile==0){
+                       
+             					uni.redirectTo({
+             						url:'/pages/index/logins'
+             					})
+             				}
+             				
+             			}
+             		})
+           },
+           fail:(res)=>{
+             console.log(res)
+             console.log('res')
+           }
+         })
 			
-				that.$http.post('mini/v1/wechat/wxlogin',{
-						  code:that.code,
-						  encryptedData:e.detail.encryptedData,
-						  iv:e.detail.iv,
-						  spreaduid:that.scenes
-					  },function(res){
-					    	if(res.state ==0){
-								// console.log(res.data)
-								// console.log('res.data')
-								uni.setStorageSync('token',res.data.token);
-								uni.setStorageSync('openId',res.data.openid);
-								if(res.data.is_bind_mobile==1){
-									
-								     
-									 if(uni.getStorageSync('ptGoodId')){
-										 let ids=uni.getStorageSync('ptGoodId')
-											uni.navigateTo({
-												 url:'/pages/shopMall/ptlist-detail?goodsId='+ids
-										   })
-									 }
-								     else{
-										 uni.switchTab({
-										 	 url:'/pages/index/index'
-										 })
-									 }
-								   
-								   
-								   
-								}else if(res.data.is_bind_mobile==0){
-									uni.redirectTo({
-										url:'/pages/index/logins'
-									})
-								}
-								
-							}
-						})
+			  
+				
+      
+			  
+			
 				
 			  
 			},

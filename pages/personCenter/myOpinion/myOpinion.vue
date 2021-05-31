@@ -5,10 +5,10 @@
 		      <view class="photoBox">
 				  <view class="image-box" v-for="(item,index) in imgList" :key="index">
 					  <image  class="bgImg" @tap.stop="preview(index)" :src="item"></image>
-				      <image class="cancelImg"  @tap="delPhoto(index)" src="http://zxyp.hzbixin.cn/files/86531608258070513.jpg"></image>
+				      <image class="cancelImg"  @tap="delPhoto(index)" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/1caf36f5376e5208b1687d6b22d57baf.png"></image>
 				  </view>
 				  <view class="image-box" v-if="imgList.length >=0 && imgList.length<5">
-				     <image @tap.stop="getChoiceImg"  class="bgImg" src="http://zxyp.hzbixin.cn/files/57201608258002243.jpg"></image>
+				     <image @tap.stop="getChoiceImg"  class="bgImg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/314603b21099d49c7a80eda4e25f51a6.png"></image>
 			       </view>
 			 </view>
 			
@@ -62,29 +62,7 @@
 				})
 				
 
-				// uni.chooseImage({
-				// 	count:1, //上传图片的数量，默认是9
-				// 	sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-				// 	sourceType: ['album', 'camera'], //从相册选择
-				// 	success: function(res) {
-				// 		const tempFilePaths = res.tempFilePaths; //拿到选择的图片，是一个数组
-						
-				// 		tempFilePaths.map(sos => {
-				// 			uni.uploadFile({
-				// 				url: 'http://zxyptest.hzbixin.cn/file/upload',
-				// 				filePath: sos,
-				// 				name: 'file',
-				// 				success: function(datas) {
-				// 					let results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
-				// 					let aa = results.result;
-				// 					console.log(aa)
-				
-				// 				},
-				// 				fail: function(datas) {}
-				// 			})
-				// 		})
-				// 	}
-				// });
+	
 			},
 			// 照片删除
 			delPhoto(index){

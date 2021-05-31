@@ -4,20 +4,20 @@
 			<view  class="bgBox">
 			    <view class="contentFirst">
 					<view class="uni-first" @tap.stop="jumps(1)">
-						<image class="ruleImg" src="http://zxyp.hzbixin.cn/files/27811608259534206.jpg"></image>
+						<image class="ruleImg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/89c126f3905d5e1881c7fd0b2ecad22e.png"></image>
 					    <view class="filed">积分规则</view>
 					</view>
 					<view class="uni-second">
-						<text class="money">{{jifen}}</text>
+						<text class="money">{{personData.integral_all}}</text>
 					</view>
 					<view class="uni-third" >
 						<view class="box">
 							<view class="uni-left style1">
-								<view class="values">{{jifen}}</view>
+								<view class="values">{{personData.integral}}</view>
 								<view class="field">可使用</view>
 							</view>
 							<view class="uni-right style1"  @tap.stop="jumps(2)" >
-								<view class="values">{{willjf}}</view>
+								<view class="values">{{personData.integral_active}}</view>
 								<view class="field">待激活</view>
 							</view>
 						</view>
@@ -37,7 +37,6 @@
 				</view>
 			</view>
 		</view>
-		<!-- http://zxyp.hzbixin.cn/files/68611607672261168.jpg -->
 	 <view class="footer" @tap.stop="jumps(3)">查看更多</view>
 	</view>
 </template>
@@ -47,7 +46,8 @@
 			return {
 				willjf:'',
 				jifen:'',
-				mainList:[]
+				mainList:[],
+				personData:''
 				
 			}
 		},
@@ -55,6 +55,7 @@
 			console.log(options)
 			this.setData(options);
 			this.getList();
+			this.getPersonMsg();
 			
 		},
 		methods: {
@@ -73,6 +74,15 @@
 					 })
 				 }
 				
+			 },
+			 getPersonMsg(){
+			 	this.$http.post('mini/v1/user/info',{},(res)=>{
+			 		  if(res.state==0){
+			 			  
+			 			  this.personData=res.data;
+			 			  
+			 		  }
+			 	})
 			 },
 			 getList(){
 				 let that=this;

@@ -1,7 +1,7 @@
 <template>
 	<view class="uni-titlebox" @tap.stop="visible=false">
 		<view class="searchBox">
-			<image class="searchBg" src="http://zxyp.hzbixin.cn/files/10921608263278444.jpg"></image>
+			<image class="searchBg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/8c8cd60683d5d593078b3dcc6583d4e6.png"></image>
 		    <view class="inputBox">
 				<image  class="img" src="../../../static/image/index-search-search.png"></image>
 			    <input :confirm-type="search" v-model="searchOrderCode" @bindconfirm="getMsg(2)" class="inputValue" placeholder-style="color:#A8A8A8;font-size:26rpx" placeholder="请输入订单号进行查询" />

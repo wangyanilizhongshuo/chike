@@ -1,7 +1,7 @@
 <template>
 	<view class="uni-opinionSucess">
 		<view class="boxBg">
-			<image class="imgs" src="http://zxyp.hzbixin.cn/files/33401608261677488.jpg"></image>
+			<image class="imgs" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/84c622b5fd41daa37ca91245520430f9.png"></image>
 		</view>
 		<view class="word" v-if="occur" >提交成功</view>
 		<view class="word" v-if="!occur">提交失败</view>

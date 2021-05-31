@@ -21,12 +21,14 @@
 			return {
 				status:'',
 				noDataFlag:false,
-				msgList:[]
+				msgList:[],
+				
 			}
 		},
 		onLoad(options) {
 			this.setData(options);
 			this.getList();
+			console.log(options)
 		},
 		onReachBottom(){
 			
@@ -47,7 +49,9 @@
 						if(res.data.is_request==0){
 							let aa = res.data.list;
 							let bb = that.msgList;
-							that.msgList = bb.concat(aa)
+							let cc=res.data.yue;
+							let dd=bb.concat(aa);
+							that.msgList = dd.concat(cc);
 							if(that.msgList.length==0){
 								that.noDataFlag=true;
 							}else{

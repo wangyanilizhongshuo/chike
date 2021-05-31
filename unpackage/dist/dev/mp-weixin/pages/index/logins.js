@@ -210,7 +210,7 @@ var _default =
       //   title: "正在授权",
       //   mask: true
       // });
-
+      console.log(e);
       var that = this;
       that.timeValue = 60;
       uni.login({

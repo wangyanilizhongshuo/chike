@@ -35,8 +35,8 @@
 					   </view>
 				   </view>
 				   <view class="uni-right">
-					   <image v-if="collectActive"   class="img" src="http://zxyp.hzbixin.cn/files/96881611907948409.jpg" @tap.stop="getCollect"></image>
-					   <image v-if="!collectActive"    class="img" src="http://zxyp.hzbixin.cn/files/94201611907831630.jpg" @tap.stop="getCollect"></image>
+					   <image v-if="collectActive"   class="img" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/47f9255cd0bc41d024318e36fb521176.png" @tap.stop="getCollect"></image>
+					   <image v-if="!collectActive"    class="img" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/3544cfd00b6213277136e828db08cd9f.png" @tap.stop="getCollect"></image>
 				       <text class="word">收藏</text> 
 				   </view>
 				   
@@ -64,7 +64,7 @@
 			   <view class="uni-left">留言({{msgListNum || 0}})</view>
 			   <view class="uni-right">
 				   <text class="fields">查看全部</text>
-				   <image class="logos" src="http://zxyp.hzbixin.cn/files/50831608196835818.jpg"></image>
+				   <image class="logos" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/7435aee6a21c111f8773729b3bb1efa0.png"></image>
 			   </view>
 		   </view>
 		   <!-- 留言首页5条 -->
@@ -80,32 +80,7 @@
 		   </view>
 	   </view>
 	   <!-- 底部的数据 -->
-	  <!-- <view class="bottomBox">
-		   <view class="b-title">
-			   <scroll-view class="scroll-view_H" scroll-with-animation="true"   scroll-x="true">
-					 <view v-for="(item,index) in carouselList" :key="index" class="lists" @tap.stop="fourLogoJump(item.name,item.id)">
-						  <view class="word">{{item}}</view>
-					 </view>
-			   	</scroll-view>
-		   </view>
-		   <view class="b-content">
-			   <view   class="list">
-				    <image class="imgs" src="https://img9.51tietu.net/pic/2019-091200/ff1vqwm3q33ff1vqwm3q33.jpg"></image>
-				   <view class="rights">
-					   <view class="uni-first">高端优选>单人超声波洁牙大是大非多发点</view>
-					   <view class="uni-second">
-						   <view class="left">¥<text class="mon">49.90</text></view>
-						   <view class="right">门市价：¥668</view>
-					   </view>
-					   <view  class="uni-third">
-						   <view class="left">已销售586</view>
-						   <image   class="img1" @tap.stop="cartSucFlag=true"  src="http://zxyp.hzbixin.cn/files/32581608199923056.jpg"></image>
-					   </view>
-				   </view>
-			   </view>
-		   </view>
-	   </view>
-	  -->
+
 	 </view>
 	
   </view>

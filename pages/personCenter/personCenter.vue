@@ -1,32 +1,31 @@
 <template>
 	<view  class="uni-person">
-		<image class="uni-bg-top" src="http://zxyp.hzbixin.cn/files/53881608267891322.jpg"></image>
+		<image class="uni-bg-top" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/341f48a8c3fb9e1e54c01f59cbc4918c.png"></image>
 		<view class="uni-content">
 			<view class="uni-head" >
 				<view class="perMsg">
 					<image class="imgs"  @tap.stop="jumps(1)" v-if="personData.avatar" :src="personData.avatar"></image>
-					<image class="imgs" @tap.stop="goLogin" v-if="!personData.avatar" src="http://zxyp.hzbixin.cn/files/29221611907772249.jpg"></image>
+					<image class="imgs" @tap.stop="goLogin" v-if="!personData.avatar" src="https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132"></image>
 				    <view  class="mgs"   @tap.stop="jumps(1)" v-if="personData.uid">
 						<view class="top">{{personData.nickname}}</view>
 						<view class="center">
-							<image class="imgsSf" v-if="personData.user_type==2" src="http://zxyp.hzbixin.cn/files/19901611908043331.jpg"></image>
-						    <image class="imgsSf" v-if="personData.user_type==1" src="http://zxyp.hzbixin.cn/files/55891611907996973.jpg"></image>
+							<image class="imgsSf" v-if="personData.user_type==1" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/9425d69373db1e5c00a714ccff70bd93.png"></image>
+						  <image class="imgsSf" v-if="personData.user_type==2" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/acc429c576543619130b7aad79daa24a.png"></image>
 						</view>
-						<view class="down" >用户ID：{{personData.uid }}</view>
+						<view class="down">用户ID：{{personData.uid }}</view>
 						<view class="down"  v-if="!personData.uid">去登录</view>
 					</view>
 					<view  class="mgs" @tap.stop="goLogin" style="line-height: 150rpx;"  v-if="!personData.uid">
-					
 						<view class="down"  >去登录</view>
 					</view>
 				</view>
-				<view class="person-detail">
+				<view class="person-detail"  v-if="personData.user_type!=0">
 					<view class="first-1 style-detail" @tap.stop="jumpTop(0)">
-						 <view class="values">{{personData.total_day || 0.00}}</view>
+						 <view class="values" >{{personData.total_day || 0.00}}</view>
 						 <view class="field">今日收入</view>
 					 </view>
 					 <view  class="first-2 style-detail" @tap.stop="jumpTop(1)">
-						 <view class="values">{{personData.month ||0.00}}</view>
+						 <view class="values"> {{personData.month || 0}}</view>
 						 <view class="field">本月收入</view>
 					 </view>
 					 <view class="first-3 style-detail" @tap.stop="jumpTop(2)">
@@ -120,7 +119,7 @@
 				   	  </view>
 					
 				   	  <view class="list"  @tap.stop="jumps(13)">
-					  <!-- <view class="list"  @tap.stop="getImage()"> -->
+					 
 				   		  <image class="imgs" src="../../static/image/person-center3-2.png"></image>
 				   		  <view class="fields">使用指南</view>
 				   	  </view>
@@ -181,17 +180,44 @@
 			},
 			// 获取个人信息
 			getPersonMsg(){
-				this.$http.post('mini/v1/user/info',{},(res)=>{
+				let that =this;
+				that.$http.post('mini/v1/user/info',{},(res)=>{
 					  if(res.state==0){
-						  
-						  this.personData=res.data;
+						  that.personData=res.data;
 						  // 保存一下用户类型:代言人,普通用户uid
-						  uni.setStorageSync('userType',res.data.user_type)
-						  uni.setStorageSync('userId',res.data.uid)
-						  uni.setStorageSync('phone',res.data.phone)
+						  uni.setStorageSync('userType',res.data.user_type);
+						  uni.setStorageSync('userId',res.data.uid);
+						  uni.setStorageSync('phone',res.data.phone);
+						   that.personData.total_day=(parseInt(that.personData.total_day).toString().length>5)?(that.personData.total_day=(that.personData.total_day/10000).toFixed(2)+'万元'):( that.personData.total_day=that.personData.total_day+'元')
+						   that.personData.month=(parseInt(that.personData.month).toString().length>5)?(that.personData.month=(that.personData.month/10000).toFixed(2)+'万元'):( that.personData.month=that.personData.month+'元')
+						   that.personData.total_money=(parseInt(that.personData.total_money).toString().length>5)?(that.personData.total_money=(that.personData.total_money/10000).toFixed(2)+'万元'):( that.personData.total_money=that.personData.total_money+'元')
+    
 					  }
 				})
 			},
+			keepTwoDecimalFull(num) {
+						  var result = parseFloat(num);
+						  if (isNaN(result)) {
+						    return false;
+						  }
+						  result = Math.round(num * 100) / 100;
+						  var s_x = result.toString(); //将数字转换为字符串
+						 
+						  var pos_decimal = s_x.indexOf('.'); //小数点的索引值
+						
+						  // 当整数时，pos_decimal=-1 自动补0
+						  if (pos_decimal < 0) {
+						    pos_decimal = s_x.length;
+						    s_x += '.';
+						  }
+					
+						  // 当数字的长度< 小数点索引+2时，补0
+						  while (s_x.length <= pos_decimal + 2) {
+						    s_x += '0';
+						  }
+						  this.yhData.total_price=s_x;
+						 
+						},
 			jumpTop(types){
 				 uni.navigateTo({
 				 	url:'/pages/personCenter/myIncome/myIncome?status='+types
@@ -273,7 +299,7 @@
 				}
 				else if (type ==15){
 					uni.navigateTo({
-						url:'/pages/personCenter/myAssets/myAssets?now_money='+this.personData.now_money+'&brokerage_price='+this.personData.brokerage_price+'&service_coupon_num='+this.personData.service_coupon_num+'&integral='+this.personData.integral
+						url:'/pages/personCenter/myAssets/myAssets?now_money='+this.personData.now_money+'&brokerage_price='+this.personData.brokerage_price+'&service_coupon_num='+this.personData.service_coupon_num+'&integral='+this.personData.integral+'&userType='+this.personData.user_type
 					})
 				}else if(type ==16){
 					uni.navigateTo({
@@ -282,32 +308,7 @@
 				}
 			},
 			
-			getImage(){
-				
-				let _that = this;
-				uni.chooseImage({
-					count: 1, //上传图片的数量，默认是9
-					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-					sourceType: ['album', 'camera'], //从相册选择
-					success: function(res) {
-						const tempFilePaths = res.tempFilePaths; //拿到选择的图片，是一个数组
-						tempFilePaths.map(sos => {
-							uni.uploadFile({
-								url: 'http://zxyptest.hzbixin.cn/file/upload',
-								filePath: sos,
-								name: 'file',
-								success: function(datas) {
-									let results = typeof datas.data === "object" ? datas.data : JSON.parse(datas.data);
-									let aa = results.result;
-								},
-								fail: function(datas) {}
-							})
-						})
-					}
-				});
-				
-				
-			}
+			
 		}
 	}
 </script>

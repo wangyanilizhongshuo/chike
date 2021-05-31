@@ -5,10 +5,10 @@
 		     <view class="photoBox">
 				  <view class="image-box" v-for="(item,index) in imgList" :key="index">
 					  <image  class="bgImg" @tap.stop="preview(index)" :src="item"></image>
-					  <image class="cancelImg"  @tap="delPhoto(index)" src="http://zxyp.hzbixin.cn/files/86531608258070513.jpg"></image>
+					  <image class="cancelImg"  @tap="delPhoto(index)" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/1caf36f5376e5208b1687d6b22d57baf.png"></image>
 				  </view>
 				  <view class="image-box" v-if="imgList.length >=0 && imgList.length<2">
-					 <image @tap.stop="getChoiceImg"  class="bgImg" src="http://zxyp.hzbixin.cn/files/57201608258002243.jpg"></image>
+					 <image @tap.stop="getChoiceImg"  class="bgImg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/314603b21099d49c7a80eda4e25f51a6.png"></image>
 		           </view>
 		     </view>
 		 </view>

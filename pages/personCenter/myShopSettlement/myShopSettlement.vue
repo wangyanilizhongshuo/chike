@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	<view class="uni-shopSettlement" @tap.stop="visible=false" :style="visible==true?'position:fixed':'position:relative'">
 		 <view class="uni-box">
 			 <form class="sale-form" @submit="formSubmit">
@@ -443,3 +443,7 @@
  	background-color: #fff;
  }
 </style>
+ -->
+ <template>
+   <view></view>
+ </template>

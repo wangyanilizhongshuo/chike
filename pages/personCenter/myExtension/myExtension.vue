@@ -1,25 +1,25 @@
 <template>
 	<view class="uni-extension">
-		<image class="uni-bg" src="http://zxyp.hzbixin.cn/files/s_84281611907591690.jpg"></image>
+		<image class="uni-bg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/baeca54c7a3c30c1477576b0417393b6.png"></image>
 		<view class="uni-title" >
 			<view class="uni-firstLine"  @tap.stop="goRules" >
-				<image  class="imgs"  src="http://zxyp.hzbixin.cn/files/95881611798332049.jpg"></image>
+				<image  class="imgs"  src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/89c126f3905d5e1881c7fd0b2ecad22e.png"></image>
 				<text class="word" >  邀请规则</text>
 			</view>
 			<view class="uni-secondLine" >牙齿健康   幸福人生</view>
 			<view class="uni-thirdLine">邀请好友 享收益</view>
 		</view>
 	    <view class="contentBox">
-			<image class="bgCenter" src="http://zxyp.hzbixin.cn/files/5691608258300321.jpg"></image>
+			<image class="bgCenter" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/6a16165130311ff749a85e41a8136e82.png"></image>
 		    <view class="conboxs">
 				 <view class="inviteBox">邀请码</view>
 				 <image class="ewCodeImg" :src="pics"  ></image>
 			     <view class="downBox">
 					 <button class="buttons" open-type="share">
-						 <image class="wxImg smallImg" src="http://zxyp.hzbixin.cn/files/7981608258434295.jpg"></image>
+						 <image class="wxImg smallImg" src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/005ed7ae3e210125bb794d91086eb8ba.png"></image>
 					 </button>
 					 <view class="downImgBox"  @tap.stop="downLoadPic">
-						 <image  class=" smallImg " src="http://zxyp.hzbixin.cn/files/74311608258695795.jpg"></image>
+						 <image  class=" smallImg " src="https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/ce6180c86b460eb428d55a8bdbf73ae9.png"></image>
 					 </view>
 				 </view>
 			</view>

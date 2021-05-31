@@ -257,7 +257,7 @@
 			  width: 320rpx;
 			  align-items: center;
 			  height: 60rpx;
-			  background-image: url(http://zxyp.hzbixin.cn/files/6731607417392135.jpg);
+			  background-image: url(https://chikehometest.hzbixin.cn/upload/images/feedback/20210428/5d700641fa66161d7009055fb4439ad1.png);
 			  background-size: 320rpx  60rpx;
 			  background-repeat: no-repeat;
 			   .images{

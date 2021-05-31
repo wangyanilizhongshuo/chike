@@ -1,13 +1,13 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/login",
+    "pages/index/loginPsd",
+    "pages/index/logins",
     "pages/personCenter/personCenter",
     "pages/personCenter/myAssets/myAssets",
-    "pages/index/logins",
-    "pages/index/login",
     "pages/personCenter/myExtension/extensionRuls",
     "pages/personCenter/myGroup/groupFail",
-    "pages/index/loginPsd",
     "pages/personCenter/myOrder/orderDetail",
     "pages/personCenter/myOpinion/opinionSuccess",
     "pages/shopCart/ticket",

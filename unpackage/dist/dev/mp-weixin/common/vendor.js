@@ -7908,6 +7908,7 @@ function setData(obj) {
   var val, data;
   if (obj.user_token) {
     wx.setStorageSync('token', obj.user_token);
+
   }
 
   Object.keys(obj).forEach(function (key) {

@@ -192,10 +192,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   passwordInput: function() {
-    return __webpack_require__.e(/*! import() | components/password-input/password-input */ "components/password-input/password-input").then(__webpack_require__.bind(null, /*! @/components/password-input/password-input.vue */ 696))
+    return __webpack_require__.e(/*! import() | components/password-input/password-input */ "components/password-input/password-input").then(__webpack_require__.bind(null, /*! @/components/password-input/password-input.vue */ 694))
   },
   numberKeyboard: function() {
-    return __webpack_require__.e(/*! import() | components/number-keyboard/number-keyboard */ "components/number-keyboard/number-keyboard").then(__webpack_require__.bind(null, /*! @/components/number-keyboard/number-keyboard.vue */ 703))
+    return __webpack_require__.e(/*! import() | components/number-keyboard/number-keyboard */ "components/number-keyboard/number-keyboard").then(__webpack_require__.bind(null, /*! @/components/number-keyboard/number-keyboard.vue */ 701))
   }
 }
 var render = function() {
@@ -277,26 +277,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -687,27 +667,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../App.vue */ 5)
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var numberKeyboard = function numberKeyboard() {__webpack_require__.e(/*! require.ensure | components/number-keyboard/number-keyboard */ "components/number-keyboard/number-keyboard").then((function () {return resolve(__webpack_require__(/*! @/components/number-keyboard/number-keyboard.vue */ 703));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var passwordInput = function passwordInput() {__webpack_require__.e(/*! require.ensure | components/password-input/password-input */ "components/password-input/password-input").then((function () {return resolve(__webpack_require__(/*! @/components/password-input/password-input.vue */ 696));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { defaultAddFlag: true, // 交易状况完成 0 ：'待付款 1 ','待发货 2 ','待收货 3'
+var numberKeyboard = function numberKeyboard() {__webpack_require__.e(/*! require.ensure | components/number-keyboard/number-keyboard */ "components/number-keyboard/number-keyboard").then((function () {return resolve(__webpack_require__(/*! @/components/number-keyboard/number-keyboard.vue */ 701));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var passwordInput = function passwordInput() {__webpack_require__.e(/*! require.ensure | components/password-input/password-input */ "components/password-input/password-input").then((function () {return resolve(__webpack_require__(/*! @/components/password-input/password-input.vue */ 694));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { defaultAddFlag: true, // 交易状况完成 0 ：'待付款 1 ','待发货 2 ','待收货 3'
       transactionNum: 4, refundWay: false, returnGoods: false, textAreaValue: '', titleActiveIndex: '', order_sn: '', msgDetail: '', payFlag: false, //支付商品
       extraFlag: false, wxFlag: false, // 余额支付,输入密码
       exDialogflag: false, //弹框
@@ -738,7 +698,27 @@ var numberKeyboard = function numberKeyboard() {__webpack_require__.e(/*! requir
                 that.exPassword = '';that.exDialogflag = true;} else if (res.cancel) {}} });} else if (res.state == 1) {that.exPassword = '';that.exDialogflag = false;that.tipflag = true;that.tipMsg = res.msg;setTimeout(function () {that.tipflag = false;}, 3000);}});}, //微信支付
     wxpays: function wxpays() {var _this = this;var url2 = '';var callback = function callback(data) {// 发起微信支付
         _this.wxPayment({ result: data, success: function success(data) {uni.redirectTo({ url: '/pages/personCenter/myOpinion/opinionSuccess?typesName=' + 15 });}, fail: function fail(data) {uni.redirectTo({ url: '/pages/personCenter/myOpinion/opinionSuccess?typesName=' + 16 });} });};if (this.is_pink == 1) {url2 = 'mini/v1/payment/comPay';} else {url2 = 'mini/v1/payment/orderpay';}this.$http.post(url2, { order_sn: this.msgDetail.order_sn, pay_price: this.msgDetail.total_price, pay_type: 1 }, function (res) {if (res.state == 0) {var aa = res.data;callback(aa);}});}, cancelOrder: function cancelOrder(codes) {var that = this;uni.showModal({ title: '提示', content: '取消订单？', success: function success(res) {if (res.confirm) {that.$http.post('mini/v1/goods/cancelGood', { order_sn: codes }, function (res1) {if (res1.state == 0) {that.tipflag = true;that.tipMsg = '订单取消成功';setTimeout(function () {that.tipflag = false;uni.navigateBack();}, 3000);}});} else if (res.cancel) {console.log('用户点击取消');}} });}, // 退款
-    refundMoney: function refundMoney(orders) {var that = this;console.log('tuikuan');console.log(orders);uni.showModal({ title: '提示', content: '确认退款?', success: function success(res) {if (res.confirm) {that.$http.post('mini/v1/goods/cancelGood', { order_sn: orders, type: 1, wang: 3 }, function (res1) {uni.showToast({ title: '申请退款成功', duration: 2000 });setTimeout(function () {uni.navigateBack();}, 2500);});
+    refundMoney: function refundMoney(orders) {var that = this;console.log('tuikuan');
+      console.log(orders);
+      uni.showModal({
+        title: '提示',
+        content: '确认退款?',
+        success: function success(res) {
+          if (res.confirm) {
+            that.$http.post('mini/v1/goods/cancelGood', {
+              order_sn: orders,
+              type: 1,
+              wang: 3 },
+            function (res1) {
+              uni.showToast({
+                title: '申请退款成功',
+                duration: 2000 });
+
+              setTimeout(function () {
+                uni.navigateBack();
+              }, 2500);
+
+            });
           } else if (res.cancel) {
             console.log('用户点击取消');
           }
